@@ -37,7 +37,7 @@ export async function getCheckin(localDate = localDateKey()) {
   } finally { db.close(); }
 }
 
-export async function getRecentCheckins(limit = 14) {
+export async function getAllCheckins() {
   const db = await openDb();
   try {
     const all = await new Promise((resolve, reject) => {
@@ -46,8 +46,13 @@ export async function getRecentCheckins(limit = 14) {
       request.onsuccess = () => resolve(request.result ?? []);
       request.onerror = () => reject(request.error);
     });
-    return all.sort((a, b) => String(b.localDate).localeCompare(String(a.localDate))).slice(0, limit);
+    return all.sort((a, b) => String(a.localDate).localeCompare(String(b.localDate)));
   } finally { db.close(); }
+}
+
+export async function getRecentCheckins(limit = 14) {
+  const all = await getAllCheckins();
+  return all.slice().reverse().slice(0, limit);
 }
 
 export async function saveCheckin(observations) {

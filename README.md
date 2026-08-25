@@ -120,3 +120,22 @@ Build 8 focuses on daily presence rather than feature count:
 - English and Thai share feature parity and preserve native copy rather than literal translation.
 
 Build 8 keeps the existing Signature Opening timing, five Auren Atmospheres, Body Intelligence guardrails and local-first PWA architecture.
+
+## Build 9 — Contextual Intelligence & Premium UX
+
+Build 9 turns several foundation features into a coherent personal-intelligence system:
+
+- Locks page-level pinch zoom so the installed PWA behaves like an app; the profile crop editor still supports deliberate pinch-to-zoom inside its own viewport.
+- Removes decorative crop reflections that could look baked into the photo. The saved image contains image pixels only.
+- Replaces the wide gauge-like Halo with four close, soft semantic light fragments: Body Context, Daily State, Movement and Personal Trend.
+- Adds `Sex used for health calculations` as a calculation-only profile field, separate from identity or avatar appearance.
+- Adds training type, training frequency, richer goals, optional waist circumference and optional measured body-fat percentage.
+- Reworks Body Intelligence so BMI remains a general screening reference rather than an automatic weight-loss instruction. Resistance/athletic context can reduce confidence in a BMI-only conclusion without inventing a special athlete BMI threshold.
+- Adds weight-history capture when Body Profile weight changes.
+- Expands Archive into `Portraits / Calendar`, with daily detail, weight-update markers and conservative monthly summaries.
+- Adds a branded neutral Auren Orb / initial fallback when no profile photo is used.
+- Adds field-level explainability sheets plus a central `How Auren works` guide covering Today, Body Context, Halo, Rhythm, Signals, Archive, Atmospheres, identity, evidence and privacy.
+- Increases Living Core motion so the fluid reads as alive within roughly a second while remaining calm and physically weighted.
+- Further thins the glass rim so the sphere is defined more by refraction and highlights than by an outline.
+
+Build 9 preserves local-first storage, EN/TH parity, the five Auren Atmospheres, the Signature Opening, and the rule that Auren does not diagnose disease or fabricate precision.

@@ -91,23 +91,24 @@ export class AurenOrb {
   }
 
   physics(dt) {
-    // Build 8: living motion must be perceptible in 1–2 seconds while staying calm.
-    // The surface follows two natural-frequency drivers instead of a nearly static 15–40s drift.
-    const amp = this.signature ? 0.98 : (this.calm ? 0.86 : 1);
-    const intro = this.t < 4.5 ? Math.cos(this.t * 1.05) * 0.115 * Math.exp(-this.t * 0.70) : 0;
-    const living = Math.sin(this.t * 0.78) * 0.095 + Math.sin(this.t * 1.34 + 0.72) * 0.038 + Math.sin(this.t * 0.31) * 0.018;
+    // Build 9: perceptible living motion without turning the Core into a toy.
+    // A user should be able to tell the fluid is alive within roughly one second.
+    const amp = this.signature ? 0.94 : (this.calm ? 1.08 : 1.12);
+    const intro = this.t < 4.5 ? Math.cos(this.t * 1.18) * 0.105 * Math.exp(-this.t * 0.74) : 0;
+    const living = Math.sin(this.t * 1.28) * 0.128 + Math.sin(this.t * 2.04 + 0.72) * 0.052 + Math.sin(this.t * 0.48) * 0.020;
     const target = this.reduced ? 0 : (intro + living + this.kick) * amp;
-    this.tiltV += (target - this.tilt) * 4.2 * dt;
-    this.tiltV *= Math.exp(-1.72 * dt);
+    this.tiltV += (target - this.tilt) * 5.15 * dt;
+    this.tiltV *= Math.exp(-1.55 * dt);
     this.tilt += this.tiltV * dt;
-    const forcing = this.tiltV * 1.24;
-    this.waveV += (-this.wave * 6.8 + forcing * 0.96) * dt;
-    this.waveV *= Math.exp(-1.62 * dt);
+    const forcing = this.tiltV * 1.42;
+    const idleWave = this.reduced ? 0 : Math.sin(this.t * 1.72 + 0.35) * 0.055;
+    this.waveV += (-this.wave * 7.4 + forcing * 1.08 + idleWave) * dt;
+    this.waveV *= Math.exp(-1.48 * dt);
     this.wave += this.waveV * dt;
-    this.wave2V += (-this.wave2 * 10.9 - forcing * 0.43) * dt;
-    this.wave2V *= Math.exp(-1.92 * dt);
+    this.wave2V += (-this.wave2 * 11.8 - forcing * 0.48 + Math.sin(this.t * 2.55) * 0.026) * dt;
+    this.wave2V *= Math.exp(-1.78 * dt);
     this.wave2 += this.wave2V * dt;
-    this.kick *= Math.exp(-2.18 * dt);
+    this.kick *= Math.exp(-2.04 * dt);
   }
 
   fluidImage() {
@@ -136,9 +137,9 @@ export class AurenOrb {
         const fillDepth = Math.max(0, Math.min(1, depth / (wall - surface + 0.001)));
         const optical = Math.sqrt(Math.max(0, 1 - rr));
         const thickness = Math.max(0, Math.min(1, optical * 0.98 + fillDepth * 0.46));
-        const s1 = Math.sin((u * 3.2 + v * 1.55) * 1.85 + this.t * 0.70 + Math.sin(this.t * 0.22) * 0.33);
-        const s2 = Math.sin((u * 1.55 - v * 3.1) * 1.18 - this.t * 0.50 + 0.58);
-        const s3 = Math.sin((u * 5.1 + v * 2.4) * 0.76 + this.t * 0.34);
+        const s1 = Math.sin((u * 3.2 + v * 1.55) * 1.85 + this.t * 1.08 + Math.sin(this.t * 0.22) * 0.33);
+        const s2 = Math.sin((u * 1.55 - v * 3.1) * 1.18 - this.t * 0.82 + 0.58);
+        const s3 = Math.sin((u * 5.1 + v * 2.4) * 0.76 + this.t * 0.66);
         const ribbon = Math.pow(0.5 + 0.5 * s3, 3);
         const aquaMix = this.signature
           ? Math.max(0, Math.min(1, 0.15 + 0.050 * s1 + 0.025 * s2 + 0.16 * ribbon))
@@ -157,13 +158,13 @@ export class AurenOrb {
           // A moving mineral-aqua vein makes the Core visibly alive even when the free surface is nearly settled.
           // It stays secondary to champagne gold so the material remains luxurious rather than neon-biotech.
           const ribbonStrength = this.signature ? 0.20 : 0.115;
-          const aquaRibbon = ribbonStrength * Math.pow(0.5 + 0.5 * Math.sin(u * 5.4 - v * 3.1 + this.t * 0.52 + 0.7), 5) * thickness;
+          const aquaRibbon = ribbonStrength * Math.pow(0.5 + 0.5 * Math.sin(u * 5.4 - v * 3.1 + this.t * 0.98 + 0.7), 5) * thickness;
           r = r * (1 - aquaRibbon) + aqua[0] * aquaRibbon;
           g = g * (1 - aquaRibbon) + aqua[1] * aquaRibbon;
           b = b * (1 - aquaRibbon) + aqua[2] * aquaRibbon;
         }
         const surfGlow = Math.exp(-Math.abs(depth) * 74);
-        const ca = 0.5 + 0.5 * Math.sin(u * 12.5 + v * 7.5 + this.t * 0.56 + aquaMix * 2.6);
+        const ca = 0.5 + 0.5 * Math.sin(u * 12.5 + v * 7.5 + this.t * 0.92 + aquaMix * 2.6);
         const lower = Math.pow(fillDepth, 0.66);
         const luxe = this.signature ? 1.10 : 1;
         const light = (surfGlow * (24 + ca * 12) + Math.pow(Math.max(0, 0.88 - u * 0.14 - v * 0.34), 6.6) * 12.5 * thickness + (1 - Math.abs(u) * 0.22) * thickness * 15.8 * lower) * luxe;
@@ -236,11 +237,11 @@ export class AurenOrb {
     ctx.restore();
 
     const ring = ctx.createLinearGradient(c - R, c - R, c + R, c + R);
-    ring.addColorStop(0, this.rgba(rim, 0.31)); ring.addColorStop(0.18, 'rgba(255,255,255,.86)'); ring.addColorStop(0.51, this.rgba(rim, 0.12)); ring.addColorStop(0.76, 'rgba(255,255,255,.82)'); ring.addColorStop(1, this.rgba(rim, 0.26));
-    ctx.strokeStyle = ring; ctx.lineWidth = Math.max(1, s * 0.0033); ctx.beginPath(); ctx.arc(c, c, R, 0, Math.PI * 2); ctx.stroke();
-    ctx.strokeStyle = 'rgba(255,255,255,.50)'; ctx.lineWidth = Math.max(0.7, s * 0.00135); ctx.beginPath(); ctx.arc(c, c, R * 0.975, 0, Math.PI * 2); ctx.stroke();
-    ctx.strokeStyle = this.rgba(rim, 0.085); ctx.lineWidth = Math.max(0.7, s * 0.00155); ctx.beginPath(); ctx.arc(c, c, R * 0.946, 0, Math.PI * 2); ctx.stroke();
-    ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,.72)'; ctx.lineWidth = R * 0.017; ctx.beginPath(); ctx.arc(c, c, R * 0.91, Math.PI * 1.08, Math.PI * 1.41); ctx.stroke();
+    ring.addColorStop(0, this.rgba(rim, 0.17)); ring.addColorStop(0.18, 'rgba(255,255,255,.58)'); ring.addColorStop(0.51, this.rgba(rim, 0.055)); ring.addColorStop(0.76, 'rgba(255,255,255,.54)'); ring.addColorStop(1, this.rgba(rim, 0.14));
+    ctx.strokeStyle = ring; ctx.lineWidth = Math.max(0.72, s * 0.00235); ctx.beginPath(); ctx.arc(c, c, R, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,.30)'; ctx.lineWidth = Math.max(0.7, s * 0.00135); ctx.beginPath(); ctx.arc(c, c, R * 0.975, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = this.rgba(rim, 0.042); ctx.lineWidth = Math.max(0.7, s * 0.00155); ctx.beginPath(); ctx.arc(c, c, R * 0.946, 0, Math.PI * 2); ctx.stroke();
+    ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,.55)'; ctx.lineWidth = R * 0.012; ctx.beginPath(); ctx.arc(c, c, R * 0.91, Math.PI * 1.08, Math.PI * 1.41); ctx.stroke();
     ctx.strokeStyle = 'rgba(255,255,255,.30)'; ctx.lineWidth = R * 0.0055; ctx.beginPath(); ctx.arc(c, c, R * 0.887, Math.PI * 1.13, Math.PI * 1.47); ctx.stroke(); ctx.restore();
   }
 

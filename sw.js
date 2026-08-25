@@ -1,4 +1,4 @@
-// Auren runtime Build 8 — Personal Presence, Living Core & local crop editor.
+// Auren runtime Build 9 — Contextual Intelligence & Premium UX.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

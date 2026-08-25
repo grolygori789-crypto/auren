@@ -19,6 +19,13 @@ function openDb() {
   });
 }
 
+function localDateKey(date = new Date()) {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
 async function getRecord(db) {
   return new Promise((resolve, reject) => {
     const tx = db.transaction(PROFILE_STORE, 'readonly');
@@ -39,6 +46,25 @@ async function putRecord(db, record) {
   return record;
 }
 
+function finiteOrNull(value, min, max) {
+  if (value === '' || value == null) return null;
+  const n = Number(value);
+  return Number.isFinite(n) && n >= min && n <= max ? n : null;
+}
+
+function updateWeightHistory(previous, weightKg) {
+  const history = Array.isArray(previous?.weightHistory) ? [...previous.weightHistory] : [];
+  const localDate = localDateKey();
+  const observedAt = new Date().toISOString();
+  const last = history[history.length - 1];
+  if (!last || Number(last.weightKg) !== Number(weightKg) || last.localDate !== localDate) {
+    const withoutToday = history.filter((item) => item?.localDate !== localDate);
+    withoutToday.push({ localDate, observedAt, weightKg: Number(weightKg) });
+    return withoutToday.slice(-365);
+  }
+  return history;
+}
+
 export async function getBodyProfile() {
   const db = await openDb();
   try { return await getRecord(db); }
@@ -49,6 +75,7 @@ export async function saveBodyProfile(input) {
   const db = await openDb();
   try {
     const previous = await getRecord(db);
+    const weightKg = Number(input.weightKg);
     const record = {
       ...(previous ?? {}),
       id: PROFILE_ID,
@@ -56,9 +83,15 @@ export async function saveBodyProfile(input) {
       schemaVersion: DATA_SCHEMA_VERSION,
       age: Number(input.age),
       heightCm: Number(input.heightCm),
-      weightKg: Number(input.weightKg),
+      weightKg,
+      sexForCalc: String(input.sexForCalc || 'notSet'),
       activity: String(input.activity || 'moderate'),
+      trainingType: String(input.trainingType || 'none'),
+      trainingFrequency: Math.max(0, Math.min(14, Number(input.trainingFrequency) || 0)),
       goal: String(input.goal || 'understand'),
+      waistCm: finiteOrNull(input.waistCm, 30, 250),
+      bodyFatPct: finiteOrNull(input.bodyFatPct, 2, 75),
+      weightHistory: updateWeightHistory(previous, weightKg),
     };
     return await putRecord(db, record);
   } finally { db.close(); }
