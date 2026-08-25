@@ -2,13 +2,13 @@
 
 > **Your body, understood.**
 
-**MASTER PLAN · FOUNDATION EDITION · Revision 1.2**
+**MASTER PLAN · FOUNDATION EDITION · Revision 1.4**
 
 Product · Design · Engineering · Trust · Growth
 
 Benedict Interactive · 25 August 2026
 
-Status: Pre-production / Canonical foundation · Revision 1.2
+Status: Pre-production / Canonical foundation · Revision 1.4
 
 # 0. Executive Summary — ภาพเดียวที่ทุกคนต้องเห็นตรงกัน
 
@@ -190,6 +190,47 @@ empty/loading/error/offline states ต้องสวยและใช้ภา
 
 animation ต้องไม่ block task และไม่ replay จนรำคาญ
 
+## 7.1 Native Localization Standard — Non-Negotiable
+
+Auren V1 เปิดใช้งานอย่างเป็นทางการ **2 ภาษา: English + Thai** โดยทั้งสองภาษาต้องมีคุณภาพระดับ native product copy ตั้งแต่ต้น ไม่ถือว่าภาษาใดเป็น “คำแปลรอง” ของอีกภาษา
+
+> LOCALIZATION PRINCIPLE<br>Canonical truth คือ **meaning / intent** ไม่ใช่ประโยคภาษาอังกฤษ และทุกภาษาต้องถ่ายทอดเจตนาเดียวกันด้วยภาษาที่เป็นธรรมชาติที่สุดของตัวเอง
+
+กฎบังคับ:
+
+1. ใช้แนวคิด **Native Copywriting First** — ข้อความต้องอ่านเหมือนเจ้าของภาษาเขียนขึ้นมาโดยตรง ไม่ใช่ machine translation หรือคำแปลที่รักษาโครงประโยคต้นฉบับจนฟังแปลก
+
+2. ใช้หลัก **Meaning parity, not word parity** — ความหมาย, intent, tone, trust boundary และ action ที่ผู้ใช้ต้องเข้าใจต้องเท่ากัน แต่คำศัพท์ ลำดับคำ ความยาว และโครงประโยคสามารถต่างกันได้ตามธรรมชาติของแต่ละภาษา
+
+3. **English** ต้องเป็น natural international English: กระชับ ชัด ไม่ corporate, ไม่ robotic, ไม่ใช้ศัพท์เทคนิคเกินจำเป็น และไม่ใช้สำนวนที่ทำให้ผู้ใช้ต่างประเทศตีความยาก
+
+4. **Thai** ต้องเป็นภาษาไทยธรรมชาติที่คนไทยอ่านครั้งเดียวเข้าใจ: ไม่แปลทื่อจากอังกฤษ, ไม่ใช้ภาษาราชการหรือศัพท์ประดิษฐ์โดยไม่จำเป็น, ไม่เรียงคำแบบภาษาอังกฤษ และไม่ทำให้ผู้ใช้ต้องถอดความ
+
+5. Health / wellbeing copy ต้องมีความหมายเดียวที่ชัดเจน หลีกเลี่ยงคำกำกวม คำที่ทำให้ตกใจเกินข้อมูลจริง และ wording ที่สร้าง impression ว่า Auren กำลังวินิจฉัยโรคหรือให้คำแนะนำทางการแพทย์ที่ไม่มีฐาน
+
+6. ทุก user-facing surface อยู่ภายใต้มาตรฐานเดียวกัน: onboarding, navigation, buttons, labels, check-in, State, Signals, Evidence, confidence, recommendations, settings, privacy/consent, empty/loading/error/offline states, notifications, share cards และ accessibility labels
+
+7. ก่อนเขียน copy ให้กำหนด **intent / meaning brief** เมื่อข้อความมีความสำคัญหรือเสี่ยงต่อการตีความ เช่น:
+   - ผู้ใช้ต้องเข้าใจอะไร
+   - ต้องรู้สึกอย่างไร
+   - ต้องทำอะไรต่อ
+   - มี claim/trust boundary อะไรที่ห้ามเกิน
+   จากนั้นเขียน EN และ TH เป็น native realizations ของ intent เดียวกัน
+
+8. ห้ามใช้ source-language sentence เป็น localization key หรือ hard-code user-facing copy กระจัดกระจายใน HTML/JS เมื่อ implementation เริ่ม ให้ใช้ semantic message IDs / locale catalogs ที่มีโครงสร้างชัดเจนและรองรับภาษาเพิ่มในอนาคต
+
+9. Supported language ต้อง **complete** ก่อน release: ห้ามปล่อย UI ผสม EN/TH แบบไม่ตั้งใจ, missing key, raw localization key, placeholder text หรือ silent fallback ที่ทำให้ผู้ใช้เห็นภาษาคนละชุดใน flow เดียวกัน ยกเว้น proper noun / canonical brand term ที่ตั้งใจคงรูปเดิม
+
+10. Locale behavior ต้องถูกต้องแยกตามภาษา: date/time, number formatting, units, punctuation, capitalization, plural/grammar behavior และข้อความที่เกี่ยวกับเวลา/วันต้องไม่ใช้สมมติฐานจากภาษาเดียว
+
+11. Layout QA ต้องทดสอบ EN และ TH แยกกันบน viewport จริง: text overflow, wrapping, truncation, button width, card height, line breaks, typography rhythm, accessibility labels และ mobile readability ห้ามบีบฟอนต์หรือทำให้ภาษาใดดูเป็น second-class UI เพียงเพื่อให้พอดี
+
+12. Copy ที่อ่านแล้วต้องย้อนอ่าน, ตีความได้หลายแบบโดยไม่จำเป็น, ฟังเหมือน translation software, ผิดธรรมชาติของเจ้าของภาษา หรือทำให้ health claim เปลี่ยนความหมาย ถือเป็น **Localization QA FAIL / RELEASE BLOCKER**
+
+13. การเพิ่มภาษาที่ 3+ ให้ทำจาก demand/strategy ที่มีเหตุผล ไม่เพิ่มเพียงเพราะ AI แปลได้ง่าย Architecture ต้อง multilingual-ready ตั้งแต่ V1 แต่ quality bar ของภาษาใหม่ต้องเท่ากับ EN/TH ก่อนเปิดใช้จริง
+
+เป้าหมายคือผู้ใช้แต่ละภาษารู้สึกว่า “Auren ถูกสร้างมาสำหรับภาษาของฉัน” ไม่ใช่ “Auren ถูกแปลมาให้ฉันใช้”
+
 # 8. Engineering Direction — Web-first, not web-limited
 
 Auren เริ่มจาก Premium PWA เพราะเหมาะกับทีมเล็ก: iterate เร็ว, deploy ง่าย, ทำ UI/motion ระดับสูงได้ และไม่ต้องแบก native complexity ก่อนมี product-market fit
@@ -204,6 +245,7 @@ Auren เริ่มจาก Premium PWA เพราะเหมาะกั�
 | Backend | ไม่ต้องมีใน V1 ถ้าไม่จำเป็น; เพิ่มเมื่อ sync/AI/cloud/integration มี value ที่พิสูจน์แล้ว |
 | Health integrations | อนาคตใช้ Apple Health / Health Connect / provider APIs; ไม่ต้องต่อ Bluetooth โดยตรงใน V1 |
 | Entitlements | เตรียม free / plus / founder flags ใน architecture แต่ Early Access เปิด full experience |
+| Localization | Intent-first locale catalogs + semantic message IDs; V1 ships EN/TH; no scattered hard-coded user-facing copy |
 
 ## 8.1 Suggested domain model (high level)
 
@@ -235,7 +277,7 @@ Canonical document paths:
 
 2. docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md = zero-question handoff / new-room startup prompt
 
-3. docs/reference/AUREN_Master_Plan_Foundation_v1_2.docx = presentation/reference copy; ไม่ใช่ canonical source เมื่อเนื้อหาขัดกับ Markdown
+3. `docs/reference/` ใช้ได้เฉพาะ presentation/export ที่ยัง current และจำเป็นจริง; ไม่ใช่ canonical source. ถ้า reference copy ล้าสมัยให้ลบออกแทนการเก็บ duplicate ที่อาจทำให้เข้าใจผิด
 
 Repository hygiene rules:
 
@@ -247,7 +289,7 @@ Repository hygiene rules:
 
 4. ห้าม commit secrets, credentials, API keys, local environment files, caches, build junk, OS metadata, debug output หรือ generated temp files; .gitignore ต้องป้องกันตั้งแต่ Day Zero
 
-5. Empty foundation folders ใช้ .gitkeep ได้ชั่วคราวเพื่อให้ Git track โครงสร้าง; เมื่อมีไฟล์จริงใน folder ให้ลบ .gitkeep เพื่อไม่สะสม placeholder โดยไม่จำเป็น
+5. Default คือไม่สร้าง empty folder หรือ placeholder ล่วงหน้า; สร้าง folder เมื่อมีไฟล์จริงตัวแรกเท่านั้น. `.gitkeep` ใช้ได้เฉพาะกรณีที่มีเหตุผลเชิงระบบชัดเจนและต้องลบทันทีเมื่อมีไฟล์จริง
 
 6. main เป็น stable/canonical branch เริ่มต้น; งานที่มีขอบเขตชัดใช้ feature/* หรือ fix/* เมื่อจำเป็น และลบ branch หลัง merge เพื่อไม่สร้าง branch graveyard
 
@@ -260,6 +302,51 @@ Repository hygiene rules:
 10. GitHub remote write ยังต้องมีคำสั่ง/authorization จากพี่เบนซ์ใน turn ปัจจุบัน เว้นแต่พี่เบนซ์แก้กติกานี้อย่างชัดเจน
 
 Repository cleanliness เป็นส่วนหนึ่งของ product quality; โครงสร้างรก เอกสารหลาย source of truth หรือไฟล์ขยะที่ทำให้ handoff สับสนถือเป็น engineering defect ไม่ใช่เรื่อง cosmetic
+
+
+## 8.3 Build Number & Release Coherence Contract
+
+Auren ห้ามมี Build No. / version metadata ค้างเติ่งหรือไม่ตรงกันระหว่างส่วนต่างๆ ของแอพ การเปลี่ยน runtime ที่ถูกส่งให้ผู้ใช้หรือขึ้น Production ต้องมี release identity ที่ coherent ทั้งระบบ
+
+กฎบังคับ:
+
+1. ทุก change batch ที่กระทบ runtime, behavior, UI/UX, logic, CSS/JS/HTML, runtime asset, manifest, Service Worker, cache behavior, PWA behavior หรือ production output ต้อง advance Build No. ก่อนส่ง/merge/deploy เว้นแต่เป็น docs-only change ที่ไม่กระทบตัวแอพจริง
+
+2. เมื่อ implementation เริ่ม ให้กำหนด **Single Source of Truth สำหรับ Build No.** หนึ่งจุดเท่านั้น แล้วให้ส่วนอื่น derive/read จากต้นทางนั้นเท่าที่ architecture อนุญาต หลีกเลี่ยงการพิมพ์เลข build ซ้ำหลายไฟล์ด้วยมือ
+
+3. ทุก surface ที่เกี่ยวข้องกับ build ต้อง match กัน 100% เช่น About/diagnostic UI, app metadata, manifest metadata ที่เราใช้, Service Worker/cache key ที่ผูกกับ release, release metadata, generated package metadata และ documentation ที่ระบุ current build
+
+4. ก่อนส่งงานทุกครั้งต้อง search ทั้ง repo หา build/version value เก่าที่อาจตกค้าง และตรวจไฟล์ที่เกี่ยวข้องทั้งหมด ไม่อนุญาต stale build number แม้เพียงจุดเดียว
+
+5. ถ้ามี App Version และ Build No. แยกกัน ต้องมี mapping ที่ชัดเจนและ coherent; ห้ามปล่อย version/build คู่เก่าค้างในคนละ surface
+
+6. หมายเลข schema, data migration, cache schema หรือ protocol revision ที่มีความหมายอิสระจาก Build No. สามารถต่างกันได้ แต่ต้องตั้งชื่อให้ชัดว่าไม่ใช่ app build และห้ามทำให้ผู้ใช้/DEV เข้าใจว่าเป็น Build No. เดียวกัน
+
+7. Build mismatch, stale build marker, cache release identity ไม่ตรง หรือ production package ใช้เลขคนละชุด ถือเป็น **QA FAIL / RELEASE BLOCKER** ต้องแก้ก่อนส่งให้พี่เบนซ์อัปโหลดหรือก่อน deploy
+
+8. Docs-only / governance-only change ที่ไม่เปลี่ยน runtime ไม่ต้อง increment App Build No. เพื่อไม่สร้าง build ปลอม แต่ commit/document revision ต้องอัปเดตตามความจริง
+
+เป้าหมายคือทุก release ของ Auren สามารถตอบได้ทันทีว่า “นี่คือ build ไหน” โดยไม่มีเลขหลงเหลือจาก release ก่อนหน้า
+
+## 8.4 GitHub Commit Name Contract
+
+ทุก change batch ที่บิ๊วส่งให้พี่เบนซ์นำขึ้น GitHub ต้องแนบ **Commit name พร้อมใช้** เสมอ
+
+กฎบังคับ:
+
+1. Commit name ต้องยาวไม่เกิน **50 ตัวอักษร** รวมช่องว่าง
+
+2. บิ๊วต้องตรวจ character count ก่อนส่ง ไม่ให้พี่เบนซ์ต้องย่อเอง
+
+3. ใช้ข้อความสั้น ชัด บอกการเปลี่ยนแปลงหลักของ batch; หลีกเลี่ยงชื่อกว้างแบบ `Update files` เมื่อสามารถระบุ intent ได้ดีกว่า
+
+4. ถ้ามีหลาย independent upload/commit batches ให้แนบ commit name แยกสำหรับแต่ละ batch
+
+5. เมื่อบิ๊วได้รับ authorization ให้ทำ GitHub remote write เอง commit ที่สร้างต้องยึดกฎ <= 50 ตัวอักษรเช่นเดียวกัน
+
+6. ทุก final handoff ที่มีไฟล์สำหรับ GitHub ต้องมีบรรทัด `Commit name:` เป็นส่วนหนึ่งของ delivery checklist
+
+กฎนี้เป็นส่วนหนึ่งของ handoff quality ไม่ใช่ optional convenience
 
 # 9. Proven DNA from Existing Benedict Interactive Apps
 
@@ -439,11 +526,17 @@ Never silently change score meaning without migration/version note
 
 4.  ถ้ามี Auren repo แล้ว ให้ inspect current HEAD, branch, files, build/version/cache และสถานะงานก่อนแก้ทุกครั้ง
 
-5.  สรุป current state ในใจแล้วตัดสินใจต่อเอง; อย่าถามพี่เบนซ์ให้เล่า vision, tagline, visual direction, monetization หรือ product principles ซ้ำ
+5.  ถ้า change กระทบ runtime ให้ advance Build No. และตรวจทุก build/version/cache surface ที่เกี่ยวข้องให้ coherent 100%; search หา stale build number ก่อนส่ง
 
-6.  เมื่อเกิด conflict ให้ใช้ลำดับ: latest explicit instruction > current Auren Production > Auren Master Plan > approved assets > repo history > older chat memory
+6.  ทุกชุดไฟล์/patch ที่พี่เบนซ์ต้องอัปโหลด GitHub ต้องแนบ Commit name ที่ตรวจแล้วว่าไม่เกิน 50 ตัวอักษร
 
-7.  ถ้าเป็น product/design/marketing trade-off ให้ตัดสินใจอย่างเจ้าของบริษัทและบอกเหตุผลสั้นๆ ไม่โยนการตัดสินใจกลับให้ผู้ใช้โดยไม่จำเป็น
+7.  ถ้า change แตะ user-facing copy / locale / date-time-number formatting / layout ที่มีข้อความ ต้องตรวจ Native Localization Standard สำหรับ EN และ TH; missing key, mixed-language UI, unnatural copy หรือ ambiguous health wording = release blocker
+
+8.  สรุป current state ในใจแล้วตัดสินใจต่อเอง; อย่าถามพี่เบนซ์ให้เล่า vision, tagline, visual direction, monetization หรือ product principles ซ้ำ
+
+9.  เมื่อเกิด conflict ให้ใช้ลำดับ: latest explicit instruction > current Auren Production > Auren Master Plan > approved assets > repo history > older chat memory
+
+10.  ถ้าเป็น product/design/marketing trade-off ให้ตัดสินใจอย่างเจ้าของบริษัทและบอกเหตุผลสั้นๆ ไม่โยนการตัดสินใจกลับให้ผู้ใช้โดยไม่จำเป็น
 
 # 18. Locked Foundation vs Evolvable Decisions
 
@@ -464,6 +557,10 @@ No diagnosis / pseudo-science / fabricated claims / dark patterns / ads
 Early Access: full experience free + optional support; premium-ready architecture
 
 Web-first PWA for V1; no Bluetooth requirement
+
+Repository hygiene + Build No. coherence + Commit name <= 50 characters
+
+V1 bilingual foundation: English + Thai with Native Copywriting First / Meaning parity / Localization QA release-blocker standard
 
 ## Evolvable by Full Authorized DEV
 
