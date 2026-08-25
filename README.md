@@ -90,21 +90,19 @@ Adds five curated tonal environments across the full UI: Pearl Dawn, Mineral Mis
 
 Refines the Auren brand entrance into a deliberate premium sequence: a thinner optical glass rim, champagne-gold-dominant fluid with a restrained pale-aqua undertone, staged AUREN/tagline/studio reveals, and a longer cold-launch hold before the Core morphs into Today. Normal cold launches hold the signature sequence for about 3.7 seconds before transition; first launch holds for about 4.15 seconds. Warm resume does not replay the opening because the document remains active.
 
-## Build 6 — Body Intelligence foundation
+## Build 6 — Body Intelligence Foundation
 
-Build 6 expands Auren from daily self-observation into two complementary context layers:
+Adds Body Profile, adult body-context reference logic, age guardrails, explainable evidence, Auren Halo state logic and One Useful Move without exposing fabricated health precision.
 
-- **Personal baseline:** how the user's own reported state changes over time.
-- **Body context:** age, height, current weight, typical activity and stated goal.
+## Build 7 — Luxe Core, Instrument Halo & Profile Identity
 
-New runtime surfaces:
+Refines the live product after physical-device review:
 
-- **Auren Halo** around the living Core with four explainable segments: Body Range, Daily State, Movement and Continuity.
-- **Body Profile** stored locally in IndexedDB; no account required.
-- **Adult body context** using BMI only as a general reference signal for ages 20+.
-- **Age guardrail:** people under 20 can save a body profile, but Auren deliberately does not apply adult BMI ranges. A validated age-appropriate growth reference is required before youth classification is enabled.
-- **Transparent evidence:** Halo details label observed vs calculated inputs and explain limitations.
-- **No fabricated precision:** Auren does not expose a pseudo-medical 0–100 health score and does not diagnose health from weight or BMI.
-- **Positive state language:** when available signals align, Auren can recognize Strong or Excellent Balance while clearly limiting the claim to available profile, self-report and continuity.
+- Auren Core glass is materially clearer and thinner: rim strokes, lower refraction and perimeter tint are reduced while specular highlights and contact shadow preserve depth.
+- Auren Halo is redesigned from a heavy segmented progress ring into a fine instrument-like double orbit with restrained luminous fragments and four state nodes.
+- Daily observations render semantic states (for example Excellent, Calm or High stress) with the raw 1–5 observation retained only as quiet provenance. Stress direction is not treated like positive metrics.
+- The post-check-in message is written as human product language rather than database status.
+- Users can add, change or remove a profile photo. The image is center-cropped and compressed locally, then stored in the existing local IndexedDB profile record. It is not analyzed and is not uploaded by this build.
+- The chosen profile photo appears in the top-right identity control and on the You screen.
 
-Body context does not prescribe calorie targets, ideal body weight, rapid weight change, or diagnosis. The user's stated goal never overrides the reference result.
+Build 7 keeps the existing 3.7–4.15 second Signature Opening, five Auren Atmospheres, Body Intelligence safety model and local-first architecture.

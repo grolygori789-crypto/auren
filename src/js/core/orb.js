@@ -192,8 +192,8 @@ export class AurenOrb {
     const glass = ctx.createRadialGradient(c - R * 0.34, c - R * 0.39, R * 0.04, c, c, R * 1.02);
     glass.addColorStop(0, 'rgba(255,255,255,.76)');
     glass.addColorStop(0.42, 'rgba(255,252,247,.18)');
-    glass.addColorStop(0.79, 'rgba(230,214,192,.095)');
-    glass.addColorStop(1, 'rgba(191,163,126,.205)');
+    glass.addColorStop(0.79, 'rgba(230,214,192,.048)');
+    glass.addColorStop(1, 'rgba(191,163,126,.082)');
     ctx.fillStyle = glass; ctx.fillRect(c - R, c - R, R * 2, R * 2);
     this.fluidImage();
     ctx.save(); ctx.beginPath(); ctx.arc(c, c, inner, 0, Math.PI * 2); ctx.clip();
@@ -207,27 +207,27 @@ export class AurenOrb {
     ctx.beginPath(); ctx.arc(c, c, R * 0.985, 0, Math.PI * 2); ctx.clip();
     const edgeRefraction = ctx.createRadialGradient(c, c, R * 0.67, c, c, R);
     edgeRefraction.addColorStop(0, this.rgba(rim, 0));
-    edgeRefraction.addColorStop(0.82, this.rgba(rim, 0.014));
-    edgeRefraction.addColorStop(0.94, this.rgba(rim, 0.060));
-    edgeRefraction.addColorStop(1, this.rgba(rim, 0.105));
+    edgeRefraction.addColorStop(0.82, this.rgba(rim, 0.006));
+    edgeRefraction.addColorStop(0.94, this.rgba(rim, 0.024));
+    edgeRefraction.addColorStop(1, this.rgba(rim, 0.050));
     ctx.fillStyle = edgeRefraction; ctx.fillRect(c - R, c - R, R * 2, R * 2);
     ctx.restore();
 
     // Lower inner refraction gives the sphere thickness and visually anchors the fluid to the vessel.
     ctx.save(); ctx.lineCap = 'round';
-    ctx.strokeStyle = this.rgba(rim, 0.16); ctx.lineWidth = Math.max(1, R * 0.008);
+    ctx.strokeStyle = this.rgba(rim, 0.070); ctx.lineWidth = Math.max(0.8, R * 0.0042);
     ctx.beginPath(); ctx.arc(c, c, R * 0.902, Math.PI * 0.18, Math.PI * 0.82); ctx.stroke();
-    ctx.strokeStyle = this.rgba(aquaTone, 0.10); ctx.lineWidth = Math.max(1, R * 0.005);
+    ctx.strokeStyle = this.rgba(aquaTone, 0.060); ctx.lineWidth = Math.max(0.7, R * 0.0032);
     ctx.beginPath(); ctx.arc(c, c, R * 0.875, Math.PI * 0.22, Math.PI * 0.78); ctx.stroke();
     ctx.restore();
 
     const ring = ctx.createLinearGradient(c - R, c - R, c + R, c + R);
-    ring.addColorStop(0, this.rgba(rim, 0.62)); ring.addColorStop(0.18, 'rgba(255,255,255,.985)'); ring.addColorStop(0.51, this.rgba(rim, 0.33)); ring.addColorStop(0.76, 'rgba(255,255,255,.965)'); ring.addColorStop(1, this.rgba(rim, 0.54));
-    ctx.strokeStyle = ring; ctx.lineWidth = Math.max(2, s * 0.0068); ctx.beginPath(); ctx.arc(c, c, R, 0, Math.PI * 2); ctx.stroke();
-    ctx.strokeStyle = 'rgba(255,255,255,.70)'; ctx.lineWidth = Math.max(1, s * 0.0025); ctx.beginPath(); ctx.arc(c, c, R * 0.975, 0, Math.PI * 2); ctx.stroke();
-    ctx.strokeStyle = this.rgba(rim, 0.205); ctx.lineWidth = Math.max(1, s * 0.0031); ctx.beginPath(); ctx.arc(c, c, R * 0.946, 0, Math.PI * 2); ctx.stroke();
-    ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,.90)'; ctx.lineWidth = R * 0.030; ctx.beginPath(); ctx.arc(c, c, R * 0.91, Math.PI * 1.08, Math.PI * 1.41); ctx.stroke();
-    ctx.strokeStyle = 'rgba(255,255,255,.46)'; ctx.lineWidth = R * 0.010; ctx.beginPath(); ctx.arc(c, c, R * 0.887, Math.PI * 1.13, Math.PI * 1.47); ctx.stroke(); ctx.restore();
+    ring.addColorStop(0, this.rgba(rim, 0.31)); ring.addColorStop(0.18, 'rgba(255,255,255,.86)'); ring.addColorStop(0.51, this.rgba(rim, 0.12)); ring.addColorStop(0.76, 'rgba(255,255,255,.82)'); ring.addColorStop(1, this.rgba(rim, 0.26));
+    ctx.strokeStyle = ring; ctx.lineWidth = Math.max(1, s * 0.0033); ctx.beginPath(); ctx.arc(c, c, R, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,.50)'; ctx.lineWidth = Math.max(0.7, s * 0.00135); ctx.beginPath(); ctx.arc(c, c, R * 0.975, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = this.rgba(rim, 0.085); ctx.lineWidth = Math.max(0.7, s * 0.00155); ctx.beginPath(); ctx.arc(c, c, R * 0.946, 0, Math.PI * 2); ctx.stroke();
+    ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,.72)'; ctx.lineWidth = R * 0.017; ctx.beginPath(); ctx.arc(c, c, R * 0.91, Math.PI * 1.08, Math.PI * 1.41); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,.30)'; ctx.lineWidth = R * 0.0055; ctx.beginPath(); ctx.arc(c, c, R * 0.887, Math.PI * 1.13, Math.PI * 1.47); ctx.stroke(); ctx.restore();
   }
 
   frame(now) {

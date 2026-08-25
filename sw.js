@@ -1,4 +1,4 @@
-// Auren runtime Build 6 — Body Intelligence foundation.
+// Auren runtime Build 7 — Luxe Core, Halo & profile photo.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

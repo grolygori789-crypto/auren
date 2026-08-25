@@ -3,7 +3,7 @@ import { AurenOrb } from './core/orb.js';
 import { catalog, getLocale, setLocale } from './i18n/i18n.js';
 import { getPreference, setPreference, isFirstLaunch, markFirstLaunchSeen } from './storage/preferences.js';
 import { getCheckin, getRecentCheckins, saveCheckin } from './storage/checkins.js';
-import { getBodyProfile, saveBodyProfile } from './storage/profile.js';
+import { getBodyProfile, saveBodyProfile, saveProfileAvatar, clearProfileAvatar } from './storage/profile.js';
 import { bodyContext, haloContext, nextAction } from './intelligence/body.js';
 
 const THEMES = ['pearl', 'mineral', 'rose', 'sage', 'dusk'];
@@ -44,6 +44,77 @@ function formatNumber(value, digits = 1) {
   return new Intl.NumberFormat(getLocale() === 'th' ? 'th-TH' : 'en', { maximumFractionDigits: digits, minimumFractionDigits: 0 }).format(value);
 }
 
+function hasBodyData(profile = bodyProfile) {
+  return Boolean(profile && Number.isFinite(Number(profile.age)) && Number.isFinite(Number(profile.heightCm)) && Number.isFinite(Number(profile.weightKg)));
+}
+
+function observationTone(key, value) {
+  const v = Number(value);
+  if (key === 'stress') {
+    if (v <= 1) return ['calm', 'positive'];
+    if (v === 2) return ['light', 'positive'];
+    if (v === 3) return ['moderate', 'neutral'];
+    if (v === 4) return ['highStress', 'attention'];
+    return ['veryHighStress', 'attention'];
+  }
+  if (v <= 1) return ['veryLow', 'attention'];
+  if (v === 2) return ['low', 'attention'];
+  if (v === 3) return ['steady', 'neutral'];
+  if (v === 4) return ['high', 'positive'];
+  return ['excellent', 'positive'];
+}
+
+function renderIdentity() {
+  const c = catalog();
+  const src = bodyProfile?.avatarDataUrl || '';
+  const pairs = [
+    [$('topbarAvatar'), $('topbarAvatarFallback')],
+    [$('identityAvatar'), $('identityAvatarFallback')],
+  ];
+  pairs.forEach(([img, fallback]) => {
+    if (!img || !fallback) return;
+    if (src) {
+      img.src = src; img.hidden = false; fallback.hidden = true;
+    } else {
+      img.removeAttribute('src'); img.hidden = true; fallback.hidden = false;
+    }
+  });
+  $('identityEyebrow').textContent = c.you.identityEyebrow;
+  $('identityTitle').textContent = c.you.identityTitle;
+  $('identityCopy').textContent = c.you.identityCopy;
+  $('uploadAvatarBtn').textContent = src ? c.you.identityChange : c.you.identityUpload;
+  $('removeAvatarBtn').textContent = c.you.identityRemove;
+  $('removeAvatarBtn').hidden = !src;
+}
+
+function imageToAvatar(file) {
+  return new Promise((resolve, reject) => {
+    if (!file || !String(file.type || '').startsWith('image/')) { reject(new Error('Not an image')); return; }
+    if (file.size > 15 * 1024 * 1024) { reject(new Error('Image too large')); return; }
+    const reader = new FileReader();
+    reader.onerror = () => reject(reader.error || new Error('Read failed'));
+    reader.onload = () => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Decode failed'));
+      img.onload = () => {
+        const size = 384;
+        const canvas = document.createElement('canvas'); canvas.width = size; canvas.height = size;
+        const ctx = canvas.getContext('2d', { alpha: false });
+        const side = Math.min(img.naturalWidth, img.naturalHeight);
+        const sx = (img.naturalWidth - side) / 2, sy = (img.naturalHeight - side) / 2;
+        ctx.fillStyle = '#f3e6da'; ctx.fillRect(0, 0, size, size);
+        ctx.drawImage(img, sx, sy, side, side, 0, 0, size, size);
+        let data = '';
+        try { data = canvas.toDataURL('image/webp', 0.82); } catch {}
+        if (!data || !data.startsWith('data:image/')) data = canvas.toDataURL('image/jpeg', 0.84);
+        resolve(data);
+      };
+      img.src = String(reader.result || '');
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 function renderThemeChoices() {
   const c = catalog();
   const stored = getPreference('theme', 'pearl');
@@ -75,7 +146,11 @@ function renderObserved() {
   $('checkinBtn').textContent = c.today.editCheckin;
   grid.hidden = false;
   grid.setAttribute('aria-label', c.today.observed);
-  grid.innerHTML = OBSERVATIONS.map((key) => `<div class="observed-item"><strong>${todayCheckin.observations[key]}</strong><span>${c.checkin[key]}</span></div>`).join('');
+  grid.innerHTML = OBSERVATIONS.map((key) => {
+    const value = todayCheckin.observations[key];
+    const [labelKey, tone] = observationTone(key, value);
+    return `<div class="observed-item tone-${tone}"><strong>${c.today.observedLevels[labelKey]}</strong><span>${c.checkin[key]}</span><em>${value}/5</em></div>`;
+  }).join('');
 }
 
 function bodyCopyKeys(context) {
@@ -94,7 +169,7 @@ function renderBodyContext() {
   $('bodyContextTitle').textContent = c.today[titleKey];
   $('bodyContextCopy').textContent = c.today[copyKey];
   $('bodyProfileTitle').textContent = c.you.bodyProfile;
-  $('bodyProfileSub').textContent = bodyProfile ? c.you.bodyProfileReady : c.you.bodyProfileMissing;
+  $('bodyProfileSub').textContent = hasBodyData() ? c.you.bodyProfileReady : c.you.bodyProfileMissing;
   const metrics = $('bodyMetrics');
   if (context.status !== 'ready') {
     metrics.hidden = true;
@@ -127,11 +202,15 @@ function renderHalo() {
   $('haloCopy').textContent = c.today.haloCopy[currentHalo.overall];
   $('haloDetailsBtn').textContent = c.today.haloDetails;
   const segments = ['body','daily','movement','continuity'];
+  $('coreStage').dataset.halo = currentHalo.overall;
   const arcIds = { body:'haloBodyArc', daily:'haloDailyArc', movement:'haloMovementArc', continuity:'haloContinuityArc' };
+  const nodeIds = { body:'haloBodyNode', daily:'haloDailyNode', movement:'haloMovementNode', continuity:'haloContinuityNode' };
   segments.forEach((key) => {
     const state = currentHalo.segments[key];
     const arc = $(arcIds[key]);
+    const node = $(nodeIds[key]);
     arc.className.baseVal = `halo-arc halo-${key} state-${state}`;
+    node.className.baseVal = `halo-node halo-node-${key} state-${state}`;
   });
   $('haloLegend').innerHTML = segments.map((key) => {
     const state = currentHalo.segments[key];
@@ -180,6 +259,7 @@ function renderLocale() {
 
   $('youTitle').textContent = c.you.title;
   $('youSub').textContent = c.you.sub;
+  renderIdentity();
   $('languageTitle').textContent = c.you.language;
   $('languageSub').textContent = c.you.languageSub;
   $('appearanceTitle').textContent = c.you.appearance;
@@ -246,7 +326,7 @@ function renderProfileForm() {
   $('closeProfileBtn').textContent = c.bodyProfile.close;
   $('profileActivity').innerHTML = Object.entries(c.bodyProfile.activityOptions).map(([value,label]) => `<option value="${value}">${label}</option>`).join('');
   $('profileGoal').innerHTML = Object.entries(c.bodyProfile.goalOptions).map(([value,label]) => `<option value="${value}">${label}</option>`).join('');
-  if (bodyProfile) {
+  if (hasBodyData()) {
     $('profileAge').value = bodyProfile.age;
     $('profileHeight').value = bodyProfile.heightCm;
     $('profileWeight').value = bodyProfile.weightKg;
@@ -297,7 +377,7 @@ async function loadData() {
     recentCheckins = todayCheckin ? [todayCheckin] : [];
     try { bodyProfile = await getBodyProfile(); } catch { bodyProfile = null; }
   }
-  renderObserved(); renderBodyContext(); renderHalo(); renderOneAction(); renderHaloModal(); renderProfileForm();
+  renderObserved(); renderBodyContext(); renderHalo(); renderOneAction(); renderHaloModal(); renderProfileForm(); renderIdentity();
 }
 
 async function submitCheckin(event) {
@@ -323,10 +403,42 @@ async function submitProfile(event) {
   try {
     bodyProfile = await saveBodyProfile(input);
     $('profileStatus').textContent = c.bodyProfile.saved;
-    renderBodyContext(); renderHalo(); renderOneAction(); renderHaloModal();
+    renderBodyContext(); renderHalo(); renderOneAction(); renderHaloModal(); renderIdentity();
     setTimeout(closeProfile, 700);
   } catch { $('profileStatus').textContent = c.bodyProfile.error; }
   finally { $('saveProfileBtn').disabled = false; }
+}
+
+
+async function handleAvatarUpload(event) {
+  const c = catalog();
+  const file = event.target.files?.[0];
+  if (!file) return;
+  $('avatarStatus').textContent = '';
+  $('uploadAvatarBtn').disabled = true;
+  try {
+    const dataUrl = await imageToAvatar(file);
+    bodyProfile = await saveProfileAvatar(dataUrl);
+    renderIdentity();
+    $('avatarStatus').textContent = c.you.identitySaved;
+  } catch {
+    $('avatarStatus').textContent = c.you.identityError;
+  } finally {
+    $('uploadAvatarBtn').disabled = false;
+    event.target.value = '';
+  }
+}
+
+async function removeAvatar() {
+  const c = catalog();
+  $('removeAvatarBtn').disabled = true;
+  try {
+    bodyProfile = await clearProfileAvatar();
+    renderIdentity();
+    $('avatarStatus').textContent = c.you.identityRemoved;
+  } catch {
+    $('avatarStatus').textContent = c.you.identityError;
+  } finally { $('removeAvatarBtn').disabled = false; }
 }
 
 function startOpeningTransition() {
@@ -359,6 +471,9 @@ function registerServiceWorker() {
 function bind() {
   document.querySelectorAll('[data-nav]').forEach((button) => button.addEventListener('click', () => showScreen(button.dataset.nav)));
   $('profileBtn').addEventListener('click', () => showScreen('you'));
+  $('uploadAvatarBtn').addEventListener('click', () => $('avatarInput').click());
+  $('avatarInput').addEventListener('change', handleAvatarUpload);
+  $('removeAvatarBtn').addEventListener('click', removeAvatar);
   $('enBtn').addEventListener('click', () => { setLocale('en'); renderLocale(); });
   $('thBtn').addEventListener('click', () => { setLocale('th'); renderLocale(); });
   $('checkinBtn').addEventListener('click', openCheckin);

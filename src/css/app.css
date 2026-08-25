@@ -195,7 +195,7 @@ html[lang="th"] .nav-btn{font-size:9.5px}
 @media(max-width:370px){.app-shell{padding-left:14px;padding-right:14px}.core-orb{width:min(76vw,310px)}.observed-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}.observed-item{padding:9px 3px}.theme-grid{grid-template-columns:1fr}.theme-choice[data-theme="dusk"]{grid-column:auto}}
 @media(prefers-reduced-motion:reduce){#opening,.opening-orb,.opening-id,.opening-name,.opening-tag,.opening-studio,#app,.screen,.sheet{animation:none!important;transition:none!important;transform:none!important;filter:none!important}.opening-orb,.opening-id,.opening-name,.opening-tag,.opening-studio{opacity:1!important}.opening-orb::before{animation:none!important;opacity:.72!important}}
 
-/* Build 6 — Body Intelligence + Auren Halo */
+/* Body Intelligence base styles */
 .core-stage{width:min(78vw,365px);aspect-ratio:1;position:relative;display:grid;place-items:center}
 .core-stage .core-orb{width:86%;position:relative;z-index:2}
 .auren-halo{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:visible;filter:drop-shadow(0 8px 18px color-mix(in srgb,var(--core-shadow) 8%,transparent))}
@@ -267,3 +267,91 @@ html[lang="th"] .evidence-item p{line-height:1.72}
 .one-action-mark span::after{content:"";position:absolute;width:5px;height:5px;border-radius:50%;background:var(--gold);left:50%;top:50%;transform:translate(-50%,-50%);box-shadow:0 0 0 4px color-mix(in srgb,var(--gold) 12%,transparent)}
 .one-action-copy{min-width:0}.one-action-copy strong{display:block;font-size:13px;font-weight:610;line-height:1.45}.one-action-copy p{font-size:11px;line-height:1.65;color:var(--muted);margin:4px 0 0}
 html[lang="th"] .one-action-copy strong{font-size:13.5px;line-height:1.55}html[lang="th"] .one-action-copy p{font-size:11.2px;line-height:1.75;text-wrap:pretty}
+
+/* Build 7 — ultra-clear glass, Instrument Halo, personal profile identity */
+.core-hero{margin-top:4px;padding-top:0}
+.core-stage{width:min(74vw,344px);aspect-ratio:1;position:relative;display:grid;place-items:center;isolation:isolate}
+.core-stage::before{
+  content:"";position:absolute;inset:8%;border-radius:50%;z-index:0;pointer-events:none;
+  background:radial-gradient(circle at 50% 56%,color-mix(in srgb,var(--core-gold) 7%,transparent) 0%,color-mix(in srgb,var(--core-aqua) 3%,transparent) 42%,transparent 72%);
+  filter:blur(18px);opacity:.62;transition:opacity .55s ease,filter .55s ease;
+}
+.core-stage[data-halo="excellent"]::before,.core-stage[data-halo="strong"]::before{opacity:.9;filter:blur(22px)}
+.core-stage .core-orb{width:89%;position:relative;z-index:2}
+.auren-halo{position:absolute;inset:0;width:100%;height:100%;z-index:3;pointer-events:none;overflow:visible;filter:none}
+.halo-orbit-outer,.halo-orbit-inner,.halo-arc{fill:none;transform-origin:50px 50px;transform:rotate(-90deg)}
+.halo-orbit-outer{stroke:color-mix(in srgb,var(--line-strong) 44%,transparent);stroke-width:.26;opacity:.78}
+.halo-orbit-inner{stroke:color-mix(in srgb,var(--card-hi) 66%,transparent);stroke-width:.18;opacity:.72}
+.halo-arc{
+  stroke-width:.62;stroke-linecap:round;stroke-dasharray:31 264;opacity:.22;
+  transition:stroke .58s ease,opacity .58s ease,filter .58s ease,stroke-width .58s ease;
+}
+.halo-body{stroke-dashoffset:0}.halo-daily{stroke-dashoffset:-73.7}.halo-movement{stroke-dashoffset:-147.4}.halo-continuity{stroke-dashoffset:-221.1}
+.halo-node{fill:var(--faint);opacity:.25;transition:fill .58s ease,opacity .58s ease,r .58s ease,filter .58s ease}
+.halo-arc.state-good{stroke:color-mix(in srgb,var(--gold) 70%,white);opacity:.82;filter:drop-shadow(0 0 1.5px color-mix(in srgb,var(--gold) 25%,transparent))}
+.halo-arc.state-attention{stroke:color-mix(in srgb,var(--gold-deep) 58%,var(--muted));opacity:.58}
+.halo-arc.state-developing{stroke:color-mix(in srgb,var(--aqua) 64%,white);opacity:.58}
+.halo-arc.state-limited{stroke:color-mix(in srgb,var(--aqua) 52%,var(--muted));opacity:.46;stroke-dasharray:21 274}
+.halo-arc.state-missing{stroke:color-mix(in srgb,var(--faint) 28%,transparent);opacity:.22}
+.halo-node.state-good{fill:color-mix(in srgb,var(--gold) 72%,white);opacity:.95;filter:drop-shadow(0 0 2px color-mix(in srgb,var(--gold) 38%,transparent))}
+.halo-node.state-developing,.halo-node.state-limited{fill:color-mix(in srgb,var(--aqua) 78%,white);opacity:.74}
+.halo-node.state-attention{fill:color-mix(in srgb,var(--gold-deep) 68%,var(--muted));opacity:.72}
+.halo-node.state-missing{opacity:.24}
+.core-stage[data-halo="excellent"] .halo-orbit-outer{stroke:color-mix(in srgb,var(--gold) 30%,transparent);opacity:.92}
+.core-stage[data-halo="excellent"] .halo-arc.state-good{stroke-width:.72;opacity:.96;filter:drop-shadow(0 0 2.4px color-mix(in srgb,var(--gold) 30%,transparent))}
+
+/* Daily observations: semantic, not debug-looking numbers. */
+.observed-grid{gap:7px;margin-top:17px;width:min(100%,404px)}
+.observed-item{position:relative;padding:11px 4px 9px;border-radius:17px;background:color-mix(in srgb,var(--card-hi) 52%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,.42)}
+.observed-item strong{font-size:10.2px;font-weight:630;line-height:1.15;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.observed-item span{font-size:7.8px;line-height:1.25;margin-top:4px}
+.observed-item em{display:block;margin-top:5px;font-size:7px;line-height:1;font-style:normal;letter-spacing:.05em;color:var(--faint)}
+.observed-item.tone-positive{border-color:color-mix(in srgb,var(--gold) 25%,var(--line));background:linear-gradient(155deg,color-mix(in srgb,var(--card-hi) 75%,transparent),color-mix(in srgb,var(--gold) 6%,var(--card)))}
+.observed-item.tone-attention{border-color:color-mix(in srgb,var(--gold-deep) 20%,var(--line));background:linear-gradient(155deg,color-mix(in srgb,var(--card-hi) 72%,transparent),color-mix(in srgb,var(--gold-deep) 5%,var(--card)))}
+.observed-item.tone-neutral{border-color:color-mix(in srgb,var(--aqua) 19%,var(--line))}
+
+/* Profile identity */
+.profile-trigger{overflow:hidden;padding:0}
+.avatar-image{object-fit:cover;display:block}
+.topbar-avatar{width:100%;height:100%;border-radius:50%}
+.profile-trigger:has(.topbar-avatar:not([hidden])){border-color:color-mix(in srgb,var(--gold) 34%,var(--line));box-shadow:0 8px 25px rgba(90,67,42,.07),inset 0 0 0 2px rgba(255,255,255,.52)}
+.identity-card{display:flex;align-items:center;gap:17px;padding:18px;margin:5px 0 16px;overflow:hidden;position:relative}
+.identity-card::after{content:"";position:absolute;width:150px;height:150px;border-radius:50%;right:-75px;top:-82px;background:radial-gradient(circle,color-mix(in srgb,var(--aqua) 15%,transparent),transparent 68%);pointer-events:none}
+.identity-avatar-wrap{width:76px;height:76px;flex:0 0 auto;position:relative;border-radius:50%;display:grid;place-items:center}
+.identity-avatar{width:68px;height:68px;border-radius:50%;box-shadow:0 7px 18px rgba(75,57,40,.10)}
+.identity-avatar-fallback{width:68px;height:68px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.94),color-mix(in srgb,var(--gold) 10%,var(--card)));border:1px solid color-mix(in srgb,var(--gold) 20%,var(--line));color:var(--muted)}
+.identity-avatar-fallback[hidden]{display:none!important}
+.identity-avatar-fallback svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.35}
+.identity-avatar-ring{position:absolute;inset:0;border-radius:50%;border:1px solid color-mix(in srgb,var(--gold) 30%,transparent);box-shadow:inset 0 0 0 3px rgba(255,255,255,.30),0 0 18px color-mix(in srgb,var(--gold) 8%,transparent);pointer-events:none}
+.identity-copy{min-width:0;position:relative;z-index:1}
+.identity-eyebrow{font-size:8px;letter-spacing:.19em;text-transform:uppercase;color:var(--gold-deep)}
+.identity-copy h2{font:400 19px/1.25 var(--font-display);letter-spacing:-.012em;margin:4px 0 0}
+.identity-copy p{font-size:10.5px;line-height:1.58;color:var(--muted);margin:6px 0 0;max-width:330px}
+.identity-actions{display:flex;align-items:center;gap:13px;margin-top:10px}
+.identity-action,.identity-remove{border:0;background:transparent;padding:0;cursor:pointer;font-size:9.5px;color:var(--gold-deep);font-weight:570}
+.identity-remove{color:var(--faint)}
+.identity-action:disabled,.identity-remove:disabled{opacity:.45}
+.identity-status{font-size:8.5px;color:var(--faint);min-height:12px;margin-top:6px}
+
+/* Refine cards and Halo summary toward editorial instrument, not dashboard. */
+.halo-summary{margin-top:9px;border-radius:26px;padding:18px 19px 17px;background:linear-gradient(145deg,color-mix(in srgb,var(--card-hi) 86%,transparent),color-mix(in srgb,var(--card) 82%,transparent));box-shadow:0 12px 35px rgba(72,54,38,.045)}
+.halo-summary h2{font-size:22px}
+.halo-legend{gap:9px;margin-top:15px}
+.halo-legend-item{border-top-color:color-mix(in srgb,var(--line) 82%,transparent)}
+.halo-legend-item strong{font-weight:600}
+.one-action-card{box-shadow:0 10px 32px rgba(72,54,38,.045)}
+
+html[lang="th"] .identity-copy h2{font-family:var(--font-thai);font-size:18px;line-height:1.48;font-weight:470}
+html[lang="th"] .identity-copy p{font-size:10.6px;line-height:1.72;text-wrap:pretty}
+html[lang="th"] .identity-action,html[lang="th"] .identity-remove{font-size:10px}
+html[lang="th"] .observed-item strong{font-size:10px}
+html[lang="th"] .observed-item span{font-size:7.6px}
+
+@media(max-width:370px){
+  .core-stage{width:min(78vw,322px)}
+  .core-stage .core-orb{width:90%}
+  .identity-card{gap:13px;padding:15px}
+  .identity-avatar-wrap{width:68px;height:68px}.identity-avatar,.identity-avatar-fallback{width:61px;height:61px}
+  .identity-copy h2{font-size:17px}
+  .observed-grid{gap:5px}.observed-item{padding-left:2px;padding-right:2px}.observed-item strong{font-size:9.1px}
+}
