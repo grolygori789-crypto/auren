@@ -30,16 +30,21 @@ svg{display:block}
   transition:opacity .66s cubic-bezier(.2,.72,.2,1),visibility .66s;
 }
 #opening.leave{opacity:0;visibility:hidden;pointer-events:none}
-.opening-inner{width:min(760px,100%);padding:max(30px,env(safe-area-inset-top)) 22px max(34px,env(safe-area-inset-bottom));display:grid;justify-items:center;gap:27px}
-.opening-orb{width:min(72vw,430px);aspect-ratio:1;opacity:0;transform:translateY(10px) scale(.97);filter:blur(8px);animation:orbIn 1.45s cubic-bezier(.2,.74,.18,1) .08s forwards;will-change:transform,opacity,filter}
+.opening-inner{width:min(760px,100%);padding:max(30px,env(safe-area-inset-top)) 22px max(34px,env(safe-area-inset-bottom));display:grid;justify-items:center;gap:21px}
+.opening-orb{width:min(75vw,440px);aspect-ratio:1;position:relative;isolation:isolate;opacity:0;transform:translateY(13px) scale(.958);filter:blur(12px);animation:orbIn 1.18s cubic-bezier(.16,.78,.18,1) .12s forwards;will-change:transform,opacity,filter}
+.opening-orb::before{content:"";position:absolute;z-index:-1;inset:7%;border-radius:50%;background:radial-gradient(circle at 48% 55%,color-mix(in srgb,var(--core-gold) 18%,transparent) 0%,color-mix(in srgb,var(--core-aqua) 8%,transparent) 38%,transparent 70%);filter:blur(28px);opacity:.82;transform:scale(1.08);animation:auraIn 1.6s ease .18s both}
 .opening-orb canvas{width:100%;height:100%;display:block}
-.opening-id{text-align:center;opacity:0;transform:translateY(8px);animation:textIn 1.05s cubic-bezier(.2,.74,.18,1) .92s forwards;transition:opacity .44s ease,transform .44s ease}
+.opening-id{text-align:center;transition:opacity .48s ease,transform .48s ease;min-width:min(88vw,520px)}
 .opening-id.morphing{opacity:0;transform:translateY(7px)}
-.opening-name{font:300 clamp(31px,6.8vw,61px)/1 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.43em;margin-left:.43em}
-.opening-tag{margin-top:16px;font-size:clamp(9px,1.6vw,12px);letter-spacing:.40em;margin-left:.40em;color:var(--muted);text-transform:uppercase}
-.opening-studio{margin-top:18px;font-size:9px;letter-spacing:.33em;margin-left:.33em;color:var(--faint);text-transform:uppercase}
+.opening-name{font:300 clamp(32px,7vw,62px)/1 "Helvetica Neue",Helvetica,Arial,sans-serif;letter-spacing:.46em;margin-left:.46em;opacity:0;transform:translateY(7px);filter:blur(4px);animation:brandNameIn .78s cubic-bezier(.18,.74,.18,1) .82s forwards;text-shadow:0 1px 0 rgba(255,255,255,.32)}
+.opening-tag{margin-top:17px;font-size:clamp(8.5px,1.55vw,11.5px);letter-spacing:.36em;margin-left:.36em;color:color-mix(in srgb,var(--muted) 92%,var(--gold-deep));text-transform:uppercase;opacity:0;transform:translateY(5px);animation:brandLineIn .66s ease 1.23s forwards}
+.opening-studio{width:min(72vw,300px);margin:19px auto 0;display:flex;align-items:center;justify-content:center;gap:12px;font-size:8.5px;letter-spacing:.30em;margin-left:auto;margin-right:auto;color:color-mix(in srgb,var(--faint) 85%,var(--gold-deep));text-transform:uppercase;opacity:0;transform:translateY(4px);animation:brandLineIn .66s ease 1.58s forwards;white-space:nowrap}
+.opening-studio::before,.opening-studio::after{content:"";height:1px;flex:1;max-width:54px;background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gold-deep) 28%,transparent))}
+.opening-studio::after{background:linear-gradient(90deg,color-mix(in srgb,var(--gold-deep) 28%,transparent),transparent)}
 @keyframes orbIn{to{opacity:1;transform:none;filter:blur(0)}}
-@keyframes textIn{to{opacity:1;transform:none}}
+@keyframes auraIn{from{opacity:0;transform:scale(.92)}to{opacity:.82;transform:scale(1.08)}}
+@keyframes brandNameIn{to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes brandLineIn{to{opacity:1;transform:none}}
 
 /* App shell */
 #app{opacity:0;transform:translateY(7px);transition:opacity .62s ease,transform .62s cubic-bezier(.2,.74,.18,1);min-height:100vh;min-height:100dvh}
@@ -188,4 +193,4 @@ html[lang="th"] .setting span{font-size:10px;line-height:1.55}
 html[lang="th"] .nav-btn{font-size:9.5px}
 
 @media(max-width:370px){.app-shell{padding-left:14px;padding-right:14px}.core-orb{width:min(76vw,310px)}.observed-grid{grid-template-columns:repeat(5,minmax(0,1fr));gap:5px}.observed-item{padding:9px 3px}.theme-grid{grid-template-columns:1fr}.theme-choice[data-theme="dusk"]{grid-column:auto}}
-@media(prefers-reduced-motion:reduce){#opening,.opening-orb,.opening-id,#app,.screen,.sheet{animation:none!important;transition:none!important;transform:none!important;filter:none!important}.opening-orb,.opening-id{opacity:1!important}}
+@media(prefers-reduced-motion:reduce){#opening,.opening-orb,.opening-id,.opening-name,.opening-tag,.opening-studio,#app,.screen,.sheet{animation:none!important;transition:none!important;transform:none!important;filter:none!important}.opening-orb,.opening-id,.opening-name,.opening-tag,.opening-studio{opacity:1!important}.opening-orb::before{animation:none!important;opacity:.72!important}}

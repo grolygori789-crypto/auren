@@ -208,7 +208,7 @@ function startOpeningTransition() {
   openingWrap.style.opacity = '1';
   openingWrap.style.filter = 'none';
   openingWrap.style.transformOrigin = 'top left';
-  openingWrap.style.transition = 'transform .78s cubic-bezier(.18,.76,.2,1), opacity .28s ease .55s';
+  openingWrap.style.transition = 'transform .88s cubic-bezier(.16,.78,.18,1), opacity .34s ease .62s';
   $('openingIdentity').classList.add('morphing');
   requestAnimationFrame(() => {
     openingWrap.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
@@ -217,13 +217,14 @@ function startOpeningTransition() {
   setTimeout(() => {
     todayWrap.classList.remove('waiting');
     opening.classList.add('leave');
-  }, 690);
+  }, 790);
 }
 
 function runOpening() {
   const first = isFirstLaunch();
   markFirstLaunchSeen();
-  const delay = first ? 3450 : 720;
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const delay = reduced ? 950 : (first ? 4150 : 3725);
   setTimeout(startOpeningTransition, delay);
 }
 
@@ -245,7 +246,7 @@ function bind() {
 }
 
 applyTheme(getPreference('theme', 'pearl'), { animate: false });
-new AurenOrb($('openingOrb'));
+new AurenOrb($('openingOrb'), { signature: true });
 new AurenOrb($('todayOrb'), { calm: true });
 bind();
 renderLocale();

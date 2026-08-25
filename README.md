@@ -84,3 +84,8 @@ Then open `http://localhost:8080/`.
 ## Build 4 — Auren Atmospheres
 
 Adds five curated tonal environments across the full UI: Pearl Dawn, Mineral Mist, Rose Veil, Sage Haze, and Quiet Dusk. Atmospheres are persistent local preferences and harmonize gradients, glass surfaces, cards, navigation, accents, and Core tint without adding account requirements.
+
+
+## Build 5 — Signature Opening
+
+Refines the Auren brand entrance into a deliberate premium sequence: a thinner optical glass rim, champagne-gold-dominant fluid with a restrained pale-aqua undertone, staged AUREN/tagline/studio reveals, and a longer cold-launch hold before the Core morphs into Today. Normal cold launches hold the signature sequence for about 3.7 seconds before transition; first launch holds for about 4.15 seconds. Warm resume does not replay the opening because the document remains active.

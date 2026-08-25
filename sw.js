@@ -1,4 +1,4 @@
-// Auren runtime Build 4 — Auren Atmospheres.
+// Auren runtime Build 5 — Signature Opening refinement.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

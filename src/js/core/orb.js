@@ -1,5 +1,5 @@
 export class AurenOrb {
-  constructor(canvas, { calm = false } = {}) {
+  constructor(canvas, { calm = false, signature = false } = {}) {
     this.canvas = canvas;
     this.ctx = canvas.getContext('2d', { alpha: true });
     this.S = 280;
@@ -20,6 +20,7 @@ export class AurenOrb {
     this.wave2V = 0;
     this.pointer = null;
     this.calm = calm;
+    this.signature = signature;
     this.reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
     this.running = true;
     this.bind();
@@ -82,7 +83,7 @@ export class AurenOrb {
   }
 
   physics(dt) {
-    const amp = this.calm ? 0.58 : 1;
+    const amp = this.signature ? 0.84 : (this.calm ? 0.58 : 1);
     const intro = this.t < 4.7 ? Math.cos(this.t * 0.86) * 0.105 * Math.exp(-this.t * 0.30) : 0;
     const target = this.reduced ? 0 : (intro + Math.sin(this.t * 0.36) * 0.08 + Math.sin(this.t * 0.14) * 0.018 + this.kick) * amp;
     this.tiltV += (target - this.tilt) * 3.3 * dt;
@@ -127,22 +128,34 @@ export class AurenOrb {
         const s1 = Math.sin((u * 3.2 + v * 1.55) * 1.85 + this.t * 0.34 + Math.sin(this.t * 0.22) * 0.33);
         const s2 = Math.sin((u * 1.55 - v * 3.1) * 1.18 - this.t * 0.24 + 0.58);
         const s3 = Math.sin((u * 5.1 + v * 2.4) * 0.76 + this.t * 0.16);
-        const aquaMix = Math.max(0, Math.min(1, 0.36 + 0.10 * s1 + 0.05 * s2 + 0.025 * s3));
+        const ribbon = Math.pow(0.5 + 0.5 * s3, 3);
+        const aquaMix = this.signature
+          ? Math.max(0, Math.min(1, 0.15 + 0.050 * s1 + 0.025 * s2 + 0.16 * ribbon))
+          : Math.max(0, Math.min(1, 0.22 + 0.060 * s1 + 0.032 * s2 + 0.025 * s3));
         const { gold, aqua, pearl } = this.palette;
         let r = gold[0] * (1 - aquaMix) + aqua[0] * aquaMix;
         let g = gold[1] * (1 - aquaMix) + aqua[1] * aquaMix;
         let b = gold[2] * (1 - aquaMix) + aqua[2] * aquaMix;
-        const tint = 0.30 + thickness * 0.72;
+        const tint = (this.signature ? 0.34 : 0.30) + thickness * (this.signature ? 0.74 : 0.72);
         r = pearl[0] * (1 - tint) + r * tint;
         g = pearl[1] * (1 - tint) + g * tint;
         b = pearl[2] * (1 - tint) + b * tint;
+        // A restrained mineral-aqua iridescent ribbon keeps Auren biological and distinctive
+        // while champagne gold remains the dominant material impression.
+        if (this.signature) {
+          const aquaRibbon = 0.20 * Math.pow(0.5 + 0.5 * Math.sin(u * 5.4 - v * 3.1 + this.t * 0.20 + 0.7), 5) * thickness;
+          r = r * (1 - aquaRibbon) + aqua[0] * aquaRibbon;
+          g = g * (1 - aquaRibbon) + aqua[1] * aquaRibbon;
+          b = b * (1 - aquaRibbon) + aqua[2] * aquaRibbon;
+        }
         const surfGlow = Math.exp(-Math.abs(depth) * 74);
         const ca = 0.5 + 0.5 * Math.sin(u * 12.5 + v * 7.5 + this.t * 0.28 + aquaMix * 2.6);
         const lower = Math.pow(fillDepth, 0.66);
-        const light = surfGlow * (24 + ca * 12) + Math.pow(Math.max(0, 0.88 - u * 0.14 - v * 0.34), 6.6) * 12.5 * thickness + (1 - Math.abs(u) * 0.22) * thickness * 15.8 * lower;
-        r += light + lower * 10.5;
-        g += light * 0.95 + lower * 8;
-        b += light * 0.87 + lower * 5.2;
+        const luxe = this.signature ? 1.10 : 1;
+        const light = (surfGlow * (24 + ca * 12) + Math.pow(Math.max(0, 0.88 - u * 0.14 - v * 0.34), 6.6) * 12.5 * thickness + (1 - Math.abs(u) * 0.22) * thickness * 15.8 * lower) * luxe;
+        r += light + lower * (this.signature ? 13.0 : 10.5);
+        g += light * 0.95 + lower * (this.signature ? 9.6 : 8);
+        b += light * 0.87 + lower * (this.signature ? 5.0 : 5.2);
         const trans = 1 - Math.exp(-3 * optical * (0.60 + 0.92 * fillDepth));
         px[ii] = Math.min(255, r);
         px[ii + 1] = Math.min(255, g);
@@ -202,19 +215,19 @@ export class AurenOrb {
 
     // Lower inner refraction gives the sphere thickness and visually anchors the fluid to the vessel.
     ctx.save(); ctx.lineCap = 'round';
-    ctx.strokeStyle = this.rgba(rim, 0.19); ctx.lineWidth = Math.max(1, R * 0.010);
+    ctx.strokeStyle = this.rgba(rim, 0.16); ctx.lineWidth = Math.max(1, R * 0.008);
     ctx.beginPath(); ctx.arc(c, c, R * 0.902, Math.PI * 0.18, Math.PI * 0.82); ctx.stroke();
-    ctx.strokeStyle = this.rgba(aquaTone, 0.12); ctx.lineWidth = Math.max(1, R * 0.006);
+    ctx.strokeStyle = this.rgba(aquaTone, 0.10); ctx.lineWidth = Math.max(1, R * 0.005);
     ctx.beginPath(); ctx.arc(c, c, R * 0.875, Math.PI * 0.22, Math.PI * 0.78); ctx.stroke();
     ctx.restore();
 
     const ring = ctx.createLinearGradient(c - R, c - R, c + R, c + R);
-    ring.addColorStop(0, this.rgba(rim, 0.78)); ring.addColorStop(0.18, 'rgba(255,255,255,.985)'); ring.addColorStop(0.51, this.rgba(rim, 0.42)); ring.addColorStop(0.76, 'rgba(255,255,255,.965)'); ring.addColorStop(1, this.rgba(rim, 0.69));
-    ctx.strokeStyle = ring; ctx.lineWidth = Math.max(2, s * 0.0085); ctx.beginPath(); ctx.arc(c, c, R, 0, Math.PI * 2); ctx.stroke();
-    ctx.strokeStyle = 'rgba(255,255,255,.66)'; ctx.lineWidth = Math.max(1, s * 0.003); ctx.beginPath(); ctx.arc(c, c, R * 0.975, 0, Math.PI * 2); ctx.stroke();
-    ctx.strokeStyle = this.rgba(rim, 0.255); ctx.lineWidth = Math.max(1, s * 0.004); ctx.beginPath(); ctx.arc(c, c, R * 0.946, 0, Math.PI * 2); ctx.stroke();
-    ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,.88)'; ctx.lineWidth = R * 0.034; ctx.beginPath(); ctx.arc(c, c, R * 0.91, Math.PI * 1.08, Math.PI * 1.41); ctx.stroke();
-    ctx.strokeStyle = 'rgba(255,255,255,.48)'; ctx.lineWidth = R * 0.012; ctx.beginPath(); ctx.arc(c, c, R * 0.887, Math.PI * 1.13, Math.PI * 1.47); ctx.stroke(); ctx.restore();
+    ring.addColorStop(0, this.rgba(rim, 0.62)); ring.addColorStop(0.18, 'rgba(255,255,255,.985)'); ring.addColorStop(0.51, this.rgba(rim, 0.33)); ring.addColorStop(0.76, 'rgba(255,255,255,.965)'); ring.addColorStop(1, this.rgba(rim, 0.54));
+    ctx.strokeStyle = ring; ctx.lineWidth = Math.max(2, s * 0.0068); ctx.beginPath(); ctx.arc(c, c, R, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,.70)'; ctx.lineWidth = Math.max(1, s * 0.0025); ctx.beginPath(); ctx.arc(c, c, R * 0.975, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = this.rgba(rim, 0.205); ctx.lineWidth = Math.max(1, s * 0.0031); ctx.beginPath(); ctx.arc(c, c, R * 0.946, 0, Math.PI * 2); ctx.stroke();
+    ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,.90)'; ctx.lineWidth = R * 0.030; ctx.beginPath(); ctx.arc(c, c, R * 0.91, Math.PI * 1.08, Math.PI * 1.41); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,.46)'; ctx.lineWidth = R * 0.010; ctx.beginPath(); ctx.arc(c, c, R * 0.887, Math.PI * 1.13, Math.PI * 1.47); ctx.stroke(); ctx.restore();
   }
 
   frame(now) {
