@@ -102,13 +102,13 @@ export class AurenOrb {
         const s2 = Math.sin((u * 1.55 - v * 3.1) * 1.18 - this.t * 0.24 + 0.58);
         const s3 = Math.sin((u * 5.1 + v * 2.4) * 0.76 + this.t * 0.16);
         const aquaMix = Math.max(0, Math.min(1, 0.36 + 0.10 * s1 + 0.05 * s2 + 0.025 * s3));
-        const gold = [242, 224, 194];
-        const aqua = [203, 220, 216];
+        const gold = [238, 213, 174];
+        const aqua = [187, 213, 208];
         const pearl = [252, 248, 241];
         let r = gold[0] * (1 - aquaMix) + aqua[0] * aquaMix;
         let g = gold[1] * (1 - aquaMix) + aqua[1] * aquaMix;
         let b = gold[2] * (1 - aquaMix) + aqua[2] * aquaMix;
-        const tint = 0.26 + thickness * 0.70;
+        const tint = 0.30 + thickness * 0.72;
         r = pearl[0] * (1 - tint) + r * tint;
         g = pearl[1] * (1 - tint) + g * tint;
         b = pearl[2] * (1 - tint) + b * tint;
@@ -123,7 +123,7 @@ export class AurenOrb {
         px[ii] = Math.min(255, r);
         px[ii + 1] = Math.min(255, g);
         px[ii + 2] = Math.min(255, b);
-        px[ii + 3] = Math.min(252, 118 + alpha * 90 + trans * 96 + surfGlow * 17);
+        px[ii + 3] = Math.min(252, 132 + alpha * 94 + trans * 99 + surfGlow * 18);
       }
     }
     this.o.putImageData(this.img, 0, 0);
@@ -141,8 +141,8 @@ export class AurenOrb {
     ctx.translate(c, c + R * 0.92);
     ctx.scale(1, 0.18);
     const shadow = ctx.createRadialGradient(0, 0, 0, 0, 0, R * 0.72);
-    shadow.addColorStop(0, 'rgba(137,108,76,.19)');
-    shadow.addColorStop(0.55, 'rgba(168,140,104,.08)');
+    shadow.addColorStop(0, 'rgba(128,96,60,.235)');
+    shadow.addColorStop(0.55, 'rgba(156,122,82,.105)');
     shadow.addColorStop(1, 'rgba(170,141,102,0)');
     ctx.fillStyle = shadow;
     ctx.beginPath(); ctx.arc(0, 0, R * 0.72, 0, Math.PI * 2); ctx.fill();
@@ -152,9 +152,9 @@ export class AurenOrb {
     ctx.beginPath(); ctx.arc(c, c, R, 0, Math.PI * 2); ctx.clip();
     const glass = ctx.createRadialGradient(c - R * 0.34, c - R * 0.39, R * 0.04, c, c, R * 1.02);
     glass.addColorStop(0, 'rgba(255,255,255,.76)');
-    glass.addColorStop(0.42, 'rgba(255,252,247,.16)');
-    glass.addColorStop(0.79, 'rgba(234,221,203,.07)');
-    glass.addColorStop(1, 'rgba(204,183,154,.16)');
+    glass.addColorStop(0.42, 'rgba(255,252,247,.18)');
+    glass.addColorStop(0.79, 'rgba(230,214,192,.095)');
+    glass.addColorStop(1, 'rgba(191,163,126,.205)');
     ctx.fillStyle = glass; ctx.fillRect(c - R, c - R, R * 2, R * 2);
     this.fluidImage();
     ctx.save(); ctx.beginPath(); ctx.arc(c, c, inner, 0, Math.PI * 2); ctx.clip();
@@ -163,13 +163,32 @@ export class AurenOrb {
     haze.addColorStop(0, 'rgba(255,255,255,.10)'); haze.addColorStop(0.65, 'rgba(255,255,255,.02)'); haze.addColorStop(1, 'rgba(234,219,199,.055)');
     ctx.fillStyle = haze; ctx.fillRect(c - R, c - R, R * 2, R * 2); ctx.restore();
 
+    // Optical edge separation: slightly darken the glass perimeter without making the orb opaque.
+    ctx.save();
+    ctx.beginPath(); ctx.arc(c, c, R * 0.985, 0, Math.PI * 2); ctx.clip();
+    const edgeRefraction = ctx.createRadialGradient(c, c, R * 0.67, c, c, R);
+    edgeRefraction.addColorStop(0, 'rgba(166,126,80,0)');
+    edgeRefraction.addColorStop(0.82, 'rgba(166,126,80,.012)');
+    edgeRefraction.addColorStop(0.94, 'rgba(145,105,63,.055)');
+    edgeRefraction.addColorStop(1, 'rgba(128,91,51,.10)');
+    ctx.fillStyle = edgeRefraction; ctx.fillRect(c - R, c - R, R * 2, R * 2);
+    ctx.restore();
+
+    // Lower inner refraction gives the sphere thickness and visually anchors the fluid to the vessel.
+    ctx.save(); ctx.lineCap = 'round';
+    ctx.strokeStyle = 'rgba(177,137,89,.19)'; ctx.lineWidth = Math.max(1, R * 0.010);
+    ctx.beginPath(); ctx.arc(c, c, R * 0.902, Math.PI * 0.18, Math.PI * 0.82); ctx.stroke();
+    ctx.strokeStyle = 'rgba(178,211,205,.12)'; ctx.lineWidth = Math.max(1, R * 0.006);
+    ctx.beginPath(); ctx.arc(c, c, R * 0.875, Math.PI * 0.22, Math.PI * 0.78); ctx.stroke();
+    ctx.restore();
+
     const ring = ctx.createLinearGradient(c - R, c - R, c + R, c + R);
-    ring.addColorStop(0, 'rgba(208,184,150,.72)'); ring.addColorStop(0.18, 'rgba(255,255,255,.97)'); ring.addColorStop(0.51, 'rgba(222,201,173,.45)'); ring.addColorStop(0.76, 'rgba(255,255,255,.92)'); ring.addColorStop(1, 'rgba(181,151,112,.56)');
+    ring.addColorStop(0, 'rgba(194,164,124,.86)'); ring.addColorStop(0.18, 'rgba(255,255,255,.985)'); ring.addColorStop(0.51, 'rgba(211,184,149,.59)'); ring.addColorStop(0.76, 'rgba(255,255,255,.965)'); ring.addColorStop(1, 'rgba(163,126,82,.73)');
     ctx.strokeStyle = ring; ctx.lineWidth = Math.max(2, s * 0.0085); ctx.beginPath(); ctx.arc(c, c, R, 0, Math.PI * 2); ctx.stroke();
     ctx.strokeStyle = 'rgba(255,255,255,.66)'; ctx.lineWidth = Math.max(1, s * 0.003); ctx.beginPath(); ctx.arc(c, c, R * 0.975, 0, Math.PI * 2); ctx.stroke();
-    ctx.strokeStyle = 'rgba(185,155,117,.18)'; ctx.lineWidth = Math.max(1, s * 0.004); ctx.beginPath(); ctx.arc(c, c, R * 0.946, 0, Math.PI * 2); ctx.stroke();
-    ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,.73)'; ctx.lineWidth = R * 0.034; ctx.beginPath(); ctx.arc(c, c, R * 0.91, Math.PI * 1.08, Math.PI * 1.41); ctx.stroke();
-    ctx.strokeStyle = 'rgba(255,255,255,.35)'; ctx.lineWidth = R * 0.012; ctx.beginPath(); ctx.arc(c, c, R * 0.887, Math.PI * 1.13, Math.PI * 1.47); ctx.stroke(); ctx.restore();
+    ctx.strokeStyle = 'rgba(167,130,87,.255)'; ctx.lineWidth = Math.max(1, s * 0.004); ctx.beginPath(); ctx.arc(c, c, R * 0.946, 0, Math.PI * 2); ctx.stroke();
+    ctx.save(); ctx.lineCap = 'round'; ctx.strokeStyle = 'rgba(255,255,255,.88)'; ctx.lineWidth = R * 0.034; ctx.beginPath(); ctx.arc(c, c, R * 0.91, Math.PI * 1.08, Math.PI * 1.41); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,.48)'; ctx.lineWidth = R * 0.012; ctx.beginPath(); ctx.arc(c, c, R * 0.887, Math.PI * 1.13, Math.PI * 1.47); ctx.stroke(); ctx.restore();
   }
 
   frame(now) {

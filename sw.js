@@ -1,3 +1,4 @@
+// Auren runtime Build 3 — Core optical contrast refinement.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
