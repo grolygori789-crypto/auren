@@ -1,0 +1,44 @@
+import { CACHE_NAME } from './src/js/config/build.js';
+
+const APP_SHELL = [
+  './',
+  './index.html',
+  './manifest.webmanifest',
+  './assets/icons/icon-192.png',
+  './assets/icons/icon-512.png',
+  './src/css/tokens.css',
+  './src/css/app.css',
+  './src/js/app.js',
+  './src/js/config/build.js',
+  './src/js/core/orb.js',
+  './src/js/i18n/en.js',
+  './src/js/i18n/th.js',
+  './src/js/i18n/i18n.js',
+  './src/js/storage/preferences.js',
+  './src/js/storage/checkins.js'
+];
+
+self.addEventListener('install', (event) => {
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => Promise.all(keys.filter((key) => key.startsWith('auren-') && key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then(() => self.clients.claim())
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  if (event.request.method !== 'GET') return;
+  event.respondWith(
+    fetch(event.request)
+      .then((response) => {
+        const copy = response.clone();
+        caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
+        return response;
+      })
+      .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
+  );
+});

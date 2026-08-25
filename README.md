@@ -3,9 +3,9 @@
 **Personal Health Intelligence**  
 **Your body, understood.**
 
-Auren is a mobile-first premium wellness product by **Benedict Interactive**. It is being designed to help people understand patterns between daily life and their own reported state through calm, explainable, privacy-conscious personal intelligence.
+Auren is a mobile-first premium wellness product by **Benedict Interactive**. It is designed to help people understand patterns between daily life and their own reported state through calm, explainable, privacy-conscious personal intelligence.
 
-> **Status:** Pre-production / Day Zero Foundation
+> **Runtime status:** Foundation implementation
 
 ## Canonical project source
 
@@ -17,41 +17,47 @@ Before product, design, engineering, marketing, QA or architecture work:
 
 The Master Plan is the canonical operating foundation. Current production/live implementation outranks it only where the Master Plan explicitly defines that conflict order.
 
-## Repository map
+## Current foundation runtime
+
+The foundation runtime establishes the first real Auren application shell:
+
+- Signature Opening with the living Auren Core.
+- First-launch opening of about 4 seconds; normal reload launch is compressed.
+- Today shell with truthful no-data state.
+- Daily Check-in for self-reported sleep, energy, stress, mood and movement.
+- Local IndexedDB persistence for daily observations.
+- Rhythm, Signals, Archive and You navigation foundations.
+- Native English and Thai locale catalogs.
+- Four curated Auren atmospheres: Auren Pearl, Mineral Sky, Blush Veil and Sage Mist.
+- No account required in V1 foundation.
+- Reduced Motion support.
+- Installable/offline PWA shell with release-aware cache identity derived from the runtime build source.
+
+No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
+
+## Runtime map
 
 ```text
 auren/
-├── README.md
-├── LICENSE.md
-├── .gitignore
-├── .gitattributes
-├── .editorconfig
-├── docs/
-│   ├── product/         # Canonical Master Plan
-│   ├── handoff/         # New-room / continuity prompt
-│   ├── reference/       # Presentation/reference copies
-│   ├── engineering/     # Operating engineering rules
-│   ├── design/          # Brand / UX / motion systems
-│   ├── architecture/    # App / data architecture
-│   └── qa/              # QA and release standards
+├── index.html
+├── manifest.webmanifest
+├── sw.js
+├── assets/
+│   └── icons/
 ├── src/
 │   ├── css/
-│   ├── js/
-│   ├── components/
-│   └── data/
-├── assets/
-│   ├── brand/
-│   ├── icons/
-│   ├── images/
-│   ├── motion/
-│   └── audio/
-├── tests/
-└── scripts/
+│   │   ├── tokens.css
+│   │   └── app.css
+│   └── js/
+│       ├── app.js
+│       ├── config/
+│       ├── core/
+│       ├── i18n/
+│       └── storage/
+└── docs/
 ```
 
-Empty foundation folders use a temporary `.gitkeep` only so Git preserves the intended structure. Remove it when the first real file enters that folder.
-
-## Day Zero product constraints
+## Day Zero product constraints retained
 
 - Mobile-first Premium PWA / Web App.
 - Web-first, not web-limited.
@@ -60,8 +66,16 @@ Empty foundation folders use a temporary `.gitkeep` only so Git preserves the in
 - Trust → Usability → Clarity → Beauty → Delight.
 - Early Access direction: full experience, optional support, premium-ready architecture.
 
-## Repository discipline
+## Local development
 
-See [`docs/engineering/REPOSITORY_HYGIENE.md`](docs/engineering/REPOSITORY_HYGIENE.md).
+ES modules and Service Workers require an HTTP origin. Use any simple static server rather than opening `index.html` through `file://` when testing the complete PWA behavior.
+
+Example:
+
+```bash
+python -m http.server 8080
+```
+
+Then open `http://localhost:8080/`.
 
 © 2026 Benedict Interactive. All rights reserved.

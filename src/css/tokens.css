@@ -1,0 +1,87 @@
+:root,
+html[data-theme="pearl"] {
+  --bg-0:#f8efe7;
+  --bg-1:#f2e7db;
+  --bg-2:#ecded0;
+  --ink:#303034;
+  --muted:#7f766c;
+  --faint:#a89d91;
+  --line:rgba(113,91,65,.13);
+  --line-strong:rgba(113,91,65,.20);
+  --card:rgba(255,252,248,.62);
+  --card-hi:rgba(255,255,255,.80);
+  --gold:#c9aa78;
+  --gold-deep:#a8844f;
+  --aqua:#a9cfca;
+  --nav-bg:rgba(255,253,250,.74);
+  --theme-color:#f2e7db;
+  --ambient-a:rgba(255,255,255,.80);
+  --ambient-b:rgba(206,179,143,.16);
+}
+html[data-theme="sky"] {
+  --bg-0:#f0f7f8;
+  --bg-1:#e5f0f2;
+  --bg-2:#dae9ec;
+  --ink:#2e3538;
+  --muted:#6f7c80;
+  --faint:#94a1a4;
+  --line:rgba(79,107,115,.13);
+  --line-strong:rgba(79,107,115,.20);
+  --card:rgba(250,254,254,.62);
+  --card-hi:rgba(255,255,255,.82);
+  --gold:#c7ad83;
+  --gold-deep:#a38a63;
+  --aqua:#98c5c9;
+  --nav-bg:rgba(251,254,254,.76);
+  --theme-color:#e5f0f2;
+  --ambient-a:rgba(255,255,255,.84);
+  --ambient-b:rgba(139,184,193,.15);
+}
+html[data-theme="blush"] {
+  --bg-0:#faf1f1;
+  --bg-1:#f3e5e5;
+  --bg-2:#ebdada;
+  --ink:#343032;
+  --muted:#806f73;
+  --faint:#a28f93;
+  --line:rgba(119,82,91,.12);
+  --line-strong:rgba(119,82,91,.19);
+  --card:rgba(255,251,251,.62);
+  --card-hi:rgba(255,255,255,.82);
+  --gold:#c9a879;
+  --gold-deep:#a88154;
+  --aqua:#a8ccc5;
+  --nav-bg:rgba(255,252,252,.76);
+  --theme-color:#f3e5e5;
+  --ambient-a:rgba(255,255,255,.82);
+  --ambient-b:rgba(202,151,164,.14);
+}
+html[data-theme="sage"] {
+  --bg-0:#f3f6ef;
+  --bg-1:#e8ede1;
+  --bg-2:#dde5d5;
+  --ink:#30342f;
+  --muted:#717a6f;
+  --faint:#929b90;
+  --line:rgba(86,107,80,.12);
+  --line-strong:rgba(86,107,80,.19);
+  --card:rgba(252,254,249,.62);
+  --card-hi:rgba(255,255,255,.82);
+  --gold:#c4aa7c;
+  --gold-deep:#9e865d;
+  --aqua:#a8c9c0;
+  --nav-bg:rgba(253,254,251,.76);
+  --theme-color:#e8ede1;
+  --ambient-a:rgba(255,255,255,.80);
+  --ambient-b:rgba(143,171,132,.13);
+}
+
+:root {
+  --shadow:0 18px 50px rgba(99,73,45,.08);
+  --shadow-soft:0 8px 24px rgba(99,73,45,.055);
+  --radius-lg:30px;
+  --radius-md:24px;
+  --radius-pill:999px;
+  --font-ui:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --font-display:ui-serif,Georgia,"Times New Roman",serif;
+}
