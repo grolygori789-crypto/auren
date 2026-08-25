@@ -50,12 +50,18 @@ export default {
   you: {
     title: 'คุณ', sub: 'การตั้งค่า ข้อมูล และตัวเลือก Auren ของคุณในที่เดียว',
     language: 'ภาษา', languageSub: 'ภาษาไทย / Native English',
-    appearance: 'บรรยากาศ', appearanceSub: '4 ธีมที่ออกแบบสำหรับ Auren โดยเฉพาะ',
+    appearance: 'Auren Atmospheres', appearanceSub: '5 บรรยากาศไล่เฉดที่คัดสรรสำหรับ Auren',
     privacy: 'ข้อมูลและความเป็นส่วนตัว', privacySub: 'ส่งออก ลบ และทำความเข้าใจข้อมูลของคุณ',
     motion: 'การเคลื่อนไหว', motionSub: 'เคารพการตั้งค่า Reduced Motion ของระบบ',
     noAccount: 'ไม่ต้องมีบัญชีก็ใช้ได้', noAccountSub: 'ระบบสำรองข้อมูลบนคลาวด์สามารถเพิ่มภายหลังได้ โดยไม่ขวาง V1',
     about: 'เกี่ยวกับ Auren', aboutSub: 'Personal Health Intelligence',
-    themes: { pearl: 'Auren Pearl', sky: 'Mineral Sky', blush: 'Blush Veil', sage: 'Sage Mist' },
+    themes: {
+      pearl: { name: 'Pearl Dawn', desc: 'งาช้างอุ่น · แชมเปญ · บลัชอ่อน' },
+      mineral: { name: 'Mineral Mist', desc: 'เพิร์ล · อควาอ่อน · ฟ้าเทาเย็น' },
+      rose: { name: 'Rose Veil', desc: 'ครีมอุ่น · โรสนู้ด · บลัชหม่น' },
+      sage: { name: 'Sage Haze', desc: 'ไอวอรี · เซจอ่อน · เขียวมิเนอรัล' },
+      dusk: { name: 'Quiet Dusk', desc: 'แชมเปญ · ม่วงเทา · ฟ้าเทา' },
+    },
   },
-  common: { build: 'โครงสร้างภาพและประสบการณ์', system: 'ตามระบบ' }
+  common: { build: 'Auren Atmospheres', system: 'ตามระบบ' }
 };

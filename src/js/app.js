@@ -4,21 +4,28 @@ import { catalog, getLocale, setLocale } from './i18n/i18n.js';
 import { getPreference, setPreference, isFirstLaunch, markFirstLaunchSeen } from './storage/preferences.js';
 import { getCheckin, saveCheckin } from './storage/checkins.js';
 
-const THEMES = ['pearl', 'sky', 'blush', 'sage'];
+const THEMES = ['pearl', 'mineral', 'rose', 'sage', 'dusk'];
+const LEGACY_THEME_MAP = { sky: 'mineral', blush: 'rose' };
 const OBSERVATIONS = ['sleep', 'energy', 'stress', 'mood', 'movement'];
 let todayCheckin = null;
 
 const $ = (id) => document.getElementById(id);
 
-function applyTheme(theme) {
-  const next = THEMES.includes(theme) ? theme : 'pearl';
-  document.documentElement.dataset.theme = next;
-  setPreference('theme', next);
-  requestAnimationFrame(() => {
-    const color = getComputedStyle(document.documentElement).getPropertyValue('--theme-color').trim();
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', color || '#f2e7db');
-  });
-  document.querySelectorAll('.theme-choice').forEach((button) => button.classList.toggle('active', button.dataset.theme === next));
+function applyTheme(theme, { animate = true } = {}) {
+  const migrated = LEGACY_THEME_MAP[theme] ?? theme;
+  const next = THEMES.includes(migrated) ? migrated : 'pearl';
+  const commit = () => {
+    document.documentElement.dataset.theme = next;
+    setPreference('theme', next);
+    requestAnimationFrame(() => {
+      const color = getComputedStyle(document.documentElement).getPropertyValue('--theme-color').trim();
+      document.querySelector('meta[name="theme-color"]')?.setAttribute('content', color || '#f2e7db');
+    });
+    document.querySelectorAll('.theme-choice').forEach((button) => button.classList.toggle('active', button.dataset.theme === next));
+  };
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (animate && !reduced && document.startViewTransition) document.startViewTransition(commit);
+  else commit();
 }
 
 function greetingKey() {
@@ -30,11 +37,12 @@ function greetingKey() {
 
 function renderThemeChoices() {
   const c = catalog();
-  const active = getPreference('theme', 'pearl');
+  const stored = getPreference('theme', 'pearl');
+  const active = LEGACY_THEME_MAP[stored] ?? stored;
   $('themeGrid').innerHTML = THEMES.map((theme) => `
-    <button class="theme-choice ${theme === active ? 'active' : ''}" data-theme="${theme}" type="button">
+    <button class="theme-choice ${theme === active ? 'active' : ''}" data-theme="${theme}" type="button" aria-label="${c.you.themes[theme].name}">
       <span class="theme-swatch ${theme}" aria-hidden="true"></span>
-      <strong>${c.you.themes[theme]}</strong>
+      <span class="theme-copy"><strong>${c.you.themes[theme].name}</strong><span>${c.you.themes[theme].desc}</span></span>
     </button>`).join('');
   $('themeGrid').querySelectorAll('.theme-choice').forEach((button) => button.addEventListener('click', () => applyTheme(button.dataset.theme)));
 }
@@ -236,7 +244,7 @@ function bind() {
   document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && $('checkinModal').classList.contains('open')) closeCheckin(); });
 }
 
-applyTheme(getPreference('theme', 'pearl'));
+applyTheme(getPreference('theme', 'pearl'), { animate: false });
 new AurenOrb($('openingOrb'));
 new AurenOrb($('todayOrb'), { calm: true });
 bind();

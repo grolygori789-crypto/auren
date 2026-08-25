@@ -50,12 +50,18 @@ export default {
   you: {
     title: 'You', sub: 'Your settings, data and Auren preferences in one quiet place.',
     language: 'Language', languageSub: 'Native English / ภาษาไทย',
-    appearance: 'Atmosphere', appearanceSub: 'Four art-directed Auren themes',
+    appearance: 'Auren Atmospheres', appearanceSub: 'Five curated tonal environments',
     privacy: 'Data & Privacy', privacySub: 'Export, delete and understand your data',
     motion: 'Motion', motionSub: 'Respect system Reduced Motion',
     noAccount: 'No account required', noAccountSub: 'Cloud backup can be added later without blocking V1',
     about: 'About Auren', aboutSub: 'Personal Health Intelligence',
-    themes: { pearl: 'Auren Pearl', sky: 'Mineral Sky', blush: 'Blush Veil', sage: 'Sage Mist' },
+    themes: {
+      pearl: { name: 'Pearl Dawn', desc: 'Warm ivory · champagne · soft blush' },
+      mineral: { name: 'Mineral Mist', desc: 'Pearl · pale aqua · cool grey-blue' },
+      rose: { name: 'Rose Veil', desc: 'Warm cream · nude rose · dusty blush' },
+      sage: { name: 'Sage Haze', desc: 'Ivory · pale sage · mineral green' },
+      dusk: { name: 'Quiet Dusk', desc: 'Champagne · mauve-grey · blue-grey' },
+    },
   },
-  common: { build: 'Visual foundation', system: 'System' }
+  common: { build: 'Auren Atmospheres', system: 'System' }
 };

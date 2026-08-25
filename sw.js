@@ -1,4 +1,4 @@
-// Auren runtime Build 3 — Core optical contrast refinement.
+// Auren runtime Build 4 — Auren Atmospheres.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

@@ -28,7 +28,7 @@ The foundation runtime establishes the first real Auren application shell:
 - Local IndexedDB persistence for daily observations.
 - Rhythm, Signals, Archive and You navigation foundations.
 - Native English and Thai locale catalogs.
-- Four curated Auren atmospheres: Auren Pearl, Mineral Sky, Blush Veil and Sage Mist.
+- Five curated Auren Atmospheres: Pearl Dawn, Mineral Mist, Rose Veil, Sage Haze and Quiet Dusk.
 - No account required in V1 foundation.
 - Reduced Motion support.
 - Installable/offline PWA shell with release-aware cache identity derived from the runtime build source.
@@ -79,3 +79,8 @@ python -m http.server 8080
 Then open `http://localhost:8080/`.
 
 © 2026 Benedict Interactive. All rights reserved.
+
+
+## Build 4 — Auren Atmospheres
+
+Adds five curated tonal environments across the full UI: Pearl Dawn, Mineral Mist, Rose Veil, Sage Haze, and Quiet Dusk. Atmospheres are persistent local preferences and harmonize gradients, glass surfaces, cards, navigation, accents, and Core tint without adding account requirements.
