@@ -88,3 +88,18 @@ export async function clearProfileAvatar() {
     return await putRecord(db, record);
   } finally { db.close(); }
 }
+
+export async function saveProfileDisplayName(displayName) {
+  const db = await openDb();
+  try {
+    const previous = await getRecord(db);
+    const record = {
+      ...(previous ?? {}),
+      id: PROFILE_ID,
+      updatedAt: new Date().toISOString(),
+      schemaVersion: DATA_SCHEMA_VERSION,
+      displayName: String(displayName || '').trim().slice(0, 40),
+    };
+    return await putRecord(db, record);
+  } finally { db.close(); }
+}

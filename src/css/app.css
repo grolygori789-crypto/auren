@@ -355,3 +355,93 @@ html[lang="th"] .observed-item span{font-size:7.6px}
   .identity-copy h2{font-size:17px}
   .observed-grid{gap:5px}.observed-item{padding-left:2px;padding-right:2px}.observed-item strong{font-size:9.1px}
 }
+
+/* Build 8 — Personal Presence & Living Core */
+
+/* Instrument Halo: quieter, finer and semantically legible. */
+.halo-scale{fill:none;transform-origin:50px 50px;transform:rotate(-90deg);stroke:color-mix(in srgb,var(--faint) 26%,transparent);stroke-width:.16;stroke-linecap:round;stroke-dasharray:.28 2.55;opacity:.48}
+.halo-orbit-outer{stroke-width:.19;opacity:.64}
+.halo-orbit-inner{stroke-width:.11;opacity:.56}
+.halo-arc{stroke-width:.43;stroke-dasharray:24 271;opacity:.18}
+.halo-body{stroke-dashoffset:0}.halo-daily{stroke-dashoffset:-73.7}.halo-movement{stroke-dashoffset:-147.4}.halo-continuity{stroke-dashoffset:-221.1}
+.halo-arc.state-good{opacity:.76;filter:drop-shadow(0 0 1.2px color-mix(in srgb,var(--gold) 22%,transparent))}
+.halo-arc.state-attention{opacity:.52}.halo-arc.state-developing{opacity:.50}.halo-arc.state-limited{opacity:.38;stroke-dasharray:16 279}.halo-arc.state-missing{opacity:.15}
+.halo-node{opacity:.22}
+.halo-node.state-good{opacity:.82;filter:drop-shadow(0 0 1.6px color-mix(in srgb,var(--gold) 28%,transparent))}
+.halo-node.state-developing,.halo-node.state-limited{opacity:.62}.halo-node.state-attention{opacity:.64}.halo-node.state-missing{opacity:.18}
+.core-stage[data-halo="excellent"] .halo-arc.state-good{stroke-width:.52;opacity:.90;filter:drop-shadow(0 0 1.8px color-mix(in srgb,var(--gold) 25%,transparent))}
+.core-stage[data-halo="excellent"] .halo-scale{opacity:.60}
+
+/* A recorded day should reward with insight, not a giant edit button. */
+.core-hero.has-checkin .state-copy{max-width:350px}
+.primary.checkin-secondary{width:auto;min-width:0;min-height:43px;margin-top:18px;padding:0 21px;background:color-mix(in srgb,var(--card-hi) 70%,transparent);color:var(--gold-deep);border:1px solid color-mix(in srgb,var(--gold) 26%,var(--line));box-shadow:inset 0 1px 0 rgba(255,255,255,.54),0 7px 18px rgba(82,60,39,.04);font-size:11px}
+.primary.checkin-secondary:active{transform:translateY(1px)}
+
+/* Daily-state cards: readable for older users without turning Today into a dashboard. */
+.observed-grid{grid-template-columns:repeat(6,minmax(0,1fr));gap:8px;width:min(100%,410px)}
+.observed-item{grid-column:span 2;padding:12px 8px 10px;border-radius:18px}
+.observed-item:nth-child(4){grid-column:2 / span 2}.observed-item:nth-child(5){grid-column:4 / span 2}
+.observed-item strong{font-size:11.5px;line-height:1.22;white-space:normal;text-overflow:clip}
+.observed-item span{font-size:9px;line-height:1.35;margin-top:4px;white-space:normal;overflow:visible;text-overflow:clip}
+.observed-item em{font-size:7.7px;margin-top:6px}
+html[lang="th"] .observed-item strong{font-size:11.3px;line-height:1.45}
+html[lang="th"] .observed-item span{font-size:9.1px;line-height:1.45}
+
+/* One useful move becomes the first meaningful reward after check-in. */
+.action-head{margin-top:24px}
+.one-action-card{background:linear-gradient(145deg,color-mix(in srgb,var(--card-hi) 90%,transparent),color-mix(in srgb,var(--gold) 5%,var(--card)));border-color:color-mix(in srgb,var(--gold) 17%,var(--line));box-shadow:0 14px 36px rgba(74,55,37,.05),inset 0 1px 0 rgba(255,255,255,.50)}
+.halo-summary{margin-top:18px}
+
+/* Personal identity */
+.identity-card{align-items:flex-start}
+.identity-name-form{margin-top:12px;display:grid;gap:6px}
+.identity-name-form label{font-size:8.7px;font-weight:590;color:var(--faint);letter-spacing:.04em}
+.identity-name-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:center}
+.identity-name-row input{width:100%;height:40px;border:1px solid color-mix(in srgb,var(--gold) 15%,var(--line));border-radius:13px;background:color-mix(in srgb,var(--card-hi) 72%,transparent);color:var(--ink);padding:0 11px;font-size:12px;outline:none;box-shadow:inset 0 1px 0 rgba(255,255,255,.48)}
+.identity-name-row input:focus{border-color:color-mix(in srgb,var(--gold-deep) 34%,var(--line));box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 8%,transparent),inset 0 1px 0 rgba(255,255,255,.55)}
+.identity-name-save{height:40px;border-radius:13px;border:1px solid color-mix(in srgb,var(--gold) 24%,var(--line));background:linear-gradient(145deg,color-mix(in srgb,var(--gold) 22%,white),color-mix(in srgb,var(--card-hi) 82%,transparent));color:var(--gold-deep);padding:0 12px;font-size:9px;font-weight:620;white-space:nowrap;cursor:pointer}
+.identity-name-save:disabled{opacity:.46}
+html[lang="th"] .identity-name-form label{font-size:9.5px;line-height:1.45}
+html[lang="th"] .identity-name-row input{font-size:12.5px}
+html[lang="th"] .identity-name-save{font-size:9.8px}
+
+/* Profile photo editor: local crop, pan, zoom, exactly matching the circular avatar. */
+.avatar-editor-sheet{max-width:470px;padding-left:22px;padding-right:22px}
+.avatar-editor-head{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+.avatar-editor-eyebrow{font-size:8px;letter-spacing:.21em;text-transform:uppercase;color:var(--gold-deep);margin-bottom:5px}
+.avatar-editor-head h3{margin:0}
+.avatar-editor-close{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:color-mix(in srgb,var(--card-hi) 60%,transparent);color:var(--muted);font-size:20px;font-weight:300;line-height:1;cursor:pointer}
+.avatar-crop-shell{display:grid;place-items:center;padding:17px 0 12px}
+.avatar-crop-viewport{width:min(68vw,260px);aspect-ratio:1;border-radius:50%;position:relative;overflow:hidden;touch-action:none;background:linear-gradient(145deg,color-mix(in srgb,var(--card-hi) 88%,transparent),color-mix(in srgb,var(--card) 80%,transparent));border:1px solid color-mix(in srgb,var(--gold) 24%,var(--line));box-shadow:0 18px 45px rgba(72,52,34,.10),inset 0 0 0 4px rgba(255,255,255,.24);cursor:grab;user-select:none}
+.avatar-crop-viewport:active{cursor:grabbing}
+.avatar-crop-viewport img{position:absolute;left:50%;top:50%;max-width:none!important;max-height:none!important;object-fit:unset;will-change:transform,width,height;pointer-events:none;user-select:none}
+.avatar-crop-glass{position:absolute;inset:0;border-radius:50%;pointer-events:none;box-shadow:inset 0 0 0 1px rgba(255,255,255,.58),inset 14px 15px 30px rgba(255,255,255,.08),inset -14px -16px 32px rgba(95,70,43,.035)}
+.avatar-crop-glass::before{content:"";position:absolute;left:17%;top:10%;width:34%;height:10%;border-radius:50%;border-top:2px solid rgba(255,255,255,.55);transform:rotate(-18deg);filter:blur(.1px)}
+.avatar-zoom-control{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:13px;margin-top:3px;font-size:9.5px;color:var(--muted)}
+.avatar-zoom-control input{width:100%;accent-color:var(--gold-deep)}
+.avatar-crop-hint{font-size:9px;line-height:1.55;color:var(--faint);text-align:center;margin:10px auto 0;max-width:330px}
+.avatar-editor-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px}
+.avatar-editor-actions .save-btn{grid-column:1 / -1}
+.avatar-editor-actions .ghost-btn{min-height:44px}
+html[lang="th"] .avatar-editor-eyebrow{font-size:8.8px}
+html[lang="th"] .avatar-crop-hint{font-size:9.6px;line-height:1.7}
+html[lang="th"] .avatar-zoom-control{font-size:10px}
+
+@media(min-width:480px){
+  .observed-grid{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .observed-item,.observed-item:nth-child(4),.observed-item:nth-child(5){grid-column:auto}
+}
+
+@media(max-width:420px){
+  .identity-card{display:grid;grid-template-columns:68px minmax(0,1fr);gap:14px}
+  .identity-avatar-wrap{width:68px;height:68px}.identity-avatar,.identity-avatar-fallback{width:61px;height:61px}
+  .identity-name-row{grid-template-columns:1fr}
+  .identity-name-save{width:fit-content;min-width:92px}
+  .avatar-crop-viewport{width:min(68vw,248px)}
+}
+
+@media(max-width:350px){
+  .observed-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .observed-item,.observed-item:nth-child(4),.observed-item:nth-child(5){grid-column:auto}
+  .observed-item:last-child{grid-column:1 / -1;width:calc(50% - 4px);justify-self:center}
+}

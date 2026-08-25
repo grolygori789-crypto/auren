@@ -1,4 +1,4 @@
-// Auren runtime Build 7 — Luxe Core, Halo & profile photo.
+// Auren runtime Build 8 — Personal Presence, Living Core & local crop editor.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

@@ -106,3 +106,17 @@ Refines the live product after physical-device review:
 - The chosen profile photo appears in the top-right identity control and on the You screen.
 
 Build 7 keeps the existing 3.7–4.15 second Signature Opening, five Auren Atmospheres, Body Intelligence safety model and local-first architecture.
+
+
+## Build 8 — Personal Presence & Living Core
+
+Build 8 focuses on daily presence rather than feature count:
+
+- Living Core motion is materially more perceptible at idle while remaining calm and physically weighted. A subtle mineral-aqua vein circulates inside the champagne-dominant fluid, and Core reactions are briefly amplified after check-in/profile updates.
+- Profile identity now supports a local display name. Today greets the user by name when one is set, while remaining neutral when no name exists.
+- Profile photo selection now opens an on-device circular crop editor with drag positioning, zoom control, reset, cancel and final preview before saving. The cropped photo remains local to the device.
+- Post-check-in hierarchy is quieter: the edit-check-in action is secondary, semantic state cards are more legible on small screens, and One Useful Move is surfaced before deeper Halo explanation.
+- Auren Halo is further refined into a finer instrument with subtle scale ticks, hairline orbits, shorter luminous evidence fragments and quieter state nodes.
+- English and Thai share feature parity and preserve native copy rather than literal translation.
+
+Build 8 keeps the existing Signature Opening timing, five Auren Atmospheres, Body Intelligence guardrails and local-first PWA architecture.

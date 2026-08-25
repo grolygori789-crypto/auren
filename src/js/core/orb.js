@@ -61,12 +61,20 @@ export class AurenOrb {
     this.canvas.addEventListener('pointermove', (event) => {
       if (!this.pointer) return;
       const dx = event.clientX - this.pointer.x;
-      this.kick += dx * (this.calm ? 0.0006 : 0.001);
+      this.kick += dx * (this.calm ? 0.00105 : 0.00125);
       this.pointer = { x: event.clientX };
     });
     const end = () => { this.pointer = null; };
     this.canvas.addEventListener('pointerup', end);
     this.canvas.addEventListener('pointercancel', end);
+  }
+
+  react(strength = 0.16) {
+    if (this.reduced) return;
+    const force = Math.max(-0.35, Math.min(0.35, Number(strength) || 0));
+    this.kick += force;
+    this.waveV += force * 0.42;
+    this.wave2V -= force * 0.16;
   }
 
   resize() {
@@ -83,20 +91,23 @@ export class AurenOrb {
   }
 
   physics(dt) {
-    const amp = this.signature ? 0.84 : (this.calm ? 0.58 : 1);
-    const intro = this.t < 4.7 ? Math.cos(this.t * 0.86) * 0.105 * Math.exp(-this.t * 0.30) : 0;
-    const target = this.reduced ? 0 : (intro + Math.sin(this.t * 0.36) * 0.08 + Math.sin(this.t * 0.14) * 0.018 + this.kick) * amp;
-    this.tiltV += (target - this.tilt) * 3.3 * dt;
-    this.tiltV *= Math.exp(-2.0 * dt);
+    // Build 8: living motion must be perceptible in 1–2 seconds while staying calm.
+    // The surface follows two natural-frequency drivers instead of a nearly static 15–40s drift.
+    const amp = this.signature ? 0.98 : (this.calm ? 0.86 : 1);
+    const intro = this.t < 4.5 ? Math.cos(this.t * 1.05) * 0.115 * Math.exp(-this.t * 0.70) : 0;
+    const living = Math.sin(this.t * 0.78) * 0.095 + Math.sin(this.t * 1.34 + 0.72) * 0.038 + Math.sin(this.t * 0.31) * 0.018;
+    const target = this.reduced ? 0 : (intro + living + this.kick) * amp;
+    this.tiltV += (target - this.tilt) * 4.2 * dt;
+    this.tiltV *= Math.exp(-1.72 * dt);
     this.tilt += this.tiltV * dt;
-    const forcing = this.tiltV * 1.1;
-    this.waveV += (-this.wave * 6.4 + forcing * 0.74) * dt;
-    this.waveV *= Math.exp(-2.0 * dt);
+    const forcing = this.tiltV * 1.24;
+    this.waveV += (-this.wave * 6.8 + forcing * 0.96) * dt;
+    this.waveV *= Math.exp(-1.62 * dt);
     this.wave += this.waveV * dt;
-    this.wave2V += (-this.wave2 * 10.6 - forcing * 0.31) * dt;
-    this.wave2V *= Math.exp(-2.3 * dt);
+    this.wave2V += (-this.wave2 * 10.9 - forcing * 0.43) * dt;
+    this.wave2V *= Math.exp(-1.92 * dt);
     this.wave2 += this.wave2V * dt;
-    this.kick *= Math.exp(-2.45 * dt);
+    this.kick *= Math.exp(-2.18 * dt);
   }
 
   fluidImage() {
@@ -125,9 +136,9 @@ export class AurenOrb {
         const fillDepth = Math.max(0, Math.min(1, depth / (wall - surface + 0.001)));
         const optical = Math.sqrt(Math.max(0, 1 - rr));
         const thickness = Math.max(0, Math.min(1, optical * 0.98 + fillDepth * 0.46));
-        const s1 = Math.sin((u * 3.2 + v * 1.55) * 1.85 + this.t * 0.34 + Math.sin(this.t * 0.22) * 0.33);
-        const s2 = Math.sin((u * 1.55 - v * 3.1) * 1.18 - this.t * 0.24 + 0.58);
-        const s3 = Math.sin((u * 5.1 + v * 2.4) * 0.76 + this.t * 0.16);
+        const s1 = Math.sin((u * 3.2 + v * 1.55) * 1.85 + this.t * 0.70 + Math.sin(this.t * 0.22) * 0.33);
+        const s2 = Math.sin((u * 1.55 - v * 3.1) * 1.18 - this.t * 0.50 + 0.58);
+        const s3 = Math.sin((u * 5.1 + v * 2.4) * 0.76 + this.t * 0.34);
         const ribbon = Math.pow(0.5 + 0.5 * s3, 3);
         const aquaMix = this.signature
           ? Math.max(0, Math.min(1, 0.15 + 0.050 * s1 + 0.025 * s2 + 0.16 * ribbon))
@@ -142,14 +153,17 @@ export class AurenOrb {
         b = pearl[2] * (1 - tint) + b * tint;
         // A restrained mineral-aqua iridescent ribbon keeps Auren biological and distinctive
         // while champagne gold remains the dominant material impression.
-        if (this.signature) {
-          const aquaRibbon = 0.20 * Math.pow(0.5 + 0.5 * Math.sin(u * 5.4 - v * 3.1 + this.t * 0.20 + 0.7), 5) * thickness;
+        {
+          // A moving mineral-aqua vein makes the Core visibly alive even when the free surface is nearly settled.
+          // It stays secondary to champagne gold so the material remains luxurious rather than neon-biotech.
+          const ribbonStrength = this.signature ? 0.20 : 0.115;
+          const aquaRibbon = ribbonStrength * Math.pow(0.5 + 0.5 * Math.sin(u * 5.4 - v * 3.1 + this.t * 0.52 + 0.7), 5) * thickness;
           r = r * (1 - aquaRibbon) + aqua[0] * aquaRibbon;
           g = g * (1 - aquaRibbon) + aqua[1] * aquaRibbon;
           b = b * (1 - aquaRibbon) + aqua[2] * aquaRibbon;
         }
         const surfGlow = Math.exp(-Math.abs(depth) * 74);
-        const ca = 0.5 + 0.5 * Math.sin(u * 12.5 + v * 7.5 + this.t * 0.28 + aquaMix * 2.6);
+        const ca = 0.5 + 0.5 * Math.sin(u * 12.5 + v * 7.5 + this.t * 0.56 + aquaMix * 2.6);
         const lower = Math.pow(fillDepth, 0.66);
         const luxe = this.signature ? 1.10 : 1;
         const light = (surfGlow * (24 + ca * 12) + Math.pow(Math.max(0, 0.88 - u * 0.14 - v * 0.34), 6.6) * 12.5 * thickness + (1 - Math.abs(u) * 0.22) * thickness * 15.8 * lower) * luxe;

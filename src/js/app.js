@@ -3,7 +3,7 @@ import { AurenOrb } from './core/orb.js';
 import { catalog, getLocale, setLocale } from './i18n/i18n.js';
 import { getPreference, setPreference, isFirstLaunch, markFirstLaunchSeen } from './storage/preferences.js';
 import { getCheckin, getRecentCheckins, saveCheckin } from './storage/checkins.js';
-import { getBodyProfile, saveBodyProfile, saveProfileAvatar, clearProfileAvatar } from './storage/profile.js';
+import { getBodyProfile, saveBodyProfile, saveProfileAvatar, clearProfileAvatar, saveProfileDisplayName } from './storage/profile.js';
 import { bodyContext, haloContext, nextAction } from './intelligence/body.js';
 
 const THEMES = ['pearl', 'mineral', 'rose', 'sage', 'dusk'];
@@ -13,6 +13,10 @@ let todayCheckin = null;
 let recentCheckins = [];
 let bodyProfile = null;
 let currentHalo = null;
+let todayOrbInstance = null;
+let avatarDraft = null;
+const cropPointers = new Map();
+let pinchState = null;
 
 const $ = (id) => document.getElementById(id);
 
@@ -38,6 +42,19 @@ function greetingKey() {
   if (hour < 12) return 'morning';
   if (hour < 17) return 'afternoon';
   return 'evening';
+}
+
+function greetingText() {
+  const c = catalog();
+  const base = c.today[greetingKey()];
+  const name = String(bodyProfile?.displayName || '').trim();
+  if (!name) return base;
+  if (getLocale() === 'th') return `${base} ${name}`;
+  return `${base.replace(/[.!?]+$/, '')}, ${name}.`;
+}
+
+function renderGreeting() {
+  $('greetingText').textContent = greetingText();
 }
 
 function formatNumber(value, digits = 1) {
@@ -67,6 +84,7 @@ function observationTone(key, value) {
 function renderIdentity() {
   const c = catalog();
   const src = bodyProfile?.avatarDataUrl || '';
+  const displayName = String(bodyProfile?.displayName || '').trim();
   const pairs = [
     [$('topbarAvatar'), $('topbarAvatarFallback')],
     [$('identityAvatar'), $('identityAvatarFallback')],
@@ -80,14 +98,20 @@ function renderIdentity() {
     }
   });
   $('identityEyebrow').textContent = c.you.identityEyebrow;
-  $('identityTitle').textContent = c.you.identityTitle;
-  $('identityCopy').textContent = c.you.identityCopy;
+  $('identityTitle').textContent = displayName || c.you.identityTitle;
+  $('identityCopy').textContent = displayName ? c.you.identityNamedCopy : c.you.identityCopy;
+  $('displayNameLabel').textContent = c.you.identityNameLabel;
+  $('displayNameInput').placeholder = c.you.identityNamePlaceholder;
+  if (document.activeElement !== $('displayNameInput')) $('displayNameInput').value = displayName;
+  $('saveDisplayNameBtn').textContent = c.you.identityNameSave;
   $('uploadAvatarBtn').textContent = src ? c.you.identityChange : c.you.identityUpload;
   $('removeAvatarBtn').textContent = c.you.identityRemove;
   $('removeAvatarBtn').hidden = !src;
+  $('topbarAvatar').alt = '';
+  $('identityAvatar').alt = displayName ? `${displayName}` : '';
 }
 
-function imageToAvatar(file) {
+function readImageFile(file) {
   return new Promise((resolve, reject) => {
     if (!file || !String(file.type || '').startsWith('image/')) { reject(new Error('Not an image')); return; }
     if (file.size > 15 * 1024 * 1024) { reject(new Error('Image too large')); return; }
@@ -95,24 +119,145 @@ function imageToAvatar(file) {
     reader.onerror = () => reject(reader.error || new Error('Read failed'));
     reader.onload = () => {
       const img = new Image();
+      img.decoding = 'async';
       img.onerror = () => reject(new Error('Decode failed'));
-      img.onload = () => {
-        const size = 384;
-        const canvas = document.createElement('canvas'); canvas.width = size; canvas.height = size;
-        const ctx = canvas.getContext('2d', { alpha: false });
-        const side = Math.min(img.naturalWidth, img.naturalHeight);
-        const sx = (img.naturalWidth - side) / 2, sy = (img.naturalHeight - side) / 2;
-        ctx.fillStyle = '#f3e6da'; ctx.fillRect(0, 0, size, size);
-        ctx.drawImage(img, sx, sy, side, side, 0, 0, size, size);
-        let data = '';
-        try { data = canvas.toDataURL('image/webp', 0.82); } catch {}
-        if (!data || !data.startsWith('data:image/')) data = canvas.toDataURL('image/jpeg', 0.84);
-        resolve(data);
-      };
+      img.onload = () => resolve({ image: img, dataUrl: String(reader.result || '') });
       img.src = String(reader.result || '');
     };
     reader.readAsDataURL(file);
   });
+}
+
+function cropStageSize() {
+  return Math.max(1, $('avatarCropViewport').clientWidth || 252);
+}
+
+function avatarBaseScale() {
+  if (!avatarDraft?.image) return 1;
+  const size = cropStageSize();
+  return Math.max(size / avatarDraft.image.naturalWidth, size / avatarDraft.image.naturalHeight);
+}
+
+function clampAvatarPosition() {
+  if (!avatarDraft?.image) return;
+  const size = cropStageSize();
+  const scale = avatarBaseScale() * avatarDraft.zoom;
+  const rw = avatarDraft.image.naturalWidth * scale;
+  const rh = avatarDraft.image.naturalHeight * scale;
+  const maxX = Math.max(0, (rw - size) / 2);
+  const maxY = Math.max(0, (rh - size) / 2);
+  avatarDraft.x = Math.max(-maxX, Math.min(maxX, avatarDraft.x));
+  avatarDraft.y = Math.max(-maxY, Math.min(maxY, avatarDraft.y));
+}
+
+function renderAvatarCrop() {
+  if (!avatarDraft?.image) return;
+  clampAvatarPosition();
+  const size = cropStageSize();
+  const scale = avatarBaseScale() * avatarDraft.zoom;
+  const rw = avatarDraft.image.naturalWidth * scale;
+  const rh = avatarDraft.image.naturalHeight * scale;
+  const img = $('avatarCropImage');
+  img.style.width = `${rw}px`;
+  img.style.height = `${rh}px`;
+  img.style.transform = `translate(-50%, -50%) translate(${avatarDraft.x}px, ${avatarDraft.y}px)`;
+  $('avatarZoom').value = String(avatarDraft.zoom);
+}
+
+function resetAvatarCrop() {
+  if (!avatarDraft) return;
+  avatarDraft.zoom = 1;
+  avatarDraft.x = 0;
+  avatarDraft.y = 0;
+  pinchState = null;
+  renderAvatarCrop();
+}
+
+function openAvatarEditor(image, source) {
+  avatarDraft = { image, source, zoom: 1, x: 0, y: 0 };
+  $('avatarCropImage').src = source;
+  $('avatarCropStatus').textContent = '';
+  $('avatarEditorModal').classList.add('open');
+  requestAnimationFrame(() => requestAnimationFrame(renderAvatarCrop));
+}
+
+function closeAvatarEditor() {
+  $('avatarEditorModal').classList.remove('open');
+  cropPointers.clear();
+  pinchState = null;
+  avatarDraft = null;
+  $('avatarCropImage').removeAttribute('src');
+}
+
+function avatarDataUrlFromDraft() {
+  if (!avatarDraft?.image) throw new Error('No avatar draft');
+  const out = 512;
+  const stage = cropStageSize();
+  const scale = avatarBaseScale() * avatarDraft.zoom * (out / stage);
+  const dw = avatarDraft.image.naturalWidth * scale;
+  const dh = avatarDraft.image.naturalHeight * scale;
+  const ox = avatarDraft.x * (out / stage);
+  const oy = avatarDraft.y * (out / stage);
+  const canvas = document.createElement('canvas');
+  canvas.width = out; canvas.height = out;
+  const ctx = canvas.getContext('2d', { alpha: false });
+  ctx.fillStyle = '#f3e6da'; ctx.fillRect(0, 0, out, out);
+  ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = 'high';
+  ctx.drawImage(avatarDraft.image, (out - dw) / 2 + ox, (out - dh) / 2 + oy, dw, dh);
+  let data = '';
+  try { data = canvas.toDataURL('image/webp', 0.86); } catch {}
+  if (!data || !data.startsWith('data:image/')) data = canvas.toDataURL('image/jpeg', 0.88);
+  return data;
+}
+
+function pointerDistance() {
+  const pts = [...cropPointers.values()];
+  if (pts.length < 2) return 0;
+  return Math.hypot(pts[0].x - pts[1].x, pts[0].y - pts[1].y);
+}
+
+function pointerCenter() {
+  const pts = [...cropPointers.values()];
+  if (!pts.length) return { x:0, y:0 };
+  return { x: pts.reduce((sum,p)=>sum+p.x,0)/pts.length, y: pts.reduce((sum,p)=>sum+p.y,0)/pts.length };
+}
+
+function beginCropPointer(event) {
+  if (!avatarDraft) return;
+  $('avatarCropViewport').setPointerCapture?.(event.pointerId);
+  cropPointers.set(event.pointerId, { x:event.clientX, y:event.clientY });
+  if (cropPointers.size === 1) {
+    avatarDraft.lastPoint = { x:event.clientX, y:event.clientY };
+    pinchState = null;
+  } else if (cropPointers.size === 2) {
+    pinchState = { distance:pointerDistance(), zoom:avatarDraft.zoom, center:pointerCenter(), x:avatarDraft.x, y:avatarDraft.y };
+  }
+}
+
+function moveCropPointer(event) {
+  if (!avatarDraft || !cropPointers.has(event.pointerId)) return;
+  const previous = cropPointers.get(event.pointerId);
+  cropPointers.set(event.pointerId, { x:event.clientX, y:event.clientY });
+  if (cropPointers.size === 1) {
+    avatarDraft.x += event.clientX - previous.x;
+    avatarDraft.y += event.clientY - previous.y;
+  } else if (cropPointers.size >= 2 && pinchState) {
+    const distance = Math.max(1, pointerDistance());
+    avatarDraft.zoom = Math.max(1, Math.min(3, pinchState.zoom * distance / Math.max(1,pinchState.distance)));
+    const center = pointerCenter();
+    avatarDraft.x = pinchState.x + (center.x - pinchState.center.x);
+    avatarDraft.y = pinchState.y + (center.y - pinchState.center.y);
+  }
+  renderAvatarCrop();
+}
+
+function endCropPointer(event) {
+  cropPointers.delete(event.pointerId);
+  if (cropPointers.size < 2) pinchState = null;
+  if (cropPointers.size === 1) {
+    const p = [...cropPointers.values()][0];
+    avatarDraft.lastPoint = { ...p };
+  }
 }
 
 function renderThemeChoices() {
@@ -134,6 +279,8 @@ function renderTrust() {
 function renderObserved() {
   const c = catalog();
   const grid = $('observedGrid');
+  $('coreHero').classList.toggle('has-checkin', Boolean(todayCheckin));
+  $('checkinBtn').classList.toggle('checkin-secondary', Boolean(todayCheckin));
   if (!todayCheckin) {
     grid.hidden = true;
     $('stateTitle').textContent = c.today.emptyTitle;
@@ -232,7 +379,7 @@ function renderLocale() {
   const c = catalog();
   document.documentElement.lang = getLocale() === 'th' ? 'th' : 'en';
   $('todayEyebrow').textContent = c.today.eyebrow;
-  $('greetingText').textContent = c.today[greetingKey()];
+  renderGreeting();
   $('greetingSub').textContent = c.today.sub;
   $('stateKicker').textContent = c.today.stateKicker;
   $('bodySectionTitle').textContent = c.today.bodySection;
@@ -273,6 +420,14 @@ function renderLocale() {
   $('noAccountSub').textContent = c.you.noAccountSub;
   $('aboutTitle').textContent = c.you.about;
   $('aboutSub').textContent = c.you.aboutSub;
+  $('avatarEditorEyebrow').textContent = c.you.avatarEditorEyebrow;
+  $('avatarEditorTitle').textContent = c.you.avatarEditorTitle;
+  $('avatarEditorIntro').textContent = c.you.avatarEditorIntro;
+  $('avatarZoomLabel').textContent = c.you.avatarZoomLabel;
+  $('avatarCropHint').textContent = c.you.avatarCropHint;
+  $('saveAvatarCropBtn').textContent = c.you.avatarCropSave;
+  $('resetAvatarCropBtn').textContent = c.you.avatarCropReset;
+  $('cancelAvatarCropBtn').textContent = c.you.avatarCropCancel;
 
   $('navToday').textContent = c.nav.today;
   $('navRhythm').textContent = c.nav.rhythm;
@@ -377,7 +532,7 @@ async function loadData() {
     recentCheckins = todayCheckin ? [todayCheckin] : [];
     try { bodyProfile = await getBodyProfile(); } catch { bodyProfile = null; }
   }
-  renderObserved(); renderBodyContext(); renderHalo(); renderOneAction(); renderHaloModal(); renderProfileForm(); renderIdentity();
+  renderObserved(); renderBodyContext(); renderHalo(); renderOneAction(); renderHaloModal(); renderProfileForm(); renderIdentity(); renderGreeting();
 }
 
 async function submitCheckin(event) {
@@ -390,6 +545,7 @@ async function submitCheckin(event) {
     recentCheckins = await getRecentCheckins(14);
     $('checkinStatus').textContent = c.checkin.saved;
     renderObserved(); renderHalo(); renderOneAction(); renderHaloModal();
+    todayOrbInstance?.react(0.19);
     setTimeout(closeCheckin, 650);
   } catch { $('checkinStatus').textContent = c.checkin.error; }
   finally { $('saveCheckinBtn').disabled = false; }
@@ -404,6 +560,7 @@ async function submitProfile(event) {
     bodyProfile = await saveBodyProfile(input);
     $('profileStatus').textContent = c.bodyProfile.saved;
     renderBodyContext(); renderHalo(); renderOneAction(); renderHaloModal(); renderIdentity();
+    todayOrbInstance?.react(0.10);
     setTimeout(closeProfile, 700);
   } catch { $('profileStatus').textContent = c.bodyProfile.error; }
   finally { $('saveProfileBtn').disabled = false; }
@@ -413,19 +570,50 @@ async function submitProfile(event) {
 async function handleAvatarUpload(event) {
   const c = catalog();
   const file = event.target.files?.[0];
+  event.target.value = '';
   if (!file) return;
   $('avatarStatus').textContent = '';
-  $('uploadAvatarBtn').disabled = true;
   try {
-    const dataUrl = await imageToAvatar(file);
+    const { image, dataUrl } = await readImageFile(file);
+    openAvatarEditor(image, dataUrl);
+  } catch {
+    $('avatarStatus').textContent = c.you.identityError;
+  }
+}
+
+async function saveAvatarCrop() {
+  const c = catalog();
+  if (!avatarDraft) return;
+  $('saveAvatarCropBtn').disabled = true;
+  $('avatarCropStatus').textContent = c.you.avatarCropSaving;
+  try {
+    const dataUrl = avatarDataUrlFromDraft();
     bodyProfile = await saveProfileAvatar(dataUrl);
     renderIdentity();
     $('avatarStatus').textContent = c.you.identitySaved;
+    closeAvatarEditor();
   } catch {
-    $('avatarStatus').textContent = c.you.identityError;
+    $('avatarCropStatus').textContent = c.you.identityError;
   } finally {
-    $('uploadAvatarBtn').disabled = false;
-    event.target.value = '';
+    $('saveAvatarCropBtn').disabled = false;
+  }
+}
+
+async function submitDisplayName(event) {
+  event.preventDefault();
+  const c = catalog();
+  const name = String($('displayNameInput').value || '').trim().replace(/\\s+/g, ' ').slice(0,40);
+  $('saveDisplayNameBtn').disabled = true;
+  $('nameStatus').textContent = '';
+  try {
+    bodyProfile = await saveProfileDisplayName(name);
+    renderIdentity();
+    renderGreeting();
+    $('nameStatus').textContent = c.you.identityNameSaved;
+  } catch {
+    $('nameStatus').textContent = c.you.identityNameError;
+  } finally {
+    $('saveDisplayNameBtn').disabled = false;
   }
 }
 
@@ -474,6 +662,16 @@ function bind() {
   $('uploadAvatarBtn').addEventListener('click', () => $('avatarInput').click());
   $('avatarInput').addEventListener('change', handleAvatarUpload);
   $('removeAvatarBtn').addEventListener('click', removeAvatar);
+  $('identityNameForm').addEventListener('submit', submitDisplayName);
+  $('avatarZoom').addEventListener('input', () => { if (!avatarDraft) return; avatarDraft.zoom = Number($('avatarZoom').value); renderAvatarCrop(); });
+  $('avatarCropViewport').addEventListener('pointerdown', beginCropPointer);
+  $('avatarCropViewport').addEventListener('pointermove', moveCropPointer);
+  $('avatarCropViewport').addEventListener('pointerup', endCropPointer);
+  $('avatarCropViewport').addEventListener('pointercancel', endCropPointer);
+  $('saveAvatarCropBtn').addEventListener('click', saveAvatarCrop);
+  $('resetAvatarCropBtn').addEventListener('click', resetAvatarCrop);
+  $('cancelAvatarCropBtn').addEventListener('click', closeAvatarEditor);
+  $('cancelAvatarCropTopBtn').addEventListener('click', closeAvatarEditor);
   $('enBtn').addEventListener('click', () => { setLocale('en'); renderLocale(); });
   $('thBtn').addEventListener('click', () => { setLocale('th'); renderLocale(); });
   $('checkinBtn').addEventListener('click', openCheckin);
@@ -486,15 +684,16 @@ function bind() {
   $('profileAge').addEventListener('input', updateProfileReferenceNote);
   $('checkinModal').addEventListener('click', (event) => { if (event.target === $('checkinModal')) closeCheckin(); });
   $('profileModal').addEventListener('click', (event) => { if (event.target === $('profileModal')) closeProfile(); });
+  $('avatarEditorModal').addEventListener('click', (event) => { if (event.target === $('avatarEditorModal')) closeAvatarEditor(); });
   $('haloModal').addEventListener('click', (event) => { if (event.target === $('haloModal')) closeHalo(); });
   $('checkinForm').addEventListener('submit', submitCheckin);
   $('profileForm').addEventListener('submit', submitProfile);
-  document.addEventListener('keydown', (event) => { if (event.key !== 'Escape') return; closeCheckin(); closeProfile(); closeHalo(); });
+  document.addEventListener('keydown', (event) => { if (event.key !== 'Escape') return; closeCheckin(); closeProfile(); closeAvatarEditor(); closeHalo(); });
 }
 
 applyTheme(getPreference('theme', 'pearl'), { animate: false });
 new AurenOrb($('openingOrb'), { signature: true });
-new AurenOrb($('todayOrb'), { calm: true });
+todayOrbInstance = new AurenOrb($('todayOrb'), { calm: true });
 bind();
 renderLocale();
 await loadData();

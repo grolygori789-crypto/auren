@@ -40,19 +40,20 @@
           <p id="greetingSub"></p>
         </div>
 
-        <div class="core-hero">
+        <div class="core-hero" id="coreHero">
           <div class="core-stage" id="coreStage">
             <svg class="auren-halo" id="aurenHalo" viewBox="0 0 100 100" aria-label="Auren Halo">
               <circle class="halo-orbit-outer" cx="50" cy="50" r="47"/>
               <circle class="halo-orbit-inner" cx="50" cy="50" r="44.8"/>
+              <circle class="halo-scale" cx="50" cy="50" r="46.1"/>
               <circle class="halo-arc halo-body" id="haloBodyArc" cx="50" cy="50" r="47"/>
               <circle class="halo-arc halo-daily" id="haloDailyArc" cx="50" cy="50" r="47"/>
               <circle class="halo-arc halo-movement" id="haloMovementArc" cx="50" cy="50" r="47"/>
               <circle class="halo-arc halo-continuity" id="haloContinuityArc" cx="50" cy="50" r="47"/>
-              <circle class="halo-node halo-node-body" id="haloBodyNode" cx="50" cy="3" r="0.82"/>
-              <circle class="halo-node halo-node-daily" id="haloDailyNode" cx="97" cy="50" r="0.82"/>
-              <circle class="halo-node halo-node-movement" id="haloMovementNode" cx="50" cy="97" r="0.82"/>
-              <circle class="halo-node halo-node-continuity" id="haloContinuityNode" cx="3" cy="50" r="0.82"/>
+              <circle class="halo-node halo-node-body" id="haloBodyNode" cx="50" cy="3" r="0.52"/>
+              <circle class="halo-node halo-node-daily" id="haloDailyNode" cx="97" cy="50" r="0.52"/>
+              <circle class="halo-node halo-node-movement" id="haloMovementNode" cx="50" cy="97" r="0.52"/>
+              <circle class="halo-node halo-node-continuity" id="haloContinuityNode" cx="3" cy="50" r="0.52"/>
             </svg>
             <div class="core-orb waiting" id="todayOrbWrap"><canvas id="todayOrb" aria-label="Auren Core"></canvas></div>
           </div>
@@ -63,6 +64,12 @@
             <div class="observed-grid" id="observedGrid" hidden></div>
             <button class="primary" id="checkinBtn"></button>
           </div>
+        </div>
+
+        <div class="section-head action-head"><h2 id="oneActionTitle"></h2><span id="oneActionBasis"></span></div>
+        <div class="one-action-card card">
+          <div class="one-action-mark" aria-hidden="true"><span></span></div>
+          <div class="one-action-copy"><strong id="oneActionName"></strong><p id="oneActionCopy"></p></div>
         </div>
 
         <section class="halo-summary card" id="haloSummary">
@@ -76,12 +83,6 @@
           <p id="haloCopy"></p>
           <div class="halo-legend" id="haloLegend"></div>
         </section>
-
-        <div class="section-head action-head"><h2 id="oneActionTitle"></h2><span id="oneActionBasis"></span></div>
-        <div class="one-action-card card">
-          <div class="one-action-mark" aria-hidden="true"><span></span></div>
-          <div class="one-action-copy"><strong id="oneActionName"></strong><p id="oneActionCopy"></p></div>
-        </div>
 
         <div class="section-head"><h2 id="bodySectionTitle"></h2><span id="bodyPrivate"></span></div>
         <button class="body-context-card card" id="bodyContextBtn" type="button">
@@ -132,6 +133,14 @@
             <div class="identity-eyebrow" id="identityEyebrow"></div>
             <h2 id="identityTitle"></h2>
             <p id="identityCopy"></p>
+            <form class="identity-name-form" id="identityNameForm">
+              <label for="displayNameInput" id="displayNameLabel"></label>
+              <div class="identity-name-row">
+                <input id="displayNameInput" name="displayName" type="text" maxlength="40" autocomplete="name" />
+                <button class="identity-name-save" id="saveDisplayNameBtn" type="submit"></button>
+              </div>
+              <div class="identity-status" id="nameStatus" aria-live="polite"></div>
+            </form>
             <div class="identity-actions">
               <button class="identity-action" id="uploadAvatarBtn" type="button"></button>
               <button class="identity-remove" id="removeAvatarBtn" type="button" hidden></button>
@@ -194,6 +203,37 @@
       <div class="sheet-actions"><button class="save-btn" id="saveProfileBtn" type="submit"></button><button class="ghost-btn" id="closeProfileBtn" type="button"></button></div>
       <div class="status" id="profileStatus" aria-live="polite"></div>
     </form>
+  </div>
+
+  <div class="modal-wrap" id="avatarEditorModal" role="dialog" aria-modal="true" aria-labelledby="avatarEditorTitle">
+    <div class="sheet avatar-editor-sheet">
+      <div class="sheet-handle"></div>
+      <div class="avatar-editor-head">
+        <div>
+          <div class="avatar-editor-eyebrow" id="avatarEditorEyebrow"></div>
+          <h3 id="avatarEditorTitle"></h3>
+        </div>
+        <button class="avatar-editor-close" id="cancelAvatarCropTopBtn" type="button" aria-label="Close">×</button>
+      </div>
+      <p class="sheet-intro" id="avatarEditorIntro"></p>
+      <div class="avatar-crop-shell">
+        <div class="avatar-crop-viewport" id="avatarCropViewport">
+          <img id="avatarCropImage" alt="" draggable="false" />
+          <span class="avatar-crop-glass" aria-hidden="true"></span>
+        </div>
+      </div>
+      <label class="avatar-zoom-control" for="avatarZoom">
+        <span id="avatarZoomLabel"></span>
+        <input id="avatarZoom" type="range" min="1" max="3" step="0.01" value="1" />
+      </label>
+      <div class="avatar-crop-hint" id="avatarCropHint"></div>
+      <div class="avatar-editor-actions">
+        <button class="save-btn" id="saveAvatarCropBtn" type="button"></button>
+        <button class="ghost-btn" id="resetAvatarCropBtn" type="button"></button>
+        <button class="ghost-btn" id="cancelAvatarCropBtn" type="button"></button>
+      </div>
+      <div class="status" id="avatarCropStatus" aria-live="polite"></div>
+    </div>
   </div>
 
   <div class="modal-wrap" id="haloModal" role="dialog" aria-modal="true" aria-labelledby="haloModalTitle">
