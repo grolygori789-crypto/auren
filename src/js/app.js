@@ -2,12 +2,17 @@ import { APP_VERSION, BUILD_NUMBER } from './config/build.js';
 import { AurenOrb } from './core/orb.js';
 import { catalog, getLocale, setLocale } from './i18n/i18n.js';
 import { getPreference, setPreference, isFirstLaunch, markFirstLaunchSeen } from './storage/preferences.js';
-import { getCheckin, saveCheckin } from './storage/checkins.js';
+import { getCheckin, getRecentCheckins, saveCheckin } from './storage/checkins.js';
+import { getBodyProfile, saveBodyProfile } from './storage/profile.js';
+import { bodyContext, haloContext, nextAction } from './intelligence/body.js';
 
 const THEMES = ['pearl', 'mineral', 'rose', 'sage', 'dusk'];
 const LEGACY_THEME_MAP = { sky: 'mineral', blush: 'rose' };
 const OBSERVATIONS = ['sleep', 'energy', 'stress', 'mood', 'movement'];
 let todayCheckin = null;
+let recentCheckins = [];
+let bodyProfile = null;
+let currentHalo = null;
 
 const $ = (id) => document.getElementById(id);
 
@@ -33,6 +38,10 @@ function greetingKey() {
   if (hour < 12) return 'morning';
   if (hour < 17) return 'afternoon';
   return 'evening';
+}
+
+function formatNumber(value, digits = 1) {
+  return new Intl.NumberFormat(getLocale() === 'th' ? 'th-TH' : 'en', { maximumFractionDigits: digits, minimumFractionDigits: 0 }).format(value);
 }
 
 function renderThemeChoices() {
@@ -69,14 +78,86 @@ function renderObserved() {
   grid.innerHTML = OBSERVATIONS.map((key) => `<div class="observed-item"><strong>${todayCheckin.observations[key]}</strong><span>${c.checkin[key]}</span></div>`).join('');
 }
 
+function bodyCopyKeys(context) {
+  if (!context || context.status !== 'ready') return ['bodyMissingTitle', 'bodyMissingCopy'];
+  if (context.model === 'youth') return ['bodyYouthTitle', 'bodyYouthCopy'];
+  if (context.category === 'below') return ['bodyBelowTitle', 'bodyBelowCopy'];
+  if (context.category === 'above') return ['bodyAboveTitle', 'bodyAboveCopy'];
+  if (context.category === 'wellAbove') return ['bodyWellAboveTitle', 'bodyWellAboveCopy'];
+  return ['bodyWithinTitle', 'bodyWithinCopy'];
+}
+
+function renderBodyContext() {
+  const c = catalog();
+  const context = bodyContext(bodyProfile);
+  const [titleKey, copyKey] = bodyCopyKeys(context);
+  $('bodyContextTitle').textContent = c.today[titleKey];
+  $('bodyContextCopy').textContent = c.today[copyKey];
+  $('bodyProfileTitle').textContent = c.you.bodyProfile;
+  $('bodyProfileSub').textContent = bodyProfile ? c.you.bodyProfileReady : c.you.bodyProfileMissing;
+  const metrics = $('bodyMetrics');
+  if (context.status !== 'ready') {
+    metrics.hidden = true;
+    return;
+  }
+  metrics.hidden = false;
+  if (context.model === 'adult') {
+    const [low, high] = context.referenceWeightKg;
+    metrics.innerHTML = `
+      <div class="body-metric"><strong>${formatNumber(context.bmi)}</strong><span>${c.today.bodyBmi}</span></div>
+      <div class="body-metric"><strong>${formatNumber(low)}–${formatNumber(high)} kg</strong><span>${c.today.bodyReference}</span></div>
+      <div class="body-metric"><strong>${formatNumber(context.age,0)} ${c.today.bodyYears}</strong><span>${c.today.bodyAge}</span></div>`;
+  } else {
+    metrics.innerHTML = `
+      <div class="body-metric"><strong>${formatNumber(context.age,0)} ${c.today.bodyYears}</strong><span>${c.today.bodyAge}</span></div>
+      <div class="body-metric"><strong>${formatNumber(context.heightCm)} cm</strong><span>${c.bodyProfile.height}</span></div>
+      <div class="body-metric"><strong>${formatNumber(context.weightKg)} kg</strong><span>${c.bodyProfile.weight}</span></div>`;
+  }
+}
+
+function haloStatusText(state) {
+  return catalog().halo.status[state] ?? catalog().halo.status.missing;
+}
+
+function renderHalo() {
+  const c = catalog();
+  currentHalo = haloContext({ profile: bodyProfile, checkin: todayCheckin, recentCount: recentCheckins.length });
+  $('haloEyebrow').textContent = c.today.haloEyebrow;
+  $('haloTitle').textContent = c.today.haloTitle[currentHalo.overall];
+  $('haloCopy').textContent = c.today.haloCopy[currentHalo.overall];
+  $('haloDetailsBtn').textContent = c.today.haloDetails;
+  const segments = ['body','daily','movement','continuity'];
+  const arcIds = { body:'haloBodyArc', daily:'haloDailyArc', movement:'haloMovementArc', continuity:'haloContinuityArc' };
+  segments.forEach((key) => {
+    const state = currentHalo.segments[key];
+    const arc = $(arcIds[key]);
+    arc.className.baseVal = `halo-arc halo-${key} state-${state}`;
+  });
+  $('haloLegend').innerHTML = segments.map((key) => {
+    const state = currentHalo.segments[key];
+    return `<div class="halo-legend-item state-${state}"><strong><i></i>${c.today.haloSegments[key]}</strong><span>${haloStatusText(state)}</span></div>`;
+  }).join('');
+}
+
+function renderOneAction() {
+  const c = catalog();
+  const action = nextAction({ profile: bodyProfile, checkin: todayCheckin });
+  const [title, copy] = c.today.oneActions[action.key];
+  $('oneActionTitle').textContent = c.today.oneActionTitle;
+  $('oneActionBasis').textContent = c.today.oneActionBasis[action.basis];
+  $('oneActionName').textContent = title;
+  $('oneActionCopy').textContent = copy;
+}
+
 function renderLocale() {
   const c = catalog();
   document.documentElement.lang = getLocale() === 'th' ? 'th' : 'en';
-
   $('todayEyebrow').textContent = c.today.eyebrow;
   $('greetingText').textContent = c.today[greetingKey()];
   $('greetingSub').textContent = c.today.sub;
   $('stateKicker').textContent = c.today.stateKicker;
+  $('bodySectionTitle').textContent = c.today.bodySection;
+  $('bodyPrivate').textContent = c.today.bodyPrivate;
   $('understandTitle').textContent = c.today.understand;
   $('privateLabel').textContent = c.today.private;
   $('patternTitle').textContent = c.today.patternTitle;
@@ -125,7 +206,12 @@ function renderLocale() {
   renderTrust();
   renderThemeChoices();
   renderObserved();
+  renderBodyContext();
+  renderHalo();
+  renderOneAction();
   renderCheckinForm();
+  renderProfileForm();
+  renderHaloModal();
 }
 
 function renderCheckinForm() {
@@ -138,16 +224,57 @@ function renderCheckinForm() {
   $('checkinFields').innerHTML = OBSERVATIONS.map((key) => {
     const start = key === 'stress' ? c.checkin.calm : c.checkin.low;
     const end = key === 'stress' ? c.checkin.stressed : c.checkin.high;
-    return `<div class="checkin-field">
-      <div class="field-head"><label for="checkin-${key}">${c.checkin[key]}</label><output id="output-${key}" for="checkin-${key}">${values[key]}</output></div>
-      <input class="range" id="checkin-${key}" name="${key}" type="range" min="1" max="5" step="1" value="${values[key]}" />
-      <div class="range-labels"><span>${start}</span><span>${end}</span></div>
-    </div>`;
+    return `<div class="checkin-field"><div class="field-head"><label for="checkin-${key}">${c.checkin[key]}</label><output id="output-${key}" for="checkin-${key}">${values[key]}</output></div><input class="range" id="checkin-${key}" name="${key}" type="range" min="1" max="5" step="1" value="${values[key]}" /><div class="range-labels"><span>${start}</span><span>${end}</span></div></div>`;
   }).join('');
   OBSERVATIONS.forEach((key) => {
     const input = $(`checkin-${key}`);
     input.addEventListener('input', () => { $(`output-${key}`).value = input.value; });
   });
+}
+
+function renderProfileForm() {
+  const c = catalog();
+  $('profileTitle').textContent = c.bodyProfile.title;
+  $('profileIntro').textContent = c.bodyProfile.intro;
+  $('profileAgeLabel').textContent = c.bodyProfile.age;
+  $('profileAgeHint').textContent = c.bodyProfile.ageHint;
+  $('profileHeightLabel').textContent = c.bodyProfile.height;
+  $('profileWeightLabel').textContent = c.bodyProfile.weight;
+  $('profileActivityLabel').textContent = c.bodyProfile.activity;
+  $('profileGoalLabel').textContent = c.bodyProfile.goal;
+  $('saveProfileBtn').textContent = c.bodyProfile.save;
+  $('closeProfileBtn').textContent = c.bodyProfile.close;
+  $('profileActivity').innerHTML = Object.entries(c.bodyProfile.activityOptions).map(([value,label]) => `<option value="${value}">${label}</option>`).join('');
+  $('profileGoal').innerHTML = Object.entries(c.bodyProfile.goalOptions).map(([value,label]) => `<option value="${value}">${label}</option>`).join('');
+  if (bodyProfile) {
+    $('profileAge').value = bodyProfile.age;
+    $('profileHeight').value = bodyProfile.heightCm;
+    $('profileWeight').value = bodyProfile.weightKg;
+    $('profileActivity').value = bodyProfile.activity;
+    $('profileGoal').value = bodyProfile.goal;
+  }
+  updateProfileReferenceNote();
+}
+
+function updateProfileReferenceNote() {
+  const c = catalog();
+  const age = Number($('profileAge').value || bodyProfile?.age || 20);
+  $('profileReferenceNote').textContent = age < 20 ? c.bodyProfile.youthNote : c.bodyProfile.adultNote;
+}
+
+function renderHaloModal() {
+  if (!currentHalo) return;
+  const c = catalog();
+  $('haloModalTitle').textContent = c.halo.title;
+  $('haloModalIntro').textContent = c.halo.intro;
+  $('closeHaloBtn').textContent = c.halo.close;
+  const rows = [
+    ['body', c.today.haloSegments.body, c.halo.calculated, c.halo.evidenceBody],
+    ['daily', c.today.haloSegments.daily, c.halo.observed, c.halo.evidenceDaily],
+    ['movement', c.today.haloSegments.movement, c.halo.observed, c.halo.evidenceMovement],
+    ['continuity', c.today.haloSegments.continuity, c.halo.calculated, c.halo.evidenceContinuity],
+  ];
+  $('haloEvidenceList').innerHTML = rows.map(([key,title,source,copy]) => `<div class="evidence-item"><div class="evidence-head"><strong>${title}</strong><span class="evidence-badge">${source}</span></div><p>${copy}</p><div class="evidence-status">${c.halo.confidence}: ${haloStatusText(currentHalo.segments[key])}</div></div>`).join('');
 }
 
 function showScreen(name) {
@@ -156,18 +283,21 @@ function showScreen(name) {
   window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
 }
 
-function openCheckin() {
-  renderCheckinForm();
-  $('checkinStatus').textContent = '';
-  $('checkinModal').classList.add('open');
-  requestAnimationFrame(() => $('checkin-sleep')?.focus());
-}
+function openCheckin() { renderCheckinForm(); $('checkinStatus').textContent = ''; $('checkinModal').classList.add('open'); requestAnimationFrame(() => $('checkin-sleep')?.focus()); }
 function closeCheckin() { $('checkinModal').classList.remove('open'); }
+function openProfile() { renderProfileForm(); $('profileStatus').textContent = ''; $('profileModal').classList.add('open'); requestAnimationFrame(() => $('profileAge')?.focus()); }
+function closeProfile() { $('profileModal').classList.remove('open'); }
+function openHalo() { renderHaloModal(); $('haloModal').classList.add('open'); }
+function closeHalo() { $('haloModal').classList.remove('open'); }
 
-async function loadToday() {
-  try { todayCheckin = await getCheckin(); }
-  catch { todayCheckin = null; }
-  renderObserved();
+async function loadData() {
+  try { [todayCheckin, recentCheckins, bodyProfile] = await Promise.all([getCheckin(), getRecentCheckins(14), getBodyProfile()]); }
+  catch {
+    try { todayCheckin = await getCheckin(); } catch { todayCheckin = null; }
+    recentCheckins = todayCheckin ? [todayCheckin] : [];
+    try { bodyProfile = await getBodyProfile(); } catch { bodyProfile = null; }
+  }
+  renderObserved(); renderBodyContext(); renderHalo(); renderOneAction(); renderHaloModal(); renderProfileForm();
 }
 
 async function submitCheckin(event) {
@@ -177,47 +307,40 @@ async function submitCheckin(event) {
   $('saveCheckinBtn').disabled = true;
   try {
     todayCheckin = await saveCheckin(observations);
+    recentCheckins = await getRecentCheckins(14);
     $('checkinStatus').textContent = c.checkin.saved;
-    renderObserved();
+    renderObserved(); renderHalo(); renderOneAction(); renderHaloModal();
     setTimeout(closeCheckin, 650);
-  } catch {
-    $('checkinStatus').textContent = c.checkin.error;
-  } finally {
-    $('saveCheckinBtn').disabled = false;
-  }
+  } catch { $('checkinStatus').textContent = c.checkin.error; }
+  finally { $('saveCheckinBtn').disabled = false; }
+}
+
+async function submitProfile(event) {
+  event.preventDefault();
+  const c = catalog();
+  const input = { age: Number($('profileAge').value), heightCm: Number($('profileHeight').value), weightKg: Number($('profileWeight').value), activity: $('profileActivity').value, goal: $('profileGoal').value };
+  $('saveProfileBtn').disabled = true;
+  try {
+    bodyProfile = await saveBodyProfile(input);
+    $('profileStatus').textContent = c.bodyProfile.saved;
+    renderBodyContext(); renderHalo(); renderOneAction(); renderHaloModal();
+    setTimeout(closeProfile, 700);
+  } catch { $('profileStatus').textContent = c.bodyProfile.error; }
+  finally { $('saveProfileBtn').disabled = false; }
 }
 
 function startOpeningTransition() {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const opening = $('opening');
-  const app = $('app');
-  const openingWrap = $('openingOrbWrap');
-  const todayWrap = $('todayOrbWrap');
+  const opening = $('opening'), app = $('app'), openingWrap = $('openingOrbWrap'), todayWrap = $('todayOrbWrap');
   app.classList.add('ready');
-  if (reduced) {
-    todayWrap.classList.remove('waiting');
-    opening.classList.add('leave');
-    return;
-  }
-  const from = openingWrap.getBoundingClientRect();
-  const to = todayWrap.getBoundingClientRect();
-  const scale = to.width / from.width;
-  const dx = to.left - from.left;
-  const dy = to.top - from.top;
-  openingWrap.style.animation = 'none';
-  openingWrap.style.opacity = '1';
-  openingWrap.style.filter = 'none';
-  openingWrap.style.transformOrigin = 'top left';
+  if (reduced) { todayWrap.classList.remove('waiting'); opening.classList.add('leave'); return; }
+  const from = openingWrap.getBoundingClientRect(), to = todayWrap.getBoundingClientRect();
+  const scale = to.width / from.width, dx = to.left - from.left, dy = to.top - from.top;
+  openingWrap.style.animation = 'none'; openingWrap.style.opacity = '1'; openingWrap.style.filter = 'none'; openingWrap.style.transformOrigin = 'top left';
   openingWrap.style.transition = 'transform .88s cubic-bezier(.16,.78,.18,1), opacity .34s ease .62s';
   $('openingIdentity').classList.add('morphing');
-  requestAnimationFrame(() => {
-    openingWrap.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
-    openingWrap.style.opacity = '0.12';
-  });
-  setTimeout(() => {
-    todayWrap.classList.remove('waiting');
-    opening.classList.add('leave');
-  }, 790);
+  requestAnimationFrame(() => { openingWrap.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`; openingWrap.style.opacity = '0.12'; });
+  setTimeout(() => { todayWrap.classList.remove('waiting'); opening.classList.add('leave'); }, 790);
 }
 
 function runOpening() {
@@ -239,10 +362,19 @@ function bind() {
   $('enBtn').addEventListener('click', () => { setLocale('en'); renderLocale(); });
   $('thBtn').addEventListener('click', () => { setLocale('th'); renderLocale(); });
   $('checkinBtn').addEventListener('click', openCheckin);
+  $('bodyContextBtn').addEventListener('click', openProfile);
+  $('bodyProfileBtn').addEventListener('click', openProfile);
+  $('haloDetailsBtn').addEventListener('click', openHalo);
   $('closeCheckinBtn').addEventListener('click', closeCheckin);
+  $('closeProfileBtn').addEventListener('click', closeProfile);
+  $('closeHaloBtn').addEventListener('click', closeHalo);
+  $('profileAge').addEventListener('input', updateProfileReferenceNote);
   $('checkinModal').addEventListener('click', (event) => { if (event.target === $('checkinModal')) closeCheckin(); });
+  $('profileModal').addEventListener('click', (event) => { if (event.target === $('profileModal')) closeProfile(); });
+  $('haloModal').addEventListener('click', (event) => { if (event.target === $('haloModal')) closeHalo(); });
   $('checkinForm').addEventListener('submit', submitCheckin);
-  document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && $('checkinModal').classList.contains('open')) closeCheckin(); });
+  $('profileForm').addEventListener('submit', submitProfile);
+  document.addEventListener('keydown', (event) => { if (event.key !== 'Escape') return; closeCheckin(); closeProfile(); closeHalo(); });
 }
 
 applyTheme(getPreference('theme', 'pearl'), { animate: false });
@@ -250,6 +382,6 @@ new AurenOrb($('openingOrb'), { signature: true });
 new AurenOrb($('todayOrb'), { calm: true });
 bind();
 renderLocale();
-await loadToday();
+await loadData();
 runOpening();
 registerServiceWorker();

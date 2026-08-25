@@ -1,17 +1,17 @@
 import { DATA_SCHEMA_VERSION } from '../config/build.js';
 
 const DB_NAME = 'auren';
-const DB_VERSION = 1;
+const DB_VERSION = 2;
 const STORE = 'checkins';
+const PROFILE_STORE = 'profile';
 
 function openDb() {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(DB_NAME, DB_VERSION);
     request.onupgradeneeded = () => {
       const db = request.result;
-      if (!db.objectStoreNames.contains(STORE)) {
-        db.createObjectStore(STORE, { keyPath: 'localDate' });
-      }
+      if (!db.objectStoreNames.contains(STORE)) db.createObjectStore(STORE, { keyPath: 'localDate' });
+      if (!db.objectStoreNames.contains(PROFILE_STORE)) db.createObjectStore(PROFILE_STORE, { keyPath: 'id' });
     };
     request.onsuccess = () => resolve(request.result);
     request.onerror = () => reject(request.error);
@@ -34,9 +34,20 @@ export async function getCheckin(localDate = localDateKey()) {
       request.onsuccess = () => resolve(request.result ?? null);
       request.onerror = () => reject(request.error);
     });
-  } finally {
-    db.close();
-  }
+  } finally { db.close(); }
+}
+
+export async function getRecentCheckins(limit = 14) {
+  const db = await openDb();
+  try {
+    const all = await new Promise((resolve, reject) => {
+      const tx = db.transaction(STORE, 'readonly');
+      const request = tx.objectStore(STORE).getAll();
+      request.onsuccess = () => resolve(request.result ?? []);
+      request.onerror = () => reject(request.error);
+    });
+    return all.sort((a, b) => String(b.localDate).localeCompare(String(a.localDate))).slice(0, limit);
+  } finally { db.close(); }
 }
 
 export async function saveCheckin(observations) {
@@ -63,7 +74,5 @@ export async function saveCheckin(observations) {
       tx.onabort = () => reject(tx.error ?? new Error('Check-in save aborted'));
     });
     return record;
-  } finally {
-    db.close();
-  }
+  } finally { db.close(); }
 }

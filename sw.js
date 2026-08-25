@@ -1,4 +1,4 @@
-// Auren runtime Build 5 — Signature Opening refinement.
+// Auren runtime Build 6 — Body Intelligence foundation.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -13,11 +13,13 @@ const APP_SHELL = [
   './src/js/app.js',
   './src/js/config/build.js',
   './src/js/core/orb.js',
+  './src/js/intelligence/body.js',
   './src/js/i18n/en.js',
   './src/js/i18n/th.js',
   './src/js/i18n/i18n.js',
   './src/js/storage/preferences.js',
-  './src/js/storage/checkins.js'
+  './src/js/storage/checkins.js',
+  './src/js/storage/profile.js'
 ];
 
 self.addEventListener('install', (event) => {

@@ -40,7 +40,16 @@
         </div>
 
         <div class="core-hero">
-          <div class="core-orb waiting" id="todayOrbWrap"><canvas id="todayOrb" aria-label="Auren Core"></canvas></div>
+          <div class="core-stage" id="coreStage">
+            <svg class="auren-halo" viewBox="0 0 100 100" aria-label="Auren Halo">
+              <circle class="halo-track" cx="50" cy="50" r="46"/>
+              <circle class="halo-arc halo-body" id="haloBodyArc" cx="50" cy="50" r="46"/>
+              <circle class="halo-arc halo-daily" id="haloDailyArc" cx="50" cy="50" r="46"/>
+              <circle class="halo-arc halo-movement" id="haloMovementArc" cx="50" cy="50" r="46"/>
+              <circle class="halo-arc halo-continuity" id="haloContinuityArc" cx="50" cy="50" r="46"/>
+            </svg>
+            <div class="core-orb waiting" id="todayOrbWrap"><canvas id="todayOrb" aria-label="Auren Core"></canvas></div>
+          </div>
           <div class="state-caption">
             <div class="state-kicker" id="stateKicker"></div>
             <div class="state-title" id="stateTitle"></div>
@@ -49,6 +58,36 @@
             <button class="primary" id="checkinBtn"></button>
           </div>
         </div>
+
+        <section class="halo-summary card" id="haloSummary">
+          <div class="halo-summary-top">
+            <div>
+              <div class="halo-eyebrow" id="haloEyebrow"></div>
+              <h2 id="haloTitle"></h2>
+            </div>
+            <button class="text-link" id="haloDetailsBtn" type="button"></button>
+          </div>
+          <p id="haloCopy"></p>
+          <div class="halo-legend" id="haloLegend"></div>
+        </section>
+
+        <div class="section-head action-head"><h2 id="oneActionTitle"></h2><span id="oneActionBasis"></span></div>
+        <div class="one-action-card card">
+          <div class="one-action-mark" aria-hidden="true"><span></span></div>
+          <div class="one-action-copy"><strong id="oneActionName"></strong><p id="oneActionCopy"></p></div>
+        </div>
+
+        <div class="section-head"><h2 id="bodySectionTitle"></h2><span id="bodyPrivate"></span></div>
+        <button class="body-context-card card" id="bodyContextBtn" type="button">
+          <div class="body-context-top">
+            <div class="soft-icon body-icon">
+              <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M7.2 19c.5-3.8 2.1-5.8 4.8-5.8s4.3 2 4.8 5.8"/><path d="M5 12h3M16 12h3"/></svg>
+            </div>
+            <div class="card-copy"><div class="card-title" id="bodyContextTitle"></div><div class="card-desc" id="bodyContextCopy"></div></div>
+            <div class="chev">›</div>
+          </div>
+          <div class="body-metrics" id="bodyMetrics" hidden></div>
+        </button>
 
         <div class="section-head"><h2 id="understandTitle"></h2><span id="privateLabel"></span></div>
         <div class="cards">
@@ -76,6 +115,7 @@
       <section class="screen" data-screen="you">
         <div class="page-head"><div class="eyebrow">Control · Privacy · Access</div><h1 class="page-title" id="youTitle"></h1><p class="page-sub" id="youSub"></p></div>
         <div class="settings-list">
+          <button class="setting setting-button" id="bodyProfileBtn" type="button"><div class="soft-icon aqua"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M7.2 19c.5-3.8 2.1-5.8 4.8-5.8s4.3 2 4.8 5.8"/><path d="M4 12h3M17 12h3"/></svg></div><div><strong id="bodyProfileTitle"></strong><span id="bodyProfileSub"></span></div><div class="end">›</div></button>
           <div class="setting"><div class="soft-icon"><svg viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M12 4v16"/></svg></div><div><strong id="languageTitle"></strong><span id="languageSub"></span></div><div class="lang-switch"><button id="enBtn" type="button">EN</button><button id="thBtn" type="button">TH</button></div></div>
           <div class="setting"><div class="soft-icon aqua"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><path d="M12 6v12M6 12h12"/></svg></div><div><strong id="appearanceTitle"></strong><span id="appearanceSub"></span></div></div>
           <div class="theme-grid" id="themeGrid"></div>
@@ -108,6 +148,36 @@
       <div class="sheet-actions"><button class="save-btn" id="saveCheckinBtn" type="submit"></button><button class="ghost-btn" id="closeCheckinBtn" type="button"></button></div>
       <div class="status" id="checkinStatus" aria-live="polite"></div>
     </form>
+  </div>
+
+  <div class="modal-wrap" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
+    <form class="sheet profile-sheet" id="profileForm">
+      <div class="sheet-handle"></div>
+      <h3 id="profileTitle"></h3>
+      <p class="sheet-intro" id="profileIntro"></p>
+      <div class="profile-fields">
+        <label class="profile-field"><span id="profileAgeLabel"></span><input id="profileAge" name="age" type="number" inputmode="numeric" min="2" max="120" required /><small id="profileAgeHint"></small></label>
+        <div class="profile-field-row">
+          <label class="profile-field"><span id="profileHeightLabel"></span><div class="input-unit"><input id="profileHeight" name="heightCm" type="number" inputmode="decimal" min="50" max="230" step="0.1" required /><b>cm</b></div></label>
+          <label class="profile-field"><span id="profileWeightLabel"></span><div class="input-unit"><input id="profileWeight" name="weightKg" type="number" inputmode="decimal" min="5" max="350" step="0.1" required /><b>kg</b></div></label>
+        </div>
+        <label class="profile-field"><span id="profileActivityLabel"></span><select id="profileActivity" name="activity"></select></label>
+        <label class="profile-field"><span id="profileGoalLabel"></span><select id="profileGoal" name="goal"></select></label>
+        <div class="reference-note" id="profileReferenceNote"></div>
+      </div>
+      <div class="sheet-actions"><button class="save-btn" id="saveProfileBtn" type="submit"></button><button class="ghost-btn" id="closeProfileBtn" type="button"></button></div>
+      <div class="status" id="profileStatus" aria-live="polite"></div>
+    </form>
+  </div>
+
+  <div class="modal-wrap" id="haloModal" role="dialog" aria-modal="true" aria-labelledby="haloModalTitle">
+    <div class="sheet halo-sheet">
+      <div class="sheet-handle"></div>
+      <h3 id="haloModalTitle"></h3>
+      <p class="sheet-intro" id="haloModalIntro"></p>
+      <div class="evidence-list" id="haloEvidenceList"></div>
+      <div class="sheet-actions"><button class="ghost-btn" id="closeHaloBtn" type="button"></button></div>
+    </div>
   </div>
 
   <script type="module" src="./src/js/app.js"></script>
