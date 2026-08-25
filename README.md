@@ -143,3 +143,9 @@ Build 9 turns several foundation features into a coherent personal-intelligence 
 - Further thins the glass rim so the sphere is defined more by refraction and highlights than by an outline.
 
 Build 9 preserves local-first storage, EN/TH parity, the five Auren Atmospheres, the Signature Opening, and the rule that Auren does not diagnose disease or fabricate precision.
+
+
+## Build 011 update
+- Fixed optical centering for the Sleep, Energy, Stress, Mood, and Movement symbols in the daily state cards.
+- Added per-icon alignment offsets so each symbol appears visually centered, not only mathematically centered.
+- Preserved the premium card treatment while improving polish on real mobile screens.
