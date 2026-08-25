@@ -1,4 +1,4 @@
-// Auren runtime Build 9 — Contextual Intelligence & Premium UX.
+// Auren runtime Build 10 — Body Context Balance & Semantic Metric Cards.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

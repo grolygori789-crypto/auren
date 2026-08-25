@@ -1,3 +1,7 @@
+# Auren — GitHub Build 010
+
+This package updates the Body Context card and Today metric cards for better balance, clarity, and premium visual semantics.
+
 # AUREN
 
 **Personal Health Intelligence**  

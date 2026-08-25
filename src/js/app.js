@@ -103,6 +103,22 @@ function observationTone(key, value) {
   return ['excellent', 'positive'];
 }
 
+
+function observedIconSvg(key) {
+  const icons = {
+    sleep: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.8 4.5a6.9 6.9 0 1 0 4.7 12.1A7.6 7.6 0 0 1 14.8 4.5z"/></svg>',
+    energy: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13 3L7 13h4l-1 8 7-11h-4l0-7z"/></svg>',
+    stress: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8.2c1.4-1 2.8-1 4.2 0s2.8 1 4.2 0 2.8-1 4.2 0"/><path d="M6 15.8c1.4-1 2.8-1 4.2 0s2.8 1 4.2 0 2.8-1 4.2 0"/></svg>',
+    mood: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.2"/><path d="M9.4 14.2c.9 1 1.8 1.4 2.6 1.4s1.7-.4 2.6-1.4"/><path d="M9.6 10.2h.01"/><path d="M14.4 10.2h.01"/></svg>',
+    movement: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 15.2c2.2-3.8 4.8-5.7 7.6-5.7 1.8 0 3.6.8 5.4 2.3"/><path d="M7.2 18.3c2-2.4 3.8-3.6 5.6-3.6 1.1 0 2.2.4 3.5 1.3"/></svg>'
+  };
+  return icons[key] || '';
+}
+
+function confidenceTone(value) {
+  return ({ high:'high', moderate:'moderate', low:'low', limited:'low' })[value] || 'low';
+}
+
 function initialFromName(name) {
   const trimmed = String(name || '').trim();
   if (!trimmed) return '';
@@ -252,9 +268,10 @@ function renderObserved() {
   grid.innerHTML = OBSERVATIONS.map((key) => {
     const value = todayCheckin.observations[key];
     const [labelKey, tone] = observationTone(key, value);
-    return `<div class="observed-item tone-${tone}"><strong>${escapeHtml(c.today.observedLevels[labelKey])}</strong><span>${escapeHtml(c.checkin[key])}</span><em>${value}/5</em></div>`;
+    return `<div class="observed-item tone-${tone} observed-${key}"><div class="observed-chip"><span class="observed-icon observed-icon-${key}" aria-hidden="true">${observedIconSvg(key)}</span><span class="observed-mode">${escapeHtml(c.checkin[key])}</span></div><strong>${escapeHtml(c.today.observedLevels[labelKey])}</strong><em>${value}/5</em></div>`;
   }).join('');
 }
+
 
 function bodyCopyKeys(context) {
   if (!context || context.status !== 'ready') return ['bodyMissingTitle', 'bodyMissingCopy'];
@@ -284,11 +301,13 @@ function renderBodyContext() {
   metrics.hidden = false;
   if (context.model === 'adult') {
     const waist = context.waist?.status === 'missing' ? c.today.bodyNotProvided : `${formatNumber(context.waist.waistCm)} cm`;
-    metrics.innerHTML = `<div class="body-metric"><strong>${formatNumber(context.bmi)}</strong><span>${c.today.bodyBmi}</span></div><div class="body-metric"><strong>${escapeHtml(trainingLabel(context))}</strong><span>${c.today.bodyTraining}</span></div><div class="body-metric"><strong>${escapeHtml(waist)}</strong><span>${c.today.bodyWaist}</span></div><div class="body-metric"><strong>${escapeHtml(c.today.confidence[context.confidence] || c.today.confidence.low)}</strong><span>${c.today.bodyConfidence}</span></div>`;
+    const confidence = escapeHtml(c.today.confidence[context.confidence] || c.today.confidence.low);
+    metrics.innerHTML = `<div class="body-metrics-grid"><div class="body-metric"><strong>${formatNumber(context.bmi)}</strong><span>${c.today.bodyBmi}</span></div><div class="body-metric"><strong>${escapeHtml(trainingLabel(context))}</strong><span>${c.today.bodyTraining}</span></div><div class="body-metric"><strong>${escapeHtml(waist)}</strong><span>${c.today.bodyWaist}</span></div></div><div class="body-context-meta"><span>${c.today.bodyConfidence}</span><strong class="body-context-confidence confidence-${confidenceTone(context.confidence)}">${confidence}</strong></div>`;
   } else {
-    metrics.innerHTML = `<div class="body-metric"><strong>${formatNumber(context.age,0)} ${c.today.bodyYears}</strong><span>${c.today.bodyAge}</span></div><div class="body-metric"><strong>${formatNumber(context.heightCm)} cm</strong><span>${c.bodyProfile.height}</span></div><div class="body-metric"><strong>${formatNumber(context.weightKg)} kg</strong><span>${c.bodyProfile.weight}</span></div>`;
+    metrics.innerHTML = `<div class="body-metrics-grid"><div class="body-metric"><strong>${formatNumber(context.age,0)} ${c.today.bodyYears}</strong><span>${c.today.bodyAge}</span></div><div class="body-metric"><strong>${formatNumber(context.heightCm)} cm</strong><span>${c.bodyProfile.height}</span></div><div class="body-metric"><strong>${formatNumber(context.weightKg)} kg</strong><span>${c.bodyProfile.weight}</span></div></div>`;
   }
 }
+
 
 function haloStatusText(state) { return catalog().halo.status[state] ?? catalog().halo.status.missing; }
 
