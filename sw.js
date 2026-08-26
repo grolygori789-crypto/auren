@@ -1,4 +1,4 @@
-// Auren runtime Build 15 — Seamless Launch & Data Refresh.
+// Auren runtime Build 16 — Clean Signature Handoff.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -15,6 +15,7 @@ const APP_SHELL = [
   './src/js/app.js',
   './src/js/config/build.js',
   './src/js/core/orb.js',
+  './src/js/experience/launch-handoff.js',
   './src/js/experience/polish.js',
   './src/js/privacy/data-controls.js',
   './src/js/privacy/storage.js',

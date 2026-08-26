@@ -1,6 +1,6 @@
-# Auren — GitHub Build 015
+# Auren — GitHub Build 016
 
-Build 15 fixes two physical-device transition regressions without changing Living Core physics, Body Intelligence, storage schema, or the accepted Signature Opening timing. Single check-in deletion now refreshes Auren state in place from IndexedDB, so Today and Archive update without reloading the document or replaying the brand opening. Cold launch handoff now hides the outgoing Opening Core before Today Core becomes visible in the same JavaScript handoff, preventing a doubled, smaller or vertically offset ghost. The default PWA splash background is also aligned to Pearl Dawn for a calmer Android system-to-Auren handoff.
+Build 16 removes the remaining orb-only interstitial observed on physical devices after the Signature Opening. Build 15 prevented two Core canvases from being visible together, but it still deliberately morphed the outgoing Opening Core toward the Today position for roughly 790 ms. Build 16 leaves the accepted Signature Opening itself untouched, fades the complete branded content out as one unit, pre-reveals the already-running Today Core behind the opaque opening background, then dissolves directly into the complete app. No standalone, smaller or vertically offset orb is intended to appear between the logo sequence and Today.
 
 # AUREN
 
@@ -218,4 +218,18 @@ Build 15 is a regression-focused transition repair:
 - The data-control refresh bridge has a visible fallback if an in-place refresh cannot complete; it never silently reloads a single deletion into the Signature Opening.
 
 Rollback baseline remains Build 13 for the broader Build 14/15 data-control series until physical-device acceptance is confirmed.
+
+
+## Build 16 — Clean Signature Handoff
+
+Build 16 is a narrow physical-device launch repair layered over Build 15:
+
+- Removes the 790 ms Opening-Core-to-Today-Core morph that could read as a frozen standalone orb after the animated logo sequence.
+- Fades the Opening Core and AUREN identity together instead of leaving an orb-only handoff phase.
+- Reveals the already-running Today Core only while the opaque opening background still covers the app, waits two paint frames, then dissolves the background into the complete Today screen.
+- Keeps the accepted first-launch and repeat-launch hold timing unchanged.
+- Does not modify Living Core physics/material, Body Intelligence, check-in data, profile data, local schema version 4, layout, localization or Build 15 in-place deletion behavior.
+- Ships as an isolated fail-open launch guard. If the guard cannot load, startup falls back to Build 15 behavior rather than blocking the app.
+
+Rollback: remove the Build 16 launch-handoff import and Service Worker asset to return to Build 15. Build 13 remains the broader known-good rollback baseline for the Build 14+ data-control series until physical-device acceptance is complete.
 
