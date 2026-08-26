@@ -2,7 +2,7 @@
 
 > **Your body, understood.**
 
-**MASTER PLAN · PRODUCTION CONTINUATION EDITION · Revision 2.1**  
+**MASTER PLAN · PRODUCTION CONTINUATION EDITION · Revision 2.2**  
 Product · Design · Engineering · Intelligence · Trust · Growth · Handoff  
 Benedict Interactive · 26 August 2026
 
@@ -592,6 +592,20 @@ Web-first, not web-limited
 6. visual QA ต้องดูด้วยตา ไม่ใช่แค่ syntax
 7. optical alignment สำคัญกว่าค่า center ทางคณิตศาสตร์ใน iconography
 
+## Regression safety — Non-Negotiable
+
+ระบบ production ที่ดีอยู่แล้วถือเป็น **protected zone** โดย default
+
+ก่อน implementation ที่มี meaningful regression risk ต้องมี:
+- known-good baseline
+- changed-file allowlist
+- fallback/rollback path ที่ชัด
+- before/after regression comparison ตาม scope
+
+Prefer additive / isolated / minimally invasive changes. Cosmetic enhancement ที่เหมาะควร fail-open เพื่อให้ stable core runtime ยังทำงานได้แม้ enhancement layer โหลดไม่ได้
+
+ห้าม rewrite หรือแตะ stable subsystem เพียงเพราะทำได้ ถ้าคุม regression risk ไม่ได้ ให้ **defer หรือ redesign** ก่อน ship แทนการอัปแล้วค่อยตามแก้
+
 ---
 
 # 19. Build / Version / Cache Contract — RELEASE BLOCKER
@@ -611,18 +625,15 @@ Single Source of Truth ปัจจุบัน:
 
 **Docs-only governance update ไม่ต้อง bump app Build No.**
 
-## Known handoff mismatch — สำคัญมาก
+## Resolved Build 10/11 handoff mismatch
 
-ณ handoff 26 Aug 2026:
-- repo `main` ใน `build.js` ยังรายงาน **Build 10**
-- แต่ CSS ของ production มี optical icon-centering polish ที่พี่เบนซ์ยอมรับ ซึ่งถูกส่งใน package ที่เรียกว่า **Build 11**
-- นี่คือ bookkeeping defect จากการส่ง package โดยไม่ได้ advance build marker
+Build 12 แก้ bookkeeping defect จาก handoff เดิมเรียบร้อยแล้ว:
+- accepted optical icon-centering polish จาก logical Build 11 ยังคงอยู่โดยไม่แก้ regression
+- runtime `BUILD_NUMBER` และ cache identity advance เป็น **Build 12**
+- data schema marker ยังคง **4** เพราะ data model ไม่เปลี่ยน
+- Build 12 ใช้ isolated optional experience layer เพื่อหลีกเลี่ยงการแตะ stable subsystem ที่ผ่าน acceptance แล้ว
 
-**Rule for next room:** ห้ามทำเป็นไม่เห็น
-- first runtime batch ถัดไปให้ใช้ **Build 12** เพื่อไม่ reuse logical package label 11
-- update BUILD_NUMBER + CACHE_NAME + SW + package naming ให้ coherent
-- search stale Build 10/11 markers ก่อนส่ง
-- ห้ามเปลี่ยน schema version เว้นแต่ data model เปลี่ยนจริง
+**Rule after Build 12:** runtime batch ถัดไปต้อง advance เป็น **Build 13** และห้าม reuse Build 12
 
 ---
 
@@ -769,6 +780,7 @@ Current accepted capabilities:
 - How Auren Works / contextual help
 - local IndexedDB profile/check-ins
 - page-scale lock with crop-editor pinch exception
+- Build 12 optional experience layer: restrained spatial transitions, optical Core refraction overlay, semantic micro-response and quiet Halo resting state
 
 Current accepted UI polish:
 - glass rim thin/translucent
@@ -777,6 +789,7 @@ Current accepted UI polish:
 - Confidence is secondary badge/footer metadata
 - daily state cards have subtle icons/semantic tones
 - latest icon optical alignment accepted by P’Benz on physical device
+- Build 12 experience polish is additive/fail-open and does not replace the accepted Core Canvas renderer
 
 Areas not yet considered “finished product”:
 - Rhythm intelligence depth
@@ -844,12 +857,13 @@ Do not rush Generation 2/3 before Auren 1 is delightful, trustworthy, and habit-
 2. อ่าน `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md`
 3. inspect repo HEAD และ current production
 4. ตรวจ Build / cache / schema ก่อนแก้ runtime
-5. รับรู้ known Build 10 vs logical Build 11 mismatch และ next runtime = Build 12
+5. current accepted runtime หลัง package นี้ = Build 12; runtime batch ถัดไปต้องเป็น Build 13
 6. อย่าถาม vision/tagline/design principles ซ้ำ
 7. product/design trade-off ให้ตัดสินใจเอง
 8. user feedback = signal สำคัญ แต่ DEV มี final product authority
 9. permanent rule ใหม่ต้อง update Master Plan
-10. ทุก GitHub package ต้อง clickable link + integrity QA + commit <=50 chars
+10. ทุก meaningful regression-risk change ต้องมี baseline + rollback/fallback plan ก่อน implementation
+11. ทุก GitHub package ต้อง clickable link + integrity QA + commit <=50 chars
 
 ---
 
@@ -872,6 +886,7 @@ Do not rush Generation 2/3 before Auren 1 is delightful, trustworthy, and habit-
 - Archive Calendar belongs inside Archive, not a new tab
 - file delivery links must be clickable
 - runtime Build coherence
+- stable production systems are protected by default; meaningful regression risk requires rollback/fallback planning
 - Commit name <=50 chars
 
 ## Evolvable by Full Authorized DEV

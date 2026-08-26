@@ -1,6 +1,8 @@
-# Auren — GitHub Build 010
+# Auren — GitHub Build 012
 
-This package updates the Body Context card and Today metric cards for better balance, clarity, and premium visual semantics.
+Build 12 adds a deliberately isolated experience-polish layer: quieter spatial page transitions, enhanced optical glass refraction around the existing Auren Core renderer, semantic micro-responses after meaningful state changes, and a calmer Halo resting state with luminous fragments revealed only when they communicate change.
+
+The stable Body Intelligence, storage, localization, crop editor, Core Canvas physics and accepted metric-card optical alignment remain untouched.
 
 # AUREN
 
@@ -36,6 +38,7 @@ The foundation runtime establishes the first real Auren application shell:
 - No account required in V1 foundation.
 - Reduced Motion support.
 - Installable/offline PWA shell with release-aware cache identity derived from the runtime build source.
+- Optional Build 12 experience layer that can fail independently without blocking the stable app runtime.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -51,11 +54,13 @@ auren/
 ├── src/
 │   ├── css/
 │   │   ├── tokens.css
-│   │   └── app.css
+│   │   ├── app.css
+│   │   └── experience.css
 │   └── js/
 │       ├── app.js
 │       ├── config/
 │       ├── core/
+│       ├── experience/
 │       ├── i18n/
 │       └── storage/
 └── docs/
@@ -149,3 +154,18 @@ Build 9 preserves local-first storage, EN/TH parity, the five Auren Atmospheres,
 - Fixed optical centering for the Sleep, Energy, Stress, Mood, and Movement symbols in the daily state cards.
 - Added per-icon alignment offsets so each symbol appears visually centered, not only mathematically centered.
 - Preserved the premium card treatment while improving polish on real mobile screens.
+
+## Build 12 — Quiet Spatial Polish
+
+Build 12 intentionally avoids invasive changes to systems already accepted in production:
+
+- Adds restrained spatial page transitions with subtle depth and blur recovery.
+- Adds a lightweight optical refraction layer over the existing Core Canvas instead of rewriting Core physics.
+- Makes the Halo effectively disappear at rest, removing marker-like stray lines from the hero composition.
+- Reveals soft semantic Halo fragments briefly after meaningful check-in/profile changes or direct Core interaction.
+- Adds a short state-copy micro-transition when Today meaning changes.
+- Keeps Reduced Motion as a first-class fallback.
+- Loads the entire Build 12 experience layer non-blockingly. If the optional enhancement fails to load, the stable Auren runtime continues unchanged.
+- Advances runtime/cache identity to Build 12 while preserving data schema version 4.
+
+Regression policy for this and future upgrades: stable production systems are protected by default; meaningful-risk changes require an explicit rollback/fallback path and should be isolated or redesigned rather than shipped as invasive rewrites.

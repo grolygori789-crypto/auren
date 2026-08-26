@@ -1,4 +1,4 @@
-// Auren runtime Build 10 — Body Context Balance & Semantic Metric Cards.
+// Auren runtime Build 12 — Quiet Spatial Polish & Semantic Core Response.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -10,9 +10,11 @@ const APP_SHELL = [
   './assets/icons/icon-maskable-512.png',
   './src/css/tokens.css',
   './src/css/app.css',
+  './src/css/experience.css',
   './src/js/app.js',
   './src/js/config/build.js',
   './src/js/core/orb.js',
+  './src/js/experience/polish.js',
   './src/js/intelligence/body.js',
   './src/js/i18n/en.js',
   './src/js/i18n/th.js',

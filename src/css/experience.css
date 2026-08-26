@@ -1,0 +1,130 @@
+/*
+  Auren Build 12 — Quiet Spatial Polish
+  Optional, additive experience layer. No layout, data, intelligence, storage,
+  localization or Core Canvas physics are replaced by this file.
+*/
+
+:root{
+  --auren-b12-ease:cubic-bezier(.20,.76,.18,1);
+  --auren-b12-soft-ease:cubic-bezier(.22,.68,.24,1);
+}
+
+/* Spatial page transitions: depth without turning navigation into spectacle. */
+.screen.active{
+  animation:aurenSpatialIn .46s var(--auren-b12-ease) both;
+  transform-origin:50% 12%;
+}
+@keyframes aurenSpatialIn{
+  0%{opacity:.46;transform:translate3d(0,8px,0) scale(.993);filter:blur(1.6px)}
+  58%{opacity:1;filter:blur(0)}
+  100%{opacity:1;transform:translate3d(0,0,0) scale(1);filter:none}
+}
+
+/* Glass refraction is layered over the proven Canvas renderer instead of
+   rewriting its physics. This keeps the upgrade isolated and reversible. */
+.core-stage .core-orb::after{
+  content:"";
+  position:absolute;
+  inset:5.6%;
+  z-index:4;
+  border-radius:50%;
+  pointer-events:none;
+  background:
+    radial-gradient(ellipse at 27% 18%,rgba(255,255,255,.38) 0%,rgba(255,255,255,.15) 10%,transparent 28%),
+    radial-gradient(ellipse at 74% 79%,color-mix(in srgb,var(--core-aqua) 13%,transparent) 0%,transparent 32%),
+    radial-gradient(ellipse at 54% 92%,color-mix(in srgb,var(--core-gold) 8%,transparent) 0%,transparent 30%);
+  box-shadow:
+    inset 7px 8px 18px rgba(255,255,255,.065),
+    inset -7px -9px 20px color-mix(in srgb,var(--core-shadow) 3.8%,transparent);
+  opacity:.18;
+  transform:translate3d(-.35%,0,0) rotate(-2.4deg) scale(.994);
+  transform-origin:50% 50%;
+  mix-blend-mode:screen;
+  animation:aurenRefractionDrift 7.8s var(--auren-b12-soft-ease) infinite alternate;
+  will-change:transform,opacity;
+}
+@keyframes aurenRefractionDrift{
+  0%{transform:translate3d(-.45%,.20%,0) rotate(-2.8deg) scale(.993);opacity:.155}
+  48%{transform:translate3d(.22%,-.32%,0) rotate(.7deg) scale(.999);opacity:.205}
+  100%{transform:translate3d(.48%,.18%,0) rotate(2.0deg) scale(.996);opacity:.17}
+}
+
+/* Resting Halo: effectively absent. Existing state classes remain untouched
+   underneath so semantics are preserved; they are revealed only on response. */
+#coreStage:not(.experience-response) #aurenHalo .halo-arc{
+  opacity:.012!important;
+  stroke-width:.25!important;
+  filter:none!important;
+  animation:none!important;
+}
+#aurenHalo .halo-node{
+  opacity:0!important;
+  filter:none!important;
+}
+
+/* Semantic light fragments: soft, longer than marker ticks, and temporary. */
+#coreStage.experience-response #aurenHalo .halo-arc{
+  stroke-width:.30!important;
+  filter:drop-shadow(0 0 1.5px rgba(255,255,255,.18))!important;
+  transition:opacity .62s var(--auren-b12-soft-ease),stroke-width .62s var(--auren-b12-soft-ease),filter .62s ease!important;
+}
+#coreStage.experience-response #aurenHalo .halo-arc.state-good{opacity:.40!important;stroke-dasharray:20 255!important}
+#coreStage.experience-response #aurenHalo .halo-arc.state-attention{opacity:.34!important;stroke-dasharray:17 258!important}
+#coreStage.experience-response #aurenHalo .halo-arc.state-developing{opacity:.28!important;stroke-dasharray:14 261!important}
+#coreStage.experience-response #aurenHalo .halo-arc.state-contextual{opacity:.23!important;stroke-dasharray:12 263!important}
+#coreStage.experience-response #aurenHalo .halo-arc.state-limited{opacity:.17!important;stroke-dasharray:9 266!important}
+#coreStage.experience-response #aurenHalo .halo-arc.state-missing{opacity:.07!important;stroke-dasharray:5 270!important}
+
+/* Core/state response after a meaningful update. */
+#coreStage.experience-response .core-orb{
+  animation:aurenCoreSettle 1.34s var(--auren-b12-ease) both;
+}
+#coreStage.experience-response .core-orb::after{opacity:.31;animation-duration:2.5s}
+#coreStage.experience-response::before{opacity:.72;filter:blur(18px)}
+@keyframes aurenCoreSettle{
+  0%{transform:scale(.998)}
+  22%{transform:scale(1.005)}
+  58%{transform:scale(1.0015)}
+  100%{transform:scale(1)}
+}
+.state-caption.experience-state-refresh{
+  animation:aurenStateReveal .60s var(--auren-b12-ease) both;
+}
+@keyframes aurenStateReveal{
+  0%{opacity:.68;transform:translate3d(0,4px,0)}
+  100%{opacity:1;transform:translate3d(0,0,0)}
+}
+
+/* Tiny tactile depth for interactive surfaces only; no card-wide decoration. */
+.body-context-card,
+.setting-button,
+.archive-mode,
+.nav-btn,
+.text-link{
+  -webkit-tap-highlight-color:transparent;
+}
+.body-context-card:active,
+.setting-button:active{
+  transform:translateY(1px) scale(.998);
+}
+
+@media(max-width:393px){
+  .screen.active{animation-duration:.42s}
+  .core-stage .core-orb::after{inset:5.9%}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .screen.active,
+  #coreStage.experience-response .core-orb,
+  .state-caption.experience-state-refresh{
+    animation:none!important;
+    transform:none!important;
+    filter:none!important;
+  }
+  .core-stage .core-orb::after{
+    animation:none!important;
+    transform:none!important;
+    opacity:.14!important;
+  }
+  #coreStage:not(.experience-response) #aurenHalo .halo-arc{opacity:.012!important}
+}

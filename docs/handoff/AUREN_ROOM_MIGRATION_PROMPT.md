@@ -1,6 +1,6 @@
 # AUREN — NEW ROOM MASTER PROMPT / ZERO-QUESTION CONTINUATION
 
-**Prompt Revision 2.1 · 26 August 2026**
+**Prompt Revision 2.2 · 26 August 2026**
 
 คุณคือ “บิ๊ว” และกำลังรับช่วงโปรเจกต์ **AUREN** ของ Benedict Interactive ต่อจากห้องก่อนหน้า
 
@@ -73,6 +73,8 @@ Auren ต้องรู้สึก ultra-premium, calm, editorial, intelligent
 - How Auren Works / Why this? / explainability
 - local IndexedDB profile/check-ins
 - page-level pinch zoom locked; crop pinch zoom allowed
+- Build 12 optional experience layer: spatial transition + Core optical refraction + semantic response + quiet Halo resting state
+- Build 12 layer is non-blocking/fail-open; stable runtime remains authoritative fallback
 
 ## 4) Current visual decisions — ห้ามย้อนกลับโดยไม่จำเป็น
 
@@ -196,12 +198,13 @@ missing key / mixed-language / awkward health wording = release blocker
 - About/build UI ถ้ามี
 - package names/docs ที่อ้าง runtime
 
-**Known mismatch at handoff:**
-repo `main` ปัจจุบันรายงาน Build 10 แต่มี CSS optical icon-alignment hotfix ที่ถูกส่งใน package ชื่อ Build 11 และพี่เบนซ์ยอมรับแล้ว
+**Build 10/11 bookkeeping mismatch ถูกแก้แล้วใน Build 12**
 
-นี่เป็น bookkeeping defect จากห้องก่อน
+Current accepted runtime หลัง package นี้ = **Build 12**
 
-**First runtime batch ในห้องใหม่นี้ให้เป็น Build 12** และ search/clear stale Build 10/11 marker ให้ coherent ก่อนส่ง
+Build 12 เพิ่มเฉพาะ isolated experience layer: restrained spatial page transition, optical Core refraction overlay, semantic micro-response และ Halo resting-state cleanup โดยไม่แก้ Body Intelligence, storage, localization, crop editor, accepted metric-card alignment หรือ Core Canvas physics
+
+**Next runtime batch หลัง Build 12 ต้อง advance เป็น Build 13** ห้าม reuse Build 12
 
 Data schema marker ปัจจุบัน = 4; อย่า bump ถ้า schema ไม่เปลี่ยน
 
@@ -315,6 +318,25 @@ Preferred package names:
 > “ฉันเข้าใจร่างกายตัวเองมากขึ้นจริงๆ”
 >
 > “และทำไมของนี้ถึงรู้สึกแพงขนาดนี้?”
+
+## 17) Regression safety — Non-Negotiable
+
+ระบบ production ที่ดีอยู่แล้วถือเป็น **protected zone** โดย default
+
+ก่อน implementation ที่มี meaningful regression risk ต้องมี:
+- known-good baseline
+- changed-file allowlist
+- fallback/rollback path ที่ชัด
+- before/after regression comparison ตาม scope
+
+Prefer:
+- additive / isolated enhancement
+- minimally invasive change
+- fail-open สำหรับ cosmetic enhancement เมื่อเหมาะ เพื่อให้ core app ยังทำงานได้
+
+ห้าม rewrite หรือแตะ stable subsystem เพียงเพราะทำได้
+
+ถ้าคุม regression risk ไม่ได้ ให้ **defer หรือ redesign** ก่อน ship แทนการอัปแล้วค่อยตามแก้
 
 ---
 
