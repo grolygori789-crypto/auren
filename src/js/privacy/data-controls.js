@@ -38,6 +38,7 @@ const COPY = {
     deleted: 'Check-in deleted.',
     erased: 'Local Auren data erased.',
     error: 'Auren could not complete that action. Please try again.',
+    refreshError: 'The check-in was deleted, but Auren could not refresh this view. Reopen the app to see the updated state.',
     dayDelete: 'Delete this day',
   },
   th: {
@@ -71,6 +72,7 @@ const COPY = {
     deleted: 'ลบเช็คอินแล้ว',
     erased: 'ล้างข้อมูล Auren ในเครื่องแล้ว',
     error: 'Auren ไม่สามารถดำเนินการได้ โปรดลองอีกครั้ง',
+    refreshError: 'ลบเช็คอินแล้ว แต่ Auren ไม่สามารถรีเฟรชหน้าจอนี้ได้ กรุณาเปิดแอพใหม่เพื่อดูสถานะล่าสุด',
     dayDelete: 'ลบเช็คอินวันนั้น',
   },
 };
@@ -229,6 +231,33 @@ function renderEraseConfirmationTwo() {
   document.getElementById('cancelEraseFinal')?.addEventListener('click', openMain);
 }
 
+function waitForAppRefresh(requestId, timeoutMs = 1600) {
+  return new Promise((resolve, reject) => {
+    let settled = false;
+    const cleanup = () => {
+      document.removeEventListener('auren:data-refreshed', onSuccess);
+      document.removeEventListener('auren:data-refresh-error', onError);
+      window.clearTimeout(timer);
+    };
+    const finish = (fn) => (event) => {
+      if (settled || event?.detail?.requestId !== requestId) return;
+      settled = true;
+      cleanup();
+      fn();
+    };
+    const onSuccess = finish(resolve);
+    const onError = finish(() => reject(new Error('Auren view refresh failed')));
+    const timer = window.setTimeout(() => {
+      if (settled) return;
+      settled = true;
+      cleanup();
+      reject(new Error('Auren view refresh timed out'));
+    }, timeoutMs);
+    document.addEventListener('auren:data-refreshed', onSuccess);
+    document.addEventListener('auren:data-refresh-error', onError);
+  });
+}
+
 async function performDelete(localDate) {
   const c = copy();
   const status = document.getElementById('dataControlStatus');
@@ -236,11 +265,18 @@ async function performDelete(localDate) {
   if (status) status.textContent = c.working;
   try {
     await deleteLocalCheckin(localDate);
+    const requestId = `delete-${Date.now()}-${Math.random().toString(36).slice(2)}`;
+    const refreshed = waitForAppRefresh(requestId);
+    document.dispatchEvent(new CustomEvent('auren:data-change', {
+      detail: { type: 'checkin-deleted', requestId, localDate }
+    }));
+    await refreshed;
     if (status) status.textContent = c.deleted;
-    window.setTimeout(() => window.location.reload(), 420);
-  } catch {
     setBusy(false);
-    if (status) status.textContent = c.error;
+    window.setTimeout(closeModal, 220);
+  } catch (error) {
+    setBusy(false);
+    if (status) status.textContent = error?.message?.includes('refresh') ? c.refreshError : c.error;
   }
 }
 

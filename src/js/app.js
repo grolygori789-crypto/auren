@@ -559,6 +559,21 @@ function openHowWorks() { renderHowWorks(); $('howWorksModal').classList.add('op
 function closeHowWorks() { $('howWorksModal').classList.remove('open'); }
 function closeDayDetail() { $('dayDetailModal').classList.remove('open'); }
 
+async function refreshAfterLocalDataChange(event) {
+  const detail = event?.detail || {};
+  try {
+    closeDayDetail();
+    await loadData();
+    document.dispatchEvent(new CustomEvent('auren:data-refreshed', {
+      detail: { requestId: detail.requestId || '', localDate: detail.localDate || '' }
+    }));
+  } catch {
+    document.dispatchEvent(new CustomEvent('auren:data-refresh-error', {
+      detail: { requestId: detail.requestId || '', localDate: detail.localDate || '' }
+    }));
+  }
+}
+
 async function loadData() {
   try { [todayCheckin, recentCheckins, allCheckins, bodyProfile] = await Promise.all([getCheckin(), getRecentCheckins(14), getAllCheckins(), getBodyProfile()]); }
   catch {
@@ -593,15 +608,16 @@ async function removeAvatar() { const c=catalog(); $('removeAvatarBtn').disabled
 
 function startOpeningTransition() {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches; const opening=$('opening'), app=$('app'), openingWrap=$('openingOrbWrap'), todayWrap=$('todayOrbWrap'); app.classList.add('ready');
-  if(reduced){todayWrap.classList.remove('waiting');opening.classList.add('leave');return;}
+  if(reduced){openingWrap.style.visibility='hidden';todayWrap.classList.remove('waiting');opening.classList.add('leave');return;}
   const from=openingWrap.getBoundingClientRect(),to=todayWrap.getBoundingClientRect(); const scale=to.width/from.width,dx=to.left-from.left,dy=to.top-from.top;
   openingWrap.style.animation='none'; openingWrap.style.opacity='1'; openingWrap.style.filter='none'; openingWrap.style.transformOrigin='top left'; openingWrap.style.transition='transform .88s cubic-bezier(.16,.78,.18,1), opacity .34s ease .62s'; $('openingIdentity').classList.add('morphing');
-  requestAnimationFrame(()=>{openingWrap.style.transform=`translate(${dx}px, ${dy}px) scale(${scale})`;openingWrap.style.opacity='0.12';}); setTimeout(()=>{todayWrap.classList.remove('waiting');opening.classList.add('leave');},790);
+  requestAnimationFrame(()=>{openingWrap.style.transform=`translate(${dx}px, ${dy}px) scale(${scale})`;openingWrap.style.opacity='0.12';}); setTimeout(()=>{openingWrap.style.visibility='hidden';todayWrap.classList.remove('waiting');opening.classList.add('leave');},790);
 }
 function runOpening(){const first=isFirstLaunch();markFirstLaunchSeen();const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;setTimeout(startOpeningTransition,reduced?950:(first?4150:3725));}
 function registerServiceWorker(){if(!('serviceWorker' in navigator)||location.protocol==='file:')return;navigator.serviceWorker.register('./sw.js',{type:'module'}).catch(()=>{});}
 
 function bind() {
+  document.addEventListener('auren:data-change', refreshAfterLocalDataChange);
   document.querySelectorAll('[data-nav]').forEach((button)=>button.addEventListener('click',()=>showScreen(button.dataset.nav)));
   $('profileBtn').addEventListener('click',()=>showScreen('you'));
   $('uploadAvatarBtn').addEventListener('click',()=>$('avatarInput').click()); $('avatarInput').addEventListener('change',handleAvatarUpload); $('removeAvatarBtn').addEventListener('click',removeAvatar); $('identityNameForm').addEventListener('submit',submitDisplayName);

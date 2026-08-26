@@ -1,10 +1,6 @@
-# Auren — GitHub Build 014
+# Auren — GitHub Build 015
 
-Build 14 adds first-class local privacy and deletion controls without changing Body Intelligence, the accepted Build 13 Living Core, navigation logic, profile schema or Daily Check-in scoring.
-
-Users can now remove today's check-in, delete an individual historical check-in from Daily State Detail, or erase all local Auren data from the You screen. Full erasure uses a deliberate two-stage confirmation and removes the local IndexedDB database plus Auren preference keys on that device. Single-day deletion leaves the profile and other history intact.
-
-The feature is isolated in dedicated privacy modules and CSS. Existing `app.js`, Body Intelligence, Core rendering, storage schema and accepted UI surfaces remain untouched; if the data-controls UI layer cannot initialize, the stable app runtime still loads.
+Build 15 fixes two physical-device transition regressions without changing Living Core physics, Body Intelligence, storage schema, or the accepted Signature Opening timing. Single check-in deletion now refreshes Auren state in place from IndexedDB, so Today and Archive update without reloading the document or replaying the brand opening. Cold launch handoff now hides the outgoing Opening Core before Today Core becomes visible in the same JavaScript handoff, preventing a doubled, smaller or vertically offset ghost. The default PWA splash background is also aligned to Pearl Dawn for a calmer Android system-to-Auren handoff.
 
 # AUREN
 
@@ -207,4 +203,19 @@ Build 14 adds explicit user control over locally stored Auren data while keeping
 - Isolates the feature in `src/js/privacy/` and `src/css/privacy.css`; the core runtime remains available if the UI enhancement fails to initialize.
 
 Regression/rollback boundary: removing the Build 14 privacy-module import and its Service Worker assets returns the runtime to the accepted Build 13 behavior without modifying stored records.
+
+## Build 15 — Seamless Launch & In-place Data Refresh
+
+Build 15 is a regression-focused transition repair:
+
+- Prevents single check-in deletion from replaying the Auren Signature Opening.
+- Refreshes Today, Halo and Archive directly from IndexedDB after a single deletion while preserving the active primary screen and Archive mode.
+- Keeps `Erase all local data` as a true fresh restart because preferences and identity are intentionally removed.
+- Guards the cold-launch Core handoff so the Opening Core and Today Core are not visible in the same rendered frame.
+- Hides the outgoing Opening Core before Today Core is revealed in the same handoff task, removing the smaller/lower ghost reported on physical devices.
+- Aligns the PWA `background_color` and `theme_color` with Pearl Dawn (`#f3e6da`) to reduce the visual jump from the Android system splash. Android may still show the installed app icon during its OS-controlled splash.
+- Leaves Living Core physics/material, Body Intelligence, local schema version 4, check-in/profile storage logic and Signature Opening timing unchanged.
+- The data-control refresh bridge has a visible fallback if an in-place refresh cannot complete; it never silently reloads a single deletion into the Signature Opening.
+
+Rollback baseline remains Build 13 for the broader Build 14/15 data-control series until physical-device acceptance is confirmed.
 

@@ -1,4 +1,4 @@
-// Auren runtime Build 14 — Privacy & Data Controls.
+// Auren runtime Build 15 — Seamless Launch & Data Refresh.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
