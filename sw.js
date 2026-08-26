@@ -1,4 +1,4 @@
-// Auren runtime Build 12 — Quiet Spatial Polish & Semantic Core Response.
+// Auren runtime Build 13 — Living Core Evolution.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

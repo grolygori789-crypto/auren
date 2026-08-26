@@ -18,6 +18,16 @@ export class AurenOrb {
     this.waveV = 0;
     this.wave2 = 0;
     this.wave2V = 0;
+    this.flowA = 0;
+    this.flowB = 0;
+    this.reaction = 0;
+    this.stateAqua = 0;
+    this.statePearl = 0;
+    this.stateLight = 1;
+    this.stateMotion = 1;
+    this.stateWarm = 0;
+    this.evolutionDisabled = false;
+    this.slowRenderCount = 0;
     this.pointer = null;
     this.calm = calm;
     this.signature = signature;
@@ -75,6 +85,11 @@ export class AurenOrb {
     this.kick += force;
     this.waveV += force * 0.42;
     this.wave2V -= force * 0.16;
+    if (!this.signature && !this.evolutionDisabled) {
+      this.reaction = Math.min(1, this.reaction + Math.abs(force) * 2.15);
+      this.flowA += force * 0.36;
+      this.flowB -= force * 0.15;
+    }
   }
 
   resize() {
@@ -90,9 +105,35 @@ export class AurenOrb {
     this.ctx.imageSmoothingQuality = 'high';
   }
 
+  semanticTarget() {
+    if (this.signature) return { aqua: 0, pearl: 0, light: 1, motion: 1, warm: 0 };
+    const stage = this.canvas.closest?.('.core-stage');
+    if (!stage) return { aqua: 0, pearl: 0, light: 1, motion: 1, warm: 0 };
+    const dailyArc = stage.querySelector?.('.halo-daily');
+    const overall = stage.dataset?.halo || '';
+
+    if (dailyArc?.classList?.contains('state-attention')) {
+      return { aqua: 0.110, pearl: 0.045, light: 0.925, motion: 0.86, warm: -0.030 };
+    }
+    if (dailyArc?.classList?.contains('state-good')) {
+      if (overall === 'excellent') return { aqua: -0.015, pearl: 0.015, light: 1.050, motion: 1.04, warm: 0.050 };
+      if (overall === 'strong') return { aqua: -0.006, pearl: 0.012, light: 1.024, motion: 1.01, warm: 0.028 };
+      return { aqua: 0, pearl: 0.012, light: 1.01, motion: 1, warm: 0.010 };
+    }
+    return { aqua: 0.012, pearl: 0.012, light: 0.995, motion: 0.94, warm: 0 };
+  }
+
   physics(dt) {
-    // Build 9: perceptible living motion without turning the Core into a toy.
-    // A user should be able to tell the fluid is alive within roughly one second.
+    // Proven surface model retained from Build 9. Build 13 only adds independent
+    // internal circulation and a smoothed semantic material tone for the Today Core.
+    const targetTone = this.semanticTarget();
+    const toneEase = this.reduced ? 1 : (1 - Math.exp(-1.42 * dt));
+    this.stateAqua += (targetTone.aqua - this.stateAqua) * toneEase;
+    this.statePearl += (targetTone.pearl - this.statePearl) * toneEase;
+    this.stateLight += (targetTone.light - this.stateLight) * toneEase;
+    this.stateMotion += (targetTone.motion - this.stateMotion) * toneEase;
+    this.stateWarm += (targetTone.warm - this.stateWarm) * toneEase;
+
     const amp = this.signature ? 0.94 : (this.calm ? 1.08 : 1.12);
     const intro = this.t < 4.5 ? Math.cos(this.t * 1.18) * 0.105 * Math.exp(-this.t * 0.74) : 0;
     const living = Math.sin(this.t * 1.28) * 0.128 + Math.sin(this.t * 2.04 + 0.72) * 0.052 + Math.sin(this.t * 0.48) * 0.020;
@@ -105,13 +146,23 @@ export class AurenOrb {
     this.waveV += (-this.wave * 7.4 + forcing * 1.08 + idleWave) * dt;
     this.waveV *= Math.exp(-1.48 * dt);
     this.wave += this.waveV * dt;
-    this.wave2V += (-this.wave2 * 11.8 - forcing * 0.48 + Math.sin(this.t * 2.55) * 0.026) * dt;
+    const secondaryIdle = this.reduced ? 0 : Math.sin(this.t * 2.55) * 0.026;
+    this.wave2V += (-this.wave2 * 11.8 - forcing * 0.48 + secondaryIdle) * dt;
     this.wave2V *= Math.exp(-1.78 * dt);
     this.wave2 += this.wave2V * dt;
     this.kick *= Math.exp(-2.04 * dt);
+
+    if (!this.signature && !this.evolutionDisabled && !this.reduced) {
+      const motion = this.stateMotion;
+      this.flowA += dt * (0.72 + Math.sin(this.t * 0.23) * 0.085) * motion;
+      this.flowB += dt * (0.47 + Math.sin(this.t * 0.17 + 1.1) * 0.060) * motion;
+      this.reaction *= Math.exp(-1.34 * dt);
+    } else if (this.reduced) {
+      this.reaction = 0;
+    }
   }
 
-  fluidImage() {
+  fluidImageLegacy() {
     const { S, px } = this;
     const c = S / 2;
     const R = S * 0.408;
@@ -152,11 +203,7 @@ export class AurenOrb {
         r = pearl[0] * (1 - tint) + r * tint;
         g = pearl[1] * (1 - tint) + g * tint;
         b = pearl[2] * (1 - tint) + b * tint;
-        // A restrained mineral-aqua iridescent ribbon keeps Auren biological and distinctive
-        // while champagne gold remains the dominant material impression.
         {
-          // A moving mineral-aqua vein makes the Core visibly alive even when the free surface is nearly settled.
-          // It stays secondary to champagne gold so the material remains luxurious rather than neon-biotech.
           const ribbonStrength = this.signature ? 0.20 : 0.115;
           const aquaRibbon = ribbonStrength * Math.pow(0.5 + 0.5 * Math.sin(u * 5.4 - v * 3.1 + this.t * 0.98 + 0.7), 5) * thickness;
           r = r * (1 - aquaRibbon) + aqua[0] * aquaRibbon;
@@ -179,6 +226,145 @@ export class AurenOrb {
       }
     }
     this.o.putImageData(this.img, 0, 0);
+  }
+
+  fluidImageEvolution() {
+    const { S, px } = this;
+    const c = S / 2;
+    const R = S * 0.408;
+    const cs = Math.cos(this.tilt);
+    const sn = Math.sin(this.tilt);
+    const { gold, aqua, pearl } = this.palette;
+    const reaction = this.reaction;
+    const flowA = this.flowA;
+    const flowB = this.flowB;
+    const slowPhase = this.reduced ? 0 : Math.sin(this.t * 0.22) * 0.28;
+    const aquaDeepR = aqua[0] * 0.80;
+    const aquaDeepG = aqua[1] * 0.88;
+    const aquaDeepB = aqua[2] * 0.93;
+
+    for (let y = 0; y < S; y += 1) {
+      for (let x = 0; x < S; x += 1) {
+        const ii = (y * S + x) * 4;
+        const nx = (x - c) / R;
+        const ny = (y - c) / R;
+        const rr = nx * nx + ny * ny;
+        if (rr >= 1) { px[ii + 3] = 0; continue; }
+
+        const u = nx * cs + ny * sn;
+        const v = -nx * sn + ny * cs;
+        const wall = Math.sqrt(Math.max(0, 1 - u * u));
+        const edgeDist = Math.max(0, wall - Math.abs(v));
+        const meniscus = 0.058 * Math.exp(-edgeDist / 0.058);
+        const micro = Math.sin(u * Math.PI * 3.15 + flowA * 1.08) * (0.0065 + reaction * 0.0045);
+        const surface = 0.275
+          + this.wave * Math.sin(u * Math.PI * 1.03) * 0.50
+          + this.wave2 * Math.sin(u * Math.PI * 2 + 0.58) * 0.18
+          + micro
+          - meniscus;
+        const depth = v - surface;
+        let alpha = Math.max(0, Math.min(1, depth / 0.028));
+        if (alpha <= 0) { px[ii + 3] = 0; continue; }
+
+        alpha *= Math.min(1, (1 - Math.sqrt(rr)) / 0.030);
+        const fillDepth = Math.max(0, Math.min(1, depth / (wall - surface + 0.001)));
+        const optical = Math.sqrt(Math.max(0, 1 - rr));
+        const thickness = Math.max(0, Math.min(1, optical * 0.98 + fillDepth * 0.46));
+
+        // Independent internal currents move at different rates from the free surface.
+        // Reusing three fields keeps the renderer lightweight enough for mobile Canvas2D.
+        const s1 = Math.sin((u * 3.2 + v * 1.55) * 1.85 + flowA * 1.38 + slowPhase);
+        const s2 = Math.sin((u * 1.55 - v * 3.1) * 1.18 - flowB * 1.52 + 0.58);
+        const s3 = Math.sin((u * 5.1 + v * 2.4) * 0.76 + flowA * 0.47 + flowB * 0.42);
+        const ribbonBase = 0.5 + 0.5 * s3;
+        const ribbon = ribbonBase * ribbonBase * ribbonBase;
+
+        let aquaMix = Math.max(0, Math.min(1,
+          0.190 + this.stateAqua + 0.052 * s1 + 0.030 * s2 + 0.034 * s3 + 0.020 * ribbon
+        ));
+        aquaMix = Math.max(0.07, Math.min(0.42, aquaMix));
+
+        let r = gold[0] * (1 - aquaMix) + aqua[0] * aquaMix;
+        let g = gold[1] * (1 - aquaMix) + aqua[1] * aquaMix;
+        let b = gold[2] * (1 - aquaMix) + aqua[2] * aquaMix;
+
+        const tint = 0.30 + thickness * 0.72;
+        r = pearl[0] * (1 - tint) + r * tint;
+        g = pearl[1] * (1 - tint) + g * tint;
+        b = pearl[2] * (1 - tint) + b * tint;
+
+        // Mineral vein: cooler and translucent, drifting independently through depth.
+        const veinBase = Math.max(0, Math.min(1, 0.50 + 0.34 * s3 + 0.16 * s1));
+        const veinField = veinBase * veinBase * veinBase;
+        const mineralVein = (0.360 + reaction * 0.080) * veinField * thickness;
+        r = r * (1 - mineralVein) + aquaDeepR * mineralVein;
+        g = g * (1 - mineralVein) + aquaDeepG * mineralVein;
+        b = b * (1 - mineralVein) + aquaDeepB * mineralVein;
+
+        // Low-amplitude optical density gives the liquid internal depth instead
+        // of reading as a flat single-color fill.
+        const densityField = Math.max(0, Math.min(1, 0.50 + 0.30 * s1 - 0.24 * s2 + 0.12 * s3));
+        const density2 = densityField * densityField;
+        const densityShade = 1 - (0.030 + reaction * 0.010) * density2 * thickness;
+        r *= densityShade; g *= densityShade; b *= densityShade;
+
+        // Pearl veil: a soft suspended layer, not a separate opaque blob.
+        const veilField = Math.max(0, Math.min(1, 0.5 - 0.20 * s1 + 0.27 * s2 + 0.10 * s3));
+        const veil3 = veilField * veilField * veilField;
+        const pearlVeil = (0.052 + this.statePearl + reaction * 0.024)
+          * veil3
+          * (0.38 + thickness * 0.62);
+        r = r * (1 - pearlVeil) + pearl[0] * pearlVeil;
+        g = g * (1 - pearlVeil) + pearl[1] * pearlVeil;
+        b = b * (1 - pearlVeil) + pearl[2] * pearlVeil;
+
+        // A restrained warm filament prevents cooler states from reading grey or lifeless.
+        const warmField = Math.max(0, Math.min(1, 0.50 + 0.31 * s1 + 0.17 * s2));
+        const warm2 = warmField * warmField;
+        const warmFilament = Math.max(0, 0.035 + this.stateWarm) * warm2 * warm2 * thickness;
+        r = r * (1 - warmFilament) + gold[0] * warmFilament;
+        g = g * (1 - warmFilament) + gold[1] * warmFilament;
+        b = b * (1 - warmFilament) + gold[2] * warmFilament;
+
+        const surfGlow = Math.exp(-Math.abs(depth) * 74);
+        const ca = Math.max(0, Math.min(1, 0.50 + 0.28 * s1 - 0.18 * s2 + 0.10 * s3));
+        const lower = Math.pow(fillDepth, 0.66);
+        const stateLight = this.stateLight;
+        const reactionLight = 1 + reaction * 0.075;
+        const light = (
+          surfGlow * (23 + ca * 11.5)
+          + Math.pow(Math.max(0, 0.88 - u * 0.14 - v * 0.34), 6.6) * 12.2 * thickness
+          + (1 - Math.abs(u) * 0.22) * thickness * 15.2 * lower
+        ) * stateLight * reactionLight;
+
+        r += light + lower * 10.2 * stateLight;
+        g += light * 0.95 + lower * 7.8 * stateLight;
+        b += light * 0.88 + lower * 5.2 * stateLight;
+
+        const trans = 1 - Math.exp(-3 * optical * (0.60 + 0.92 * fillDepth));
+        px[ii] = Math.max(0, Math.min(255, r));
+        px[ii + 1] = Math.max(0, Math.min(255, g));
+        px[ii + 2] = Math.max(0, Math.min(255, b));
+        px[ii + 3] = Math.min(252, 132 + alpha * 94 + trans * 99 + surfGlow * 18);
+      }
+    }
+    this.o.putImageData(this.img, 0, 0);
+  }
+
+  fluidImage() {
+    // The accepted Signature Opening stays on the proven renderer. Build 13 is
+    // isolated to the Today Core and falls back permanently to legacy rendering
+    // if the evolution path ever throws on a device.
+    if (this.signature || this.evolutionDisabled) {
+      this.fluidImageLegacy();
+      return;
+    }
+    try {
+      this.fluidImageEvolution();
+    } catch {
+      this.evolutionDisabled = true;
+      this.fluidImageLegacy();
+    }
   }
 
   draw() {
@@ -252,7 +438,19 @@ export class AurenOrb {
     this.last = now;
     this.t += dt;
     this.physics(dt);
+
+    const renderStart = performance.now();
     this.draw();
+    const renderCost = performance.now() - renderStart;
+
+    // Runtime rollback: if the richer Today material proves too expensive on a
+    // device, fall back to the accepted Build 12/legacy renderer automatically.
+    if (!this.signature && !this.evolutionDisabled && this.t > 2) {
+      if (renderCost > 23) this.slowRenderCount += 1;
+      else this.slowRenderCount = Math.max(0, this.slowRenderCount - 1);
+      if (this.slowRenderCount >= 14) this.evolutionDisabled = true;
+    }
+
     requestAnimationFrame((next) => this.frame(next));
   }
 

@@ -1,8 +1,10 @@
-# Auren — GitHub Build 012
+# Auren — GitHub Build 013
 
-Build 12 adds a deliberately isolated experience-polish layer: quieter spatial page transitions, enhanced optical glass refraction around the existing Auren Core renderer, semantic micro-responses after meaningful state changes, and a calmer Halo resting state with luminous fragments revealed only when they communicate change.
+Build 13 evolves the Today Auren Core into a richer living material without changing Body Intelligence, storage, localization, navigation, the accepted Signature Opening, or the Build 12 spatial-polish layer.
 
-The stable Body Intelligence, storage, localization, crop editor, Core Canvas physics and accepted metric-card optical alignment remain untouched.
+The Today Core now combines independent internal circulation, a restrained mineral-aqua vein, a soft pearl suspension layer, micro-surface undulation, subtle state-responsive material tonality, and stronger but still calm event reactions. The semantic shift is deliberately non-alarmist: an attention state becomes slightly cooler, quieter and less luminous rather than grey, muddy or punitive.
+
+Build 13 also carries an explicit rendering fallback. The Signature Opening stays on the proven legacy renderer, and the Today Core automatically falls back to that renderer if the richer material path throws or proves persistently too expensive on a device.
 
 # AUREN
 
@@ -39,6 +41,7 @@ The foundation runtime establishes the first real Auren application shell:
 - Reduced Motion support.
 - Installable/offline PWA shell with release-aware cache identity derived from the runtime build source.
 - Optional Build 12 experience layer that can fail independently without blocking the stable app runtime.
+- Build 13 Living Core Evolution with runtime fallback to the accepted renderer.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -169,3 +172,18 @@ Build 12 intentionally avoids invasive changes to systems already accepted in pr
 - Advances runtime/cache identity to Build 12 while preserving data schema version 4.
 
 Regression policy for this and future upgrades: stable production systems are protected by default; meaningful-risk changes require an explicit rollback/fallback path and should be isolated or redesigned rather than shipped as invasive rewrites.
+
+## Build 13 — Living Core Evolution
+
+Build 13 concentrates the upgrade on the Today Core rather than broadening feature scope:
+
+- Preserves the accepted Signature Opening on the previous renderer.
+- Adds independent internal circulation so the liquid no longer reads as one repeating slosh pattern.
+- Adds restrained champagne-gold, mineral-aqua and pearl material layers inside one coherent liquid body.
+- Adds subtle micro-undulation at the fluid surface and a drifting mineral vein for depth.
+- Uses existing semantic Halo state as a visual input without changing Body Intelligence logic or storing new data.
+- Attention states shift slightly cooler, quieter and less luminous; positive states become subtly warmer/clearer. No state turns muddy, grey or punitive.
+- Existing check-in/profile Core reactions now also energize the inner flow briefly before settling.
+- Keeps Reduced Motion behavior.
+- Includes two rollback paths: exception fallback to the accepted renderer and automatic performance fallback after sustained expensive render frames.
+- Advances runtime/cache identity to Build 13 while preserving data schema version 4.
