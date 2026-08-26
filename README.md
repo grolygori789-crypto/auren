@@ -1,10 +1,10 @@
-# Auren — GitHub Build 013
+# Auren — GitHub Build 014
 
-Build 13 evolves the Today Auren Core into a richer living material without changing Body Intelligence, storage, localization, navigation, the accepted Signature Opening, or the Build 12 spatial-polish layer.
+Build 14 adds first-class local privacy and deletion controls without changing Body Intelligence, the accepted Build 13 Living Core, navigation logic, profile schema or Daily Check-in scoring.
 
-The Today Core now combines independent internal circulation, a restrained mineral-aqua vein, a soft pearl suspension layer, micro-surface undulation, subtle state-responsive material tonality, and stronger but still calm event reactions. The semantic shift is deliberately non-alarmist: an attention state becomes slightly cooler, quieter and less luminous rather than grey, muddy or punitive.
+Users can now remove today's check-in, delete an individual historical check-in from Daily State Detail, or erase all local Auren data from the You screen. Full erasure uses a deliberate two-stage confirmation and removes the local IndexedDB database plus Auren preference keys on that device. Single-day deletion leaves the profile and other history intact.
 
-Build 13 also carries an explicit rendering fallback. The Signature Opening stays on the proven legacy renderer, and the Today Core automatically falls back to that renderer if the richer material path throws or proves persistently too expensive on a device.
+The feature is isolated in dedicated privacy modules and CSS. Existing `app.js`, Body Intelligence, Core rendering, storage schema and accepted UI surfaces remain untouched; if the data-controls UI layer cannot initialize, the stable app runtime still loads.
 
 # AUREN
 
@@ -42,6 +42,7 @@ The foundation runtime establishes the first real Auren application shell:
 - Installable/offline PWA shell with release-aware cache identity derived from the runtime build source.
 - Optional Build 12 experience layer that can fail independently without blocking the stable app runtime.
 - Build 13 Living Core Evolution with runtime fallback to the accepted renderer.
+- Build 14 local Data Controls for single-day deletion and full on-device erasure.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -58,13 +59,15 @@ auren/
 │   ├── css/
 │   │   ├── tokens.css
 │   │   ├── app.css
-│   │   └── experience.css
+│   │   ├── experience.css
+│   │   └── privacy.css
 │   └── js/
 │       ├── app.js
 │       ├── config/
 │       ├── core/
 │       ├── experience/
 │       ├── i18n/
+│       ├── privacy/
 │       └── storage/
 └── docs/
 ```
@@ -187,3 +190,21 @@ Build 13 concentrates the upgrade on the Today Core rather than broadening featu
 - Keeps Reduced Motion behavior.
 - Includes two rollback paths: exception fallback to the accepted renderer and automatic performance fallback after sustained expensive render frames.
 - Advances runtime/cache identity to Build 13 while preserving data schema version 4.
+
+## Build 14 — Privacy & Data Controls
+
+Build 14 adds explicit user control over locally stored Auren data while keeping the accepted runtime isolated from destructive-operation logic:
+
+- Adds `Data controls` on the You screen with native English and Thai copy.
+- Allows deleting today's check-in without touching the profile or other days.
+- Adds `Delete this day` to Daily State Detail when that date contains a check-in.
+- Keeps weight-only Archive entries untouched by single-check-in deletion to avoid silently deleting a different kind of evidence.
+- Adds `Erase all local data` with two deliberate confirmation stages.
+- Full erase deletes the local `auren` IndexedDB database and Auren-prefixed local preferences on that device. App assets/service-worker caches are not treated as user data.
+- Reloads after successful destructive actions so Today, Halo, Archive and longitudinal summaries rebuild from the remaining source data instead of maintaining stale in-memory state.
+- Does not change data schema version 4.
+- Keeps `app.js`, Body Intelligence, Build 13 Core rendering and accepted layout code unchanged.
+- Isolates the feature in `src/js/privacy/` and `src/css/privacy.css`; the core runtime remains available if the UI enhancement fails to initialize.
+
+Regression/rollback boundary: removing the Build 14 privacy-module import and its Service Worker assets returns the runtime to the accepted Build 13 behavior without modifying stored records.
+

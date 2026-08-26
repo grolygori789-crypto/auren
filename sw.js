@@ -1,4 +1,4 @@
-// Auren runtime Build 13 — Living Core Evolution.
+// Auren runtime Build 14 — Privacy & Data Controls.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -11,10 +11,13 @@ const APP_SHELL = [
   './src/css/tokens.css',
   './src/css/app.css',
   './src/css/experience.css',
+  './src/css/privacy.css',
   './src/js/app.js',
   './src/js/config/build.js',
   './src/js/core/orb.js',
   './src/js/experience/polish.js',
+  './src/js/privacy/data-controls.js',
+  './src/js/privacy/storage.js',
   './src/js/intelligence/body.js',
   './src/js/i18n/en.js',
   './src/js/i18n/th.js',

@@ -1,0 +1,42 @@
+/* Auren Build 14 — Privacy & Data Controls
+   Isolated UI layer; no existing app layout or accepted component styles are replaced. */
+
+.data-control-setting{width:100%;text-align:left;cursor:pointer}
+.data-control-setting-copy{min-width:0;flex:1}
+.data-control-icon svg{width:17px;height:17px;stroke:#7f756a;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
+
+.data-controls-modal{z-index:72}
+.data-controls-sheet{max-height:min(84dvh,720px);overflow:auto;overscroll-behavior:contain}
+.data-controls-head{padding:0 2px 4px}
+.data-controls-eyebrow{font-size:9px;letter-spacing:.20em;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+.data-controls-head h3{margin:0;font:400 24px/1.18 var(--font-display);letter-spacing:-.015em}
+.data-controls-head .sheet-intro{margin-top:9px}
+
+.data-control-card{margin-top:13px;padding:15px;border:1px solid color-mix(in srgb,var(--line) 86%,transparent);border-radius:20px;background:color-mix(in srgb,var(--card) 72%,transparent);display:grid;gap:12px}
+.data-control-card strong{font-size:12px;font-weight:590}
+.data-control-card p{font-size:10.5px;line-height:1.58;color:var(--muted);margin:4px 0 0}
+.data-control-neutral{background:color-mix(in srgb,var(--card) 54%,transparent)}
+.data-control-danger-zone{margin-top:17px;border-color:color-mix(in srgb,#a87368 18%,var(--line));background:linear-gradient(145deg,color-mix(in srgb,var(--card-hi) 82%,transparent),color-mix(in srgb,#bd8d80 4%,var(--card)))}
+
+.data-secondary-danger,.data-danger,.data-day-delete{border-radius:999px;min-height:43px;padding:0 16px;font-size:11px;letter-spacing:.01em;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.data-secondary-danger{justify-self:start;border:1px solid color-mix(in srgb,#9e7469 28%,var(--line));background:color-mix(in srgb,var(--card-hi) 84%,transparent);color:color-mix(in srgb,#795d57 78%,var(--ink))}
+.data-secondary-danger:disabled{opacity:.34;cursor:default}
+.data-danger{width:100%;border:1px solid color-mix(in srgb,#9f655d 30%,transparent);background:linear-gradient(145deg,color-mix(in srgb,#fff 88%,#f4e5e0),color-mix(in srgb,#bc8478 10%,#fff));color:#76534e;box-shadow:0 8px 20px rgba(110,67,58,.06)}
+.data-danger-final{border-color:color-mix(in srgb,#92584f 42%,transparent);background:linear-gradient(145deg,#fbf0ed,#ecd7d2);color:#69433d}
+.data-secondary-danger:active,.data-danger:active,.data-day-delete:active{transform:translateY(1px)}
+.data-danger:disabled,.data-secondary-danger:disabled,.data-day-delete:disabled{pointer-events:none}
+
+.data-confirm-date{margin:14px 0 4px;padding:12px 14px;border-radius:17px;background:color-mix(in srgb,var(--card) 72%,transparent);border:1px solid var(--line);font-size:11px;text-align:center;color:var(--muted)}
+.data-confirm-actions{display:grid;gap:9px;margin-top:18px}
+.data-control-status{min-height:18px;margin-top:10px;text-align:center;font-size:10px;color:var(--muted)}
+
+.data-day-delete{border:0;background:transparent;color:color-mix(in srgb,#8d655d 82%,var(--muted));min-height:40px;margin-right:auto;padding-left:4px;padding-right:10px}
+
+@media(max-width:393px){
+  .data-controls-sheet{max-height:82dvh}
+  .data-control-card{padding:14px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  .data-secondary-danger:active,.data-danger:active,.data-day-delete:active{transform:none}
+}
