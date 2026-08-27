@@ -1,6 +1,6 @@
-# Auren — GitHub Build 022
+# Auren — GitHub Build 023
 
-Build 22 adds a focused visual refinement to the Daily Check-in sliders only. The five observation rails now use subtle bi-tone material gradients with cooler low-end tonality and warmer high-end tonality, while Stress uses a dedicated calm-to-attention palette. This deepens the premium feel of the check-in experience without changing any data, logic, wording, thresholds or accepted read-only baseline visuals.
+Build 23 is a narrow hotfix for the Build 22 Daily Check-in slider polish after physical-device review showed that the visual layer did not bind to the dynamically rendered check-in inputs. The hotfix targets Auren's canonical check-in input IDs directly and re-runs after the check-in fields are rendered, so the bi-tone rails are actually applied while preserving all existing check-in behavior and data.
 
 # AUREN
 
@@ -359,3 +359,14 @@ This build intentionally upgrades **only the interactive Daily Check-in sliders*
 - `src/js/config/build.js`
 - `src/js/today/checkin-slider-polish.js`
 - `src/css/today-checkin.css`
+
+
+## Build 23 — Check-in Slider Binding Hotfix
+
+- Fixes the Build 22 timing/binding defect that left the native gold sliders visually unchanged on physical Android.
+- Targets `#checkin-sleep`, `#checkin-energy`, `#checkin-stress`, `#checkin-mood`, and `#checkin-movement` directly rather than inferring the sheet from transient DOM content.
+- Re-applies after `#checkinFields` is dynamically rebuilt and when the check-in button is opened.
+- Makes the two-tone rail visually distinct enough to read on a real phone while keeping the palette muted and premium.
+- Stress keeps its dedicated calm-mineral → muted-attention palette.
+- Does not modify `app.js`, stored check-in values, Body Intelligence, Rhythm baseline bars, Signals, Archive, or Today read-only details.
+- Build 22 remains functionally safe; Build 21 is the broader rollback baseline.
