@@ -1,6 +1,6 @@
-# Auren — GitHub Build 018
+# Auren — GitHub Build 019
 
-Build 18 is a focused physical-device polish pass for Rhythm early-data states. It preserves the Living Rhythm engine from Build 17 while making one-to-five recorded days truthful and intentional: early observations are no longer mislabeled as a personal baseline, sparse history gets a compact temporal scaffold instead of a large empty graph, and continuity is presented as evidence depth rather than a dominant score-like number.
+Build 19 turns Signals from a placeholder into Auren’s first Relationship Intelligence surface. It compares pairs of the five daily observations conservatively, surfaces only repeat relationships that earn enough evidence, keeps association separate from causation, and gives sparse-history states a deliberate premium visual instead of inventing early conclusions.
 
 # AUREN
 
@@ -30,7 +30,7 @@ The foundation runtime establishes the first real Auren application shell:
 - Today shell with truthful no-data state.
 - Daily Check-in for self-reported sleep, energy, stress, mood and movement.
 - Local IndexedDB persistence for daily observations.
-- Rhythm V1 Personal Pattern Intelligence, with Signals still intentionally gated behind evidence.
+- Rhythm V1 Personal Pattern Intelligence and Signals V1 Relationship Intelligence, both gated by evidence depth.
 - Archive and You navigation foundations.
 - Native English and Thai locale support.
 - Five curated Auren Atmospheres: Pearl Dawn, Mineral Mist, Rose Veil, Sage Haze and Quiet Dusk.
@@ -42,6 +42,8 @@ The foundation runtime establishes the first real Auren application shell:
 - Build 14 local Data Controls for single-day deletion and full on-device erasure.
 - Build 16 clean Signature Opening handoff accepted on physical-device review.
 - Build 17 isolated Living Rhythm layer with static/performance fallbacks.
+- Build 18 Rhythm early-state physical-device polish.
+- Build 19 isolated Signals relationship layer with evidence/stability guardrails.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -60,7 +62,8 @@ auren/
 │   │   ├── app.css
 │   │   ├── experience.css
 │   │   ├── privacy.css
-│   │   └── rhythm.css
+│   │   ├── rhythm.css
+│   │   └── signals.css
 │   └── js/
 │       ├── app.js
 │       ├── config/
@@ -69,6 +72,7 @@ auren/
 │       ├── i18n/
 │       ├── privacy/
 │       ├── rhythm/
+│       ├── signals/
 │       └── storage/
 └── docs/
 ```
@@ -275,4 +279,22 @@ Build 18 responds directly to physical-device review of Rhythm with sparse histo
 - Does not modify `app.js`, Living Core, Body Intelligence, Signature Opening, Archive, Data Controls, IndexedDB structure, or data schema version 4.
 
 Rollback: remove the Build 18 Rhythm files and restore the Build 17 versions of `src/js/rhythm/rhythm.js` and `src/css/rhythm.css`. Build 16 remains the broader pre-Rhythm production baseline.
+
+## Build 19 — Signals V1 / Relationship Intelligence
+
+Build 19 turns the existing Signals placeholder into a calm, evidence-gated relationship surface without changing stored health data or the accepted Today/Rhythm systems:
+
+- Replaces the Signals placeholder at runtime with an isolated `src/js/signals/signals.js` enhancement; if it cannot load, the existing placeholder remains available.
+- Adds selectable 14 / 30-day evidence windows using only locally stored daily check-ins.
+- Compares all ten pairings across Sleep, Energy, Stress, Mood and Movement using rank-based association appropriate to the ordinal 1–5 observations.
+- Requires at least eight paired days before any relationship can surface. Pairs also need enough variation in both observations and a conservative strength threshold; larger samples use a stability check to prevent a relationship that reverses direction across the window from being promoted.
+- Surfaces at most the strongest primary relationship plus one secondary relationship. Weaker pairs stay intentionally quiet.
+- Never displays a numerical correlation coefficient, composite health score, causal claim or medical conclusion.
+- Adds a living Canvas2D Evidence Field: five restrained observation nodes remain unconnected while evidence is insufficient; earned relationships appear as thin champagne/mineral filaments with subtle internal light motion. The motion is presentation, not physiology or sensor data.
+- Adds explicit sparse-history states including one-day and pre-threshold copy so the page remains intentional before relationship inference is possible.
+- Adds qualitative Confidence, evidence depth, `Why this?` provenance, minimum-evidence explanation and limitations in native English and Thai.
+- Supports Reduced Motion and a runtime performance fallback that removes expensive glow/motion before affecting the stable app.
+- Does not modify `app.js`, Living Core, Body Intelligence, Rhythm analysis, Signature Opening, Archive, Data Controls, IndexedDB structure, or data schema version 4.
+
+Rollback: remove the Build 19 Signals import plus `src/js/signals/signals.js` / `src/css/signals.css` from the Service Worker. Build 18 remains the immediate known-good production baseline.
 

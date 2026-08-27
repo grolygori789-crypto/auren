@@ -1,4 +1,4 @@
-// Auren runtime Build 18 — Rhythm Early-State Polish.
+// Auren runtime Build 19 — Signals V1 Relationship Intelligence.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -13,6 +13,7 @@ const APP_SHELL = [
   './src/css/experience.css',
   './src/css/privacy.css',
   './src/css/rhythm.css',
+  './src/css/signals.css',
   './src/js/app.js',
   './src/js/config/build.js',
   './src/js/core/orb.js',
@@ -21,6 +22,7 @@ const APP_SHELL = [
   './src/js/privacy/data-controls.js',
   './src/js/privacy/storage.js',
   './src/js/rhythm/rhythm.js',
+  './src/js/signals/signals.js',
   './src/js/intelligence/body.js',
   './src/js/i18n/en.js',
   './src/js/i18n/th.js',
