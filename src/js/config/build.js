@@ -1,12 +1,12 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 24;
+export const BUILD_NUMBER = 25;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 24 refines only the interactive Daily Check-in sliders.
-// Filled track color now responds to the current value and the thumb becomes a smaller pearl capsule.
-// Today detail, Rhythm, Signals, data controls, archive, intelligence and stored data remain unchanged.
+// Build 25 final-polishes only the interactive Daily Check-in sheet.
+// Positive metrics now resolve toward warm gold instead of warning red, Stress retains a distinct attention palette,
+// and the sheet gains more mobile breathing room without changing data, logic or read-only intelligence surfaces.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});

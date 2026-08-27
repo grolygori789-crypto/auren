@@ -1,11 +1,31 @@
-/* Build 24 — Dynamic-value Daily Check-in sliders */
+/* Build 25 — Final Daily Check-in polish */
+
+#checkinForm[data-auren-checkin-sheet="1"]{
+  box-sizing:border-box;
+  width:min(40rem, calc(100vw - 28px));
+  max-width:calc(100vw - 28px);
+  margin:0 auto calc(env(safe-area-inset-bottom, 0px) + 10px);
+  padding:clamp(24px, 4.6vw, 30px) clamp(20px, 5vw, 28px) calc(clamp(22px, 4.8vw, 28px) + env(safe-area-inset-bottom, 0px));
+  border-radius:34px;
+}
+
+#checkinForm[data-auren-checkin-sheet="1"] .checkin-field,
+#checkinForm[data-auren-checkin-sheet="1"] [data-checkin-field],
+#checkinForm[data-auren-checkin-sheet="1"] .field{
+  padding-block:16px;
+}
+
+#checkinForm[data-auren-checkin-sheet="1"] .field-head,
+#checkinForm[data-auren-checkin-sheet="1"] [data-checkin-field] > :first-child{
+  margin-bottom:8px;
+}
 
 #checkinForm[data-auren-checkin-sheet="1"] input[type="range"][data-auren-checkin-slider="1"]{
   -webkit-appearance:none;
   appearance:none;
   width:100%;
   height:10px;
-  margin:10px 0 3px;
+  margin:10px 0 4px;
   border-radius:999px;
   border:1px solid color-mix(in srgb,var(--line-strong) 78%,rgba(255,255,255,.58));
   outline:none;
@@ -46,13 +66,13 @@
   background:
     linear-gradient(90deg,
       rgba(255,255,255,0) 0%,
-      rgba(196,164,108,.18) 34%,
-      rgba(210,182,124,.82) 45%,
-      rgba(241,224,181,.96) 50%,
-      rgba(210,182,124,.82) 55%,
-      rgba(196,164,108,.18) 66%,
+      rgba(196,164,108,.14) 33%,
+      rgba(210,182,124,.74) 45%,
+      rgba(241,224,181,.94) 50%,
+      rgba(210,182,124,.74) 55%,
+      rgba(196,164,108,.14) 67%,
       rgba(255,255,255,0) 100%),
-    linear-gradient(180deg,rgba(255,255,255,.98) 0%,rgba(247,244,238,.96) 48%,rgba(239,235,229,.94) 100%);
+    linear-gradient(180deg,rgba(255,255,255,.98) 0%,rgba(247,244,238,.97) 48%,rgba(239,235,229,.95) 100%);
   box-shadow:
     0 8px 18px rgba(84,62,40,.11),
     0 0 0 1px rgba(184,153,102,.08),
@@ -78,13 +98,13 @@
   background:
     linear-gradient(90deg,
       rgba(255,255,255,0) 0%,
-      rgba(196,164,108,.18) 34%,
-      rgba(210,182,124,.82) 45%,
-      rgba(241,224,181,.96) 50%,
-      rgba(210,182,124,.82) 55%,
-      rgba(196,164,108,.18) 66%,
+      rgba(196,164,108,.14) 33%,
+      rgba(210,182,124,.74) 45%,
+      rgba(241,224,181,.94) 50%,
+      rgba(210,182,124,.74) 55%,
+      rgba(196,164,108,.14) 67%,
       rgba(255,255,255,0) 100%),
-    linear-gradient(180deg,rgba(255,255,255,.98) 0%,rgba(247,244,238,.96) 48%,rgba(239,235,229,.94) 100%);
+    linear-gradient(180deg,rgba(255,255,255,.98) 0%,rgba(247,244,238,.97) 48%,rgba(239,235,229,.95) 100%);
   box-shadow:
     0 8px 18px rgba(84,62,40,.11),
     0 0 0 1px rgba(184,153,102,.08),
@@ -96,8 +116,34 @@
   box-shadow:
     inset 0 1px 0 rgba(255,255,255,.90),
     inset 0 -1px 0 rgba(93,71,48,.045),
-    0 0 0 3px color-mix(in srgb,var(--auren-slider-fill-end, rgba(132,198,211,.98)) 20%,transparent),
+    0 0 0 3px color-mix(in srgb,var(--auren-slider-focus, rgba(132,198,211,.98)) 20%,transparent),
     0 1px 2px rgba(77,58,39,.03);
+}
+
+#checkinForm[data-auren-checkin-sheet="1"] .range-labels,
+#checkinForm[data-auren-checkin-sheet="1"] [data-range-labels]{
+  margin-top:4px;
+}
+
+#checkinForm[data-auren-checkin-sheet="1"] .save-btn,
+#checkinForm[data-auren-checkin-sheet="1"] [data-action="save-checkin"],
+#checkinForm[data-auren-checkin-sheet="1"] button[type="submit"]{
+  margin-top:20px;
+}
+
+#checkinForm[data-auren-checkin-sheet="1"] .secondary-btn,
+#checkinForm[data-auren-checkin-sheet="1"] .cancel-btn,
+#checkinForm[data-auren-checkin-sheet="1"] [data-action="dismiss-checkin"]{
+  margin-top:12px;
+}
+
+@media (max-width:380px){
+  #checkinForm[data-auren-checkin-sheet="1"]{
+    width:calc(100vw - 22px);
+    max-width:calc(100vw - 22px);
+    padding:24px 18px calc(24px + env(safe-area-inset-bottom, 0px));
+    border-radius:30px;
+  }
 }
 
 @media (prefers-reduced-motion:reduce){

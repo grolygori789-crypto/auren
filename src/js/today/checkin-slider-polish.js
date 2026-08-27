@@ -1,10 +1,19 @@
-const STYLE_ID = 'auren-checkin-slider-build-24';
+const STYLE_ID = 'auren-checkin-slider-build-25';
 const STYLE_HREF = './src/css/today-checkin.css';
 const METRICS = ['sleep', 'energy', 'stress', 'mood', 'movement'];
-const LOW_RGB = [126, 202, 215];      // mineral blue
-const MID_RGB = [205, 186, 138];      // champagne neutral
-const HIGH_RGB = [201, 117, 108];     // muted rose-red
-const HIGH_STRESS_RGB = [191, 102, 94];
+
+const PALETTES = {
+  positive: {
+    low: [126, 202, 215],      // mineral blue
+    mid: [208, 192, 160],      // champagne neutral
+    high: [203, 173, 112],     // warm gold
+  },
+  stress: {
+    low: [126, 202, 215],      // calm mineral
+    mid: [210, 194, 165],      // champagne neutral
+    high: [191, 108, 98],      // muted rose-red
+  },
+};
 
 function installStylesheet() {
   return new Promise((resolve, reject) => {
@@ -32,27 +41,27 @@ function lerp(a, b, t) {
 }
 
 function mixRgb(from, to, t) {
-  return [
-    lerp(from[0], to[0], t),
-    lerp(from[1], to[1], t),
-    lerp(from[2], to[2], t),
-  ];
+  return [lerp(from[0], to[0], t), lerp(from[1], to[1], t), lerp(from[2], to[2], t)];
 }
 
 function rgbToString(rgb, alpha = 1) {
   return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`;
 }
 
-function getFillColor(metric, normalized) {
-  const high = metric === 'stress' ? HIGH_STRESS_RGB : HIGH_RGB;
-  if (normalized <= 0.5) {
-    return mixRgb(LOW_RGB, MID_RGB, normalized / 0.5);
-  }
-  return mixRgb(MID_RGB, high, (normalized - 0.5) / 0.5);
-}
-
 function brighten(rgb, factor = 0.34) {
   return mixRgb(rgb, [255, 255, 255], factor);
+}
+
+function paletteFor(metric) {
+  return metric === 'stress' ? PALETTES.stress : PALETTES.positive;
+}
+
+function getFillColor(metric, normalized) {
+  const palette = paletteFor(metric);
+  if (normalized <= 0.5) {
+    return mixRgb(palette.low, palette.mid, normalized / 0.5);
+  }
+  return mixRgb(palette.mid, palette.high, (normalized - 0.5) / 0.5);
 }
 
 function updateSliderVisual(input) {
@@ -63,11 +72,13 @@ function updateSliderVisual(input) {
   const progress = `${Math.max(0, Math.min(100, normalized * 100))}%`;
   const metric = input.dataset.metric || 'sleep';
   const fillRgb = getFillColor(metric, normalized);
-  const fillStart = brighten(fillRgb, 0.36);
+  const fillStart = brighten(fillRgb, 0.38);
+  const focusRgb = brighten(fillRgb, 0.22);
 
   input.style.setProperty('--auren-slider-progress', progress);
   input.style.setProperty('--auren-slider-fill-start', rgbToString(fillStart, 0.96));
   input.style.setProperty('--auren-slider-fill-end', rgbToString(fillRgb, 0.98));
+  input.style.setProperty('--auren-slider-focus', rgbToString(focusRgb, 0.92));
 }
 
 function bindSlider(input, metric) {

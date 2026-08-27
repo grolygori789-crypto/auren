@@ -1,4 +1,4 @@
-// Auren runtime Build 24 — dynamic Daily Check-in slider fill and premium capsule thumb.
+// Auren runtime Build 25 — final Daily Check-in polish.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

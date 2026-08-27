@@ -1,6 +1,6 @@
-# Auren — GitHub Build 024
+# Auren — GitHub Build 025
 
-Build 24 refines the Daily Check-in sliders to match the intended interaction model after Build 23 clarified the binding path but not the desired visual behavior. The active filled portion of each slider now changes color continuously with the current value — cooler mineral blue at the low end, warmer rose-red at the high end — while the unfilled portion stays neutral. The oversized gold thumb is replaced by a smaller pearl capsule handle with a subtle gold accent. This build upgrades only the interactive Daily Check-in sliders and leaves data, logic, thresholds and accepted read-only scales unchanged.
+Build 25 final-polishes the Daily Check-in sheet after physical-device review. It corrects the slider color semantics so positive observations no longer drift into warning red at higher values, while Stress retains a distinct calm-to-attention path. It also gives the Daily Check-in sheet more breathing room from the viewport edges and refines internal spacing so the experience feels quieter and more premium. This build upgrades only the interactive Daily Check-in sheet and leaves data, logic, thresholds and read-only scales unchanged.
 
 # AUREN
 
@@ -46,7 +46,7 @@ The foundation runtime establishes the first real Auren application shell:
 - Build 19 isolated Signals relationship layer with evidence/stability guardrails.
 - Build 20 Signals final-state copy/hierarchy polish from physical-device review.
 - Build 21 isolated Today Daily State contextual detail interactions.
-- Build 24 dynamic-value Daily Check-in slider refinement with active-fill color mapping and a smaller premium thumb.
+- Build 25 final Daily Check-in polish with corrected color semantics and improved sheet spacing.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -397,3 +397,30 @@ This build intentionally refines **only the interactive Daily Check-in sliders**
 - `src/js/config/build.js`
 - `src/js/today/checkin-slider-polish.js`
 - `src/css/today-checkin.css`
+
+## Build 25 scope
+
+This build intentionally refines **only the interactive Daily Check-in sheet**. It does **not** change Today cards, Today detail, Rhythm, Signals, Archive, Body Intelligence or stored data.
+
+### What changes
+
+- Positive sliders (**Sleep, Energy, Mood, Movement**) now map from **mineral blue → champagne neutral → warm gold**, avoiding warning-like red on high values.
+- **Stress** keeps a distinct **calm mineral → champagne neutral → muted rose-red** path because higher stress should read as attention-oriented rather than positive.
+- The filled portion remains the only colored portion; the unfilled track stays neutral pearl.
+- The Daily Check-in sheet gets more **breathing room** with refined width, side padding, corner radius and bottom-safe spacing.
+- Internal spacing is tightened and balanced so the sheet no longer appears to collide with screen edges on mobile.
+
+### Regression safety
+
+- `app.js` is not modified.
+- Binding still targets Auren's canonical check-in IDs directly.
+- If the isolated module or stylesheet fails, the native check-in controls still function.
+
+### Files changed in Build 25
+
+- `README.md`
+- `sw.js`
+- `src/js/config/build.js`
+- `src/js/today/checkin-slider-polish.js`
+- `src/css/today-checkin.css`
+
