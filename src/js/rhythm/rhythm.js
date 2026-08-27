@@ -1,6 +1,6 @@
 import { getAllCheckins } from '../storage/checkins.js';
 
-const STYLE_ID = 'auren-rhythm-build-17';
+const STYLE_ID = 'auren-rhythm-build-18';
 const STYLE_HREF = './src/css/rhythm.css';
 const SCREEN_SELECTOR = '[data-screen="rhythm"]';
 const METRICS = ['sleep', 'energy', 'stress', 'mood', 'movement'];
@@ -13,6 +13,10 @@ const COPY = {
     range: 'Window',
     days: 'days',
     heroEyebrow: 'Your living rhythm',
+    firstTitle: 'One day is an observation, not a pattern',
+    firstCopy: 'Auren can place this day in time and reflect exactly what you recorded, but one day is not enough to call a personal baseline.',
+    earlyTitle: 'Your first observations are taking their place',
+    earlyCopy: 'These recorded days can begin to form a shape. Auren is keeping the interpretation open until there is enough continuity to compare them fairly.',
     learningTitle: 'Auren is still learning your rhythm',
     learningCopy: 'A few more check-ins will make comparison more meaningful. The ribbon can already reflect what you recorded without pretending it is a conclusion.',
     formingTitle: 'Your rhythm is beginning to take shape',
@@ -43,7 +47,12 @@ const COPY = {
     continuity: 'Continuity',
     baseline: 'Personal baseline',
     baselineSub: 'Typical level in this selected window',
+    earlyBaseline: 'Early observations',
+    earlyBaselineSub: 'Not a baseline yet — these are the levels recorded so far.',
+    emergingBaseline: 'Baseline emerging',
+    emergingBaselineSub: 'A working reference is beginning to form. More days will make it more representative.',
     continuitySub: 'How much real history supports this view',
+    checkin: 'check-in',
     checkins: 'check-ins',
     of: 'of',
     recordedDays: 'days recorded',
@@ -61,6 +70,9 @@ const COPY = {
     evidenceLimit: 'This is descriptive personal-pattern context. It does not prove cause and effect, diagnose health, or replace medical assessment.',
     close: 'Close',
     tapHint: 'Tap the ribbon to inspect a recorded day',
+    tapPoint: 'Tap the recorded point to inspect this day',
+    tapPoints: 'Tap a recorded point to inspect a day',
+    today: 'Today',
     dayObserved: 'Observed day',
     noDataTitle: 'Your rhythm needs a little more time',
     noDataCopy: 'Complete daily check-ins and Auren will begin building this view from your own history.',
@@ -78,6 +90,10 @@ const COPY = {
     range: 'ช่วงเวลา',
     days: 'วัน',
     heroEyebrow: 'จังหวะที่มีชีวิตของคุณ',
+    firstTitle: 'หนึ่งวันคือข้อมูลหนึ่งจุด ยังไม่ใช่รูปแบบ',
+    firstCopy: 'Auren วางข้อมูลวันนี้ไว้บนเส้นเวลาและสะท้อนสิ่งที่คุณบันทึกได้ตรงๆ แต่ข้อมูลเพียงวันเดียวยังไม่มากพอจะเรียกว่าเป็นค่าพื้นฐานส่วนตัว',
+    earlyTitle: 'ข้อมูลช่วงแรกกำลังเริ่มมีตำแหน่งของมัน',
+    earlyCopy: 'วันที่บันทึกไว้เริ่มทำให้เห็นรูปทรงได้แล้ว Auren ยังเปิดการตีความไว้จนกว่าจะมีความต่อเนื่องพอสำหรับการเปรียบเทียบที่สมเหตุสมผล',
     learningTitle: 'Auren ยังเรียนรู้จังหวะของคุณอยู่',
     learningCopy: 'เช็กอินเพิ่มอีกเล็กน้อยจะช่วยให้การเปรียบเทียบมีความหมายขึ้น ตอนนี้ Ribbon แสดงสิ่งที่คุณบันทึกได้แล้วโดยไม่รีบสรุปเกินข้อมูล',
     formingTitle: 'จังหวะของคุณเริ่มเป็นรูปเป็นร่าง',
@@ -108,7 +124,12 @@ const COPY = {
     continuity: 'ความต่อเนื่อง',
     baseline: 'ค่าพื้นฐานส่วนตัว',
     baselineSub: 'ระดับที่พบโดยทั่วไปในช่วงเวลาที่เลือก',
+    earlyBaseline: 'ข้อมูลช่วงแรก',
+    earlyBaselineSub: 'ยังไม่ใช่ค่าพื้นฐาน — นี่คือระดับจากวันที่บันทึกไว้จนถึงตอนนี้',
+    emergingBaseline: 'ค่าพื้นฐานกำลังก่อตัว',
+    emergingBaselineSub: 'เริ่มมีกรอบอ้างอิงเบื้องต้นแล้ว และจะเป็นตัวแทนของคุณได้ดีขึ้นเมื่อมีข้อมูลเพิ่ม',
     continuitySub: 'ประวัติจริงที่รองรับมุมมองนี้มากน้อยเพียงใด',
+    checkin: 'เช็กอิน',
     checkins: 'เช็กอิน',
     of: 'จาก',
     recordedDays: 'วันที่มีข้อมูล',
@@ -126,6 +147,9 @@ const COPY = {
     evidenceLimit: 'นี่คือบริบทของรูปแบบส่วนตัวเชิงพรรณนา ไม่ได้พิสูจน์เหตุและผล ไม่ใช่การวินิจฉัย และไม่แทนการประเมินทางการแพทย์',
     close: 'ปิด',
     tapHint: 'แตะ Ribbon เพื่อดูวันที่บันทึกไว้',
+    tapPoint: 'แตะจุดที่บันทึกไว้เพื่อดูวันนี้',
+    tapPoints: 'แตะจุดที่บันทึกไว้เพื่อดูแต่ละวัน',
+    today: 'วันนี้',
     dayObserved: 'ข้อมูลของวันนั้น',
     noDataTitle: 'จังหวะของคุณต้องใช้เวลาอีกเล็กน้อย',
     noDataCopy: 'บันทึกเช็กอินในแต่ละวัน แล้ว Auren จะค่อยๆ สร้างมุมมองนี้จากประวัติของคุณเอง',
@@ -144,6 +168,11 @@ function currentLocale() {
 
 function c() {
   return COPY[currentLocale()];
+}
+
+function checkinLabel(count) {
+  const copy = c();
+  return currentLocale() === 'en' && Number(count) === 1 ? copy.checkin : copy.checkins;
 }
 
 function utcDay(localDate) {
@@ -228,6 +257,7 @@ export function analyzeRhythmRecords(records, days = 14, todayKey = localDateKey
   const means = metricMeans(selected);
   const trend = trendAnalysis(selected);
   const variation = stddev(points.map((point) => point.composite));
+  const maturity = selected.length === 0 ? 'empty' : selected.length <= 3 ? 'early' : selected.length <= 5 ? 'emerging' : 'baseline';
   let kind = 'learning';
   if (selected.length >= 4 && selected.length < 6) kind = 'forming';
   else if (selected.length >= 6 && trend && Math.abs(trend.delta) >= 0.55) kind = 'trend';
@@ -242,6 +272,7 @@ export function analyzeRhythmRecords(records, days = 14, todayKey = localDateKey
     means,
     variation,
     trend: kind === 'trend' ? trend : null,
+    maturity,
     kind,
   };
 }
@@ -262,6 +293,8 @@ function levelFor(metric, mean) {
 
 function primaryCopy(model) {
   const copy = c();
+  if (model.count === 1) return [copy.firstTitle, copy.firstCopy];
+  if (model.count >= 2 && model.count <= 3) return [copy.earlyTitle, copy.earlyCopy];
   if (model.kind === 'learning') return [copy.learningTitle, copy.learningCopy];
   if (model.kind === 'forming') return [copy.formingTitle, copy.formingCopy];
   if (model.kind === 'steady') return [copy.steadyTitle, copy.steadyCopy];
@@ -292,7 +325,7 @@ function installStylesheet() {
     link.id = STYLE_ID;
     link.rel = 'stylesheet';
     link.href = STYLE_HREF;
-    link.dataset.aurenRhythm = 'build-17';
+    link.dataset.aurenRhythm = 'build-18';
     link.addEventListener('load', () => resolve(), { once: true });
     link.addEventListener('error', () => reject(new Error('Rhythm stylesheet failed')), { once: true });
     document.head.appendChild(link);
@@ -301,7 +334,7 @@ function installStylesheet() {
 
 let screen = null;
 let model = null;
-let selectedDays = 14;
+let selectedDays = 7;
 let selectedIndex = -1;
 let canvas = null;
 let ctx = null;
@@ -345,6 +378,7 @@ function buildShell() {
       <div class="rhythm-canvas-wrap">
         <canvas id="rhythmCanvas" tabindex="0" role="img" aria-describedby="rhythmCanvasDescription"></canvas>
         <div class="rhythm-empty-orbit" id="rhythmEmptyOrbit" aria-hidden="true"><i></i><i></i><i></i></div>
+        <div class="rhythm-time-axis" aria-hidden="true"><span id="rhythmAxisStart"></span><span id="rhythmAxisEnd"></span></div>
       </div>
       <div class="rhythm-sr" id="rhythmCanvasDescription"></div>
       <div class="rhythm-tap-hint" id="rhythmTapHint"></div>
@@ -424,7 +458,7 @@ function renderEvidence() {
       <section><span>03</span><div><strong>${copy.evidenceInferredTitle}</strong><p>${copy.evidenceInferred}</p></div></section>
       <section><span>04</span><div><strong>${copy.evidenceLimitTitle}</strong><p>${copy.evidenceLimit}</p></div></section>
     </div>
-    <div class="rhythm-evidence-sample"><strong>${model.count}</strong><span>${copy.checkins} · ${model.days} ${copy.days}</span></div>
+    <div class="rhythm-evidence-sample"><strong>${model.count}</strong><span>${checkinLabel(model.count)} · ${model.days} ${copy.days}</span></div>
     <div class="sheet-actions"><button class="ghost-btn" id="closeRhythmEvidence" type="button">${copy.close}</button></div>`;
   document.getElementById('closeRhythmEvidence')?.addEventListener('click', closeEvidence);
 }
@@ -441,7 +475,21 @@ function closeEvidence() {
 function renderBaseline() {
   const copy = c();
   const list = document.getElementById('rhythmBaselineList');
+  const card = document.querySelector('.rhythm-baseline-card');
   if (!list || !model) return;
+  if (card) card.dataset.maturity = model.maturity;
+  const title = document.getElementById('rhythmBaselineTitle');
+  const sub = document.getElementById('rhythmBaselineSub');
+  if (model.maturity === 'early') {
+    if (title) title.textContent = copy.earlyBaseline;
+    if (sub) sub.textContent = copy.earlyBaselineSub;
+  } else if (model.maturity === 'emerging') {
+    if (title) title.textContent = copy.emergingBaseline;
+    if (sub) sub.textContent = copy.emergingBaselineSub;
+  } else {
+    if (title) title.textContent = copy.baseline;
+    if (sub) sub.textContent = copy.baselineSub;
+  }
   if (!model.count) {
     list.innerHTML = `<div class="rhythm-baseline-empty"><strong>${copy.noDataTitle}</strong><span>${copy.noDataCopy}</span></div>`;
     return;
@@ -462,9 +510,18 @@ function renderContinuity() {
   const value = document.getElementById('rhythmContinuityValue');
   const meta = document.getElementById('rhythmContinuityMeta');
   if (!value || !meta || !model) return;
-  value.textContent = String(model.count);
-  meta.textContent = `${copy.of} ${model.days} ${copy.recordedDays}`;
-  document.querySelector('.rhythm-continuity-card')?.setAttribute('data-confidence', model.confidence);
+  value.textContent = `${model.count} / ${model.days}`;
+  meta.textContent = copy.recordedDays;
+  const card = document.querySelector('.rhythm-continuity-card');
+  card?.setAttribute('data-confidence', model.confidence);
+  card?.setAttribute('data-maturity', model.maturity);
+}
+
+function rhythmWindowStartKey(days) {
+  const date = new Date();
+  date.setHours(12, 0, 0, 0);
+  date.setDate(date.getDate() - Math.max(1, Number(days) || 1) + 1);
+  return localDateKey(date);
 }
 
 function renderPattern() {
@@ -474,12 +531,20 @@ function renderPattern() {
   document.getElementById('rhythmPatternTitle').textContent = model.count ? title : copy.noDataTitle;
   document.getElementById('rhythmPatternCopy').textContent = model.count ? body : copy.noDataCopy;
   document.getElementById('rhythmConfidence').textContent = `${copy.confidence}: ${copy.confidenceValues[model.confidence]}`;
-  document.getElementById('rhythmHeroContinuity').textContent = `${model.count} ${copy.checkins} · ${model.days} ${copy.days}`;
+  document.getElementById('rhythmHeroContinuity').textContent = `${model.count} ${checkinLabel(model.count)} · ${model.days} ${copy.days}`;
+  const axisStart = document.getElementById('rhythmAxisStart');
+  const axisEnd = document.getElementById('rhythmAxisEnd');
+  if (axisStart) axisStart.textContent = formatDate(rhythmWindowStartKey(model.days), { day: 'numeric', month: 'short' });
+  if (axisEnd) axisEnd.textContent = copy.today;
   const emptyOrbit = document.getElementById('rhythmEmptyOrbit');
   if (emptyOrbit) emptyOrbit.hidden = model.count > 0;
-  document.getElementById('rhythmTapHint').hidden = model.count === 0;
+  const tapHint = document.getElementById('rhythmTapHint');
+  if (tapHint) {
+    tapHint.hidden = model.count === 0;
+    tapHint.textContent = model.count === 1 ? copy.tapPoint : model.count <= 3 ? copy.tapPoints : copy.tapHint;
+  }
   const hero = document.querySelector('.rhythm-hero');
-  if (hero) hero.dataset.rhythmState = model.kind;
+  if (hero) { hero.dataset.rhythmState = model.kind; hero.dataset.maturity = model.maturity; }
 }
 
 function renderDayPeek() {
@@ -670,6 +735,37 @@ function sampleCurve(points, ratio) {
   return { x, y: a.y + (b.y - a.y) * smooth };
 }
 
+function drawScaffold(width, height) {
+  if (!ctx || !model) return;
+  const left = 19;
+  const right = width - 19;
+  const y = Math.round(height * 0.54) + 0.5;
+  const line = ctx.createLinearGradient(left, 0, right, 0);
+  line.addColorStop(0, rgba(palette.gold, 0.08));
+  line.addColorStop(0.5, rgba(palette.ink, 0.055));
+  line.addColorStop(1, rgba(palette.aqua, 0.11));
+  ctx.save();
+  ctx.strokeStyle = line;
+  ctx.lineWidth = 1;
+  ctx.beginPath();
+  ctx.moveTo(left, y);
+  ctx.lineTo(right, y);
+  ctx.stroke();
+
+  const tickCount = model.days <= 7 ? model.days : model.days <= 14 ? 7 : 8;
+  ctx.strokeStyle = rgba(palette.ink, 0.07);
+  ctx.lineWidth = 1;
+  for (let i = 0; i < tickCount; i += 1) {
+    const ratio = tickCount <= 1 ? 0 : i / (tickCount - 1);
+    const x = left + ratio * (right - left);
+    ctx.beginPath();
+    ctx.moveTo(x, y - 3);
+    ctx.lineTo(x, y + 3);
+    ctx.stroke();
+  }
+  ctx.restore();
+}
+
 function drawOnce(now) {
   if (!canvas || !ctx) return;
   const rect = canvas.getBoundingClientRect();
@@ -677,21 +773,29 @@ function drawOnce(now) {
   syncPalette();
   const start = performance.now();
   ctx.clearRect(0, 0, rect.width, rect.height);
+  drawScaffold(rect.width, rect.height);
   const points = pointPositions(rect.width, rect.height, now, true);
   if (!points.length) return;
 
   if (points.length === 1) {
     const point = points[0];
-    const glow = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, 38);
-    glow.addColorStop(0, rgba(palette.goldSoft, 0.18));
-    glow.addColorStop(0.45, rgba(palette.aqua, 0.08));
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const pulse = !reduced && !lowPower ? (Math.sin(now * 0.0018) + 1) / 2 : 0.35;
+    const radius = 23 + pulse * 5;
+    const glow = ctx.createRadialGradient(point.x, point.y, 0, point.x, point.y, radius);
+    glow.addColorStop(0, rgba(palette.goldSoft, 0.18 + pulse * 0.04));
+    glow.addColorStop(0.42, rgba(palette.aqua, 0.07));
     glow.addColorStop(1, rgba(palette.aqua, 0));
     ctx.fillStyle = glow;
-    ctx.beginPath(); ctx.arc(point.x, point.y, 38, 0, Math.PI * 2); ctx.fill();
-    ctx.fillStyle = rgba(palette.gold, 0.64);
-    ctx.beginPath(); ctx.arc(point.x, point.y, 2.5, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(point.x, point.y, radius, 0, Math.PI * 2); ctx.fill();
+    ctx.strokeStyle = rgba(palette.goldSoft, 0.16 + pulse * 0.10);
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(point.x, point.y, 6 + pulse * 3, 0, Math.PI * 2); ctx.stroke();
+    ctx.fillStyle = rgba(palette.gold, 0.72);
+    ctx.beginPath(); ctx.arc(point.x, point.y, 2.7, 0, Math.PI * 2); ctx.fill();
   } else {
-    if (!lowPower) {
+    const provisional = model.maturity === 'early';
+    if (!lowPower && !provisional) {
       drawCurve(points);
       const area = ctx.createLinearGradient(0, 18, 0, rect.height);
       area.addColorStop(0, rgba(palette.goldSoft, 0.11));
@@ -713,19 +817,21 @@ function drawOnce(now) {
 
     drawCurve(points);
     const line = ctx.createLinearGradient(points[0].x, 0, points.at(-1).x, 0);
-    line.addColorStop(0, rgba(palette.gold, 0.78));
-    line.addColorStop(0.52, rgba(palette.goldSoft, 0.68));
-    line.addColorStop(1, rgba(palette.aqua, 0.82));
+    line.addColorStop(0, rgba(palette.gold, provisional ? 0.42 : 0.78));
+    line.addColorStop(0.52, rgba(palette.goldSoft, provisional ? 0.38 : 0.68));
+    line.addColorStop(1, rgba(palette.aqua, provisional ? 0.46 : 0.82));
     ctx.strokeStyle = line;
-    ctx.lineWidth = 1.65;
+    ctx.lineWidth = provisional ? 1.25 : 1.65;
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
+    if (provisional) ctx.setLineDash([4, 6]);
     ctx.stroke();
+    ctx.setLineDash([]);
 
     points.forEach((point, index) => {
       const selected = index === selectedIndex;
-      ctx.fillStyle = selected ? rgba(palette.gold, 0.88) : rgba(palette.ink, 0.19);
-      ctx.beginPath(); ctx.arc(point.x, point.y, selected ? 3.1 : 1.7, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = selected ? rgba(palette.gold, 0.9) : provisional ? rgba(palette.gold, 0.62) : rgba(palette.ink, 0.19);
+      ctx.beginPath(); ctx.arc(point.x, point.y, selected ? 3.1 : provisional ? 2.35 : 1.7, 0, Math.PI * 2); ctx.fill();
       if (selected && !lowPower) {
         ctx.strokeStyle = rgba(palette.goldSoft, 0.28 + interactionKick * 0.18);
         ctx.lineWidth = 1;
@@ -733,7 +839,7 @@ function drawOnce(now) {
       }
     });
 
-    if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !lowPower) {
+    if (points.length >= 3 && !matchMedia('(prefers-reduced-motion: reduce)').matches && !lowPower) {
       const phase = (now % 5200) / 5200;
       const pulse = sampleCurve(points, phase);
       if (pulse) {

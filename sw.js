@@ -1,4 +1,4 @@
-// Auren runtime Build 17 — Rhythm V1 / Living Rhythm.
+// Auren runtime Build 18 — Rhythm Early-State Polish.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

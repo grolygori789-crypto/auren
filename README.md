@@ -1,6 +1,6 @@
-# Auren — GitHub Build 017
+# Auren — GitHub Build 018
 
-Build 17 turns Rhythm from a placeholder into the first real Personal Pattern Intelligence surface. It adds a Living Rhythm ribbon driven only by recorded daily check-ins, personal-baseline summaries, conservative recent-window interpretation, transparent confidence/evidence, and 7/14/30-day views. The motion is expressive presentation rather than physiology: it does not claim to measure pulse, does not create a health score, and does not infer cause and effect.
+Build 18 is a focused physical-device polish pass for Rhythm early-data states. It preserves the Living Rhythm engine from Build 17 while making one-to-five recorded days truthful and intentional: early observations are no longer mislabeled as a personal baseline, sparse history gets a compact temporal scaffold instead of a large empty graph, and continuity is presented as evidence depth rather than a dominant score-like number.
 
 # AUREN
 
@@ -257,3 +257,22 @@ Build 17 turns longitudinal check-in history into a calm, explainable pattern su
 - Does not modify `app.js`, Living Core physics, Body Intelligence, Signature Opening, Data Controls, Archive logic or stable Today layout.
 
 Rollback: remove the Build 17 Rhythm import plus `src/js/rhythm/rhythm.js` / `src/css/rhythm.css` from the Service Worker. Build 16 remains the immediate known-good production baseline.
+
+## Build 18 — Rhythm Early-State Polish
+
+Build 18 responds directly to physical-device review of Rhythm with sparse history:
+
+- Introduces three explicit maturity states for the selected Rhythm window: `Early observations` (1–3 check-ins), `Baseline emerging` (4–5), and `Personal baseline` (6+).
+- Stops calling a single recorded day a “typical level” or personal baseline. One day is presented as an observation, not a pattern.
+- Makes the Living Rhythm hero adapt its vertical footprint to evidence depth so one or two observations do not sit inside an oversized empty visualization.
+- Adds a restrained temporal scaffold and start/today anchors so sparse data has clear time context without inventing missing values.
+- Uses a softly pulsing recorded point for one-day history and a provisional dashed connector for two-to-three recorded days. The mature ribbon treatment appears only as continuity develops.
+- Changes interaction guidance from “Tap the ribbon” to point-specific wording while no real ribbon exists yet.
+- Fixes English singular/plural copy (`1 check-in`, not `1 check-ins`).
+- Refines Continuity into a compact `recorded / window` instrument such as `1 / 7`, avoiding a large score-like standalone number.
+- Keeps baseline tracks descriptive and visually neutral; Stress direction remains semantically distinct and no health score is introduced.
+- Keeps 7 / 14 / 30-day windows, evidence sheets, EN/TH parity, keyboard access, Reduced Motion, and performance fallback.
+- Does not modify `app.js`, Living Core, Body Intelligence, Signature Opening, Archive, Data Controls, IndexedDB structure, or data schema version 4.
+
+Rollback: remove the Build 18 Rhythm files and restore the Build 17 versions of `src/js/rhythm/rhythm.js` and `src/css/rhythm.css`. Build 16 remains the broader pre-Rhythm production baseline.
+
