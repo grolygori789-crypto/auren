@@ -1,6 +1,6 @@
-# Auren — GitHub Build 026
+# Auren — GitHub Build 027
 
-Build 26 adds a single premium guidance layer to the accepted Daily Check-in experience. Instead of placing an info icon on every metric, Auren now offers one understated explainer beside the Daily Check-in title, clarifies the meaning of each scale, and replaces generic Low/High endpoint labels with metric-specific language. The accepted Build 25 spacing, slider mechanics, color semantics and stored-data behavior remain unchanged.
+Build 27 is an emergency recovery release after Build 26 caused a physical-device startup regression. Runtime behavior is deliberately restored to the physically accepted Build 25 baseline: the accepted Daily Check-in spacing, slider semantics and pearl capsule thumb are retained exactly, while the Build 26 scale-guidance module is removed from startup and from the Service Worker app shell. No stored data or health-intelligence logic changes in this recovery build.
 
 # AUREN
 
@@ -46,7 +46,7 @@ The foundation runtime establishes the first real Auren application shell:
 - Build 19 isolated Signals relationship layer with evidence/stability guardrails.
 - Build 20 Signals final-state copy/hierarchy polish from physical-device review.
 - Build 21 isolated Today Daily State contextual detail interactions.
-- Build 26 Daily Check-in scale guidance with one premium explainer and clearer endpoint semantics.
+- Build 27 emergency recovery restores the physically accepted Build 25 Daily Check-in runtime and removes Build 26 guidance from startup.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -424,38 +424,27 @@ This build intentionally refines **only the interactive Daily Check-in sheet**. 
 - `src/js/today/checkin-slider-polish.js`
 - `src/css/today-checkin.css`
 
-## Build 26 scope
+## Build 27 — Emergency runtime recovery
 
-This build adds **progressive-disclosure guidance** to the accepted Daily Check-in sheet without turning the screen into a questionnaire or clinical form.
+Physical-device review of Build 26 showed a launch-blocking regression: Auren could remain on the Signature Opening and the Core would not render. Build 27 therefore prioritises recovery over feature continuation.
 
-### What changes
+### Recovery action
 
-- A single understated **info control** appears beside the Daily Check-in title.
-- Tapping it opens a compact EN/TH explainer for all five scales rather than adding five repetitive info icons.
-- Generic `Low / High` endpoints are replaced with metric-specific wording so each slider is understandable at a glance.
-- The explainer makes the Stress direction explicit and reminds users that the values are **observations, not health scores**.
-- Movement remains descriptive rather than moralised: more movement is not automatically treated as better in every context.
-
-### What remains locked from Build 25
-
-- Accepted Daily Check-in sheet spacing and mobile breathing room.
-- Pearl capsule thumb.
-- Positive metric color path: mineral blue → champagne → warm gold.
-- Stress color path: calm mineral → champagne → muted rose-red.
-- Check-in data model, values, thresholds and save/edit behavior.
+- Restores `src/css/today-checkin.css` **byte-for-byte from the accepted Build 25 package**.
+- Restores `src/js/today/checkin-slider-polish.js` **byte-for-byte from the accepted Build 25 package**.
+- Removes `checkin-guidance.js` from runtime imports and the Service Worker app shell.
+- Advances cache identity to Build 27 so the broken Build 26 cache can be replaced cleanly.
+- The orphaned `src/js/today/checkin-guidance.js` file may remain in the repository temporarily; it is not imported or cached by Build 27 and therefore cannot execute.
 
 ### Regression safety
 
-- `app.js` is not modified.
-- Existing Build 25 slider module remains unchanged.
-- Guidance is an isolated fail-open module; if it fails, the accepted Build 25 check-in remains usable.
-- Data schema remains version 4.
+Build 25 is the known-good physical baseline. Build 27 intentionally makes no new UI feature change. The scale-guidance idea is deferred until it can be redesigned and isolated without startup coupling.
 
-### Files changed in Build 26
+### Files changed in Build 27
 
 - `README.md`
 - `sw.js`
 - `src/js/config/build.js`
-- `src/js/today/checkin-guidance.js`
+- `src/js/today/checkin-slider-polish.js`
 - `src/css/today-checkin.css`
 
