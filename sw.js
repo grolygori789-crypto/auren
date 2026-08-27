@@ -1,4 +1,4 @@
-// Auren runtime Build 27 — emergency recovery to the accepted Build 25 runtime surface.
+// Auren runtime Build 28 — isolated Archive / Health Memory polish.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -16,6 +16,7 @@ const APP_SHELL = [
   './src/css/signals.css',
   './src/css/today-detail.css',
   './src/css/today-checkin.css',
+  './src/css/archive-polish.css',
   './src/js/app.js',
   './src/js/config/build.js',
   './src/js/core/orb.js',
@@ -27,6 +28,7 @@ const APP_SHELL = [
   './src/js/signals/signals.js',
   './src/js/today/metric-detail.js',
   './src/js/today/checkin-slider-polish.js',
+  './src/js/archive/archive-polish.js',
   './src/js/intelligence/body.js',
   './src/js/i18n/en.js',
   './src/js/i18n/th.js',

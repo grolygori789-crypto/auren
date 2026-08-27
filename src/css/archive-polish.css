@@ -1,0 +1,416 @@
+/* Build 28 — Archive / Health Memory polish. Loaded only after Archive is opened. */
+
+[data-screen="archive"].archive-polished .archive-switch{
+  margin:5px 0 18px;
+  padding:4px;
+  background:color-mix(in srgb,var(--card) 74%,transparent);
+  border-color:color-mix(in srgb,var(--line) 88%,transparent);
+}
+
+[data-screen="archive"].archive-polished .archive-mode{
+  min-height:40px;
+  font-size:10.5px;
+  letter-spacing:.025em;
+  transition:background .24s ease,color .24s ease,box-shadow .24s ease;
+}
+
+[data-screen="archive"].archive-polished .archive-mode.active{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--card-hi) 97%,white),color-mix(in srgb,var(--card) 92%,transparent));
+  box-shadow:0 7px 18px rgba(73,54,36,.055),inset 0 0 0 1px color-mix(in srgb,var(--gold) 16%,transparent);
+}
+
+[data-screen="archive"].archive-polished .portrait-grid{
+  gap:12px;
+}
+
+[data-screen="archive"].archive-polished .archive-memory-card{
+  min-height:132px;
+  padding:17px!important;
+  position:relative;
+  overflow:hidden;
+  border-color:color-mix(in srgb,var(--line) 90%,transparent);
+  background:
+    radial-gradient(circle at 88% 12%,color-mix(in srgb,var(--aqua) 7%,transparent),transparent 46%),
+    linear-gradient(150deg,color-mix(in srgb,var(--card-hi) 96%,transparent),color-mix(in srgb,var(--card) 92%,transparent));
+  box-shadow:0 14px 32px rgba(77,58,39,.04),inset 0 1px 0 rgba(255,255,255,.50);
+}
+
+[data-screen="archive"].archive-polished .archive-memory-card::after{
+  content:"";
+  position:absolute;
+  inset:auto 14px 0;
+  height:1px;
+  background:linear-gradient(90deg,transparent,color-mix(in srgb,var(--gold) 20%,transparent),transparent);
+  opacity:.65;
+}
+
+[data-screen="archive"].archive-polished .archive-memory-card.tone-attention{
+  background:
+    radial-gradient(circle at 90% 12%,color-mix(in srgb,#c7927f 8%,transparent),transparent 46%),
+    linear-gradient(150deg,color-mix(in srgb,var(--card-hi) 96%,transparent),color-mix(in srgb,#d8ad99 7%,var(--card)));
+}
+
+[data-screen="archive"].archive-polished .archive-memory-card.tone-weight-only{
+  background:
+    radial-gradient(circle at 87% 12%,color-mix(in srgb,var(--aqua) 11%,transparent),transparent 48%),
+    linear-gradient(150deg,color-mix(in srgb,var(--card-hi) 97%,transparent),color-mix(in srgb,var(--aqua) 5%,var(--card)));
+}
+
+[data-screen="archive"].archive-polished .portrait-memory-top{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+
+[data-screen="archive"].archive-polished .portrait-provenance{
+  font-size:7.2px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+  color:color-mix(in srgb,var(--faint) 80%,var(--gold-deep));
+}
+
+[data-screen="archive"].archive-polished .archive-memory-card>strong{
+  margin-top:9px;
+  font:400 21px/1.16 var(--font-display);
+  letter-spacing:-.01em;
+}
+
+[data-screen="archive"].archive-polished .portrait-signature{
+  display:flex;
+  align-items:flex-end;
+  gap:5px;
+  height:25px;
+  margin-top:15px;
+}
+
+[data-screen="archive"].archive-polished .portrait-signal{
+  width:5px;
+  height:var(--signal-height,12px);
+  border-radius:999px;
+  background:color-mix(in srgb,var(--aqua) 72%,white);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.65);
+  opacity:.76;
+}
+
+[data-screen="archive"].archive-polished .portrait-signal.tone-positive{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 66%,white),color-mix(in srgb,var(--gold-deep) 72%,var(--gold)));
+  opacity:.86;
+}
+
+[data-screen="archive"].archive-polished .portrait-signal.tone-attention{
+  background:linear-gradient(180deg,color-mix(in srgb,#d3a28f 68%,white),#bc8572);
+  opacity:.83;
+}
+
+[data-screen="archive"].archive-polished .portrait-signal.tone-neutral{
+  background:linear-gradient(180deg,color-mix(in srgb,var(--aqua) 64%,white),color-mix(in srgb,var(--aqua) 82%,var(--gold)));
+}
+
+[data-screen="archive"].archive-polished .portrait-weight-inline{
+  display:inline-flex;
+  align-items:center;
+  gap:5px;
+  margin-top:9px;
+  font-size:7.8px;
+  color:var(--faint);
+}
+
+[data-screen="archive"].archive-polished .portrait-weight-inline i{
+  width:4px;
+  height:4px;
+  border-radius:50%;
+  background:var(--gold-deep);
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 10%,transparent);
+}
+
+[data-screen="archive"].archive-polished .portrait-weight-value{
+  display:block;
+  margin-top:9px;
+  font:400 22px/1 var(--font-display);
+  color:var(--ink);
+}
+
+[data-screen="archive"].archive-polished .portrait-memory-note{
+  display:block;
+  margin-top:13px;
+  font-size:7.8px;
+  line-height:1.45;
+  color:var(--faint);
+}
+
+[data-screen="archive"].archive-polished .calendar-guide{
+  padding:17px 44px 17px 17px;
+  border-radius:22px;
+  margin-bottom:12px;
+  background:
+    radial-gradient(circle at 94% 4%,color-mix(in srgb,var(--aqua) 10%,transparent),transparent 50%),
+    linear-gradient(145deg,color-mix(in srgb,var(--card-hi) 94%,transparent),color-mix(in srgb,var(--card) 86%,transparent));
+}
+
+[data-screen="archive"].archive-polished .calendar-guide strong{
+  font-size:10.5px;
+  font-weight:610;
+}
+
+[data-screen="archive"].archive-polished .calendar-guide p{
+  margin-top:6px;
+  font-size:9.3px;
+  line-height:1.66;
+}
+
+[data-screen="archive"].archive-polished .month-intelligence{
+  padding:19px;
+  margin-bottom:12px;
+  border-radius:26px;
+  background:
+    radial-gradient(circle at 87% 4%,color-mix(in srgb,var(--gold) 9%,transparent),transparent 45%),
+    linear-gradient(150deg,color-mix(in srgb,var(--card-hi) 97%,transparent),color-mix(in srgb,var(--card) 90%,transparent));
+}
+
+[data-screen="archive"].archive-polished .month-summary-eyebrow{
+  color:color-mix(in srgb,var(--gold-deep) 82%,var(--muted));
+}
+
+[data-screen="archive"].archive-polished .month-intelligence h2{
+  margin-top:6px;
+  margin-bottom:15px;
+  font-size:23px;
+}
+
+[data-screen="archive"].archive-polished .month-summary-grid{
+  gap:10px;
+}
+
+[data-screen="archive"].archive-polished .month-summary-grid div{
+  border-top-color:color-mix(in srgb,var(--line) 88%,transparent);
+  padding-top:10px;
+}
+
+[data-screen="archive"].archive-polished .month-summary-grid strong{
+  font-size:21px;
+}
+
+[data-screen="archive"].archive-polished .month-summary-grid span{
+  font-size:7.5px;
+  line-height:1.35;
+}
+
+[data-screen="archive"].archive-polished #monthSummaryInsight{
+  display:grid;
+  gap:7px;
+  margin-top:15px;
+}
+
+[data-screen="archive"].archive-polished #monthSummaryInsight .month-evidence-line{
+  font-size:8px;
+  line-height:1.5;
+  color:var(--faint);
+}
+
+[data-screen="archive"].archive-polished #monthSummaryInsight>strong{
+  font-size:10px;
+  line-height:1.62;
+  font-weight:520;
+  color:var(--muted);
+}
+
+[data-screen="archive"].archive-polished .calendar-card{
+  border-radius:26px;
+  padding:17px 14px 16px;
+}
+
+[data-screen="archive"].archive-polished .calendar-head{
+  margin-bottom:14px;
+}
+
+[data-screen="archive"].archive-polished .calendar-head strong{
+  font-size:19px;
+}
+
+[data-screen="archive"].archive-polished .calendar-head span{
+  margin-top:4px;
+  font-size:7.7px;
+}
+
+[data-screen="archive"].archive-polished .calendar-nav{
+  border-color:color-mix(in srgb,var(--line) 88%,transparent);
+  background:color-mix(in srgb,var(--card-hi) 78%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.55);
+}
+
+[data-screen="archive"].archive-polished .calendar-weekdays,
+[data-screen="archive"].archive-polished .calendar-grid{
+  gap:6px;
+}
+
+[data-screen="archive"].archive-polished .archive-calendar-day{
+  transition:transform .18s ease,background .22s ease,box-shadow .22s ease;
+}
+
+[data-screen="archive"].archive-polished .archive-calendar-day:not(:disabled):active{
+  transform:scale(.94);
+}
+
+[data-screen="archive"].archive-polished .archive-calendar-day:not(:disabled){
+  background:color-mix(in srgb,var(--card-hi) 62%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45);
+}
+
+[data-screen="archive"].archive-polished .archive-calendar-day>i{
+  width:20px;
+  height:20px;
+  opacity:.82;
+}
+
+[data-screen="archive"].archive-polished .archive-calendar-day.tone-balanced>i{
+  border-color:color-mix(in srgb,var(--gold) 76%,white);
+  box-shadow:0 0 9px color-mix(in srgb,var(--gold) 16%,transparent);
+}
+
+[data-screen="archive"].archive-polished .archive-calendar-day.tone-attention>i{
+  border-color:color-mix(in srgb,#c58e79 84%,white);
+}
+
+[data-screen="archive"].archive-polished .archive-calendar-day.tone-mixed>i{
+  border-color:color-mix(in srgb,var(--aqua) 76%,var(--gold));
+}
+
+[data-screen="archive"].archive-polished .archive-calendar-day>b{
+  right:4px;
+  bottom:4px;
+  width:4px;
+  height:4px;
+  background:var(--gold-deep);
+  box-shadow:0 0 0 2px color-mix(in srgb,var(--gold) 12%,transparent);
+}
+
+[data-screen="archive"].archive-polished .archive-calendar-day.weight-only{
+  background:color-mix(in srgb,var(--aqua) 5%,var(--card-hi));
+}
+
+[data-screen="archive"].archive-polished .calendar-legend{
+  gap:9px 13px;
+  margin-top:14px;
+}
+
+[data-screen="archive"].archive-polished .calendar-legend .legend-weight i{
+  border:0;
+  background:var(--gold-deep);
+  width:5px;
+  height:5px;
+}
+
+[data-screen="archive"].archive-polished .calendar-legend .legend-empty i{
+  border-color:color-mix(in srgb,var(--line) 90%,transparent);
+  opacity:.55;
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .day-detail-sheet{
+  border-radius:31px;
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .day-detail-state{
+  margin-bottom:14px;
+  padding:7px 11px;
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .day-detail-metrics{
+  grid-template-columns:1fr;
+  gap:8px;
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-metric{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 116px;
+  align-items:center;
+  gap:14px;
+  padding:12px 13px;
+  border-radius:18px;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--card-hi) 78%,transparent),color-mix(in srgb,var(--card) 68%,transparent));
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-metric-copy{min-width:0}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-metric-copy span,
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-metric-copy strong,
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-metric-copy em{display:block}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-metric-copy span{
+  font-size:8px;
+  color:var(--faint);
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-metric-copy strong{
+  margin:3px 0 2px;
+  font-size:11px;
+  font-weight:620;
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-metric-copy em{
+  font-size:7.5px;
+  color:var(--faint);
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-meter{
+  height:7px;
+  border-radius:999px;
+  position:relative;
+  overflow:visible;
+  background:linear-gradient(90deg,rgba(239,238,234,.95),rgba(248,247,244,.98));
+  border:1px solid color-mix(in srgb,var(--line) 86%,transparent);
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-meter i{
+  display:block;
+  width:var(--archive-day-fill);
+  height:100%;
+  border-radius:inherit;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--aqua) 54%,white),color-mix(in srgb,var(--gold) 72%,white));
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-metric.tone-attention .archive-day-meter i{
+  background:linear-gradient(90deg,color-mix(in srgb,var(--aqua) 48%,white),color-mix(in srgb,#c58e79 72%,white));
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-meter b{
+  position:absolute;
+  top:50%;
+  left:var(--archive-day-fill);
+  width:9px;
+  height:9px;
+  border-radius:50%;
+  transform:translate(-50%,-50%);
+  background:color-mix(in srgb,var(--gold) 76%,white);
+  border:1px solid rgba(255,255,255,.92);
+  box-shadow:0 2px 7px rgba(85,64,42,.11);
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-metric.tone-attention .archive-day-meter b{
+  background:color-mix(in srgb,#c58e79 70%,white);
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .day-detail-weight{
+  margin-top:11px;
+  padding:13px 14px;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--aqua) 8%,var(--card-hi)),color-mix(in srgb,var(--card) 72%,transparent));
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .day-detail-evidence{
+  margin-top:13px;
+  font-size:8.4px;
+  line-height:1.65;
+}
+
+@media(max-width:390px){
+  [data-screen="archive"].archive-polished .portrait-grid{gap:9px}
+  [data-screen="archive"].archive-polished .archive-memory-card{padding:15px!important;min-height:126px}
+  [data-screen="archive"].archive-polished .archive-memory-card>strong{font-size:19px}
+  [data-screen="archive"].archive-polished .portrait-provenance{font-size:6.7px}
+  #dayDetailModal[data-auren-archive-polish="1"] .archive-day-metric{grid-template-columns:minmax(0,1fr) 102px;gap:10px}
+}
+
+@media(prefers-reduced-motion:reduce){
+  [data-screen="archive"].archive-polished .archive-mode,
+  [data-screen="archive"].archive-polished .archive-calendar-day{transition:none}
+}

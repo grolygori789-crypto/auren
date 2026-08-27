@@ -1,6 +1,6 @@
-# Auren — GitHub Build 027
+# Auren — GitHub Build 028
 
-Build 27 is an emergency recovery release after Build 26 caused a physical-device startup regression. Runtime behavior is deliberately restored to the physically accepted Build 25 baseline: the accepted Daily Check-in spacing, slider semantics and pearl capsule thumb are retained exactly, while the Build 26 scale-guidance module is removed from startup and from the Service Worker app shell. No stored data or health-intelligence logic changes in this recovery build.
+Build 28 polishes Archive into a calmer Health Memory experience while deliberately protecting the physically accepted Build 27 recovery baseline. The new Archive layer is lazy-loaded only after the user opens Archive, so Signature Opening, Core, Today and Daily Check-in remain outside its execution path. Portraits now include distinct weight-only records, Calendar gains clearer health-memory semantics, monthly summaries use cautious evidence thresholds without percentages, and Daily Detail becomes more editorial and explainable. No stored-data schema or health-intelligence threshold changes are introduced.
 
 # AUREN
 
@@ -47,6 +47,7 @@ The foundation runtime establishes the first real Auren application shell:
 - Build 20 Signals final-state copy/hierarchy polish from physical-device review.
 - Build 21 isolated Today Daily State contextual detail interactions.
 - Build 27 emergency recovery restores the physically accepted Build 25 Daily Check-in runtime and removes Build 26 guidance from startup.
+- Build 28 adds a lazy-loaded Archive / Health Memory polish layer with distinct weight-only records, conservative monthly meaning and richer Daily Detail.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -67,9 +68,11 @@ auren/
 │   │   ├── privacy.css
 │   │   ├── rhythm.css
 │   │   ├── signals.css
-│   │   └── today-detail.css
+│   │   ├── today-detail.css
+│   │   └── archive-polish.css
 │   └── js/
 │       ├── app.js
+│       ├── archive/
 │       ├── config/
 │       ├── core/
 │       ├── experience/
@@ -447,4 +450,37 @@ Build 25 is the known-good physical baseline. Build 27 intentionally makes no ne
 - `src/js/config/build.js`
 - `src/js/today/checkin-slider-polish.js`
 - `src/css/today-checkin.css`
+
+## Build 28 — Archive / Health Memory Polish
+
+Build 28 is intentionally isolated from startup after the Build 26 regression lesson. The Archive enhancement is fetched only after the user opens Archive; if it fails, the existing Archive implementation remains available.
+
+### Product changes
+
+- **Portraits** become a richer health-memory surface while remaining restrained and factual.
+- Days with **weight only** are shown as distinct records rather than being silently absent or interpreted as a daily state.
+- A day that has both a check-in and weight update keeps the daily state primary and shows weight as secondary recorded context.
+- **Calendar** keeps its non-gamified health-memory role and adds a clear weight marker alongside balanced / attention / mixed states.
+- **Monthly intelligence** shows recorded-day depth and uses cautious first-half / second-half comparisons only when at least six check-ins are available with at least three days on each side. No percentages or fabricated precision are shown.
+- A monthly change must clear a material threshold before it is surfaced; otherwise Auren says that no single change is strong enough yet.
+- **Daily Detail** becomes an editorial five-row memory view with observed provenance, semantic state, raw 1–5 value and restrained visual position.
+- Weight-only detail explicitly states that Auren does not infer a daily state from weight alone.
+- English and Thai meaning parity is included inside the isolated Archive layer.
+
+### Regression safety
+
+- `app.js` is not modified.
+- Signature Opening, Core, Today, Daily Check-in, Rhythm, Signals, privacy controls and stored data are unchanged.
+- Archive code does no DOM work at startup. It is lazy-loaded only after an Archive navigation click.
+- CSS is scoped to Archive and the Daily Detail sheet opened by Archive.
+- Schema remains **4**.
+- Known-good rollback baseline: **Build 27**.
+
+### Files changed in Build 28
+
+- `README.md`
+- `sw.js`
+- `src/js/config/build.js`
+- `src/js/archive/archive-polish.js`
+- `src/css/archive-polish.css`
 
