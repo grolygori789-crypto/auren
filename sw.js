@@ -1,4 +1,4 @@
-// Auren runtime Build 21 — Today Deep Interaction.
+// Auren runtime Build 22 — Daily Check-in slider polish.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -15,6 +15,7 @@ const APP_SHELL = [
   './src/css/rhythm.css',
   './src/css/signals.css',
   './src/css/today-detail.css',
+  './src/css/today-checkin.css',
   './src/js/app.js',
   './src/js/config/build.js',
   './src/js/core/orb.js',
@@ -25,6 +26,7 @@ const APP_SHELL = [
   './src/js/rhythm/rhythm.js',
   './src/js/signals/signals.js',
   './src/js/today/metric-detail.js',
+  './src/js/today/checkin-slider-polish.js',
   './src/js/intelligence/body.js',
   './src/js/i18n/en.js',
   './src/js/i18n/th.js',

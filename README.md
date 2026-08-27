@@ -1,6 +1,6 @@
-# Auren — GitHub Build 021
+# Auren — GitHub Build 022
 
-Build 21 adds a focused Today deep-interaction layer to the five accepted Daily State cards. Sleep, Energy, Stress, Mood and Movement can now open a premium contextual detail sheet that shows the exact self-reported value, qualitative meaning, provenance and how Auren uses that observation, without adding new health inference or changing the accepted Today layout.
+Build 22 adds a focused visual refinement to the Daily Check-in sliders only. The five observation rails now use subtle bi-tone material gradients with cooler low-end tonality and warmer high-end tonality, while Stress uses a dedicated calm-to-attention palette. This deepens the premium feel of the check-in experience without changing any data, logic, wording, thresholds or accepted read-only baseline visuals.
 
 # AUREN
 
@@ -331,3 +331,31 @@ Build 21 deepens the accepted Today experience without changing health intellige
 
 Rollback: remove the Build 21 Today-detail import and Service Worker assets to return immediately to Build 20 behavior. Build 20 remains the known-good production baseline for this interaction layer.
 
+
+## Build 22 scope
+
+This build intentionally upgrades **only the interactive Daily Check-in sliders**. It does **not** recolor the read-only bars used in Rhythm, Signals or Today detail views.
+
+### What changes
+
+- Adds a dedicated visual-polish module for the Daily Check-in sheet.
+- Detects the check-in sheet in-place and upgrades the five range inputs without changing `app.js`.
+- Applies subtle dual-tone rails:
+  - Sleep / Energy / Mood / Movement: cool mineral-aqua on the low side, warm champagne / rose-amber on the high side.
+  - Stress: calm mineral on the low side, muted ember / dusty rose on the high side.
+- Keeps the interaction quiet and premium by using low-saturation gradients, pearl midpoint blending and refined thumbs instead of loud blue/red rails.
+- Leaves all stored values, health interpretation, Body Intelligence, Today cards, Rhythm baseline rails and Signals visuals unchanged.
+
+### Regression safety
+
+- `app.js` is not modified.
+- Build 21 remains the rollback baseline.
+- If the visual-polish module or stylesheet fails to load, the existing native sliders continue to work.
+
+### Files changed in Build 22
+
+- `README.md`
+- `sw.js`
+- `src/js/config/build.js`
+- `src/js/today/checkin-slider-polish.js`
+- `src/css/today-checkin.css`
