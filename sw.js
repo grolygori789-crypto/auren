@@ -1,4 +1,4 @@
-// Auren runtime Build 25 — final Daily Check-in polish.
+// Auren runtime Build 26 — Daily Check-in scale guidance.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -27,6 +27,7 @@ const APP_SHELL = [
   './src/js/signals/signals.js',
   './src/js/today/metric-detail.js',
   './src/js/today/checkin-slider-polish.js',
+  './src/js/today/checkin-guidance.js',
   './src/js/intelligence/body.js',
   './src/js/i18n/en.js',
   './src/js/i18n/th.js',

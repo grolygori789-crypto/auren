@@ -1,6 +1,6 @@
-# Auren — GitHub Build 025
+# Auren — GitHub Build 026
 
-Build 25 final-polishes the Daily Check-in sheet after physical-device review. It corrects the slider color semantics so positive observations no longer drift into warning red at higher values, while Stress retains a distinct calm-to-attention path. It also gives the Daily Check-in sheet more breathing room from the viewport edges and refines internal spacing so the experience feels quieter and more premium. This build upgrades only the interactive Daily Check-in sheet and leaves data, logic, thresholds and read-only scales unchanged.
+Build 26 adds a single premium guidance layer to the accepted Daily Check-in experience. Instead of placing an info icon on every metric, Auren now offers one understated explainer beside the Daily Check-in title, clarifies the meaning of each scale, and replaces generic Low/High endpoint labels with metric-specific language. The accepted Build 25 spacing, slider mechanics, color semantics and stored-data behavior remain unchanged.
 
 # AUREN
 
@@ -46,7 +46,7 @@ The foundation runtime establishes the first real Auren application shell:
 - Build 19 isolated Signals relationship layer with evidence/stability guardrails.
 - Build 20 Signals final-state copy/hierarchy polish from physical-device review.
 - Build 21 isolated Today Daily State contextual detail interactions.
-- Build 25 final Daily Check-in polish with corrected color semantics and improved sheet spacing.
+- Build 26 Daily Check-in scale guidance with one premium explainer and clearer endpoint semantics.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -422,5 +422,40 @@ This build intentionally refines **only the interactive Daily Check-in sheet**. 
 - `sw.js`
 - `src/js/config/build.js`
 - `src/js/today/checkin-slider-polish.js`
+- `src/css/today-checkin.css`
+
+## Build 26 scope
+
+This build adds **progressive-disclosure guidance** to the accepted Daily Check-in sheet without turning the screen into a questionnaire or clinical form.
+
+### What changes
+
+- A single understated **info control** appears beside the Daily Check-in title.
+- Tapping it opens a compact EN/TH explainer for all five scales rather than adding five repetitive info icons.
+- Generic `Low / High` endpoints are replaced with metric-specific wording so each slider is understandable at a glance.
+- The explainer makes the Stress direction explicit and reminds users that the values are **observations, not health scores**.
+- Movement remains descriptive rather than moralised: more movement is not automatically treated as better in every context.
+
+### What remains locked from Build 25
+
+- Accepted Daily Check-in sheet spacing and mobile breathing room.
+- Pearl capsule thumb.
+- Positive metric color path: mineral blue → champagne → warm gold.
+- Stress color path: calm mineral → champagne → muted rose-red.
+- Check-in data model, values, thresholds and save/edit behavior.
+
+### Regression safety
+
+- `app.js` is not modified.
+- Existing Build 25 slider module remains unchanged.
+- Guidance is an isolated fail-open module; if it fails, the accepted Build 25 check-in remains usable.
+- Data schema remains version 4.
+
+### Files changed in Build 26
+
+- `README.md`
+- `sw.js`
+- `src/js/config/build.js`
+- `src/js/today/checkin-guidance.js`
 - `src/css/today-checkin.css`
 

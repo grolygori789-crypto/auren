@@ -149,3 +149,176 @@
 @media (prefers-reduced-motion:reduce){
   #checkinForm[data-auren-checkin-sheet="1"] input[type="range"][data-auren-checkin-slider="1"]::-webkit-slider-thumb{transition:none}
 }
+
+/* Build 26 — progressive-disclosure scale guidance; Build 25 geometry remains locked. */
+#checkinForm[data-auren-checkin-guide="1"] .auren-checkin-title-row{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:0;
+}
+
+#checkinForm[data-auren-checkin-guide="1"] .auren-checkin-title-row #checkinTitle{
+  min-width:0;
+}
+
+#checkinForm[data-auren-checkin-guide="1"] .auren-checkin-info-btn{
+  flex:0 0 auto;
+  width:27px;
+  height:27px;
+  padding:0;
+  border-radius:50%;
+  border:1px solid color-mix(in srgb,var(--line-strong) 72%,rgba(255,255,255,.72));
+  background:linear-gradient(145deg,rgba(255,255,255,.74),color-mix(in srgb,var(--card) 70%,transparent));
+  color:color-mix(in srgb,var(--gold-deep) 78%,var(--ink));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),0 5px 14px rgba(86,63,41,.055);
+  display:grid;
+  place-items:center;
+  cursor:pointer;
+  transform:translateY(1px);
+}
+
+#checkinForm[data-auren-checkin-guide="1"] .auren-checkin-info-btn span{
+  font:600 11px/1 Georgia,"Times New Roman",serif;
+  transform:translateY(-.2px);
+}
+
+#checkinForm[data-auren-checkin-guide="1"] .auren-checkin-info-btn:active{transform:translateY(1px) scale(.97)}
+
+#checkinForm[data-auren-checkin-guide="1"] .range-labels span{
+  max-width:46%;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+#checkinForm[data-auren-checkin-guide="1"] .range-labels span:last-child{text-align:right}
+#checkinForm[data-auren-checkin-guide="1"] .range-labels [data-auren-scale-edge="low"]{color:color-mix(in srgb,var(--aqua) 75%,var(--muted))}
+#checkinForm[data-auren-checkin-guide="1"] .range-labels [data-auren-scale-edge="high"]{color:color-mix(in srgb,var(--gold-deep) 72%,var(--muted))}
+#checkinForm[data-auren-checkin-guide="1"] .range-labels [data-auren-scale-edge="attention"]{color:color-mix(in srgb,#b8756b 76%,var(--muted))}
+
+.auren-checkin-guide-layer{
+  position:absolute;
+  inset:0;
+  z-index:6;
+  display:grid;
+  align-items:end;
+  justify-items:center;
+  padding:18px 18px calc(18px + env(safe-area-inset-bottom, 0px));
+  background:rgba(58,49,40,.13);
+  backdrop-filter:blur(5px);
+  -webkit-backdrop-filter:blur(5px);
+  opacity:0;
+  transition:opacity .17s ease;
+}
+.auren-checkin-guide-layer.open{opacity:1}
+
+.auren-checkin-guide-panel{
+  width:min(430px,100%);
+  max-height:min(76vh,680px);
+  overflow:auto;
+  overscroll-behavior:contain;
+  padding:22px 21px 20px;
+  border-radius:30px;
+  border:1px solid color-mix(in srgb,var(--line-strong) 72%,rgba(255,255,255,.68));
+  background:
+    radial-gradient(circle at 88% 5%,color-mix(in srgb,var(--aqua) 11%,transparent),transparent 28%),
+    linear-gradient(155deg,color-mix(in srgb,var(--card-hi) 95%,white),color-mix(in srgb,var(--bg-0) 90%,white));
+  box-shadow:0 28px 70px rgba(67,49,32,.17),inset 0 1px 0 rgba(255,255,255,.88);
+  transform:translateY(12px) scale(.992);
+  opacity:.72;
+  transition:transform .2s cubic-bezier(.2,.72,.2,1),opacity .16s ease;
+}
+.auren-checkin-guide-layer.open .auren-checkin-guide-panel{transform:none;opacity:1}
+
+.auren-checkin-guide-eyebrow{
+  font-size:8.5px;
+  line-height:1.3;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--faint);
+}
+.auren-checkin-guide-panel h4{
+  margin:6px 0 0;
+  font:400 22px/1.2 var(--font-display);
+  letter-spacing:-.012em;
+}
+.auren-checkin-guide-intro{
+  margin:8px 0 17px;
+  font-size:11.5px;
+  line-height:1.62;
+  color:var(--muted);
+}
+.auren-checkin-guide-list{display:grid;gap:0}
+.auren-checkin-guide-metric{
+  padding:12px 0 11px;
+  border-top:1px solid color-mix(in srgb,var(--line) 80%,transparent);
+}
+.auren-checkin-guide-metric:first-child{border-top:0;padding-top:0}
+.auren-checkin-guide-metric-head{display:grid;gap:2px}
+.auren-checkin-guide-metric-head strong{font-size:11.5px;font-weight:610;letter-spacing:.005em}
+.auren-checkin-guide-metric-head span{font-size:10px;line-height:1.45;color:var(--muted)}
+.auren-checkin-guide-direction{
+  display:grid;
+  grid-template-columns:auto minmax(34px,1fr) auto;
+  align-items:center;
+  gap:8px;
+  margin-top:8px;
+  font-size:9px;
+  color:var(--faint);
+}
+.auren-checkin-guide-direction > span:first-child{color:color-mix(in srgb,var(--aqua) 75%,var(--muted))}
+.auren-checkin-guide-direction > span:last-child{color:color-mix(in srgb,var(--gold-deep) 74%,var(--muted));text-align:right}
+.auren-checkin-guide-metric.is-stress .auren-checkin-guide-direction > span:last-child{color:color-mix(in srgb,#b8756b 78%,var(--muted))}
+.auren-checkin-guide-rail{
+  height:1px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--aqua) 64%,transparent),color-mix(in srgb,var(--gold) 50%,transparent));
+  position:relative;
+}
+.auren-checkin-guide-metric.is-stress .auren-checkin-guide-rail{background:linear-gradient(90deg,color-mix(in srgb,var(--aqua) 64%,transparent),color-mix(in srgb,#b8756b 58%,transparent))}
+.auren-checkin-guide-rail::before,.auren-checkin-guide-rail::after{
+  content:"";
+  position:absolute;
+  top:50%;
+  width:4px;
+  height:4px;
+  margin-top:-2px;
+  border-radius:50%;
+}
+.auren-checkin-guide-rail::before{left:-1px;background:color-mix(in srgb,var(--aqua) 72%,white)}
+.auren-checkin-guide-rail::after{right:-1px;background:color-mix(in srgb,var(--gold-deep) 68%,white)}
+.auren-checkin-guide-metric.is-stress .auren-checkin-guide-rail::after{background:color-mix(in srgb,#b8756b 72%,white)}
+
+.auren-checkin-guide-note{
+  margin:14px 0 0;
+  padding:12px 13px;
+  border-radius:16px;
+  border:1px solid color-mix(in srgb,var(--line) 78%,transparent);
+  background:color-mix(in srgb,var(--card) 62%,transparent);
+  color:var(--muted);
+  font-size:9.5px;
+  line-height:1.55;
+}
+.auren-checkin-guide-close{
+  width:100%;
+  min-height:45px;
+  margin-top:14px;
+  border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--line-strong) 70%,transparent);
+  background:linear-gradient(145deg,color-mix(in srgb,var(--card-hi) 86%,white),color-mix(in srgb,var(--card) 80%,transparent));
+  color:var(--ink);
+  font-size:11px;
+  font-weight:560;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.78);
+  cursor:pointer;
+}
+
+@media (max-width:380px){
+  .auren-checkin-guide-layer{padding:14px 12px calc(14px + env(safe-area-inset-bottom, 0px))}
+  .auren-checkin-guide-panel{padding:20px 18px 18px;border-radius:27px}
+  .auren-checkin-guide-panel h4{font-size:21px}
+  .auren-checkin-guide-direction{gap:6px;font-size:8.5px}
+}
+
+@media (prefers-reduced-motion:reduce){
+  .auren-checkin-guide-layer,.auren-checkin-guide-panel{transition:none}
+}
