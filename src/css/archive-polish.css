@@ -414,3 +414,50 @@
   [data-screen="archive"].archive-polished .archive-mode,
   [data-screen="archive"].archive-polished .archive-calendar-day{transition:none}
 }
+
+/* Build 29 — explicit Day Detail exit controls. */
+#dayDetailModal[data-auren-archive-polish="1"] .day-detail-sheet{
+  position:relative;
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-detail-close-top{
+  position:sticky;
+  top:10px;
+  z-index:8;
+  margin:-2px 0 -36px auto;
+  width:36px;
+  height:36px;
+  border-radius:50%;
+  border:1px solid color-mix(in srgb,var(--line) 88%,transparent);
+  display:grid;
+  place-items:center;
+  background:color-mix(in srgb,var(--card-hi) 84%,transparent);
+  color:color-mix(in srgb,var(--ink) 72%,var(--muted));
+  box-shadow:0 7px 18px rgba(70,52,35,.055),inset 0 1px 0 rgba(255,255,255,.75);
+  -webkit-backdrop-filter:blur(12px);
+  backdrop-filter:blur(12px);
+  cursor:pointer;
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-detail-close-top span{
+  display:block;
+  font:300 23px/1 "Helvetica Neue",Helvetica,Arial,sans-serif;
+  transform:translateY(-1px);
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] .archive-day-detail-close-top:active{
+  transform:scale(.97);
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] #dayDetailTitle{
+  padding-right:44px;
+}
+
+#dayDetailModal[data-auren-archive-polish="1"] #closeDayDetailBtn{
+  min-height:52px;
+  letter-spacing:.01em;
+}
+
+@media(prefers-reduced-motion:reduce){
+  #dayDetailModal[data-auren-archive-polish="1"] .archive-day-detail-close-top{transition:none}
+}

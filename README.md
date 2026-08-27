@@ -1,6 +1,6 @@
-# Auren — GitHub Build 028
+# Auren — GitHub Build 029
 
-Build 28 polishes Archive into a calmer Health Memory experience while deliberately protecting the physically accepted Build 27 recovery baseline. The new Archive layer is lazy-loaded only after the user opens Archive, so Signature Opening, Core, Today and Daily Check-in remain outside its execution path. Portraits now include distinct weight-only records, Calendar gains clearer health-memory semantics, monthly summaries use cautious evidence thresholds without percentages, and Daily Detail becomes more editorial and explainable. No stored-data schema or health-intelligence threshold changes are introduced.
+Build 29 is a surgical follow-up to the physically reviewed Build 28 Archive experience. It fixes the Daily Health Memory sheet exit affordances without changing the accepted Archive information design: the sheet now has a premium top-right close control and the existing bottom action is always labeled in the active language. Startup, Core, Today, Daily Check-in, Rhythm, Signals, stored data and health-intelligence logic remain untouched.
 
 # AUREN
 
@@ -48,6 +48,7 @@ The foundation runtime establishes the first real Auren application shell:
 - Build 21 isolated Today Daily State contextual detail interactions.
 - Build 27 emergency recovery restores the physically accepted Build 25 Daily Check-in runtime and removes Build 26 guidance from startup.
 - Build 28 adds a lazy-loaded Archive / Health Memory polish layer with distinct weight-only records, conservative monthly meaning and richer Daily Detail.
+- Build 29 fixes Daily Health Memory close affordances with a persistent top-right X and localized bottom Close action.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -484,3 +485,18 @@ Build 28 is intentionally isolated from startup after the Build 26 regression le
 - `src/js/archive/archive-polish.js`
 - `src/css/archive-polish.css`
 
+## Build 29 — Daily Health Memory controls
+
+Physical-device review of Build 28 exposed two usability defects in the Daily Health Memory sheet: the top of the sheet had no explicit close affordance, and the existing bottom close button could render without a visible label because the isolated Archive renderer bypassed the base `openDayDetail()` copy assignment.
+
+Build 29 fixes only those defects:
+
+- Adds a restrained pearl/glass **X** control at the top-right of Daily Health Memory.
+- Keeps the X sticky within the scrollable sheet so exit remains available while reviewing a long day.
+- Restores the existing bottom action label as **Close** / **ปิด**.
+- Reuses the canonical `closeDayDetailBtn` handler instead of introducing a parallel modal lifecycle.
+- Preserves the Build 28 Archive visuals, data rendering, Delete-this-day privacy action and evidence semantics.
+- Keeps Archive lazy-loaded; no startup or Core execution path is changed.
+- Data schema remains 4.
+
+Rollback baseline: **Build 28**.

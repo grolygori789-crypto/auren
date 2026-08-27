@@ -1,12 +1,13 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 28;
+export const BUILD_NUMBER = 29;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 28 adds an isolated Archive / Health Memory polish layer.
-// It is lazy-loaded only after the user opens Archive, so startup, Signature Opening and Core remain outside its runtime path.
-// Build 27 remains the known-good rollback baseline for launch and Daily Check-in behavior.
+// Build 29 is a surgical Archive Day Detail control fix.
+// It preserves the accepted Build 28 Health Memory presentation while restoring explicit close affordances:
+// a premium top-right X and a localized label on the existing bottom close button.
+// Startup, Signature Opening, Core, Today, Daily Check-in, Rhythm, Signals, data and schema remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});

@@ -1,4 +1,4 @@
-const STYLE_ID = 'auren-archive-polish-build-28';
+const STYLE_ID = 'auren-archive-polish-build-29';
 const STYLE_HREF = './src/css/archive-polish.css';
 const METRICS = ['sleep', 'energy', 'stress', 'mood', 'movement'];
 
@@ -40,6 +40,7 @@ const COPY = {
     dayWeightOnlyIntro: 'Only a weight update was saved on this day. No daily state is inferred.',
     evidenceObserved: 'Observed · five self-reported daily signals. This is personal context, not a diagnosis.',
     evidenceWeightOnly: 'Recorded · weight update only. Auren does not turn this single measurement into a daily-state judgment.',
+    close: 'Close',
     state: { excellent: 'Excellent', balanced: 'Balanced', mixed: 'Mixed', low: 'Challenging', missing: 'No state' },
     metric: { sleep: 'Sleep', energy: 'Energy', stress: 'Stress', mood: 'Mood', movement: 'Movement' },
     level: { veryLow: 'Very low', low: 'Low', steady: 'Steady', high: 'High', excellent: 'Excellent', calm: 'Calm', light: 'Light', moderate: 'Moderate', highStress: 'High', veryHighStress: 'Very high' },
@@ -74,6 +75,7 @@ const COPY = {
     dayWeightOnlyIntro: 'วันนี้มีเฉพาะข้อมูลน้ำหนัก จึงไม่มีการสรุปภาวะประจำวัน',
     evidenceObserved: 'สิ่งที่สังเกต · สัญญาณประจำวันที่คุณรายงานเอง 5 ด้าน เป็นบริบทส่วนตัว ไม่ใช่การวินิจฉัย',
     evidenceWeightOnly: 'ข้อมูลที่บันทึก · มีเฉพาะน้ำหนัก Auren จะไม่ใช้ค่าครั้งเดียวนี้ตัดสินภาวะของทั้งวัน',
+    close: 'ปิด',
     state: { excellent: 'ดีเยี่ยม', balanced: 'สมดุล', mixed: 'ผสม', low: 'ค่อนข้างท้าทาย', missing: 'ไม่มีภาวะ' },
     metric: { sleep: 'การนอน', energy: 'พลังงาน', stress: 'ความเครียด', mood: 'อารมณ์', movement: 'การเคลื่อนไหว' },
     level: { veryLow: 'ต่ำมาก', low: 'ต่ำ', steady: 'ปานกลาง', high: 'สูง', excellent: 'ดีเยี่ยม', calm: 'สงบ', light: 'เล็กน้อย', moderate: 'ปานกลาง', highStress: 'สูง', veryHighStress: 'สูงมาก' },
@@ -98,7 +100,7 @@ function installStylesheet() {
   link.id = STYLE_ID;
   link.rel = 'stylesheet';
   link.href = STYLE_HREF;
-  link.dataset.aurenArchive = 'build-28';
+  link.dataset.aurenArchive = 'build-29';
   document.head.appendChild(link);
 }
 
@@ -361,6 +363,36 @@ function renderArchive() {
   renderCalendar();
 }
 
+
+function ensureDayDetailControls(modal, label) {
+  if (!(modal instanceof HTMLElement)) return;
+  const sheet = modal.querySelector('.day-detail-sheet');
+  const bottom = document.getElementById('closeDayDetailBtn');
+  if (bottom) {
+    bottom.textContent = label;
+    bottom.setAttribute('aria-label', label);
+  }
+  if (!(sheet instanceof HTMLElement)) return;
+  let top = document.getElementById('archiveDayDetailCloseTop');
+  if (!top) {
+    top = document.createElement('button');
+    top.id = 'archiveDayDetailCloseTop';
+    top.className = 'archive-day-detail-close-top';
+    top.type = 'button';
+    top.innerHTML = '<span aria-hidden="true">×</span>';
+    const handle = sheet.querySelector('.sheet-handle');
+    if (handle?.nextSibling) sheet.insertBefore(top, handle.nextSibling);
+    else sheet.prepend(top);
+    top.addEventListener('click', () => {
+      const canonical = document.getElementById('closeDayDetailBtn');
+      if (canonical) canonical.click();
+      else modal.classList.remove('open');
+    });
+  }
+  top.setAttribute('aria-label', label);
+  top.setAttribute('title', label);
+}
+
 function openDayDetail(localDate) {
   const c = copy();
   const checkin = checkins.find((item) => item.localDate === localDate) || null;
@@ -378,6 +410,7 @@ function openDayDetail(localDate) {
   if (!modal || !title || !intro || !state || !metrics || !weightBox || !evidence) return;
 
   modal.dataset.aurenArchivePolish = '1';
+  ensureDayDetailControls(modal, c.close);
   if (eyebrow) eyebrow.textContent = locale() === 'th' ? 'บันทึกประจำวัน' : 'Daily health memory';
   title.textContent = formatDate(parseLocalDate(localDate), { weekday:'long', day:'numeric', month:'long', year:'numeric' });
   intro.textContent = checkin ? c.dayObservedIntro : c.dayWeightOnlyIntro;

@@ -1,4 +1,4 @@
-// Auren runtime Build 28 — isolated Archive / Health Memory polish.
+// Auren runtime Build 29 — Archive Day Detail close-control hotfix.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
