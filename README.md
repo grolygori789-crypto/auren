@@ -1,6 +1,6 @@
-# Auren — GitHub Build 016
+# Auren — GitHub Build 017
 
-Build 16 removes the remaining orb-only interstitial observed on physical devices after the Signature Opening. Build 15 prevented two Core canvases from being visible together, but it still deliberately morphed the outgoing Opening Core toward the Today position for roughly 790 ms. Build 16 leaves the accepted Signature Opening itself untouched, fades the complete branded content out as one unit, pre-reveals the already-running Today Core behind the opaque opening background, then dissolves directly into the complete app. No standalone, smaller or vertically offset orb is intended to appear between the logo sequence and Today.
+Build 17 turns Rhythm from a placeholder into the first real Personal Pattern Intelligence surface. It adds a Living Rhythm ribbon driven only by recorded daily check-ins, personal-baseline summaries, conservative recent-window interpretation, transparent confidence/evidence, and 7/14/30-day views. The motion is expressive presentation rather than physiology: it does not claim to measure pulse, does not create a health score, and does not infer cause and effect.
 
 # AUREN
 
@@ -30,8 +30,9 @@ The foundation runtime establishes the first real Auren application shell:
 - Today shell with truthful no-data state.
 - Daily Check-in for self-reported sleep, energy, stress, mood and movement.
 - Local IndexedDB persistence for daily observations.
-- Rhythm, Signals, Archive and You navigation foundations.
-- Native English and Thai locale catalogs.
+- Rhythm V1 Personal Pattern Intelligence, with Signals still intentionally gated behind evidence.
+- Archive and You navigation foundations.
+- Native English and Thai locale support.
 - Five curated Auren Atmospheres: Pearl Dawn, Mineral Mist, Rose Veil, Sage Haze and Quiet Dusk.
 - No account required in V1 foundation.
 - Reduced Motion support.
@@ -39,6 +40,8 @@ The foundation runtime establishes the first real Auren application shell:
 - Optional Build 12 experience layer that can fail independently without blocking the stable app runtime.
 - Build 13 Living Core Evolution with runtime fallback to the accepted renderer.
 - Build 14 local Data Controls for single-day deletion and full on-device erasure.
+- Build 16 clean Signature Opening handoff accepted on physical-device review.
+- Build 17 isolated Living Rhythm layer with static/performance fallbacks.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -56,7 +59,8 @@ auren/
 │   │   ├── tokens.css
 │   │   ├── app.css
 │   │   ├── experience.css
-│   │   └── privacy.css
+│   │   ├── privacy.css
+│   │   └── rhythm.css
 │   └── js/
 │       ├── app.js
 │       ├── config/
@@ -64,6 +68,7 @@ auren/
 │       ├── experience/
 │       ├── i18n/
 │       ├── privacy/
+│       ├── rhythm/
 │       └── storage/
 └── docs/
 ```
@@ -233,3 +238,22 @@ Build 16 is a narrow physical-device launch repair layered over Build 15:
 
 Rollback: remove the Build 16 launch-handoff import and Service Worker asset to return to Build 15. Build 13 remains the broader known-good rollback baseline for the Build 14+ data-control series until physical-device acceptance is complete.
 
+## Build 17 — Rhythm V1 / Living Rhythm
+
+Build 17 turns longitudinal check-in history into a calm, explainable pattern surface without changing the accepted Today or Core systems:
+
+- Replaces the Rhythm placeholder at runtime with an isolated `src/js/rhythm/rhythm.js` enhancement; if it cannot load, the Build 16 placeholder remains available.
+- Adds selectable 7 / 14 / 30-day windows using only locally stored check-ins.
+- Introduces the Living Rhythm ribbon: a Canvas2D temporal trace with restrained biological motion, internal light movement and touch/keyboard day inspection.
+- The ribbon is not an ECG, pulse measurement or physiological simulation. Presentation motion never changes the underlying data and does not claim sensor input.
+- Builds the visual shape from Sleep, Energy, Mood, Movement and inverse Stress direction so the vertical language stays internally coherent. No composite health score is displayed or persisted.
+- Adds conservative personal-pattern states: learning, forming, relatively steady, still changing, or a recent directional change when enough observations exist.
+- Requires at least six check-ins before describing an earlier-vs-later directional change and keeps small changes below a deliberate threshold out of the headline.
+- Adds Personal Baseline rows for the five observations without population ranking or moralized targets.
+- Adds continuity and qualitative Confidence based on the amount of real history supporting the selected view.
+- Adds `Why this?` evidence explaining Observed / Calculated / Inferred provenance and limitations, including the fact that Rhythm does not prove cause and effect.
+- Supports native English and Thai copy inside the isolated Rhythm module, Reduced Motion, keyboard inspection and a runtime performance fallback that removes expensive glow/motion before affecting the stable app.
+- Does not change the IndexedDB model or data schema version 4.
+- Does not modify `app.js`, Living Core physics, Body Intelligence, Signature Opening, Data Controls, Archive logic or stable Today layout.
+
+Rollback: remove the Build 17 Rhythm import plus `src/js/rhythm/rhythm.js` / `src/css/rhythm.css` from the Service Worker. Build 16 remains the immediate known-good production baseline.
