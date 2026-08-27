@@ -1,6 +1,6 @@
 import { getAllCheckins } from '../storage/checkins.js';
 
-const STYLE_ID = 'auren-signals-build-19';
+const STYLE_ID = 'auren-signals-build-20';
 const STYLE_HREF = './src/css/signals.css';
 const SCREEN_SELECTOR = '[data-screen="signals"]';
 const METRICS = ['sleep', 'energy', 'stress', 'mood', 'movement'];
@@ -47,8 +47,10 @@ const COPY = {
     compareTitle: 'What Auren compares',
     compareSub: 'Five daily observations, checked pair by pair. Auren surfaces only the relationships that earn enough evidence.',
     compareMeta: '10 possible pairings · no health score',
-    secondaryTitle: 'Another relationship worth watching',
-    secondaryEmpty: 'Auren is staying quiet about weaker relationships in this window.',
+    secondarySignalTitle: 'Another relationship worth watching',
+    secondaryQuietTitle: 'No secondary signal yet',
+    secondaryLearningCopy: 'Auren will only surface another relationship after it independently earns enough repeated evidence.',
+    secondaryQuietCopy: 'No second relationship has passed the same evidence threshold in this window.',
     signalMeta: 'Relationship signal',
     evidenceTitle: 'How Auren earns a signal',
     evidenceIntro: 'Signals are descriptive personal-pattern context. The visual can feel alive; the inference stays deliberately conservative.',
@@ -102,8 +104,10 @@ const COPY = {
     compareTitle: 'สิ่งที่ Auren เปรียบเทียบ',
     compareSub: 'ข้อมูลรายวันห้าด้านถูกตรวจเป็นคู่ๆ และ Auren จะแสดงเฉพาะความสัมพันธ์ที่มีหลักฐานมากพอ',
     compareMeta: '10 คู่ที่เป็นไปได้ · ไม่มีคะแนนสุขภาพ',
-    secondaryTitle: 'อีกความสัมพันธ์ที่ควรเฝ้าดู',
-    secondaryEmpty: 'Auren ยังเลือกไม่พูดถึงความสัมพันธ์ที่อ่อนกว่านี้ในช่วงเวลานี้',
+    secondarySignalTitle: 'อีกความสัมพันธ์ที่ควรสังเกต',
+    secondaryQuietTitle: 'ยังไม่มีสัญญาณรอง',
+    secondaryLearningCopy: 'Auren จะแสดงความสัมพันธ์อีกคู่เมื่อมีหลักฐานที่เกิดซ้ำมากพอด้วยตัวมันเอง',
+    secondaryQuietCopy: 'ในช่วงเวลานี้ยังไม่มีความสัมพันธ์คู่ที่สองผ่านเกณฑ์หลักฐานเดียวกัน',
     signalMeta: 'สัญญาณความสัมพันธ์',
     evidenceTitle: 'Auren ยอมเรียกสิ่งใดว่าสัญญาณเมื่อไร',
     evidenceIntro: 'Signals เป็นบริบทเชิงพรรณนาจากรูปแบบส่วนตัว ภาพสามารถมีชีวิตได้ แต่การตีความต้องระมัดระวังเสมอ',
@@ -290,7 +294,7 @@ function installStylesheet() {
     link.id = STYLE_ID;
     link.rel = 'stylesheet';
     link.href = STYLE_HREF;
-    link.dataset.aurenSignals = 'build-19';
+    link.dataset.aurenSignals = 'build-20';
     link.addEventListener('load', () => resolve(), { once: true });
     link.addEventListener('error', () => reject(new Error('Signals stylesheet failed')), { once: true });
     document.head.appendChild(link);
@@ -430,7 +434,6 @@ function applyCopy() {
   set('signalsCompareTitle', copy.compareTitle);
   set('signalsCompareSub', copy.compareSub);
   set('signalsCompareMeta', copy.compareMeta);
-  set('signalsSecondaryTitle', copy.secondaryTitle);
   set('signalsEmptyTitle', copy.noDataTitle);
   set('signalsEmptyCopy', copy.noDataCopy);
   document.querySelectorAll('[data-signals-days]').forEach((button) => {
@@ -483,7 +486,6 @@ function renderDepth() {
 
 function secondaryText(pair) {
   const copy = c();
-  if (!pair) return copy.secondaryEmpty;
   const a = metricLabel(pair.metricA);
   const b = metricLabel(pair.metricB);
   const title = pair.direction === 'same' ? copy.sameTitle(a, b) : copy.oppositeTitle(a, b);
@@ -491,16 +493,23 @@ function secondaryText(pair) {
 }
 
 function renderSecondary() {
+  const copy = c();
+  const title = document.getElementById('signalsSecondaryTitle');
   const body = document.getElementById('signalsSecondaryBody');
   const card = document.getElementById('signalsSecondaryCard');
-  if (!body || !card || !model) return;
+  if (!title || !body || !card || !model) return;
   if (model.secondary) {
+    title.textContent = copy.secondarySignalTitle;
     body.innerHTML = secondaryText(model.secondary);
     card.dataset.hasSignal = '1';
-  } else {
-    body.textContent = c().secondaryEmpty;
-    card.dataset.hasSignal = '0';
+    card.dataset.secondaryState = 'signal';
+    return;
   }
+
+  title.textContent = copy.secondaryQuietTitle;
+  body.textContent = model.count >= 8 ? copy.secondaryQuietCopy : copy.secondaryLearningCopy;
+  card.dataset.hasSignal = '0';
+  card.dataset.secondaryState = model.count >= 8 ? 'quiet' : 'learning';
 }
 
 function renderEvidence() {

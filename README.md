@@ -1,6 +1,6 @@
-# Auren — GitHub Build 019
+# Auren — GitHub Build 020
 
-Build 19 turns Signals from a placeholder into Auren’s first Relationship Intelligence surface. It compares pairs of the five daily observations conservatively, surfaces only repeat relationships that earn enough evidence, keeps association separate from causation, and gives sparse-history states a deliberate premium visual instead of inventing early conclusions.
+Build 20 closes the first Signals V1 polish pass after physical-device review. It keeps the accepted Relationship Intelligence engine unchanged while making the secondary-signal state truthful in every evidence condition: Auren no longer labels an empty card as “another relationship worth watching” before a second relationship has actually earned the evidence threshold.
 
 # AUREN
 
@@ -44,6 +44,7 @@ The foundation runtime establishes the first real Auren application shell:
 - Build 17 isolated Living Rhythm layer with static/performance fallbacks.
 - Build 18 Rhythm early-state physical-device polish.
 - Build 19 isolated Signals relationship layer with evidence/stability guardrails.
+- Build 20 Signals final-state copy/hierarchy polish from physical-device review.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -298,3 +299,15 @@ Build 19 turns the existing Signals placeholder into a calm, evidence-gated rela
 
 Rollback: remove the Build 19 Signals import plus `src/js/signals/signals.js` / `src/css/signals.css` from the Service Worker. Build 18 remains the immediate known-good production baseline.
 
+## Build 20 — Signals Final Polish
+
+Build 20 closes the initial Signals V1 surface after physical-device review without changing the accepted relationship engine:
+
+- Fixes the secondary card so it never says `Another relationship worth watching` unless a real second relationship has passed the same evidence gate.
+- Uses `No secondary signal yet` while no second relationship exists, with separate copy for pre-threshold listening and post-threshold quiet states.
+- Keeps the secondary card visually restrained but readable instead of making an evidence-empty state look disabled.
+- Preserves the 8 paired-day minimum, variation checks, strength threshold, stability guard, primary/secondary ranking, no-causation language and qualitative confidence behavior exactly as in Build 19.
+- Preserves EN/TH meaning parity, 14/30-day evidence windows, Reduced Motion and the Canvas2D Evidence Field.
+- Does not modify `app.js`, Today, Living Core, Body Intelligence, Rhythm, Archive, Data Controls, IndexedDB structure, relationship math or data schema version 4.
+
+Rollback: restore the Build 19 versions of `src/js/signals/signals.js` and `src/css/signals.css` and return the runtime/cache marker to Build 19. Build 19 remains the immediate rollback baseline.

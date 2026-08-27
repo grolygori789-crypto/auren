@@ -1,4 +1,4 @@
-/* Build 19 — Signals V1 / Relationship Intelligence */
+/* Build 20 — Signals Final Polish */
 .signals-page-head{padding-bottom:10px}
 .signals-range-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:2px 4px 12px;color:var(--faint);font-size:10px;letter-spacing:.13em;text-transform:uppercase}
 .signals-range-switch{display:flex;align-items:center;gap:3px;padding:3px;border:1px solid color-mix(in srgb,var(--line) 88%,transparent);border-radius:999px;background:color-mix(in srgb,var(--card) 64%,transparent);box-shadow:inset 0 1px 0 rgba(255,255,255,.52);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
@@ -49,7 +49,9 @@
 .signals-secondary-body{margin-top:8px;font-size:11px;line-height:1.58;color:var(--muted)}
 .signals-secondary-body strong{display:block;font:400 18px/1.25 var(--font-display);color:var(--ink);letter-spacing:-.012em}
 .signals-secondary-body span{display:block;margin-top:6px;font-size:9px;color:var(--faint)}
-.signals-secondary-card[data-has-signal="0"]{opacity:.80}
+.signals-secondary-card[data-has-signal="0"]{opacity:.88}
+.signals-secondary-card[data-secondary-state="learning"] .signals-secondary-eyebrow,.signals-secondary-card[data-secondary-state="quiet"] .signals-secondary-eyebrow{color:color-mix(in srgb,var(--faint) 88%,var(--gold-deep))}
+.signals-secondary-card[data-secondary-state="learning"] .signals-secondary-body,.signals-secondary-card[data-secondary-state="quiet"] .signals-secondary-body{max-width:430px}
 .signals-legacy-copy{display:none!important}
 
 .signals-evidence-modal{z-index:84}
