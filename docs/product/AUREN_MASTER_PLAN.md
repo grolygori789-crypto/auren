@@ -2,878 +2,1350 @@
 
 > **Your body, understood.**
 
-**MASTER PLAN · PRODUCTION CONTINUATION EDITION · Revision 2.2**  
-Product · Design · Engineering · Intelligence · Trust · Growth · Handoff  
-Benedict Interactive · 26 August 2026
+**MASTER PLAN · CANONICAL CONTINUATION EDITION · Revision 3.0**  
+Product · Design · Engineering · Intelligence · Trust · Privacy · Growth · QA · Handoff  
+Benedict Interactive · 28 August 2026
 
-Status: **Canonical operating foundation for continued development**
+Status: **Canonical operating source of truth for continued Auren development**
 
 ---
 
-# 0. North Star — ภาพเดียวที่ทุกห้องต้องเห็นตรงกัน
+# 0. Executive Continuity Card — อ่านส่วนนี้ก่อนทุกอย่าง
 
-Auren ไม่ใช่ “health tracker ที่สวย” แต่คือ **Personal Health Intelligence** ที่ช่วยให้ผู้ใช้เข้าใจว่า ชีวิต พฤติกรรม บริบทของร่างกาย และแนวโน้มของตัวเองสัมพันธ์กันอย่างไร โดยทำให้ข้อมูลกลายเป็นความหมายที่เข้าใจง่าย สวยมาก น่าเชื่อถือ และเป็นส่วนตัว
-
-Auren ต้องให้ความรู้สึกเหมือนผู้ใช้ได้รับ **privileged access to an ultra-premium world-class product** ที่ปกติควรมีราคาแพงมาก แม้ช่วง Early Access จะเปิดประสบการณ์หลักอย่างใจกว้าง
+Auren คือ **Personal Health Intelligence** ไม่ใช่ health tracker ที่เอากราฟสวยๆ มาห่อข้อมูลเดิม จุดหมายคือทำให้ผู้ใช้เข้าใจความสัมพันธ์ระหว่างชีวิต บริบทของร่างกาย ภาวะประจำวัน และแนวโน้มของตัวเอง แล้วเปลี่ยนข้อมูลให้เป็นความหมายที่เชื่อถือได้และการตัดสินใจที่มีประโยชน์หนึ่งอย่าง
 
 **Product:** AUREN  
 **Category:** Personal Health Intelligence  
 **Primary tagline:** **Your body, understood.**  
 **Studio:** Benedict Interactive  
 **Initial platform:** Mobile-first Premium PWA / Web App  
-**Initial stack:** HTML + CSS + JavaScript + SVG + Canvas; WebGL/Three.js เฉพาะเมื่อมีเหตุผลจริง  
-**V1 data philosophy:** self-report + personal baseline + transparent contextual analysis  
-**V1 does not require:** wearable, Bluetooth, medical backend, AI chatbot, social feed  
-**Primary early success:** trust + retention + usefulness, not downloads or monetization
+**Primary promise:** **Data → Pattern → Meaning → One useful decision**
 
-> **Auren promise:** Data → Pattern → Meaning → One useful decision
+## Current production baseline at this revision
+
+Repository: `grolygori789-crypto/auren`  
+Branch: `main`  
+Verified HEAD at document creation: `b1af5d2b4c8c4ba89f58f9c1143ff7745967658a`  
+Runtime: **Build 29**  
+Data schema marker: **4**  
+Physical-device status: **Build 29 accepted by P’Benz**  
+Next runtime batch: **Build 30** unless a newer repo HEAD has already advanced it
+
+Important known-good anchors:
+- **Build 16** — accepted clean Signature Opening handoff
+- **Build 20** — Signals V1 physically reviewed / provisional production acceptance
+- **Build 21** — Today metric detail interaction foundation
+- **Build 25** — Daily Check-in slider semantics + spacing physically accepted
+- **Build 27** — recovery from rejected Build 26 startup regression; physically accepted
+- **Build 29** — current Archive / Daily Health Memory baseline; physically accepted
+
+Critical warning:
+- **Build 26 is rejected. Do not re-enable its runtime approach.**
+- `src/js/today/checkin-guidance.js` may still exist as an **orphaned, unreferenced file** from Build 26. It must remain unimported/un-cached until deliberately redesigned or removed in a safe hygiene batch.
+
+Current planned continuation if P’Benz gives no newer explicit direction:
+1. **Build 30 — You / Settings Final Polish**
+2. **Build 31+ — Full-System QA & Production Hardening**
+3. Longitudinal QA once real history is sufficient for Rhythm / Signals / Archive maturity states
+4. Revisit the shared Daily Check-in scale explainer only with an **on-demand, non-startup, fail-open** design
+
+This document is deliberately complete enough that a new room should not need to ask historical questions before continuing.
 
 ---
 
 # 1. Authority — Full Authorized DEV 100%
 
-ในโปรเจกต์ Auren ให้ “บิ๊ว” ในห้องปัจจุบันทำหน้าที่เทียบเท่า **Founder-Operator + Product Owner + Principal Product Designer + CTO + Trust Lead + Growth Lead** และมีอำนาจตัดสินใจด้านผลิตภัณฑ์ **100%** ภายใต้ North Star และ trust boundaries ของเอกสารนี้
+In Auren, “บิ๊ว” acts as **Full Authorized DEV 100%**, equivalent in operating responsibility to:
+- Founder-Operator
+- Product Owner
+- Principal Product Designer
+- CTO / Technical Lead
+- Trust & Privacy Lead
+- Growth / Packaging Lead
+- Release / QA Lead
 
-พี่เบนซ์เป็นผู้เสนอแนวคิด ความเห็น ปัญหาที่พบ และทำ physical-device acceptance เป็นหลัก แนวคิดของพี่เบนซ์เป็น input ที่มีคุณค่าสูง แต่ไม่ใช่ข้อบังคับให้ DEV ทำตามโดยอัตโนมัติ หากมีวิธีที่ดีกว่าต่อผลิตภัณฑ์ DEV ต้องเลือกวิธีที่ดีกว่าและอธิบายสั้นๆ
+P’Benz remains the legal owner of the project and IP, proposes ideas, identifies defects, sets explicit constraints, and is the primary physical-device acceptance tester. Product/design/engineering choices inside the agreed North Star are delegated to บิ๊ว.
 
-DEV มีสิทธิ์ตัดสินใจหรือเปลี่ยน:
-- product direction และ feature priority
-- information architecture / navigation
-- UX/UI / visual hierarchy / motion
-- Auren Core / Halo / visual semantics
-- health-intelligence architecture และ confidence model
-- storage / technical architecture
-- localization / content hierarchy
-- roadmap / monetization / launch strategy
-- QA gates และ release scope
-
-**แต่ Product Authority ไม่เท่ากับ Remote Write Authority**: พฤติกรรมมาตรฐานยังเป็น **ทำไฟล์ให้พี่เบนซ์อัปโหลด GitHub เอง** เว้นแต่พี่เบนซ์สั่งให้ push/แก้ GitHub โดยตรงใน turn ปัจจุบัน
-
-ห้ามถามพี่เบนซ์ให้เล่าซ้ำเรื่องที่ recover ได้จาก Master Plan, repo, handoff prompt, current production หรือ approved assets
-
-ถามเฉพาะเมื่อ:
-1. เป็นข้อมูลใหม่ที่ recover ไม่ได้จริง
-2. ต้องใช้ credential / consent
-3. เป็น irreversible external action ที่จำเป็นต้องมี owner approval
+Rules:
+- Do not follow an idea automatically merely because P’Benz proposed it. If a better product path exists, choose it and explain briefly.
+- Do not ask P’Benz to restate information recoverable from this Master Plan, the Migration Prompt, current production, repo history, approved assets, or the current conversation.
+- Ask only when information is genuinely new/unrecoverable, a credential/consent is required, or an irreversible external action needs explicit owner approval.
+- **Product authority does not equal remote-write authority.** Default GitHub workflow is to prepare canonical files/packages for P’Benz to upload manually. Do not push/write remotely unless P’Benz explicitly instructs it in the current turn.
 
 ---
 
 # 2. Source of Truth & Conflict Order
 
-Canonical files:
-1. `docs/product/AUREN_MASTER_PLAN.md` — Source of Truth หลัก
-2. `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md` — zero-question startup prompt
-3. Current production on `grolygori789-crypto/auren` branch `main`
+Canonical sources:
+1. `docs/product/AUREN_MASTER_PLAN.md`
+2. `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md`
+3. Current production in `grolygori789-crypto/auren` branch `main`
+4. Approved product assets and physical-device screenshots
+5. Repository history / README release notes
+6. Older chat context
 
-เมื่อข้อมูลขัดกันให้ใช้ลำดับนี้:
+Conflict order:
 
-**latest explicit instruction from P’Benz → current production/live implementation → Master Plan → approved assets → repo/history → older chat context**
+> **latest explicit instruction from P’Benz → current production/live implementation → Master Plan → approved assets → repo/history → older chat context**
 
-ก่อน substantial change:
-1. อ่าน Master Plan
-2. inspect current repo HEAD
-3. inspect build/cache/data schema
-4. กำหนด scope + changed-file allowlist
-5. implement แบบ surgical
-6. regression QA
-7. ส่งไฟล์ + clickable links + Commit name
+Before any substantial implementation:
+1. Read the Master Plan and Migration Prompt.
+2. Inspect current repo HEAD.
+3. Inspect `src/js/config/build.js`.
+4. Inspect Service Worker/cache identity.
+5. Inspect data schema/storage if relevant.
+6. Inspect the current implementation of the surface being changed.
+7. Establish a known-good baseline.
+8. Define a narrow changed-file allowlist.
+9. Define rollback/fallback for meaningful-risk changes.
+10. Implement surgically.
+11. Perform scoped regression QA.
+12. Package canonical repo-relative files.
+13. Send clickable file links and a **Commit name <=50 characters in a code block**.
 
 ---
 
-# 3. Product Principles — Non-Negotiable
+# 3. North Star & Product Promise
 
-| Principle | Rule |
+Auren helps users understand:
+- what they can observe today,
+- how today compares with their own recent history,
+- what relationships may be emerging,
+- what context changes the meaning of a number,
+- and whether one small action is justified — or whether nothing needs changing.
+
+The core emotional and functional outcome is two simultaneous thoughts:
+
+> **“I understand myself better.”**  
+> **“Why does this feel so unusually considered and expensive?”**
+
+Early-access emotional target:
+> **“This feels like a billion-dollar premium app, and I somehow got special access to it.”**
+
+Premium must come from restraint, hierarchy, material detail, coherence, responsiveness, trust, and polished interaction — never from visual clutter.
+
+---
+
+# 4. What Auren Is Not
+
+Auren is not:
+- a medical diagnosis app
+- a doctor replacement
+- a fitness-bro tracker
+- a calorie/macros diary
+- a guilt streak app
+- a habit-addiction machine
+- a generic wellness dashboard
+- an AI chatbot where “AI” is the hero
+- a pseudo-scientific health score
+- a body-shaming weight-loss funnel
+- a social feed
+- a wearable-dependent product in V1
+
+Default rule: **Auren should feel smarter because it understands context better, not because it has more menus.**
+
+---
+
+# 5. Product Principles — Non-Negotiable
+
+| Principle | Operating rule |
 |---|---|
-| Trust before intelligence | ถ้าดูฉลาดขึ้นแต่ผู้ใช้เชื่อน้อยลง = ถอยหลัง |
-| Usability before spectacle | สวยแต่ใช้ยาก = fail |
-| Complex underneath, calm on surface | logic ซับซ้อนได้ แต่ UI ต้องสงบ |
-| Evidence before claims | ทุก insight สำคัญต้องอธิบายที่มาได้ |
-| Personal baseline first | เปรียบเทียบกับตัวเองก่อน population claim |
-| Context before judgment | ห้ามใช้ metric เดียวตัดสินคน |
-| Progressive disclosure | ไม่ยัดคำอธิบายยาวบนหน้าหลัก |
-| No fake precision | ไม่มี health score 92/100 ถ้าไม่มีฐานจริง |
-| No addiction mechanics | ไม่มี guilt streak / nagging / scarcity |
-| Privacy as product feature | local-first เท่าที่เหมาะสม |
-| Motion must communicate | animation ต้องมีหน้าที่ |
-| Ship narrow, polish deeply | ฟีเจอร์น้อยแต่จบ ดีกว่าของเยอะแต่ครึ่งๆ |
-| Visual meaning over decoration | element ที่อธิบายอะไรไม่ได้ไม่มีสิทธิ์แย่งพื้นที่ |
+| Trust before intelligence | If it appears smarter but becomes less believable, it is worse. |
+| Usability before spectacle | Beautiful but harder to use = fail. |
+| Complex underneath, calm on surface | Internal logic can be rich; UI must remain quiet. |
+| Evidence before claims | Important meaning must have a traceable basis. |
+| Personal baseline first | Compare users with themselves before population judgment. |
+| Context before judgment | Never let one metric define the person. |
+| Progressive disclosure | Explain deeply on demand, not by crowding the main surface. |
+| No fake precision | No invented 92/100 health score. |
+| No addiction mechanics | No guilt streaks, shame, scarcity, or nag loops. |
+| Privacy as a product feature | Local-first where reasonable; consent before expansion. |
+| Motion must communicate | Motion should explain state/material/transition. |
+| Ship narrow, polish deeply | Fewer finished systems beat many half-finished features. |
+| Visual meaning over decoration | If an element cannot explain its purpose, it should not dominate. |
+| Stable production is protected | Do not touch accepted systems without a real reason. |
 
 ---
 
-# 4. Brand & Visual DNA — สิ่งที่ห้ามทำหาย
+# 6. Brand & Visual DNA
 
-Auren ต้องรู้สึก **quiet luxury + intelligent wellness + biological calm** ไม่ใช่ hospital dashboard, fitness-bro app, crypto orb, sci-fi HUD หรือ generic pastel wellness app
+Auren = **quiet luxury + intelligent wellness + biological calm**.
 
 Primary visual language:
 - warm pearl / ivory / cream
-- restrained champagne gold
+- champagne gold
 - pale mineral aqua
-- charcoal text
-- controlled sage / rose / dusk accentsเมื่อมี semantic reason
-- translucent glass surfaces
-- generous whitespace
+- charcoal / warm graphite text
+- controlled sage, rose, dusk accents only with semantic reason
+- translucent glass
+- large breathing room
 - editorial typography
 - extremely restrained borders and shadows
+- quiet depth, not neon glow
 
-คุณภาพเป้าหมาย:
-> “This feels like a billion-dollar premium app, and I somehow got special access to it.”
+Avoid:
+- hospital dashboards
+- crypto / sci-fi orb aesthetics
+- neon HUDs
+- generic pastel wellness
+- excessive gradients
+- ornamental glass for its own sake
+- dense card grids
+- “premium” effects that compete with information
 
-ห้ามใช้คำว่า premium เป็นข้ออ้างให้ใส่ glow, glass, line, gradient หรือ ornament มากเกินไป ทุก effect ต้องมีเหตุผล
+## Auren Atmospheres — Locked curated system
 
-## 4.1 Auren Atmospheres — Locked Theme System
-
-ไม่ใช่ color picker ทั่วไป แต่เป็น curated atmosphere system:
 1. **Pearl Dawn** — ivory / champagne / blush
-2. **Mineral Mist** — pearl / pale aqua / cool grey-blue
-3. **Rose Veil** — cream / nude rose / dusty blush
+2. **Mineral Mist** — pearl / pale aqua / cool blue-grey
+3. **Rose Veil** — warm cream / nude rose / dusty blush
 4. **Sage Haze** — ivory / pale sage / mineral green
 5. **Quiet Dusk** — champagne / mauve-grey / blue-grey
 
-Atmosphere ต้องเปลี่ยน background, glass, nav, accents, Core reflection/tint และ semantic accents อย่าง coherent ไม่ใช่แค่ background
+Atmospheres should influence background, glass, nav, accents, Core reflection/tint and supporting material language coherently, not merely repaint one background.
 
 ---
 
-# 5. Auren Core — Signature Object
+# 7. Runtime & Architecture Direction
 
-Auren Core คือ transparent glass orb ที่มี living biomaterial / liquid light อยู่ภายใน ต้องดูเป็น object ที่มีชีวิตอย่างสงบและเป็นเอกลักษณ์ของแบรนด์
+Current direction is web-first, not web-limited:
+- semantic HTML
+- componentized CSS
+- ES modules / vanilla JS while maintainable
+- Canvas2D for the Living Core and evidence visuals where robust
+- SVG for semantic instruments/icons
+- IndexedDB for longitudinal local data
+- Service Worker + PWA cache discipline
+- no backend unless user value justifies it
 
-## Locked visual direction
-- ขอบแก้วต้อง **บางและใสมาก**
-- ห้ามกลับไปเป็นวง outline หนาๆ
-- ให้เห็นความเป็นแก้วจาก refraction, highlight, optical distortion, contact shadow มากกว่าเส้นขอบ
-- liquid เป็น **champagne-gold dominant ~75–80%** + **pale/mineral aqua undertone ~20–25%**
-- aqua ต้องยังอ่านได้ผ่าน depth/refraction ไม่ปล่อยให้ Core กลายเป็น “ลูกแก้วทอง”
-- asymmetry เล็กน้อยเพื่อให้ organic
-- ของเหลวต้อง pool/slosh ตามแรงโน้มถ่วงอย่าง believable
+Current important runtime modules include:
+- `src/js/app.js` — core product shell and base rendering
+- `src/js/config/build.js` — runtime build/cache source of truth
+- `src/js/core/orb.js` — Core renderer
+- `src/js/experience/launch-handoff.js`
+- `src/js/experience/polish.js`
+- `src/js/privacy/data-controls.js`
+- `src/js/rhythm/rhythm.js`
+- `src/js/signals/signals.js`
+- `src/js/today/metric-detail.js`
+- `src/js/today/checkin-slider-polish.js`
+- `src/js/archive/archive-polish.js`
 
-## Living motion
-ปัญหาที่เคยเกิด: motion ช้ามากจนสมองอ่านเป็นภาพนิ่ง
+At Build 29, Archive polish is intentionally lazy-loaded only when Archive is opened. This is a deliberate regression-safety pattern after the Build 26 startup failure.
 
-กฎใหม่:
-- idle motion ต้องมองเห็นได้ภายในประมาณ **1–2 วินาที**
-- มี gentle internal circulation + inertia + surface movement
-- มี event response หลัง check-in / profile update / state transition แล้วค่อย settle
-- ห้ามวุ่นวายเหมือน screensaver
-- Reduced Motion ต้องมี fallback ที่สงบ
-
-## Signature Opening
-ผู้ใช้ชอบ opening ที่มีเวลาให้รู้สึกถึงแบรนด์ประมาณ 3–4 วินาที ไม่ใช่แวบเดียว
-
-Current accepted direction:
-- warm atmosphere
-- Core reveal
-- A U R E N
-- “Your body, understood.”
-- “By Benedict Interactive” แบบ understated
-- normal cold launchประมาณ 3.7s ก่อน transition
-- first-launchประมาณ 4.1s
-- transitionประมาณ 0.8s
-- warm resume ไม่ replay โดยไม่จำเป็น
-
-Exact timings evolvable แต่ principle ไม่เปลี่ยน: **opening ต้องรู้สึก intentional ไม่ช้าเกินและไม่ flash ผ่าน**
+Do not avoid `app.js` dogmatically. Isolated enhancement is preferred when it reduces risk, but if a core correctness issue truly belongs in `app.js`, modify it with an explicit risk plan and regression tests rather than building fragile DOM hacks around it.
 
 ---
 
-# 6. Halo — Semantic Instrument, Not Decoration
+# 8. Startup Safety — Protected Zone
 
-บทเรียนสำคัญ: Halo เคยเป็นวง arc ใหญ่ แข็ง กว้าง รก และดูเหมือน loading/progress gauge มากกว่า premium intelligence
+The startup path is a **high-risk protected zone**.
 
-Halo ปัจจุบันต้องยึดกฎ:
-- hairline / luminous fragments
-- อยู่ใกล้ Core ไม่กินพื้นที่มหาศาล
-- soft endpoints
--ไม่ complete ring เพื่อความสวย
-- missing evidence = faint / incomplete
-- semantic ก่อน symmetry
-- แตะ `Why this?` แล้วตอบได้ว่าทุก fragment หมายถึงอะไร
+Build 26 proved that a small “guidance” feature can become unacceptable if it is coupled into startup and blocks Opening/Core initialization.
 
-Canonical Halo dimensions:
+Permanent rules:
+- Optional micro-features must not get startup authority.
+- A help/info/guidance layer should load on demand or after the app is confirmed ready.
+- Cosmetic/enhancement modules should fail open.
+- A feature that is not needed to render Today must not be able to block Today.
+- Before touching Opening/Core/startup, establish the exact known-good launch behavior and rollback package.
+- Physical launch verification is required after any startup-adjacent change.
+
+Rejected implementation:
+- Build 26 Daily Check-in guidance startup coupling.
+
+Accepted recovery:
+- Build 27 removed that runtime coupling and restored Build 25 Daily Check-in runtime.
+
+---
+
+# 9. Auren Core — Signature Object
+
+The Auren Core is a transparent glass orb containing a living, calm biomaterial / liquid-light body.
+
+Locked visual direction:
+- glass rim is extremely thin and translucent
+- define glass through refraction/highlight/contact shadow, not thick outline
+- internal material is roughly **75–80% champagne gold** with **20–25% pale/mineral aqua undertone**
+- aqua must remain perceptible through depth/refraction
+- gentle asymmetry keeps it biological, not logo-perfect
+- motion must feel weighted and physically coherent
+
+Living motion:
+- readable as alive within roughly 1–2 seconds
+- gentle circulation + inertia + surface movement
+- event response after check-in/profile/state changes, then settle
+- never screensaver-like
+- Reduced Motion fallback required
+
+Current renderer strategy:
+- Canvas2D is the robust baseline
+- heavy WebGL/Three.js is not justified unless a specific product benefit exceeds compatibility and regression cost
+- headless environments may lack WebGL2; never make full product survival depend on it
+
+---
+
+# 10. Signature Opening — Accepted Behavior
+
+Accepted feeling:
+- intentional, branded, premium
+- roughly 3–4 seconds of identity on cold launch
+- AUREN → `Your body, understood.` → understated `By Benedict Interactive`
+- warm resume should not replay unnecessarily
+
+Build 16 fixed the “frozen standalone orb” handoff by fading the branded opening as a unit, pre-running Today Core behind the opaque opening, then revealing the complete app.
+
+**Do not redesign the opening casually. Build 16 behavior is known-good.**
+
+If changed later:
+- preserve a fallback
+- compare before/after on real device
+- verify Core appears and Today becomes interactive
+- ensure no ghost/double orb
+- ensure Opening cannot remain stuck indefinitely
+
+---
+
+# 11. Halo — Semantic Instrument, Not Decoration
+
+Halo represents evidence dimensions around the Core:
 1. **Body Context**
 2. **Daily State**
 3. **Movement / Training**
 4. **Personal Trend**
 
-ถ้า element ไม่มีข้อมูลหรือไม่มี semantic value ให้ลด visibility หรือไม่แสดง
+Rules:
+- hairline / luminous fragments
+- close to the Core
+- soft endpoints
+- missing evidence = faint/incomplete
+- never complete the ring merely for symmetry
+- no loading/progress-ring look
+- semantic meaning outranks visual symmetry
+- `Why this?` must explain every dimension
+
+Resting-state Halo should stay quiet. It may reveal meaning after relevant interaction/state change, but must not clutter the hero.
 
 ---
 
-# 7. Today Experience — Core Loop
+# 12. Today — Core Loop
 
 > **CHECK IN → CORE REACTS → STATE REVEAL → EVIDENCE → ONE USEFUL MOVE → CONTINUITY**
 
-Today ต้องตอบผู้ใช้ภายในไม่กี่วินาทีว่า:
-1. วันนี้ฉันเป็นอย่างไร
-2. Auren เห็นอะไร
-3. มันรู้จากอะไร
-4. ฉันควรทำอะไรหนึ่งอย่าง หรือไม่ต้องแก้อะไร
+Today should answer quickly:
+1. How do I seem today based on what I reported?
+2. What did Auren notice?
+3. What evidence did it use?
+4. What one move is justified — or is no change needed?
 
-## Daily Check-in
-Core observations:
+Today is not a generic dashboard. Avoid turning every card into a navigation tile.
+
+---
+
+# 13. Daily Check-in — Locked Interaction Contract
+
+Daily observations:
 - Sleep
 - Energy
 - Stress
 - Mood
 - Movement
 
-ต้องใช้มือเดียวได้และเร็ว ไม่กลายเป็น questionnaire
+## Record model
 
-**Directionality rule:**
-- Sleep/Energy/Mood/Movement สูง โดยทั่วไป = positive ตาม scale
-- **Stress สูง = negative/attention**
-- ห้ามทำ `5/5 Stress` ดูดีเหมือน `5/5 Sleep`
+**One calendar day = one Daily Check-in record.**
 
-## Post-check-in language
-หลีกเลี่ยง database wording เช่น “Today is recorded.” ถ้าฟังเย็นหรือ technical เกินไป
+Current behavior is correct and should remain:
+- first save creates the day record
+- additional saves on the same day **update/overwrite the same `localDate` record**
+- user may edit today multiple times if needed
+- do not create multiple daily records for morning/afternoon/evening in V1
+- after the day has passed, Archive is the historical snapshot; routine retroactive editing is not part of normal V1 behavior
 
-Accepted tone:
-- `Today, captured.`
-- copy สั้น สงบ และบอกว่า baseline กำลังโต
+Do **not** lock the check-in after the first save. Users must be able to correct accidental or changed observations during the same day.
 
-## Five daily state cards
-Current accepted visual:
-- layout **3 cards + 2 centered cards** บนมือถือ
-- Sleep / Energy / Stress / Mood / Movement
-- แต่ละช่องมี semantic icon + subtle accent
--ไม่ลงสีเต็มการ์ด
-- icon ต้อง optical-center จริง ไม่ใช่แค่ mathematical center
-- accepted optical offsets ถูก polish หลัง Build 10
-- label / state / score hierarchy ต้องอ่านเร็ว
-- icons ต้องไม่ดู childish หรือ fitness-dashboard
+If intraday moments are ever needed, create a separate future concept (e.g. Moments) rather than corrupting the Daily Check-in model.
 
-## One Useful Move
-หลัง check-in reward หลักต้องเป็น **meaning/action** ไม่ใช่ปุ่ม Edit
+## Slider visual semantics — physically accepted Build 25
 
-ตัวอย่าง:
-- `Maintain what’s working.`
-- `Give yourself a quieter evening.`
-- `Add a little easy movement.`
+Filled portion only is colored; unfilled track stays neutral pearl.
 
-Auren ต้องยอมพูดว่า “ไม่มีอะไรต้องแก้วันนี้” เมื่อข้อมูลไม่สนับสนุนการเปลี่ยน
+Positive-direction metrics:
+- **Sleep:** mineral blue → champagne → warm gold
+- **Energy:** mineral blue → champagne → warm gold
+- **Mood:** mineral blue → champagne → warm gold
+- **Movement:** mineral blue → champagne → warm gold
+
+Attention-direction metric:
+- **Stress:** calm mineral blue → champagne → muted rose-red
+
+Red is reserved for attention meaning, not generic “high value”.
+
+Thumb:
+- small pearl capsule
+- subtle gold accent
+- visually precise, not a bulky gold circle
+
+Sheet:
+- breathing room from viewport edges
+- generous but controlled internal spacing
+- safe-area-aware
+- physically accepted at Build 25
+
+## Daily Check-in guidance — approved concept, rejected implementation
+
+Approved product concept:
+- one small shared info affordance / `How to rate`
+- **not** five info icons beside each metric
+- use meaning-based endpoints rather than merely Low/High when helpful
+- explain that observations are not health scores
+- explain Stress direction explicitly
+- explain Movement as descriptive; more is not automatically better
+
+Rejected technical implementation:
+- Build 26 coupled the guidance enhancement into startup and caused a launch-blocking regression.
+
+Future implementation rule:
+- on-demand only after check-in UI exists
+- must not run during startup
+- fail-open
+- preferably loaded after explicit tap/open action
+- keep Build 25 slider visuals byte-stable unless change is necessary
 
 ---
 
-# 8. Body Intelligence — Contextual, Not Weight Judgment
+# 14. Daily State Cards & Today Metric Details
 
-กฎสำคัญที่สุด:
+Accepted five-card composition:
+- mobile layout = **3 + 2 centered**
+- semantic icon + restrained accent
+- no full-card saturated coloring
+- icon optical centering matters more than mathematical centering
+- Stress high must read as attention
 
-> **Auren ห้ามทำ height + weight → BMI → verdict → weight-loss instruction**
+Build 21 metric detail interaction:
+- Daily State cards can be touched/keyboard-opened after check-in
+- detail remains in place rather than dashboard navigation
+- shows exact self-reported value
+- semantic level
+- `Observed` provenance
+- scale context
+- concise meaning
+- how Auren uses it
+- limitation
 
-BMI เป็นเพียง screening reference หนึ่งตัว ไม่สามารถแยก fat mass / muscle / bone และไม่ควรถูกใช้แทน body composition
+This interaction must remain an explanation of what the user reported, not a new inference or diagnosis.
 
-## Required / core profile context
+---
+
+# 15. One Useful Move
+
+The main post-check-in reward is **meaning/action**, not `Edit`.
+
+Auren can recommend a restrained action such as:
+- protect recovery
+- create a quieter block of time
+- add easy movement
+- pace energy deliberately
+- maintain what is working
+
+Auren must be comfortable saying:
+> **No change needs to be chased today.**
+
+Never manufacture a recommendation merely to appear useful.
+
+---
+
+# 16. Body Intelligence — Contextual, Not Weight Judgment
+
+Primary guardrail:
+
+> **Never reduce Auren to height + weight → BMI → overweight → lose weight.**
+
+BMI is a general screening reference and cannot distinguish fat mass, muscle, bone, distribution, fitness, or overall health.
+
+Core body profile context:
 - Age
 - Height
 - Current weight
-- General activity level
+- General activity
 - Training type
 - Training frequency
 - Goal
 
-## Sex used for health calculations
-ต้องแยกจาก gender identity และ avatar
+Calculation-only physiological reference:
+- sex-for-calculation is separate from gender identity/avatar
+- adult BMI cutoffs do not change by male/female
+- some references such as waist can differ
+- youth BMI requires age/sex-specific growth references
 
-เหตุผล:
-- adult BMI cutoffs ไม่เปลี่ยนเพราะชาย/หญิง
-- แต่บาง reference เช่น waist หรือสูตร physiological บางชนิดอาจต่างกัน
-- youth BMI ต้องใช้ age/sex-specific growth reference
-
-User choices ควรรองรับ:
+Choices should support:
 - Male reference
 - Female reference
 - Prefer not to use sex-specific estimates
-- Not represented / other context
+- Not represented / non-sex-specific interpretation
 
-ห้ามใช้ field นี้เพื่อเดา avatar, pronoun, personality หรือ identity
-
-## Optional evidence
+Optional evidence:
 - Waist circumference
 - Measured body-fat %
 
-กฎ:
-- Auren **ไม่ estimate body fat จากรูป profile**
-- body-fat value จาก user เป็น supporting evidence เพราะวิธีวัดต่างกันให้ผลต่างกัน
-- waist เป็น contextual evidence ไม่ใช่ diagnosis
+Rules:
+- never estimate body fat from profile photo
+- no face recognition
+- measured body fat is supporting evidence, not absolute truth
+- waist is context, not diagnosis
 
-## Training / Athletic context
-รองรับ:
-- little/no structured exercise
-- general activity/walking
-- cardio
-- mixed training
+Training contexts:
+- none / little structured exercise
+- general activity / walking
+- cardio / endurance
+- mixed
 - resistance / weight training
-- athletic / sports training
+- athletic / sports
 
-พร้อม frequency/week
+Training reduces confidence in BMI-only judgment where appropriate; it does not create an invented athlete cutoff or automatically make high BMI healthy.
 
-Auren ห้ามสร้าง “BMI threshold สำหรับคนเล่นเวท” แบบแต่งเอง
-
-Instead:
-- training context ลด confidence ของ BMI-only judgment
-- resistance/athletic training + higher BMI = muscularity may contribute
-- waist/body composition/trend ช่วยเพิ่มบริบท
-- การเลือก “weight training” ไม่ได้ทำให้ BMI สูงกลายเป็น healthy โดยอัตโนมัติ
-
-## Goals
-Auren ไม่ควรมี “ผอมลง” เป็น default morality
-
-รองรับ:
-- understand body
+Goals:
+- understand my body
 - maintain
-- reduce body fat/weight
+- reduce body fat / weight
 - gain weight
 - build muscle
 - improve fitness
 - general wellbeing
 - not sure
 
-ถ้าข้อมูลอยู่ใน strong alignment Auren สามารถบอกว่า **Maintain, don’t chase change.**
-
-## Youth guardrail
-ต่ำกว่า 20:
-- ห้ามใช้ adult BMI categories
-- youth interpretation ต้องใช้ age- and sex-specific growth reference
-- ถ้า reference engine ยังไม่ครบ ให้ return limited / insufficient data อย่างซื่อสัตย์
+Auren must allow **maintain** as a positive outcome.
 
 ## Adult general references currently used
-- BMI <18.5
+
+BMI:
+- <18.5
 - 18.5–24.9
 - 25.0–29.9
 - >=30
 
-เป็น **general screening reference**, ไม่ใช่ diagnosis
+Waist reference V1 when physiological reference is selected:
+- male >102 cm
+- female >88 cm
 
-Waist reference V1 เมื่อ user เลือก physiological reference:
-- male reference >102 cm
-- female reference >88 cm
+These are general references with population/context limitations, not diagnoses.
 
-ต้อง label ว่าเป็น general reference และมี population/age/context limitations
+## Youth guardrail
+
+Under 20:
+- do not apply adult BMI categories
+- youth interpretation needs age- and sex-specific growth references
+- if the reference engine is incomplete, return limited/insufficient interpretation honestly
 
 ---
 
-# 9. Body Context Card — Accepted Layout
+# 17. Body Context Card — Accepted Hierarchy
 
-ปัญหาที่เคยพบ: Confidence ถูกวางเป็น metric ช่องที่ 4 ลงซ้าย ทำให้ไทย/อังกฤษไม่สมดุลและเหมือนเหลือที่แล้วเอามาวาง
-
-Accepted structure:
-
-**Primary row = 3 body metrics**
+Primary row:
 - BMI
 - Training
 - Waist
 
-**Confidence = secondary metadata**
-- badge / footer row
-- ไม่วางเท่ากับ primary metric
+Secondary metadata:
+- Confidence
 
-เหตุผล: Confidence คือ meta-information ของ interpretation ไม่ใช่ metric ชนิดเดียวกับ BMI/Training/Waist
+Confidence is not a fourth body metric. Keep it visually secondary as badge/footer/meta information.
 
-Long training text ต้องไม่ทำให้ card พัง; responsive layout และ EN/TH wrapping เป็น release requirement
+Long training text must wrap without breaking EN/TH layout.
 
 ---
 
-# 10. Confidence & Trust Architecture
+# 18. Trust Architecture
 
-Auren ใช้ provenance 3 ชั้น:
-- **Observed** — user supplied
-- **Calculated** — deterministic math/transformation
+Provenance layers:
+- **Observed** — directly supplied by user
+- **Calculated** — deterministic calculation/transformation
 - **Inferred** — contextual interpretation
 
-ห้ามสร้าง precision ที่ไม่มีจริง
-
-Confidence ควร qualitative เช่น:
+Confidence is qualitative:
 - Low
 - Moderate
 - High
 - Limited
 
-Confidence หมายถึง **Auren มี context แค่ไหน** ไม่ใช่ certainty ว่าผู้ใช้ “healthy”
+Confidence means “how much usable context supports this interpretation,” not “certainty that the user is healthy.”
 
-ทุก important interpretation ต้องตอบ `Why this?` ได้
-
-Evidence sheet ควรบอก:
-- input อะไร
+Every meaningful interpretation should be able to answer `Why this?` with:
+- inputs/evidence
 - provenance
 - sample size / continuity
 - confidence
 - limitation
 
-ชม positive state ได้ เช่น `Excellent Balance` แต่ต้องจำกัด claim ว่า “จากข้อมูลที่ Auren มี” ห้าม claim medical health
+Positive language such as `Excellent` is allowed only as a description of available context, never as a medical claim.
 
 ---
 
-# 11. Guidance & Explainability System
+# 19. Explainability & Guidance System
 
-ผู้ใช้ไม่ควรต้องอ่าน manual เพื่อใช้ Auren แต่เมื่อสงสัยต้องเข้าใจได้ว่า option หรือ insight หมายถึงอะไร
+Three layers:
+1. inline helper — one or two lines
+2. contextual info / `Why this?` / `How Auren uses this`
+3. central `How Auren Works`
 
-ใช้ 3 ชั้น:
+Important options should answer:
+- why Auren asks
+- how it changes interpretation
+- what it does not mean
+- limitation
+- privacy implication if relevant
 
-1. **Inline helper** — 1–2 บรรทัด
-2. **ⓘ / Why this? / How Auren uses this** — bottom sheet/detail
-3. **How Auren Works** — ศูนย์รวมคำอธิบาย
+Guidance must be useful without making the main UI feel like a manual.
 
-Option สำคัญควรตอบได้:
-- Auren ถามทำไม
-- ใช้ข้อมูลกับอะไร
-- มีผลต่อ interpretation อย่างไร
-- limitation คืออะไร
-- privacy implication ถ้ามี
-
-First-use hints ใช้เฉพาะ feature ซับซ้อนและไม่กวนซ้ำๆ
-
----
-
-# 12. Profile Identity & Photo
-
-Profile experience ต้อง personal แต่ inclusive
-
-Features:
-- Display Name
-- personalized greeting เช่น `Good morning, Benedict.` / `สวัสดีตอนเช้า Benedict`
-- profile photo upload
-- crop / pan / pinch zoom / slider zoom
-- circular preview ตรงกับสิ่งที่จะเห็นจริง
-- change / reset / remove / save
-- compress/resize locally
-- no face recognition
-- no body analysis from photo
-
-**Crop editor rule:**
-- ภาพ preview ห้ามมี white reflection/line artifact ที่ทำให้เข้าใจว่าเส้นติดมากับภาพ
-- export image เป็น pixels ของรูปเท่านั้น ไม่ bake border/highlight
-- page-level pinch zoom ถูก lock เพื่อ native-app feel แต่ pinch zoom ภายใน crop editor ต้องทำงาน
-
-Fallback identity:
-1. uploaded photo
-2. Initial / monogram จาก Display Name
-3. neutral Auren Orb profile mark
-
-ห้ามใช้ stock male/female avatar เป็น default
+Build 26 lesson permanently modifies this system: **help content must never have the authority to break startup.**
 
 ---
 
-# 13. Archive — Health Memory
+# 20. Rhythm V1 — Personal Pattern Intelligence
 
-Archive ไม่เพิ่ม tab ใหม่ให้ navigation รก แต่มี 2 views ภายใน Archive:
+Current accepted/provisional production state from Builds 17–18:
+- selectable 7 / 14 / 30-day windows
+- Living Rhythm Canvas2D trace
+- no ECG/pulse claim
+- uses Sleep, Energy, Mood, Movement and inverse Stress direction for coherent visual language
+- no composite health score
+- evidence-gated trend language
+- personal baseline rows
+- continuity and qualitative Confidence
+- `Why this?` evidence and limitations
+- Reduced Motion + performance fallback
 
-1. **Portraits** — daily State Portrait gallery
-2. **Calendar** — Health Memory Calendar
+Sparse-state maturity:
+- **1–3 check-ins:** Early observations
+- **4–5:** Baseline emerging
+- **6+:** Personal baseline
 
-Calendar principles:
-- ไม่ใช่ Google Calendar clone
-- day cell แสดง state cue อย่าง restrained
-- empty day = ไม่มีข้อมูล ไม่ใช่ failure
-- ไม่มี guilt streak
-- แตะวัน → Daily State Detail
+One day is not a “typical level”.
 
-Daily State Detail อาจแสดง:
-- Sleep
-- Energy
-- Stress
-- Mood
-- Movement
-- body/weight update ถ้ามี
-- insight
-- One Useful Move
-- provenance/confidence
+Two or three days can show provisional connection; mature ribbon language should wait for actual continuity.
+
+Directional comparisons require enough real observations; current foundation uses at least six check-ins and deliberate change thresholds.
+
+## Remaining Rhythm work
+
+Rhythm is **provisionally accepted**, not fully longitudinally validated. When real data accumulates, QA must verify:
+- 6+ check-ins
+- gaps/missing days
+- 14/30-day windows
+- true stable periods
+- changing periods
+- directional change copy
+- EN/TH
+- no accidental score psychology
+
+Do not manufacture test-history claims as if they were real user history.
+
+---
+
+# 21. Signals V1 — Relationship Intelligence
+
+Current accepted/provisional production state from Builds 19–20:
+- 14 / 30-day windows
+- compares ten pairings across the five daily observations
+- rank-based relationship approach suitable for ordinal 1–5 data
+- minimum **8 paired days** before surfacing a relationship
+- enough variation required
+- conservative strength gate
+- additional stability/reversal guard at larger samples
+- maximum strongest primary + one secondary relationship
+- no numerical correlation coefficient in UI
+- no causation claim
+- no health score
+- Living Evidence Field uses quiet nodes and earned filaments only when evidence qualifies
+- `No secondary signal yet` unless a real second relationship passes evidence gates
+
+## Remaining Signals work
+
+Signals is **provisionally accepted**, pending real longitudinal validation of:
+- 8+ paired days
+- low-variation pairs
+- strong-but-unstable pairs
+- reversed relationships across time
+- no-signal state after enough evidence
+- secondary-signal qualification
+- EN/TH copy
+- performance/reduced-motion fallbacks
+
+---
+
+# 22. Archive — Health Memory
+
+Archive lives inside one primary nav tab and has two internal views:
+1. **Portraits**
+2. **Calendar**
+
+Purpose:
+> **Auren remembers your health story without turning it into a scoreboard.**
+
+No streaks. No guilt. Empty days mean no data.
+
+## Current accepted Build 28–29 behavior
+
+Build 28:
+- Archive polish lazy-loads only after Archive navigation
+- Portraits become a richer Health Memory surface
+- weight-only dates are explicit records, not silently dropped
+- check-in + weight keeps Daily State primary, weight secondary
+- Calendar supports restrained weight markers
+- monthly intelligence remains conservative
+- monthly directional comparison requires at least 6 check-ins with at least 3 days per comparison side
+- material threshold required before surfacing a monthly change
+- no fake percentages
+- Daily Health Memory detail uses editorial five-row metrics with provenance + raw 1–5 value
+- weight-only detail explicitly refuses to infer daily state
+
+Build 29 physical acceptance:
+- adds premium top-right close X
+- X stays available in the scrolling detail sheet
+- bottom close action is localized `Close` / `ปิด`
+- reuses canonical close handler
+- preserves Delete-this-day privacy behavior
+
+## Archive interpretation rules
+
+Weight-only date:
+- show it as recorded context
+- do not label daily state
+- do not imply good/bad from one weight value
 
 Monthly summary:
-- check-in count
-- qualitative trend
-- stress/energy/weight continuity ที่ support ด้วยข้อมูล
-- ไม่ใช้ pseudo percent หากไม่มีฐาน
+- descriptive before inferential
+- expose evidence depth
+- no pseudo precision
+- no “improvement percent” without justified basis
+- if nothing earns a headline, say so
 
-Calendar ต้องสร้างความรู้สึกว่า **Auren remembers your health story** ไม่ใช่ gamification
-
----
-
-# 14. Navigation & Current Surfaces
-
-Current primary navigation:
-- Today
-- Rhythm
-- Signals
-- Archive
-- You
-
-ไม่เพิ่ม tab ใหม่โดยง่าย
-
-หลัก:
-- navigation ต้องจำง่าย
-- หน้าแรกไม่เป็น dashboard ที่เต็มไปด้วย cards
-- progressive disclosure
-- action hierarchy ชัด
-- `Edit today’s check-in` เป็น secondary หลังกรอกแล้ว
-
-Rhythm / Signals ยังพัฒนาได้ต่อ แต่ต้องรักษา Data → Pattern → Meaning model
+Archive current status: **physically accepted at Build 29 with current available data**, while long-history monthly behavior still needs future longitudinal QA.
 
 ---
 
-# 15. Native App Feel
+# 23. You / Identity / Settings
 
-Auren เป็น PWA แต่ต้องรู้สึกเหมือน native product
-
-Accepted rules:
-- page-level pinch zoom / accidental browser scaling ถูก lock
-- gesture พิเศษที่เป็น feature จริง เช่น crop pinch zoom ยังทำงาน
-- safe area / sticky nav / viewport ต้องรองรับ Android/iOS
-- touch targets ไม่เล็ก
-- motion ไม่ block task
-- no browser-looking controls โดยไม่ style
-
-Accessibility ต้องไม่ถูกละเลยเพราะ native feel:
-- readable font sizes
-- semantic labels
-- keyboard/focus where relevant
-- contrast
-- Reduced Motion
-- screen-reader-friendly labels
-
----
-
-# 16. Localization — EN + TH Native First
-
-V1 รองรับ English + Thai และทั้งสองภาษาเป็น first-class
-
-Canonical truth = **meaning/intent**, ไม่ใช่ English sentence
-
-กฎ:
-- Native Copywriting First
-- Meaning parity, not word parity
-- English = natural international English
-- Thai = ไทยธรรมชาติ ไม่แปลทื่อ ไม่เรียงคำแบบอังกฤษ
-- health wording ไม่ alarmist และไม่วินิจฉัย
-- semantic i18n keys ไม่ hard-codeกระจัดกระจาย
-- missing key / raw key / mixed language = release blocker
-- date/time/number/unit locale-aware
-- QA EN/TH แยกกันบน viewport จริง
-- ห้ามลด font ไทยจนอ่านยากเพื่อให้ layout พอดี
-
----
-
-# 17. Storage & Privacy
-
-Current architecture เป็น local-first
-
-- IndexedDB database: `auren`
-- check-ins store
-- profile store
-- preferences lightweight storage
-- data schema current marker: **4** at handoff
+Current capabilities:
+- Display Name
+- personalized greeting
+- profile photo upload
+- local crop / pan / pinch zoom / zoom slider
+- change / reset / remove / save
+- local compression/resize
+- no photo analysis
+- neutral fallback: photo → initial/monogram → Auren Orb mark
+- Body Profile entry
+- How Auren Works
+- EN/TH
+- Auren Atmospheres
+- Data & Privacy controls
+- motion/system note
 - no account required
-- no cloud sync required in V1
-- no external photo upload by default
+- About/build information
 
-Profile/body context และ check-ins ควรอยู่ในเครื่องจนกว่าจะมี cloud value ที่ชัดเจนและ consent ที่เหมาะสม
+## Planned Build 30 — You / Settings Final Polish
 
-ในอนาคต login/cloud backup เพิ่มได้เมื่อมี user value จริง ไม่เพิ่มเพราะ “แอพควรมีบัญชี”
+Goals:
+- make You feel like a premium control room, not a settings dump
+- strengthen hierarchy between Identity, Body Context, Appearance, Privacy, Explainability and product About
+- reduce visual repetition
+- verify EN/TH wrapping and interaction clarity
+- preserve local-first simplicity
+- do not add account/cloud merely because settings pages usually have them
+- review whether the deferred Daily Check-in `How to rate` explainer belongs as a safe on-demand help entry, but do not re-enable Build 26 architecture
+- avoid startup changes unless absolutely necessary
 
----
-
-# 18. Engineering Direction
-
-Web-first, not web-limited
-
-- semantic HTML
-- componentized CSS
-- ES modules / vanilla JS ตราบใดที่ยัง maintainable
-- Canvas2D for Core currently robust
-- SVG for semantic instruments/icons
-- IndexedDB longitudinal data
-- Service Worker + PWA cache discipline
-- backend only when justified
-
-## Important implementation lessons
-
-1. Android `content://downloads` สามารถทำให้ relative CSS/module assets พัง — standalone review artifact ควร single-file เมื่อทดสอบแบบ local file
-2. Headless QA environment เคยไม่มี WebGL2 — อย่าออกแบบ core dependency ที่ไม่มี graceful fallback
-3. Canvas2D ปัจจุบัน robust กว่า forced WebGL complexity
-4. static render PASS ≠ physical-device PASS
-5. ห้ามพูด “physics”, “photorealistic”, “10/10” หากยังไม่ได้พิสูจน์
-6. visual QA ต้องดูด้วยตา ไม่ใช่แค่ syntax
-7. optical alignment สำคัญกว่าค่า center ทางคณิตศาสตร์ใน iconography
-
-## Regression safety — Non-Negotiable
-
-ระบบ production ที่ดีอยู่แล้วถือเป็น **protected zone** โดย default
-
-ก่อน implementation ที่มี meaningful regression risk ต้องมี:
-- known-good baseline
-- changed-file allowlist
-- fallback/rollback path ที่ชัด
-- before/after regression comparison ตาม scope
-
-Prefer additive / isolated / minimally invasive changes. Cosmetic enhancement ที่เหมาะควร fail-open เพื่อให้ stable core runtime ยังทำงานได้แม้ enhancement layer โหลดไม่ได้
-
-ห้าม rewrite หรือแตะ stable subsystem เพียงเพราะทำได้ ถ้าคุม regression risk ไม่ได้ ให้ **defer หรือ redesign** ก่อน ship แทนการอัปแล้วค่อยตามแก้
+Build 30 is the preferred next runtime batch after this Revision 3.0, subject to newer explicit instruction/current repo.
 
 ---
 
-# 19. Build / Version / Cache Contract — RELEASE BLOCKER
+# 24. Privacy & Data Lifecycle
 
-ทุก runtime change ที่แตะ HTML/CSS/JS/runtime asset/manifest/SW/cache/UI/UX/logic ต้อง advance Build No.
+Current local-first architecture:
+- IndexedDB database: `auren`
+- `checkins` store
+- `profile` store
+- lightweight local preferences
+- schema marker: **4**
+- no required account
+- no required cloud sync
+- profile photo remains local by default
 
-Single Source of Truth ปัจจุบัน:
+Accepted deletion behavior:
+- delete today → refresh Today/Halo/Archive in place, **no Signature Opening replay**
+- delete an Archive check-in → refresh Archive and remain in the experience
+- weight-only evidence remains independent from deleting a check-in
+- erase all local data → fresh restart is intentional
+- full erase uses deliberate confirmation
+
+Future privacy maturity:
+- export local data
+- optional backup/import if justified
+- clear consent before cloud migration
+- keep deletion/export semantics understandable
+
+Never call asset/service-worker cache “user health data”.
+
+---
+
+# 25. Localization — EN + TH Native First
+
+English and Thai are first-class.
+
+Canonical truth = **meaning/intent**, not an English sentence.
+
+Rules:
+- Meaning parity, not word parity
+- natural international English
+- natural Thai, not literal English structure
+- health wording calm and non-alarmist
+- semantic i18n keys where practical
+- no raw/missing keys
+- no mixed-language UI
+- locale-aware dates/numbers/units
+- QA both languages on real mobile widths
+- never shrink Thai text to unreadable sizes just to make layout fit
+
+Any missing key, mixed-language state, or misleading health translation can be a release blocker.
+
+---
+
+# 26. Native App Feel, Accessibility & Motion
+
+PWA should feel native without sacrificing access:
+- page-level accidental pinch/browser scaling is locked
+- feature-specific gestures such as crop pinch remain enabled
+- safe-area aware
+- sticky nav correctly padded
+- touch targets remain usable
+- browser-default-looking controls should be refined when part of core experience
+- keyboard/focus where relevant
+- screen-reader labels
+- readable font sizes and contrast
+- Reduced Motion everywhere meaningful
+
+Motion principles:
+- communicate state/material/transition
+- never block task completion
+- never create fake physiological meaning
+- provide fallback for performance/reduced motion
+
+---
+
+# 27. Build / Version / Cache Contract — Release Blocker
+
+Every runtime change touching HTML/CSS/JS/runtime asset/manifest/SW/cache/UI/UX/logic must advance Build No.
+
+Source of truth:
 `src/js/config/build.js`
 
-ทุกครั้งต้องตรวจ:
+At Revision 3.0:
+- APP_VERSION = `0.1.0`
+- BUILD_NUMBER = `29`
+- CACHE_NAME derives from Build 29
+- DATA_SCHEMA_VERSION = `4`
+
+Every runtime release must synchronize:
 - BUILD_NUMBER
 - CACHE_NAME
-- Service Worker comment/cache
-- About/build UI ถ้ามี
-- docs/package names ที่อ้าง current runtime
-- stale build numbers ทั้ง repo
+- SW comment/cache shell
+- About/build UI if applicable
+- package names/docs that describe current runtime
+- stale build references in changed scope
 
-**Docs-only governance update ไม่ต้อง bump app Build No.**
+Do not bump schema unless the data model actually changes.
 
-## Resolved Build 10/11 handoff mismatch
+**Docs-only governance updates do not bump app Build No.**
 
-Build 12 แก้ bookkeeping defect จาก handoff เดิมเรียบร้อยแล้ว:
-- accepted optical icon-centering polish จาก logical Build 11 ยังคงอยู่โดยไม่แก้ regression
-- runtime `BUILD_NUMBER` และ cache identity advance เป็น **Build 12**
-- data schema marker ยังคง **4** เพราะ data model ไม่เปลี่ยน
-- Build 12 ใช้ isolated optional experience layer เพื่อหลีกเลี่ยงการแตะ stable subsystem ที่ผ่าน acceptance แล้ว
+Current next runtime number = **30** unless the repo has advanced by the time work begins.
 
-**Rule after Build 12:** runtime batch ถัดไปต้อง advance เป็น **Build 13** และห้าม reuse Build 12
+Never reuse a Build number after a package/runtime has existed, even if it was rejected.
 
 ---
 
-# 20. File Delivery & Drag-to-Upload Contract — Non-Negotiable
+# 28. Regression Safety — Non-Negotiable
 
-นี่เป็นบทเรียนจากห้องก่อนหน้าและต้องล็อกเป็นกฎถาวร เพราะเคยเกิดซ้ำทั้งเรื่องลิงก์ดาวน์โหลดและชื่อ/โครงสร้างไฟล์ไม่ตรงกับ GitHub
+Stable production behavior is a protected zone.
 
-## 20.1 Canonical filename + folder mirroring
+Before a meaningful-risk change:
+- identify known-good baseline
+- define changed-file allowlist
+- define rollback/fallback
+- compare before/after behavior
+- isolate when possible
+- fail open when appropriate
 
-ทุก ZIP/patch ที่พี่เบนซ์จะนำไปอัปโหลด GitHub ต้องถูกจัดให้ **พร้อมลากวางจาก repository root** โดยไม่ต้อง rename, move หรือเดา path เอง
+Do not rewrite stable systems merely for architectural neatness.
 
-กฎบังคับ:
+If risk cannot be controlled:
+> **defer or redesign before shipping**
 
-1. **ชื่อไฟล์ภายใน ZIP ต้องตรงกับชื่อ canonical ใน repo 100%** — ห้ามเติม `_V2`, `_REV_2_1`, `FINAL`, `NEW`, `COPY` หรือ suffix/version อื่นใน filename ถ้าไฟล์นั้นมี canonical path อยู่แล้ว
-2. **โครงสร้าง folder ภายใน ZIP ต้อง mirror repository path จริง 100%**
-3. ZIP root ต้องเทียบเท่า repository root; **ห้ามครอบด้วย top-level folder เกินมา** เช่น `auren_update/` ถ้าทำให้ผู้ใช้ลากวางไม่ได้ทันที
-4. ไฟล์ที่เป็น replacement ต้องอยู่ path เดิมเพื่อให้ GitHub overwrite ได้ตรงๆ
-5. ตัวอย่าง canonical docs:
-   - `docs/product/AUREN_MASTER_PLAN.md`
-   - `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md`
-6. Version/revision ให้อยู่ **ภายในเนื้อหาเอกสารและ Git history** ไม่ใช่เปลี่ยนชื่อ canonical file
-7. Update Only ZIP ต้องมีเฉพาะไฟล์ที่เปลี่ยน พร้อม path จริงของ repo
-8. Full Package ZIP ต้องมี project tree ที่พร้อมใช้จริงจาก repo root
-9. Upload notes ต้องแยกเป็นไฟล์ delivery ภายนอก ZIP หากการใส่ไว้ใน ZIP จะสร้างไฟล์ส่วนเกินใน repo root
-10. ก่อนส่งให้ inspect archive listing (`unzip -l` หรือเทียบเท่า) และยืนยันว่า path ทุกไฟล์ตรงกับ repo
-
-**Drag-to-upload acceptance rule:** ถ้าพี่เบนซ์ยังต้อง rename หรือย้ายไฟล์หลังแตก ZIP แปลว่า package **ยังไม่ผ่าน handoff QA**
-
-## 20.2 Delivery execution
-
-ทุกครั้งที่พี่เบนซ์ขอไฟล์สำหรับ GitHub:
-
-1. สร้าง **Full Package ZIP** เมื่อเหมาะสม
-2. สร้าง **Update Only ZIP** เมื่อ repo มี base ที่รู้แน่
-3. สร้าง **UPLOAD_NOTES.txt** ถ้า batch มีหลายไฟล์/ขั้นตอน
-4. verify exact paths exist
-5. run ZIP integrity test (`unzip -t` หรือเทียบเท่า)
-6. ตรวจ JS syntax / manifest / SW asset paths / i18n parity ตาม scope
-7. ใน final response ต้องใส่ **clickable sandbox links** เช่น `[Download Build](sandbox:/mnt/data/file.zip)`
-8. **ห้าม**ส่งเพียง path text `/mnt/data/file.zip`
-9. ถ้า link ยังสร้างไม่ได้ ห้ามพูดว่า “ส่งไฟล์เรียบร้อยแล้ว”
-10. บอกว่า package ไหนควรใช้จริง
-11. แนบ Commit name พร้อมใช้
-
-Current preferred delivery pattern:
-- `Auren_GitHub_Build_XXX_Update_Only.zip`
-- `Auren_GitHub_Build_XXX.zip`
-- `Auren_GitHub_Build_XXX_UPLOAD_NOTES.txt`
-
-พี่เบนซ์เป็นคน upload GitHub เองเป็น default
+Special protected zones:
+- Signature Opening / startup
+- Living Core
+- accepted Daily Check-in
+- stored data/delete behavior
+- Body Intelligence guardrails
+- accepted Rhythm/Signals evidence thresholds
+- Build 29 Archive close/delete behavior
 
 ---
 
-# 21. Commit Name Contract
+# 29. Packaging & Drag-to-Upload Contract
 
-ทุก GitHub delivery ต้องมี:
+Every GitHub package prepared for P’Benz must be ready to extract and drag from repo root immediately.
 
-`Commit name: <message>`
+Mandatory rules:
+1. canonical filenames exactly match repo names
+2. repo-relative folder structure exactly mirrors repo
+3. no `_V2`, `_FINAL`, `_NEW`, `_COPY`, etc. for canonical replacement files
+4. version/revision lives inside content + Git history, not canonical filename
+5. ZIP root = repository root; no unnecessary wrapper folder
+6. replacement files sit at their exact paths
+7. Update Only ZIP contains only changed files
+8. Full Package ZIP contains a usable project tree when requested
+9. Upload Notes stay outside ZIP if otherwise they would pollute repo
+10. inspect `unzip -l`
+11. test ZIP integrity
+12. if P’Benz must rename or move files after extraction, handoff QA failed
 
-กฎบังคับ:
-- **<= 50 characters รวม spaces**
-- DEV ต้อง count ก่อนส่ง
-- สั้น ชัด บอก intent
-- ไม่ใช้ `Update files` หากระบุได้ดีกว่า
-- หลาย independent batches = commit name แยก
-- remote write ที่ได้รับอนุญาตก็ใช้กฎเดียวกัน
+Canonical docs paths:
+- `docs/product/AUREN_MASTER_PLAN.md`
+- `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md`
 
-Final response ที่มีไฟล์ GitHub แต่ไม่มี Commit name = **handoff QA fail**
+Final response must use clickable sandbox links, not raw filesystem paths.
 
 ---
 
-# 22. QA & Acceptance Contract
+# 30. Commit Name Contract — Never Forget
 
-ก่อนส่ง runtime package ให้ทำตาม scope:
+**Every GitHub file delivery must include a Commit name.**
+
+Hard rules:
+- **50 characters maximum including spaces**
+- count before sending
+- concise and specific
+- no generic `Update files` if a meaningful message is possible
+- different independent batches use different commit names
+- applies to manual-upload packages and authorized remote writes
+- in ChatGPT final response, show the Commit name **inside a code block**
+
+A GitHub delivery without a valid Commit name is a **handoff QA failure**.
+
+---
+
+# 31. QA & Acceptance Contract
 
 ## Code / structure
-- JS syntax (`node --check`)
-- JSON/manifest validation
+- `node --check` changed JS
+- validate JSON/manifest when touched
 - no duplicate critical DOM IDs
-- no missing static element references
+- no missing critical DOM references
 - SW asset paths exist
 - Build/cache coherence
-- data schema migration sanity
+- schema/migration sanity if data touched
 
-## Logic
-- representative body fixtures
-- adult/youth guardrail
-- Stress direction regression
-- athletic context does not auto-excuse high BMI
-- missing waist/body fat handled honestly
-- confidence does not become fake certainty
+## Product logic
+- Body Intelligence representative fixtures
+- adult/youth guardrails
+- Stress direction
+- athletic context does not auto-excuse BMI
+- missing waist/body-fat handled honestly
+- no fake confidence
+- Daily Check-in one-record-per-day behavior
 
 ## Localization
-- EN/TH key parity
+- EN/TH parity
 - native copy
-- narrow viewport wrapping
+- 360/393 px wrapping
 - no mixed-language UI
 
-## Visual
-- real mobile dimensions e.g. 360 / 393 px
-- Core rim / Halo clutter
+## Visual / interaction
+- 360 px and 393 px mobile width
 - typography rhythm
+- safe-area behavior
+- Core/Halo balance
+- card hierarchy
 - optical icon alignment
-- card balance
-- nav safe area
-- crop editor
+- sheet spacing and close affordances
+- keyboard/focus when relevant
+- Reduced Motion
 
-## Physical device
-Browser/static QA ต้องรายงานว่าเป็น browser/static QA
+## Data lifecycle
+- save/edit today
+- delete today in place
+- delete Archive day
+- weight-only independence
+- full erase fresh restart
 
-ห้าม claim Android/iOS physical acceptance จนพี่เบนซ์หรือ DEV ได้ทดสอบบนเครื่องจริง
+## PWA / cache
+- cold launch
+- repeat launch
+- service-worker update/cache replacement
+- offline shell when relevant
+- no stale build assets
 
-พี่เบนซ์ทำหน้าที่ acceptance tester สำคัญมาก: screenshot feedback จากเครื่องจริงถือเป็น production truth
+## Physical device truth
+
+Static/headless/browser QA is not physical-device acceptance.
+
+Do not claim Android/iOS acceptance until physically tested.
+
+P’Benz screenshots and device observations are production truth and can override a theoretically correct visual assumption.
 
 ---
 
-# 23. Current Production Snapshot — Room Handoff
+# 32. Release History That Matters — Builds 12–29
 
-Repository: `grolygori789-crypto/auren`  
-Branch: `main`  
-GitHub Pages: `https://grolygori789-crypto.github.io/auren/`
+This section exists so a new room understands why the current architecture looks the way it does.
 
-Current accepted capabilities:
-- premium mobile PWA shell
-- EN/TH
-- Auren Atmospheres 5 themes
-- Signature Opening
-- transparent Living Core
-- semantic Halo
-- daily check-in
-- semantic metric cards
+## Build 12 — Quiet Spatial Polish
+- isolated, fail-open experience layer
+- restrained page transitions
+- Core optical refraction overlay
+- semantic micro-response
+- quieter Halo resting state
+- resolved prior build bookkeeping mismatch
+
+## Build 13 — Living Core Evolution
+- richer internal circulation/material layers
+- event response
+- performance/exception fallback
+- accepted renderer remains fallback
+
+## Build 14 — Privacy & Data Controls
+- delete today
+- delete Archive check-in
+- erase all local data with confirmations
+- exposed later need for in-place refresh
+
+## Build 15 — Seamless Launch & In-place Data Refresh
+- single deletion no longer intentionally requires full restart
+- Today/Halo/Archive refresh in place
+- launch handoff experiments still produced an awkward orb stage
+
+## Build 16 — Clean Signature Handoff
+- removed frozen orb-only handoff
+- branded opening fades as a unit
+- Today Core pre-runs behind opening
+- physically accepted launch baseline
+
+## Build 17 — Rhythm V1
+- Living Rhythm
+- 7/14/30 windows
+- baseline/evidence/confidence
+- no score/causal claim
+
+## Build 18 — Rhythm Early-State Polish
+- truthful sparse states
+- 1–3 Early observations
+- 4–5 Baseline emerging
+- 6+ Personal baseline
+- provisional connection before mature ribbon
+- physical-device sparse-state polish
+
+## Build 19 — Signals V1
+- relationship intelligence
+- minimum 8 paired days
+- variation/strength/stability gates
+- Evidence Field
+- no coefficient/causation/health score
+
+## Build 20 — Signals Final Polish
+- corrected secondary-card empty state
+- `No secondary signal yet`
+- engine thresholds unchanged
+- provisional production acceptance
+
+## Build 21 — Today Deep Interaction
+- metric cards become explainable contextual sheets
+- Observed provenance
+- exact value + semantic meaning + limitation
+- no new inference
+
+## Build 22 — Slider visual attempt
+- intended isolated dual-tone slider polish
+- physical Android showed the layer did not bind visibly as intended
+
+## Build 23 — Slider binding hotfix
+- targeted canonical slider IDs and dynamic rendering more directly
+- clarified technical binding path
+
+## Build 24 — Dynamic slider concept
+- colored fill responds to current value
+- neutral unfilled rail
+- pearl capsule thumb
+- initial generic high=red concept exposed semantic issue
+
+## Build 25 — Daily Check-in Final Polish
+- positive metrics end in warm gold, not red
+- Stress alone can resolve to muted rose-red at high values
+- better sheet breathing room
+- physically accepted
+
+## Build 26 — REJECTED Guidance Regression
+- attempted shared scale guidance
+- caused launch-blocking regression; app could remain on Signature Opening and Core fail to appear
+- **never treat this implementation as accepted**
+
+## Build 27 — Emergency Recovery
+- restored Build 25 check-in runtime
+- removed Build 26 guidance from startup/cache
+- physically accepted recovery
+- orphaned guidance source may remain unused
+
+## Build 28 — Archive / Health Memory Polish
+- lazy-loaded Archive enhancement
+- weight-only records
+- cautious monthly intelligence
+- richer editorial Daily Detail
+- startup intentionally untouched
+
+## Build 29 — Archive Close Controls
+- top-right sticky X
+- localized bottom Close/ปิด
+- preserves Delete-this-day behavior
+- physically accepted current baseline
+
+---
+
+# 33. Explicitly Rejected / Do-Not-Resurrect Decisions
+
+Do not accidentally bring back:
+- thick glass Core rim
+- wide gauge-like Halo
+- complete Halo ring merely for symmetry
+- five Daily State cards in a clumsy equal dashboard layout
+- Confidence as a fourth Body Context metric
+- generic `high = red` slider semantics for positive metrics
+- bulky gold circular slider thumb
+- Daily Check-in sheet touching viewport edges
+- five separate info icons on each Daily Check-in metric
+- locking Daily Check-in after first save of the day
+- multiple same-day Daily Check-in records in V1
+- Build 26 guidance startup coupling
+- weight-only date interpreted as a daily health state
+- monthly fake percentages
+- guilt streaks / badges / scores
+- automatic BMI-to-weight-loss morality
+- default male/female stock avatars
+- photo-based body-fat inference
+
+---
+
+# 34. Known Technical Debt / Hygiene
+
+Known item at Revision 3.0:
+- `src/js/today/checkin-guidance.js` from rejected Build 26 may remain in repo but is not imported or cached by current Build 29 startup.
+
+Safe future handling:
+- remove it in a deliberate repository-hygiene/docs batch once verified unreferenced
+- deletion of an unreferenced file does not need a runtime Build bump if runtime output is truly unchanged, but verify references first
+- do not re-enable it by accident
+
+Also keep README/release docs coherent as runtime advances; stale historical descriptions are acceptable only when clearly historical.
+
+---
+
+# 35. Immediate Roadmap — From Build 29
+
+## Build 30 — You / Settings Final Polish
+
+Primary objective: finish the personal/control surface without expanding product scope.
+
+Candidate work:
+- hierarchy of Identity / Body Profile / Explainability / Language / Atmospheres / Privacy / About
+- reduce repeated setting-card visual weight
+- premium section rhythm
+- check small-screen EN/TH wrapping
+- clarify no-account/local-first state without looking unfinished
+- verify crop editor and identity actions
+- verify Data Controls entry and trust language
+- possibly create a safe entry point for Daily Check-in rating guidance only if it can remain on-demand and isolated from startup
+
+Regression boundary:
+- Opening/Core/Today/Daily Check-in/Rhythm/Signals/Archive/data should remain untouched unless a discovered defect requires it
+
+## Build 31+ — Full-System QA & Production Hardening
+
+Treat this as a product-wide release program, not cosmetic cleanup.
+
+Required matrix:
+- Signature Opening / launch / resume
+- Core / Halo
+- Today no-data / saved state
+- Daily Check-in first save / edit same day
+- Today metric detail
 - One Useful Move
-- Body Context / contextual intelligence
-- sex-for-calculation context
-- activity/training/frequency/goals
-- optional waist/body-fat evidence
-- youth guardrail
-- profile photo + crop/pan/zoom
-- display name + personalized greeting
-- neutral initials/Auren Orb fallback
-- Archive Portraits + Calendar
-- Daily State Detail
-- monthly summary foundation
-- How Auren Works / contextual help
-- local IndexedDB profile/check-ins
-- page-scale lock with crop-editor pinch exception
-- Build 12 optional experience layer: restrained spatial transitions, optical Core refraction overlay, semantic micro-response and quiet Halo resting state
+- Body Profile / Body Intelligence fixtures
+- Rhythm sparse and mature states
+- Signals pre-threshold / qualifying / no-signal states
+- Archive Portraits / Calendar / weight-only / monthly summary / detail close/delete
+- You / Identity / photo crop
+- Privacy deletion/reset
+- EN/TH
+- 360/393 px
+- Reduced Motion
+- focus/keyboard
+- PWA offline/cache/update
 
-Current accepted UI polish:
-- glass rim thin/translucent
-- Halo restrained/semantic
-- Body Context primary metrics = BMI / Training / Waist
-- Confidence is secondary badge/footer metadata
-- daily state cards have subtle icons/semantic tones
-- latest icon optical alignment accepted by P’Benz on physical device
-- Build 12 experience polish is additive/fail-open and does not replace the accepted Core Canvas renderer
+## Longitudinal validation pass
 
-Areas not yet considered “finished product”:
-- Rhythm intelligence depth
-- Signals intelligence depth
-- longitudinal signal quality with real user history
-- broader calibration
-- export/delete privacy controls maturity
-- offline/update edge-case QA across devices
-- future integrations
+When enough real history exists:
+- Rhythm 6+ and 14/30-day behavior
+- Signals 8+ paired-day evidence, stability/reversal behavior
+- Archive monthly 6+ check-in comparisons
+- weight-history continuity
+
+Do not prematurely label this “fully validated” while the user has only sparse real history.
 
 ---
 
-# 24. Feature Guardrails — สิ่งที่ไม่ควรเพิ่มโดยไม่มีเหตุผล
+# 36. Auren 2 — Know Yourself
 
-อย่าเพิ่มเพียงเพราะแอพอื่นมี:
-- AI chatbot as hero
-- login before cloud value
-- wearable/Bluetooth V1 dependency
-- calorie/macros diary
-- social feed
-- male/female stock avatars
-- gamified streaks/points/badges
-- giant health score
-- “biological age” invented without evidence
-- aggressive Support/Paywall
-- excessive colored dashboards
+Do not rush until Auren 1 is delightful and trustworthy.
 
-Auren ต้องรู้สึกว่า “ฉลาดขึ้น” ไม่ใช่ “มีเมนูเยอะขึ้น”
+Potential future capabilities:
+- stronger personal baseline modeling
+- richer relationship maps
+- pattern clusters
+- context-aware event tagging
+- optional import from device health ecosystems
+- optional cloud backup/account only when value is clear
+- richer export/history portability
 
----
+Any integration must preserve provenance: imported sensor data must be distinguishable from self-report and inference.
 
-# 25. Roadmap — Three Generations
-
-| Era | Promise | Focus |
-|---|---|---|
-| Auren 1 · Know Today | วันนี้เป็นอย่างไร | Check-in, State, Context, One Move, Archive |
-| Auren 2 · Know Yourself | อะไรมีผลต่อฉัน | Personal baseline, Signals, Pattern Map, integrations |
-| Auren 3 · Know What Works | เปลี่ยนอะไรแล้วได้ผล | N-of-1 experiments / causal discipline |
-
-Do not rush Generation 2/3 before Auren 1 is delightful, trustworthy, and habit-worthy without addiction mechanics.
+Wearables are optional inputs, not product identity.
 
 ---
 
-# 26. Decision Filter
+# 37. Auren 3 — Know What Works
 
-ก่อนเพิ่ม/แก้ feature ถาม:
-1. ช่วยให้ผู้ใช้เข้าใจตัวเองดีขึ้นจริงไหม
-2. มี evidence/context พอไหม
-3. มันทำให้ Auren claim เกินข้อมูลไหม
-4. ผู้ใช้เข้าใจได้โดยไม่ต้องเรียน UI ไหม
-5. ทำลาย quiet luxury หรือไม่
-6. เพิ่ม privacy/regulatory complexity มากกว่าคุณค่าหรือไม่
-7. test correctness/regression ได้ไหม
-8. ถ้าตัดออก Auren เสีย core promise หรือแค่เสียของเล่น
+Long-term possibility: disciplined **N-of-1 experiments**.
 
-ถ้าไม่ผ่านข้อสำคัญ default = **ไม่ทำตอนนี้**
+Examples:
+- “When I shift bedtime earlier, what happens to my reported energy?”
+- “Does a lighter training day change next-day stress/energy?”
 
----
+Requirements before shipping:
+- sufficient data
+- explicit intervention tracking
+- pre/post windows
+- confound awareness
+- uncertainty language
+- no causal claim unless design supports it
 
-# 27. New-Room Startup Protocol — Zero-Question Continuation
-
-เมื่อย้ายห้อง:
-
-1. อ่าน `docs/product/AUREN_MASTER_PLAN.md` ให้ครบ
-2. อ่าน `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md`
-3. inspect repo HEAD และ current production
-4. ตรวจ Build / cache / schema ก่อนแก้ runtime
-5. current accepted runtime หลัง package นี้ = Build 12; runtime batch ถัดไปต้องเป็น Build 13
-6. อย่าถาม vision/tagline/design principles ซ้ำ
-7. product/design trade-off ให้ตัดสินใจเอง
-8. user feedback = signal สำคัญ แต่ DEV มี final product authority
-9. permanent rule ใหม่ต้อง update Master Plan
-10. ทุก meaningful regression-risk change ต้องมี baseline + rollback/fallback plan ก่อน implementation
-11. ทุก GitHub package ต้อง clickable link + integrity QA + commit <=50 chars
+Auren should never fake causal science from correlation.
 
 ---
 
-# 28. Locked vs Evolvable
+# 38. Cloud, Accounts & Integrations
+
+Current rule: **no account required**.
+
+Potential future cloud value:
+- encrypted backup
+- device migration
+- optional multi-device continuity
+- explicit export/import
+
+Do not add login before these values exist.
+
+Potential ecosystem integrations later:
+- Apple Health / HealthKit where platform path exists
+- Android Health Connect
+- selected wearables through platform aggregators rather than one-off Bluetooth dependency where possible
+
+Rules:
+- user consent
+- source/provenance visible
+- import only what Auren can interpret responsibly
+- no “data exhaust” collection just because APIs expose it
+
+---
+
+# 39. Growth & Monetization Direction
+
+Early Access should feel like privileged access to an expensive product, not a crippled free tier.
+
+Priorities before monetization optimization:
+1. trust
+2. meaningful return usage
+3. perceived usefulness
+4. product quality
+5. retention without addiction mechanics
+
+Possible future Auren+ should charge for real ongoing value, e.g. advanced longitudinal intelligence, secure backup, richer integrations, deeper experiments — not for removing artificial pain created by the free product.
+
+Avoid:
+- aggressive paywalls
+- countdown scarcity
+- guilt notifications
+- hiding basic privacy controls behind payment
+
+---
+
+# 40. Success Metrics
+
+Prefer product-quality metrics over vanity downloads:
+- check-in completion without friction
+- percentage of users returning because insights/history are useful
+- Archive revisit behavior
+- evidence-sheet use when users seek explanation
+- meaningful longitudinal continuity
+- low deletion/confusion caused by mistrust
+- qualitative “this understands me” feedback
+- stability / crash-free launches / low regression rate
+
+Do not optimize DAU through nagging.
+
+---
+
+# 41. Ethics, Safety & Claims
+
+Auren is wellbeing/personal intelligence, not medical care.
+
+Rules:
+- never diagnose
+- never imply medical certainty from self-report
+- never fabricate biomarker-like measurements
+- do not turn mood/stress observations into psychiatric diagnosis
+- do not promise disease prevention/treatment without evidence/regulatory basis
+- distinguish observation, calculation, inference
+- high-stakes symptoms should not be casually normalized by product copy
+- preserve user agency and privacy
+
+Body/weight language must avoid shame and moral ranking.
+
+---
+
+# 42. Decision Filter
+
+Before adding/changing anything, ask:
+1. Does it materially help the user understand themselves?
+2. Is the evidence/context sufficient?
+3. Does it overclaim?
+4. Can a user understand the interaction without studying it?
+5. Does it damage quiet luxury?
+6. Does it add privacy/regulatory complexity beyond value?
+7. Can correctness and regression be tested?
+8. Is a stable system being disturbed unnecessarily?
+9. If removed, does Auren lose core promise or only a toy?
+
+If the answer is weak on important questions, default = **not now**.
+
+---
+
+# 43. Locked vs Evolvable
 
 ## Locked foundation
 - Auren = Personal Health Intelligence
-- “Your body, understood.”
+- `Your body, understood.`
+- Data → Pattern → Meaning → One useful decision
 - trust before intelligence
-- contextual analysis over single-metric judgment
+- personal/contextual interpretation over single-metric judgment
 - local-first V1
 - EN/TH first-class
 - no fake medical certainty
@@ -881,39 +1353,61 @@ Do not rush Generation 2/3 before Auren 1 is delightful, trustworthy, and habit-
 - quiet premium identity
 - thin transparent Core glass
 - semantic Halo
-- profile photo never used to infer health/body fat
+- profile photo never infers health/body fat
 - sex-for-calculation separate from identity/avatar
-- Archive Calendar belongs inside Archive, not a new tab
-- file delivery links must be clickable
-- runtime Build coherence
-- stable production systems are protected by default; meaningful regression risk requires rollback/fallback planning
-- Commit name <=50 chars
+- Archive Calendar remains inside Archive
+- Daily Check-in = one record/day, editable within same day
+- Stress direction differs from positive metrics
+- Build 25 Daily Check-in visual semantics
+- Build 29 Archive close/detail baseline
+- meaningful-risk changes require rollback/fallback
+- file delivery uses canonical repo-relative paths
+- every GitHub delivery includes **Commit name <=50 characters in a code block**
 
 ## Evolvable by Full Authorized DEV
-- exact scoring/weights
-- detailed body-context confidence rules
-- exact Core fluid timing
-- icon set / optical offsets
-- card dimensions / typography tokens
+- exact Core timing/material micro-details
+- icon set/optical offsets
+- typography/card dimensions
 - Halo fragment geometry
-- Rhythm/Signals layouts
-- future backend/framework
+- confidence weighting implementation
+- Rhythm/Signals layouts and thresholds when evidence supports revision
+- framework/backend later
+- cloud/integration architecture
 - Auren+ packaging
-- future integration roadmap
+- future N-of-1 experiment design
 
 ---
 
-# 29. Final Operating Principle
+# 44. New-Room Startup Protocol — Zero-Question Continuation
 
-Auren ต้องทำให้ผู้ใช้รู้สึกสองอย่างพร้อมกัน:
+On first Auren task in a new room:
+1. Read this file fully.
+2. Read `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md` fully.
+3. Inspect current repo HEAD before proposing changes.
+4. Inspect `src/js/config/build.js`, SW/cache and schema.
+5. Treat the repo as possibly newer than the baseline recorded here.
+6. If repo is newer, follow the conflict order and update mental state without asking historical questions.
+7. Do not ask about vision, tagline, visual direction, Core, Halo, Body Intelligence, Daily Check-in, Rhythm, Signals, Archive, You, privacy workflow, packaging, or commit-name rules unless a genuinely new ambiguity exists.
+8. Make product/design trade-offs yourself under this contract.
+9. Protect stable production.
+10. For file deliveries, package canonically, QA integrity, give clickable links, and **always include a <=50-character Commit name in a code block**.
 
-> **“ฉันเข้าใจตัวเองมากขึ้นจริงๆ”**  
-> **“ทำไมของนี้ถึงรู้สึกแพงและตั้งใจขนาดนี้?”**
+---
 
-ถ้าฟีเจอร์หนึ่งสวยแต่ไม่ช่วยความเข้าใจ ให้ตัด
+# 45. Final Operating Principle
 
-ถ้าฟีเจอร์หนึ่งฉลาดแต่ผู้ใช้อธิบายไม่ได้ว่ามันรู้ได้อย่างไร ให้แก้ trust layer
+If forced to choose between adding more and making what exists world-class:
 
-ถ้าฟีเจอร์หนึ่งถูกต้องแต่ UI ดูเหมือน dashboard ทั่วไป ให้ polish
+> **Choose world-class completion.**
 
-ถ้าต้องเลือกระหว่าง “เพิ่มของ” กับ “ทำสิ่งที่มีให้จบระดับโลก” ให้เลือกอย่างหลัง
+If a feature is beautiful but does not improve understanding, cut it.
+
+If it is intelligent but users cannot understand why, strengthen the trust layer.
+
+If it is correct but looks like a generic dashboard, polish the hierarchy and materials.
+
+If it is a small enhancement that can break startup, redesign the architecture before shipping.
+
+If production is already excellent, **do not touch it without a real reason.**
+
+Auren succeeds when it feels calm, deeply considered, personally useful, trustworthy, and unusually expensive — while remaining honest about what it knows and what it does not.
