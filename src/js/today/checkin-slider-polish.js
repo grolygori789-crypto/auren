@@ -1,61 +1,157 @@
-const STYLE_ID = 'auren-checkin-slider-build-23';
+const STYLE_ID = 'auren-checkin-slider-build-24';
 const STYLE_HREF = './src/css/today-checkin.css';
-const METRICS = ['sleep','energy','stress','mood','movement'];
+const METRICS = ['sleep', 'energy', 'stress', 'mood', 'movement'];
+const LOW_RGB = [126, 202, 215];      // mineral blue
+const MID_RGB = [205, 186, 138];      // champagne neutral
+const HIGH_RGB = [201, 117, 108];     // muted rose-red
+const HIGH_STRESS_RGB = [191, 102, 94];
 
-function installStylesheet(){
-  return new Promise((resolve,reject)=>{
-    const existing=document.getElementById(STYLE_ID);
-    if(existing){if(existing.sheet) resolve(); else {existing.addEventListener('load',resolve,{once:true});existing.addEventListener('error',()=>reject(new Error('Check-in slider stylesheet failed')),{once:true});} return;}
-    const link=document.createElement('link');
-    link.id=STYLE_ID;link.rel='stylesheet';link.href=STYLE_HREF;
-    link.addEventListener('load',resolve,{once:true});
-    link.addEventListener('error',()=>reject(new Error('Check-in slider stylesheet failed')),{once:true});
+function installStylesheet() {
+  return new Promise((resolve, reject) => {
+    const existing = document.getElementById(STYLE_ID);
+    if (existing) {
+      if (existing.sheet) resolve();
+      else {
+        existing.addEventListener('load', () => resolve(), { once: true });
+        existing.addEventListener('error', () => reject(new Error('Check-in slider stylesheet failed')), { once: true });
+      }
+      return;
+    }
+    const link = document.createElement('link');
+    link.id = STYLE_ID;
+    link.rel = 'stylesheet';
+    link.href = STYLE_HREF;
+    link.addEventListener('load', () => resolve(), { once: true });
+    link.addEventListener('error', () => reject(new Error('Check-in slider stylesheet failed')), { once: true });
     document.head.appendChild(link);
   });
 }
 
-function upgradeKnownSliders(){
-  const form=document.getElementById('checkinForm');
-  if(!form) return false;
-  let found=0;
-  METRICS.forEach((metric)=>{
-    const input=document.getElementById(`checkin-${metric}`);
-    if(!(input instanceof HTMLInputElement)||input.type!=='range') return;
-    input.dataset.aurenCheckinSlider='1';
-    input.dataset.metric=metric;
-    found+=1;
-  });
-  if(found) form.dataset.aurenCheckinSheet='1';
-  return found===METRICS.length;
+function lerp(a, b, t) {
+  return Math.round(a + (b - a) * t);
 }
 
-function scheduleUpgrade(){
-  queueMicrotask(()=>{
+function mixRgb(from, to, t) {
+  return [
+    lerp(from[0], to[0], t),
+    lerp(from[1], to[1], t),
+    lerp(from[2], to[2], t),
+  ];
+}
+
+function rgbToString(rgb, alpha = 1) {
+  return `rgba(${rgb[0]}, ${rgb[1]}, ${rgb[2]}, ${alpha})`;
+}
+
+function getFillColor(metric, normalized) {
+  const high = metric === 'stress' ? HIGH_STRESS_RGB : HIGH_RGB;
+  if (normalized <= 0.5) {
+    return mixRgb(LOW_RGB, MID_RGB, normalized / 0.5);
+  }
+  return mixRgb(MID_RGB, high, (normalized - 0.5) / 0.5);
+}
+
+function brighten(rgb, factor = 0.34) {
+  return mixRgb(rgb, [255, 255, 255], factor);
+}
+
+function updateSliderVisual(input) {
+  const min = Number(input.min || 1);
+  const max = Number(input.max || 5);
+  const value = Number(input.value || min);
+  const normalized = max > min ? (value - min) / (max - min) : 0;
+  const progress = `${Math.max(0, Math.min(100, normalized * 100))}%`;
+  const metric = input.dataset.metric || 'sleep';
+  const fillRgb = getFillColor(metric, normalized);
+  const fillStart = brighten(fillRgb, 0.36);
+
+  input.style.setProperty('--auren-slider-progress', progress);
+  input.style.setProperty('--auren-slider-fill-start', rgbToString(fillStart, 0.96));
+  input.style.setProperty('--auren-slider-fill-end', rgbToString(fillRgb, 0.98));
+}
+
+function bindSlider(input, metric) {
+  if (!(input instanceof HTMLInputElement) || input.type !== 'range') return false;
+  input.dataset.aurenCheckinSlider = '1';
+  input.dataset.metric = metric;
+  updateSliderVisual(input);
+  if (input.dataset.aurenCheckinSliderBound === '1') return true;
+  const handler = () => updateSliderVisual(input);
+  input.addEventListener('input', handler);
+  input.addEventListener('change', handler);
+  input.dataset.aurenCheckinSliderBound = '1';
+  return true;
+}
+
+function upgradeKnownSliders() {
+  const form = document.getElementById('checkinForm');
+  if (!(form instanceof HTMLElement)) return false;
+  let count = 0;
+  METRICS.forEach((metric) => {
+    const input = document.getElementById(`checkin-${metric}`);
+    if (bindSlider(input, metric)) count += 1;
+  });
+  if (count > 0) form.dataset.aurenCheckinSheet = '1';
+  return count === METRICS.length;
+}
+
+function scheduleUpgrade() {
+  queueMicrotask(() => {
     upgradeKnownSliders();
-    requestAnimationFrame(()=>upgradeKnownSliders());
+    requestAnimationFrame(() => {
+      upgradeKnownSliders();
+      requestAnimationFrame(() => upgradeKnownSliders());
+    });
   });
 }
 
-async function init(){
-  try{await installStylesheet();}catch(error){console.error(error);return;}
-  upgradeKnownSliders();
-
-  const fields=document.getElementById('checkinFields');
-  if(fields){
-    const observer=new MutationObserver(()=>scheduleUpgrade());
-    observer.observe(fields,{childList:true,subtree:true});
+async function init() {
+  try {
+    await installStylesheet();
+  } catch (error) {
+    console.error(error);
+    return;
   }
 
-  document.addEventListener('click',(event)=>{
-    if(event.target?.closest?.('#checkinBtn')) setTimeout(scheduleUpgrade,0);
-  },true);
-  document.addEventListener('auren:data-refreshed',scheduleUpgrade);
+  scheduleUpgrade();
 
-  const langObserver=new MutationObserver(()=>scheduleUpgrade());
-  langObserver.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+  const bodyObserver = new MutationObserver((records) => {
+    let shouldUpgrade = false;
+    for (const record of records) {
+      record.addedNodes.forEach((node) => {
+        if (!(node instanceof HTMLElement)) return;
+        if (node.id === 'checkinFields' || node.id === 'checkinForm' || node.querySelector?.('#checkinFields, #checkinForm, #checkin-sleep, #checkin-energy, #checkin-stress, #checkin-mood, #checkin-movement')) {
+          shouldUpgrade = true;
+        }
+      });
+    }
+    if (shouldUpgrade) scheduleUpgrade();
+  });
+  bodyObserver.observe(document.body, { childList: true, subtree: true });
+
+  const fields = document.getElementById('checkinFields');
+  if (fields instanceof HTMLElement) {
+    const fieldsObserver = new MutationObserver(() => scheduleUpgrade());
+    fieldsObserver.observe(fields, { childList: true, subtree: true });
+  }
+
+  document.addEventListener('click', (event) => {
+    if (event.target?.closest?.('#checkinBtn, [data-action="checkin-open"]')) {
+      setTimeout(scheduleUpgrade, 0);
+      requestAnimationFrame(() => scheduleUpgrade());
+    }
+  }, true);
+
+  document.addEventListener('auren:data-refreshed', scheduleUpgrade);
+
+  const langObserver = new MutationObserver(() => scheduleUpgrade());
+  langObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
 }
 
-if(typeof document!=='undefined'){
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
-  else init();
+if (typeof document !== 'undefined') {
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init, { once: true });
+  } else {
+    init();
+  }
 }

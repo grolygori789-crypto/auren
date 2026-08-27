@@ -1,11 +1,12 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 23;
+export const BUILD_NUMBER = 24;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 23 fixes Build 22 slider binding by targeting the canonical check-in IDs deterministically.
-// No stored data, health intelligence, Rhythm, Signals, Archive or accepted read-only scales are changed.
+// Build 24 refines only the interactive Daily Check-in sliders.
+// Filled track color now responds to the current value and the thumb becomes a smaller pearl capsule.
+// Today detail, Rhythm, Signals, data controls, archive, intelligence and stored data remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});

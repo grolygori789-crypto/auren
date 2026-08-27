@@ -1,76 +1,105 @@
-/* Build 23 — Daily Check-in bi-tone slider hotfix */
+/* Build 24 — Dynamic-value Daily Check-in sliders */
 
-#checkinForm input.range[type="range"]{
+#checkinForm[data-auren-checkin-sheet="1"] input[type="range"][data-auren-checkin-slider="1"]{
   -webkit-appearance:none;
   appearance:none;
   width:100%;
-  height:14px;
+  height:10px;
+  margin:10px 0 3px;
   border-radius:999px;
-  margin:11px 0 3px;
-  border:1px solid color-mix(in srgb,var(--line-strong) 76%,rgba(255,255,255,.55));
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),inset 0 -1px 0 rgba(91,68,45,.045),0 1px 2px rgba(69,52,35,.025);
+  border:1px solid color-mix(in srgb,var(--line-strong) 78%,rgba(255,255,255,.58));
   outline:none;
-  accent-color:transparent;
-  background:linear-gradient(90deg,
-    rgba(139,198,194,.92) 0%,
-    rgba(184,218,214,.88) 38%,
-    rgba(244,241,235,.98) 49%,
-    rgba(244,241,235,.98) 51%,
-    rgba(225,194,174,.90) 62%,
-    rgba(197,139,125,.88) 100%);
+  background-image:
+    linear-gradient(90deg,var(--auren-slider-fill-start, rgba(132,198,211,.92)),var(--auren-slider-fill-end, rgba(132,198,211,.98))),
+    linear-gradient(90deg,rgba(239,238,234,.98) 0%,rgba(250,249,246,.98) 50%,rgba(236,235,231,.98) 100%);
+  background-repeat:no-repeat,no-repeat;
+  background-size:var(--auren-slider-progress,50%) 100%,100% 100%;
+  background-position:left center,left center;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.90),
+    inset 0 -1px 0 rgba(93,71,48,.045),
+    0 1px 2px rgba(77,58,39,.03);
 }
 
-#checkinForm #checkin-stress{
-  background:linear-gradient(90deg,
-    rgba(132,196,191,.94) 0%,
-    rgba(185,219,215,.90) 38%,
-    rgba(244,241,235,.98) 49%,
-    rgba(244,241,235,.98) 51%,
-    rgba(224,188,178,.92) 62%,
-    rgba(181,112,101,.90) 100%);
-}
-
-#checkinForm input.range[type="range"]::-webkit-slider-runnable-track{
+#checkinForm[data-auren-checkin-sheet="1"] input[type="range"][data-auren-checkin-slider="1"]::-webkit-slider-runnable-track{
   -webkit-appearance:none;
-  height:14px;
+  height:10px;
   border-radius:999px;
   background:transparent;
 }
-#checkinForm input.range[type="range"]::-moz-range-track{
-  height:14px;
+
+#checkinForm[data-auren-checkin-sheet="1"] input[type="range"][data-auren-checkin-slider="1"]::-moz-range-track{
+  height:10px;
   border:0;
   border-radius:999px;
   background:transparent;
 }
 
-#checkinForm input.range[type="range"]::-webkit-slider-thumb{
+#checkinForm[data-auren-checkin-sheet="1"] input[type="range"][data-auren-checkin-slider="1"]::-webkit-slider-thumb{
   -webkit-appearance:none;
   appearance:none;
-  width:27px;
-  height:27px;
-  margin-top:-7px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.94);
-  background:radial-gradient(circle at 32% 27%,rgba(255,255,255,.98) 0 17%,rgba(255,255,255,.52) 18%,transparent 30%),linear-gradient(145deg,#d7c199,#a78858);
-  box-shadow:0 7px 18px rgba(92,67,42,.14),0 0 0 1px rgba(136,105,65,.12),inset 0 1px 0 rgba(255,255,255,.9);
-}
-#checkinForm input.range[type="range"]::-moz-range-thumb{
-  width:27px;
-  height:27px;
-  border-radius:50%;
-  border:1px solid rgba(255,255,255,.94);
-  background:linear-gradient(145deg,#d7c199,#a78858);
-  box-shadow:0 7px 18px rgba(92,67,42,.14),0 0 0 1px rgba(136,105,65,.12),inset 0 1px 0 rgba(255,255,255,.9);
+  width:18px;
+  height:28px;
+  margin-top:-10px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.96);
+  background:
+    linear-gradient(90deg,
+      rgba(255,255,255,0) 0%,
+      rgba(196,164,108,.18) 34%,
+      rgba(210,182,124,.82) 45%,
+      rgba(241,224,181,.96) 50%,
+      rgba(210,182,124,.82) 55%,
+      rgba(196,164,108,.18) 66%,
+      rgba(255,255,255,0) 100%),
+    linear-gradient(180deg,rgba(255,255,255,.98) 0%,rgba(247,244,238,.96) 48%,rgba(239,235,229,.94) 100%);
+  box-shadow:
+    0 8px 18px rgba(84,62,40,.11),
+    0 0 0 1px rgba(184,153,102,.08),
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(152,129,92,.08);
+  transition:transform .18s ease, box-shadow .22s ease;
 }
 
-#checkinForm #checkin-stress::-webkit-slider-thumb{background:radial-gradient(circle at 32% 27%,rgba(255,255,255,.98) 0 17%,rgba(255,255,255,.52) 18%,transparent 30%),linear-gradient(145deg,#d0b79d,#a87868)}
-#checkinForm #checkin-stress::-moz-range-thumb{background:linear-gradient(145deg,#d0b79d,#a87868)}
+#checkinForm[data-auren-checkin-sheet="1"] input[type="range"][data-auren-checkin-slider="1"]:active::-webkit-slider-thumb{
+  transform:scale(.98);
+  box-shadow:
+    0 6px 14px rgba(84,62,40,.09),
+    0 0 0 1px rgba(184,153,102,.08),
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(152,129,92,.08);
+}
 
-#checkinForm input.range[type="range"]:focus-visible{
-  outline:none;
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.92),0 0 0 3px color-mix(in srgb,var(--aqua) 19%,transparent);
+#checkinForm[data-auren-checkin-sheet="1"] input[type="range"][data-auren-checkin-slider="1"]::-moz-range-thumb{
+  width:18px;
+  height:28px;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.96);
+  background:
+    linear-gradient(90deg,
+      rgba(255,255,255,0) 0%,
+      rgba(196,164,108,.18) 34%,
+      rgba(210,182,124,.82) 45%,
+      rgba(241,224,181,.96) 50%,
+      rgba(210,182,124,.82) 55%,
+      rgba(196,164,108,.18) 66%,
+      rgba(255,255,255,0) 100%),
+    linear-gradient(180deg,rgba(255,255,255,.98) 0%,rgba(247,244,238,.96) 48%,rgba(239,235,229,.94) 100%);
+  box-shadow:
+    0 8px 18px rgba(84,62,40,.11),
+    0 0 0 1px rgba(184,153,102,.08),
+    inset 0 1px 0 rgba(255,255,255,.95),
+    inset 0 -1px 0 rgba(152,129,92,.08);
+}
+
+#checkinForm[data-auren-checkin-sheet="1"] input[type="range"][data-auren-checkin-slider="1"]:focus-visible{
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.90),
+    inset 0 -1px 0 rgba(93,71,48,.045),
+    0 0 0 3px color-mix(in srgb,var(--auren-slider-fill-end, rgba(132,198,211,.98)) 20%,transparent),
+    0 1px 2px rgba(77,58,39,.03);
 }
 
 @media (prefers-reduced-motion:reduce){
-  #checkinForm input.range[type="range"]::-webkit-slider-thumb{transition:none}
+  #checkinForm[data-auren-checkin-sheet="1"] input[type="range"][data-auren-checkin-slider="1"]::-webkit-slider-thumb{transition:none}
 }
