@@ -1,6 +1,6 @@
-# Auren — GitHub Build 020
+# Auren — GitHub Build 021
 
-Build 20 closes the first Signals V1 polish pass after physical-device review. It keeps the accepted Relationship Intelligence engine unchanged while making the secondary-signal state truthful in every evidence condition: Auren no longer labels an empty card as “another relationship worth watching” before a second relationship has actually earned the evidence threshold.
+Build 21 adds a focused Today deep-interaction layer to the five accepted Daily State cards. Sleep, Energy, Stress, Mood and Movement can now open a premium contextual detail sheet that shows the exact self-reported value, qualitative meaning, provenance and how Auren uses that observation, without adding new health inference or changing the accepted Today layout.
 
 # AUREN
 
@@ -45,6 +45,7 @@ The foundation runtime establishes the first real Auren application shell:
 - Build 18 Rhythm early-state physical-device polish.
 - Build 19 isolated Signals relationship layer with evidence/stability guardrails.
 - Build 20 Signals final-state copy/hierarchy polish from physical-device review.
+- Build 21 isolated Today Daily State contextual detail interactions.
 
 No diagnostic claim or inferred health score is produced in this foundation build. Daily Check-in values are stored as user observations only.
 
@@ -64,7 +65,8 @@ auren/
 │   │   ├── experience.css
 │   │   ├── privacy.css
 │   │   ├── rhythm.css
-│   │   └── signals.css
+│   │   ├── signals.css
+│   │   └── today-detail.css
 │   └── js/
 │       ├── app.js
 │       ├── config/
@@ -74,6 +76,7 @@ auren/
 │       ├── privacy/
 │       ├── rhythm/
 │       ├── signals/
+│       ├── today/
 │       └── storage/
 └── docs/
 ```
@@ -311,3 +314,20 @@ Build 20 closes the initial Signals V1 surface after physical-device review with
 - Does not modify `app.js`, Today, Living Core, Body Intelligence, Rhythm, Archive, Data Controls, IndexedDB structure, relationship math or data schema version 4.
 
 Rollback: restore the Build 19 versions of `src/js/signals/signals.js` and `src/css/signals.css` and return the runtime/cache marker to Build 19. Build 19 remains the immediate rollback baseline.
+
+## Build 21 — Today Deep Interaction
+
+Build 21 deepens the accepted Today experience without changing health intelligence, storage or the five-card layout:
+
+- Makes Sleep, Energy, Stress, Mood and Movement Daily State cards keyboard/touch interactive while preserving their accepted 3+2 visual composition and optical icon alignment.
+- Opens an isolated premium contextual sheet in place rather than navigating away from Today.
+- Shows the exact self-reported 1–5 observation, the same qualitative label already used by Today, a restrained five-position input rail, and clear Observed provenance from today's check-in.
+- Adds short metric-specific copy describing only what the user reported. Stress keeps inverse semantic direction: higher stress is attention and is never framed as a positive score.
+- Explains how Auren uses the observation as one part of Daily State and later personal history without introducing a new inference, health score, diagnosis or population comparison.
+- Adds subtle press/material motion and value/label reveal using the Web Animations API where available, with Reduced Motion and CSS fallbacks.
+- Adds touch, Enter/Space, Escape, backdrop-close, focus restoration and screen-reader labels without changing the original check-in workflow.
+- Ships as an isolated fail-open module in `src/js/today/metric-detail.js` plus `src/css/today-detail.css`. If either enhancement cannot initialize, Build 20 Today remains usable exactly as before.
+- Does not modify `app.js`, Living Core, Halo, Body Intelligence, Rhythm, Signals, Archive, Data Controls, IndexedDB structure or data schema version 4.
+
+Rollback: remove the Build 21 Today-detail import and Service Worker assets to return immediately to Build 20 behavior. Build 20 remains the known-good production baseline for this interaction layer.
+

@@ -1,15 +1,16 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 20;
+export const BUILD_NUMBER = 21;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 20 closes Signals V1 polish after physical-device review without changing relationship inference or stored data.
-// Rhythm, launch handoff, data controls and experience layers remain fail-open and independently removable.
+// Build 21 adds isolated Today metric detail interactions without changing stored data or health intelligence.
+// Signals, Rhythm, launch handoff, data controls and experience layers remain fail-open and independently removable.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});
   import('../privacy/data-controls.js').catch((error) => console.error('Auren data controls unavailable', error));
   import('../rhythm/rhythm.js').catch((error) => console.error('Auren Rhythm unavailable', error));
   import('../signals/signals.js').catch((error) => console.error('Auren Signals unavailable', error));
+  import('../today/metric-detail.js').catch((error) => console.error('Auren Today detail unavailable', error));
 }

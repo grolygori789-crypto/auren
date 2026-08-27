@@ -1,4 +1,4 @@
-// Auren runtime Build 20 — Signals Final Polish.
+// Auren runtime Build 21 — Today Deep Interaction.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -14,6 +14,7 @@ const APP_SHELL = [
   './src/css/privacy.css',
   './src/css/rhythm.css',
   './src/css/signals.css',
+  './src/css/today-detail.css',
   './src/js/app.js',
   './src/js/config/build.js',
   './src/js/core/orb.js',
@@ -23,6 +24,7 @@ const APP_SHELL = [
   './src/js/privacy/storage.js',
   './src/js/rhythm/rhythm.js',
   './src/js/signals/signals.js',
+  './src/js/today/metric-detail.js',
   './src/js/intelligence/body.js',
   './src/js/i18n/en.js',
   './src/js/i18n/th.js',
