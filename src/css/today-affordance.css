@@ -1,0 +1,162 @@
+/* Auren Build 34 — Today affordance grammar
+   Static surfaces must not impersonate navigation or controls. */
+
+/* 1) Current Auren state: readout, not action. */
+[data-screen="today"] .today-state-readout .state-kicker{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:25px;
+  margin:0 auto;
+  padding:0 10px;
+  border:1px solid color-mix(in srgb,var(--line) 76%,transparent);
+  border-radius:999px;
+  background:color-mix(in srgb,var(--card-hi) 52%,transparent);
+  color:color-mix(in srgb,var(--muted) 82%,var(--gold-deep));
+  letter-spacing:.17em;
+}
+
+/* 2) One Useful Move: recommendation surface, never a navigation card. */
+[data-screen="today"] .today-recommendation-surface{
+  position:relative;
+  overflow:hidden;
+  border-color:color-mix(in srgb,var(--gold-deep) 17%,var(--line));
+  background:
+    linear-gradient(90deg,color-mix(in srgb,var(--gold) 7%,transparent),transparent 24%),
+    color-mix(in srgb,var(--card) 69%,transparent);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.38);
+}
+
+[data-screen="today"] .today-recommendation-surface::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:16px;
+  bottom:16px;
+  width:2px;
+  border-radius:999px;
+  background:linear-gradient(
+    180deg,
+    color-mix(in srgb,var(--gold-deep) 70%,transparent),
+    color-mix(in srgb,var(--aqua) 55%,transparent)
+  );
+  opacity:.62;
+}
+
+/* 3) Explanation cards: quieter, flatter, and explicitly labelled.
+      Their old chevrons are hidden because they are not navigation. */
+[data-screen="today"] .today-explainer-card{
+  position:relative;
+  padding-top:34px;
+  border-color:color-mix(in srgb,var(--line) 74%,transparent);
+  background:color-mix(in srgb,var(--card) 49%,transparent);
+  box-shadow:none;
+}
+
+[data-screen="today"] .today-explainer-card .chev{
+  display:none!important;
+}
+
+[data-screen="today"] .today-explainer-card::before{
+  position:absolute;
+  top:13px;
+  left:18px;
+  font-size:8px;
+  line-height:1;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+  color:var(--faint);
+}
+
+html[lang="en"] [data-screen="today"] .today-pattern-card::before{content:"Pattern"}
+html[lang="en"] [data-screen="today"] .today-evidence-card::before{content:"Evidence"}
+html[lang="th"] [data-screen="today"] .today-pattern-card::before{content:"รูปแบบ"}
+html[lang="th"] [data-screen="today"] .today-evidence-card::before{content:"หลักฐาน"}
+
+[data-screen="today"] .today-explainer-card .soft-icon{
+  background:color-mix(in srgb,var(--card-hi) 54%,transparent);
+  border-color:color-mix(in srgb,var(--line) 60%,transparent);
+  box-shadow:none;
+}
+
+[data-screen="today"] .today-explainer-card .card-title{
+  font-weight:540;
+}
+
+/* 4) Trust principles: principles, not mini-buttons/cards. */
+[data-screen="today"] .today-trust-principles{
+  gap:0;
+  margin-top:15px;
+  padding:4px 0 0;
+  border-top:1px solid color-mix(in srgb,var(--line) 62%,transparent);
+}
+
+[data-screen="today"] .today-trust-principles .trust-mini{
+  position:relative;
+  min-width:0;
+  padding:15px 10px 2px;
+  border:0;
+  border-radius:0;
+  background:transparent;
+}
+
+[data-screen="today"] .today-trust-principles .trust-mini + .trust-mini{
+  border-left:1px solid color-mix(in srgb,var(--line) 55%,transparent);
+}
+
+[data-screen="today"] .today-trust-principles .trust-mini::before{
+  display:block;
+  height:15px;
+  margin-bottom:5px;
+  color:color-mix(in srgb,var(--gold-deep) 58%,var(--faint));
+  font:400 12px/1 var(--font-display);
+}
+
+[data-screen="today"] .today-trust-principles .trust-mini:nth-child(1)::before{content:"◇"}
+[data-screen="today"] .today-trust-principles .trust-mini:nth-child(2)::before{content:"⌁"}
+[data-screen="today"] .today-trust-principles .trust-mini:nth-child(3)::before{content:"◎"}
+
+[data-screen="today"] .today-trust-principles .trust-mini strong{
+  font-size:10.5px;
+  font-weight:560;
+}
+
+[data-screen="today"] .today-trust-principles .trust-mini span{
+  font-size:8.7px;
+  line-height:1.4;
+}
+
+/* The true interactive vocabulary is deliberately untouched:
+   primary check-in button, Why this?, Body Context and other real controls
+   retain their existing button/chevron/press grammar. */
+
+@media(max-width:370px){
+  [data-screen="today"] .today-explainer-card{
+    padding-top:32px;
+  }
+
+  [data-screen="today"] .today-explainer-card::before{
+    left:16px;
+  }
+
+  [data-screen="today"] .today-trust-principles .trust-mini{
+    padding-left:6px;
+    padding-right:6px;
+  }
+
+  [data-screen="today"] .today-trust-principles .trust-mini strong{
+    font-size:10px;
+  }
+
+  [data-screen="today"] .today-trust-principles .trust-mini span{
+    font-size:8.3px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  [data-screen="today"] .today-recommendation-surface,
+  [data-screen="today"] .today-explainer-card,
+  [data-screen="today"] .today-trust-principles .trust-mini{
+    transition:none!important;
+  }
+}

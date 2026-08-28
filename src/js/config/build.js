@@ -1,14 +1,13 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 33;
+export const BUILD_NUMBER = 34;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 33 is a surgical You footer layout correction on the Build 32 foundation.
-// It moves the user-facing Build label to a quiet footer position at the bottom
-// of the You screen. Legal Version remains 1.0.0.
-// Startup, Signature Opening, Core, Today, Daily Check-in, Body Intelligence,
-// Rhythm, Signals, Archive, health data model and schema remain unchanged.
+// Build 34 adds a surgical Today affordance polish.
+// It changes visual semantics only: static recommendation, state, explanation and
+// trust surfaces become unmistakably non-interactive while real actions stay intact.
+// Legal Version remains 1.0.0. Health logic, data and schema remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});
@@ -17,6 +16,7 @@ if (typeof document !== 'undefined') {
   import('../signals/signals.js').catch((error) => console.error('Auren Signals unavailable', error));
   import('../today/metric-detail.js').catch((error) => console.error('Auren Today detail unavailable', error));
   import('../today/checkin-slider-polish.js').catch((error) => console.error('Auren check-in slider polish unavailable', error));
+  import('../today/affordance-polish.js').catch((error) => console.error('Auren Today affordance polish unavailable', error));
 
   let archivePromise = null;
   const loadArchivePolish = () => {
