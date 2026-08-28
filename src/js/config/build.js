@@ -1,13 +1,12 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 35;
+export const BUILD_NUMBER = 36;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 35 adds a surgical Body Context layout polish.
-// It rebalances the Body Context card by keeping BMI and Waist as key metrics and
-// moving Training into its own context row. Legal Version remains 1.0.0.
-// Health logic, stored values, units system and schema remain unchanged.
+// Build 36 finalizes the Body Context presentation and hardens its polish layer.
+// It applies optical alignment + tighter vertical rhythm and makes DOM annotation
+// idempotent. Legal Version remains 1.0.0. Health logic, units and schema are unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});

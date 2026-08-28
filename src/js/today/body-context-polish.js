@@ -1,4 +1,4 @@
-const STYLE_ID = 'auren-body-context-build-35';
+const STYLE_ID = 'auren-body-context-build-36';
 const STYLE_HREF = './src/css/body-context-polish.css';
 const TODAY = '[data-screen="today"]';
 
@@ -8,13 +8,30 @@ const LABELS = {
   waist: ['waist', 'รอบเอว']
 };
 
+let annotationScheduled = false;
+let annotating = false;
+
+function setTextIfChanged(node, value) {
+  if (!node || node.textContent === value) return;
+  node.textContent = value;
+}
+
+function scheduleAnnotation() {
+  if (annotationScheduled) return;
+  annotationScheduled = true;
+  requestAnimationFrame(() => {
+    annotationScheduled = false;
+    annotateBodyContext();
+  });
+}
+
 function installStylesheet() {
   if (document.getElementById(STYLE_ID)) return;
   const link = document.createElement('link');
   link.id = STYLE_ID;
   link.rel = 'stylesheet';
   link.href = STYLE_HREF;
-  link.dataset.aurenBodyContext = 'build-35';
+  link.dataset.aurenBodyContext = 'build-36';
   document.head.appendChild(link);
 }
 
@@ -84,43 +101,54 @@ function ensureTrainingRow(card, valueText) {
   if (!row) row = createTrainingRow();
 
   const isThai = document.documentElement.lang === 'th';
-  row.querySelector('.today-body-training-eyebrow').textContent = isThai ? 'การฝึก' : 'Training';
-  row.querySelector('.today-body-training-value').textContent = valueText || (isThai ? 'ยังไม่มีรูปแบบการฝึกที่ชัดเจน' : 'No structured training');
+  const eyebrowText = isThai ? 'การฝึก' : 'Training';
+  const fallback = isThai ? 'ยังไม่มีรูปแบบการฝึกที่ชัดเจน' : 'No structured training';
+
+  setTextIfChanged(row.querySelector('.today-body-training-eyebrow'), eyebrowText);
+  setTextIfChanged(row.querySelector('.today-body-training-value'), valueText || fallback);
   return row;
 }
 
 function annotateBodyContext() {
+  if (annotating) return false;
+  annotating = true;
+
   const today = document.querySelector(TODAY);
-  if (!today) return false;
+  if (!today) {
+    annotating = false;
+    return false;
+  }
 
   const bmiLabel = findLabelNode(today, LABELS.bmi);
   const trainingLabel = findLabelNode(today, LABELS.training);
   const waistLabel = findLabelNode(today, LABELS.waist);
-  if (!bmiLabel || !trainingLabel || !waistLabel) return false;
+  if (!bmiLabel || !trainingLabel || !waistLabel) { annotating = false; return false; }
 
   const metricsRoot = lowestCommonAncestor([bmiLabel, trainingLabel, waistLabel], today);
-  if (!metricsRoot) return false;
+  if (!metricsRoot) { annotating = false; return false; }
 
   const bmiItem = directChildUnder(metricsRoot, bmiLabel);
   const trainingItem = directChildUnder(metricsRoot, trainingLabel);
   const waistItem = directChildUnder(metricsRoot, waistLabel);
-  if (!bmiItem || !trainingItem || !waistItem) return false;
+  if (!bmiItem || !trainingItem || !waistItem) { annotating = false; return false; }
 
   const card = metricsRoot.closest('.card') || metricsRoot.parentElement;
-  if (!card) return false;
+  if (!card) { annotating = false; return false; }
 
   metricsRoot.classList.add('today-body-metrics-row');
   card.classList.add('today-body-context-card');
   bmiItem.classList.add('today-body-metric', 'is-bmi');
   waistItem.classList.add('today-body-metric', 'is-waist');
   trainingItem.classList.add('today-body-training-source');
-  trainingItem.hidden = true;
+  if (!trainingItem.hidden) trainingItem.hidden = true;
 
   const trainingValue = extractPrimaryText(trainingItem, trainingLabel);
   const trainingRow = ensureTrainingRow(card, trainingValue);
-  metricsRoot.insertAdjacentElement('afterend', trainingRow);
-  if (trainingRow.previousElementSibling !== metricsRoot) metricsRoot.insertAdjacentElement('afterend', trainingRow);
+  if (trainingRow.previousElementSibling !== metricsRoot) {
+    metricsRoot.insertAdjacentElement('afterend', trainingRow);
+  }
 
+  annotating = false;
   return true;
 }
 
@@ -131,7 +159,7 @@ function init() {
   const today = document.querySelector(TODAY);
   if (today && !today.dataset.bodyContextObserved) {
     today.dataset.bodyContextObserved = 'true';
-    new MutationObserver(() => annotateBodyContext()).observe(today, {
+    new MutationObserver(scheduleAnnotation).observe(today, {
       childList: true,
       subtree: true,
       characterData: true
@@ -140,7 +168,7 @@ function init() {
 
   if (!document.documentElement.dataset.bodyContextLangObserved) {
     document.documentElement.dataset.bodyContextLangObserved = 'true';
-    new MutationObserver(() => annotateBodyContext()).observe(document.documentElement, {
+    new MutationObserver(scheduleAnnotation).observe(document.documentElement, {
       attributes: true,
       attributeFilter: ['lang']
     });

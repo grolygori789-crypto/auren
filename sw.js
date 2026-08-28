@@ -1,4 +1,4 @@
-// Auren runtime Build 35 — Body Context layout polish.
+// Auren runtime Build 36 — Body Context final micro-polish.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
