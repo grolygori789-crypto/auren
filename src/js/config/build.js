@@ -1,14 +1,14 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 42;
+export const BUILD_NUMBER = 43;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 42 restores the original Today Core visual presentation after testing
-// showed that the layered visual experiments moved away from Auren's strongest
-// look. It removes the Build 39/41 visual overlay modules while preserving the
-// Build 40 motion refinement and the accepted Signature Opening. Legal Version
-// remains 1.0.0. Health logic, stores and schema remain unchanged.
+// Build 43 keeps the restored original Today Core look but revises motion again
+// based on physical feedback: match the loading/original orb character more
+// closely while making the inner liquid slosh slower and calmer. Signature
+// Opening remains unchanged. Legal Version remains 1.0.0. Health logic, stores
+// and schema remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});

@@ -1,97 +1,56 @@
 import { AurenOrb } from '../core/orb.js';
 
-const PATCH_KEY = Symbol.for('auren.todayCore.motionRefinement.build40');
+const PATCH_KEY = Symbol.for('auren.todayCore.motionRefinement.build43');
 
 if (!AurenOrb.prototype[PATCH_KEY]) {
   const originalPhysics = AurenOrb.prototype.physics;
-
   const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
+  const easeFactor = (rate, dt) => 1 - Math.exp(-rate * dt);
 
   AurenOrb.prototype.physics = function refinedTodayCorePhysics(dt) {
-    // Signature Opening is an accepted surface. Preserve its proven physics exactly.
+    // Signature Opening is accepted and must remain exactly on the proven path.
     if (this.signature) {
       return originalPhysics.call(this, dt);
     }
 
-    // Keep the accepted semantic material state from the existing renderer.
-    const targetTone = this.semanticTarget();
-    const toneEase = this.reduced ? 1 : (1 - Math.exp(-1.42 * dt));
-    this.stateAqua += (targetTone.aqua - this.stateAqua) * toneEase;
-    this.statePearl += (targetTone.pearl - this.statePearl) * toneEase;
-    this.stateLight += (targetTone.light - this.stateLight) * toneEase;
-    this.stateMotion += (targetTone.motion - this.stateMotion) * toneEase;
-    this.stateWarm += (targetTone.warm - this.stateWarm) * toneEase;
+    // Start from the original/orb-loader character, but slightly slow time for Today.
+    originalPhysics.call(this, dt * 0.78);
 
-    if (this.reduced) {
-      this.tilt = 0;
-      this.tiltV = 0;
-      this.wave *= Math.exp(-5.2 * dt);
-      this.waveV *= Math.exp(-5.2 * dt);
-      this.wave2 *= Math.exp(-5.6 * dt);
-      this.wave2V *= Math.exp(-5.6 * dt);
-      this.kick *= Math.exp(-4.2 * dt);
-      this.reaction = 0;
-      return;
-    }
+    if (this.reduced) return;
 
-    // Build 40 motion language:
-    // the glass stays almost upright while the liquid remains alive inside it.
-    // Three deliberately slow, non-harmonic phases prevent a readable left/right loop.
-    const intro = this.t < 3
-      ? Math.cos(this.t * 0.72) * 0.018 * Math.exp(-this.t * 1.08)
-      : 0;
+    // Keep the original overall presence, but make the liquid settle and travel more slowly.
+    // This preserves the familiar visual identity while reducing the readable left/right slosh.
+    const tiltBlend = easeFactor(1.0, dt);
+    const waveBlend = easeFactor(1.5, dt);
+    const wave2Blend = easeFactor(1.8, dt);
 
-    const microDrift =
-      Math.sin(this.t * 0.205 + 0.40) * 0.0100
-      + Math.sin(this.t * 0.113 + 2.15) * 0.0055
-      + Math.sin(this.t * 0.071 + 4.00) * 0.0030;
+    if (typeof this._b43Tilt !== 'number') this._b43Tilt = this.tilt;
+    if (typeof this._b43Wave !== 'number') this._b43Wave = this.wave;
+    if (typeof this._b43Wave2 !== 'number') this._b43Wave2 = this.wave2;
 
-    // Pointer/react input remains possible but cannot turn the orb into a pendulum.
-    const interactionDrift = clamp(this.kick * 0.10, -0.018, 0.018);
-    const targetTilt = intro + microDrift * this.stateMotion + interactionDrift;
+    this._b43Tilt += (this.tilt - this._b43Tilt) * tiltBlend;
+    this._b43Wave += (this.wave - this._b43Wave) * waveBlend;
+    this._b43Wave2 += (this.wave2 - this._b43Wave2) * wave2Blend;
 
-    this.tiltV += (targetTilt - this.tilt) * 1.85 * dt;
-    this.tiltV *= Math.exp(-3.45 * dt);
-    this.tilt += this.tiltV * dt;
-    this.tilt = clamp(this.tilt, -0.028, 0.028);
+    // Apply the smoothed values back for rendering.
+    this.tilt = clamp(this._b43Tilt, -0.11, 0.11);
+    this.wave = clamp(this._b43Wave * 0.74, -0.10, 0.10);
+    this.wave2 = clamp(this._b43Wave2 * 0.66, -0.055, 0.055);
 
-    // Decouple visible glass orientation from internal surface life.
-    // The waves have their own slower forcing, so the material still feels biological.
-    const forcing = this.tiltV * 0.36;
-    const idleWave = (
-      Math.sin(this.t * 0.78 + 0.35) * 0.028
-      + Math.sin(this.t * 1.21 + 1.40) * 0.012
-    ) * this.stateMotion;
+    // Additional damping so interaction energy settles more gracefully.
+    this.tiltV *= Math.exp(-0.55 * dt);
+    this.waveV *= Math.exp(-1.25 * dt);
+    this.wave2V *= Math.exp(-1.40 * dt);
+    this.kick *= Math.exp(-1.20 * dt);
 
-    this.waveV += (-this.wave * 7.4 + forcing + idleWave) * dt;
-    this.waveV *= Math.exp(-1.62 * dt);
-    this.wave += this.waveV * dt;
-
-    const secondaryIdle = (
-      Math.sin(this.t * 1.47 + 0.90) * 0.012
-      + Math.sin(this.t * 0.61 + 2.30) * 0.006
-    ) * this.stateMotion;
-
-    this.wave2V += (-this.wave2 * 11.8 - forcing * 0.24 + secondaryIdle) * dt;
-    this.wave2V *= Math.exp(-1.92 * dt);
-    this.wave2 += this.wave2V * dt;
-
-    // Settle interaction energy quickly; internal response remains via wave/flow.
-    this.kick *= Math.exp(-3.35 * dt);
-
-    if (!this.evolutionDisabled) {
-      const motion = this.stateMotion;
-      this.flowA += dt * (0.72 + Math.sin(this.t * 0.23) * 0.085) * motion;
-      this.flowB += dt * (0.47 + Math.sin(this.t * 0.17 + 1.1) * 0.060) * motion;
-      this.reaction *= Math.exp(-1.34 * dt);
-    }
+    // Preserve subtle internal life, but keep it calmer than the raw original path.
+    if (typeof this.flowA === 'number') this.flowA *= 0.9985;
+    if (typeof this.flowB === 'number') this.flowB *= 0.9988;
+    if (typeof this.reaction === 'number') this.reaction *= Math.exp(-0.22 * dt);
   };
 
   Object.defineProperty(AurenOrb.prototype, PATCH_KEY, {
-    value: Object.freeze({
-      build: 40,
-      originalPhysics
-    }),
+    value: Object.freeze({ build: 43, originalPhysics }),
     configurable: false,
     enumerable: false,
     writable: false

@@ -1,4 +1,4 @@
-// Auren runtime Build 42 — restore original core visuals + refined motion.
+// Auren runtime Build 43 — loader-style core with slower liquid motion.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
