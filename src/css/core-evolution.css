@@ -1,0 +1,240 @@
+/* Auren Build 39 — Today Core Evolution
+   Living-glass enhancement for the Today orb only. Signature Opening is untouched. */
+
+#todayOrbWrap.today-orb-evolved{
+  position:relative;
+  overflow:visible;
+  isolation:isolate;
+}
+
+#todayOrbWrap.today-orb-evolved canvas{
+  position:relative;
+  z-index:5;
+}
+
+#todayOrbWrap.today-orb-evolved [data-core-part]{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+#todayOrbWrap.today-orb-evolved .today-orb-glow{
+  inset:-11%;
+  z-index:1;
+  opacity:.46;
+  filter:blur(24px) saturate(1.05);
+  background:
+    radial-gradient(circle at 50% 44%, color-mix(in srgb,var(--gold) 28%,transparent), transparent 56%),
+    radial-gradient(circle at 47% 59%, color-mix(in srgb,var(--aqua) 18%,transparent), transparent 66%);
+  animation:auren-orb-breath 8.2s ease-in-out infinite, auren-orb-drift 17s ease-in-out infinite;
+}
+
+#todayOrbWrap.today-orb-evolved .today-orb-breath{
+  inset:6%;
+  z-index:2;
+  opacity:.34;
+  filter:blur(10px) saturate(1.06);
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255,255,255,.72), transparent 33%),
+    radial-gradient(circle at 50% 58%, color-mix(in srgb,var(--gold) 22%,transparent), transparent 62%);
+  animation:auren-orb-breath 7.4s ease-in-out infinite;
+}
+
+#todayOrbWrap.today-orb-evolved .today-orb-flow{
+  z-index:3;
+  mix-blend-mode:screen;
+  will-change:transform,opacity;
+}
+
+#todayOrbWrap.today-orb-evolved .flow-one{
+  inset:12%;
+  opacity:.23;
+  filter:blur(8px) saturate(1.12);
+  background:
+    conic-gradient(from 20deg,
+      transparent 0deg 48deg,
+      color-mix(in srgb,var(--gold-deep) 18%,transparent) 88deg,
+      color-mix(in srgb,var(--gold) 36%,transparent) 132deg,
+      transparent 194deg,
+      color-mix(in srgb,var(--aqua) 22%,transparent) 252deg,
+      transparent 360deg),
+    radial-gradient(circle at 38% 36%, rgba(255,255,255,.24), transparent 22%);
+  animation:auren-orb-flow-one 15.5s linear infinite;
+}
+
+#todayOrbWrap.today-orb-evolved .flow-two{
+  inset:18%;
+  opacity:.19;
+  filter:blur(12px) saturate(1.12);
+  background:
+    conic-gradient(from 220deg,
+      transparent 0deg 68deg,
+      color-mix(in srgb,var(--aqua) 28%,transparent) 128deg,
+      transparent 196deg,
+      color-mix(in srgb,var(--gold) 22%,transparent) 260deg,
+      transparent 360deg),
+    radial-gradient(circle at 63% 62%, color-mix(in srgb,var(--gold) 24%,transparent), transparent 30%);
+  animation:auren-orb-flow-two 22s linear infinite;
+}
+
+#todayOrbWrap.today-orb-evolved .today-orb-shimmer{
+  inset:-2%;
+  z-index:6;
+  opacity:.42;
+  filter:blur(.8px);
+  background:
+    conic-gradient(from 8deg,
+      transparent 0 61%,
+      rgba(255,255,255,.02) 68%,
+      rgba(255,255,255,.42) 73%,
+      rgba(255,255,255,.08) 79%,
+      transparent 84% 100%);
+  animation:auren-orb-shimmer 18s linear infinite;
+}
+
+#todayOrbWrap.today-orb-evolved .today-orb-response{
+  inset:-7%;
+  z-index:4;
+  opacity:0;
+  border:1px solid color-mix(in srgb,var(--gold) 22%,transparent);
+  box-shadow:0 0 0 0 color-mix(in srgb,var(--gold) 10%,transparent);
+  transform:scale(.9);
+}
+
+#todayOrbWrap.today-orb-evolved.is-responding .today-orb-response{
+  animation:auren-orb-response 1.42s cubic-bezier(.2,.72,.2,1);
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="learning"] .today-orb-glow{
+  opacity:.46;
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="learning"] .flow-one{
+  opacity:.23;
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="learning"] .flow-two{
+  opacity:.19;
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="learning"] .today-orb-response{
+  border-color:color-mix(in srgb,var(--gold) 24%,transparent);
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="balanced"] .today-orb-glow{
+  opacity:.58;
+  filter:blur(25px) saturate(1.08);
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="balanced"] .today-orb-breath{
+  opacity:.4;
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="balanced"] .flow-one{
+  opacity:.29;
+  animation-duration:17s;
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="balanced"] .flow-two{
+  opacity:.24;
+  animation-duration:24.5s;
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="balanced"] .today-orb-shimmer{
+  opacity:.5;
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="balanced"] .today-orb-response{
+  border-color:color-mix(in srgb,var(--gold-deep) 34%,transparent);
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="attention"] .today-orb-glow{
+  opacity:.37;
+  filter:blur(22px) saturate(1.02);
+  background:
+    radial-gradient(circle at 50% 46%, color-mix(in srgb,var(--aqua) 24%,transparent), transparent 53%),
+    radial-gradient(circle at 50% 60%, color-mix(in srgb,var(--gold) 13%,transparent), transparent 67%);
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="attention"] .today-orb-breath{
+  opacity:.28;
+  animation-duration:6.9s;
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="attention"] .flow-one{
+  opacity:.18;
+  animation-duration:13.4s;
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="attention"] .flow-two{
+  opacity:.23;
+  animation-duration:19.5s;
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="attention"] .today-orb-shimmer{
+  opacity:.34;
+}
+
+#todayOrbWrap.today-orb-evolved[data-orb-mood="attention"] .today-orb-response{
+  border-color:color-mix(in srgb,var(--aqua) 34%,transparent);
+}
+
+@keyframes auren-orb-breath{
+  0%,100%{transform:scale(.985); opacity:inherit}
+  50%{transform:scale(1.03); opacity:1}
+}
+
+@keyframes auren-orb-drift{
+  0%,100%{transform:translate3d(0,0,0)}
+  25%{transform:translate3d(.8%, -1.1%, 0)}
+  50%{transform:translate3d(-1%, .7%, 0)}
+  75%{transform:translate3d(.6%, 1.2%, 0)}
+}
+
+@keyframes auren-orb-flow-one{
+  0%{transform:rotate(0deg) scale(1)}
+  50%{transform:rotate(180deg) scale(1.035)}
+  100%{transform:rotate(360deg) scale(1)}
+}
+
+@keyframes auren-orb-flow-two{
+  0%{transform:rotate(0deg) translate3d(0,0,0) scale(1)}
+  33%{transform:rotate(-120deg) translate3d(-1.2%, .9%, 0) scale(1.02)}
+  66%{transform:rotate(-240deg) translate3d(1%, -1.1%, 0) scale(.985)}
+  100%{transform:rotate(-360deg) translate3d(0,0,0) scale(1)}
+}
+
+@keyframes auren-orb-shimmer{
+  0%{transform:rotate(0deg)}
+  100%{transform:rotate(360deg)}
+}
+
+@keyframes auren-orb-response{
+  0%{opacity:0; transform:scale(.88); box-shadow:0 0 0 0 color-mix(in srgb,var(--gold) 10%,transparent)}
+  26%{opacity:.54}
+  70%{opacity:.1; transform:scale(1.12); box-shadow:0 0 0 10px color-mix(in srgb,var(--gold) 5%,transparent)}
+  100%{opacity:0; transform:scale(1.18); box-shadow:0 0 0 18px transparent}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #todayOrbWrap.today-orb-evolved .today-orb-glow,
+  #todayOrbWrap.today-orb-evolved .today-orb-breath,
+  #todayOrbWrap.today-orb-evolved .today-orb-flow,
+  #todayOrbWrap.today-orb-evolved .today-orb-shimmer,
+  #todayOrbWrap.today-orb-evolved .today-orb-response{
+    animation:none!important;
+  }
+
+  #todayOrbWrap.today-orb-evolved .today-orb-glow{
+    opacity:.34;
+  }
+
+  #todayOrbWrap.today-orb-evolved .today-orb-breath,
+  #todayOrbWrap.today-orb-evolved .today-orb-flow,
+  #todayOrbWrap.today-orb-evolved .today-orb-shimmer,
+  #todayOrbWrap.today-orb-evolved .today-orb-response{
+    opacity:.14;
+    transform:none!important;
+  }
+}

@@ -1,13 +1,14 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 38;
+export const BUILD_NUMBER = 39;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 38 is an emergency shell recovery after an accidental cross-project upload.
-// It restores the physically accepted Auren index/manifest while preserving Build 37
-// Help, Feedback & Support. The cache identity is bumped to evict the contaminated shell.
-// Legal Version remains 1.0.0. Health logic, data stores and schema remain unchanged.
+// Build 39 upgrades the Today Core visual experience only.
+// It adds a layered living-glass treatment to the Today orb: breathing light,
+// internal current, edge shimmer and gentle state-response without touching the
+// accepted Signature Opening. Legal Version remains 1.0.0. Health logic, stores
+// and schema remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});
@@ -18,6 +19,7 @@ if (typeof document !== 'undefined') {
   import('../today/checkin-slider-polish.js').catch((error) => console.error('Auren check-in slider polish unavailable', error));
   import('../today/affordance-polish.js').catch((error) => console.error('Auren Today affordance polish unavailable', error));
   import('../today/body-context-polish.js').catch((error) => console.error('Auren Body Context polish unavailable', error));
+  import('../today/core-evolution.js').catch((error) => console.error('Auren Today Core evolution unavailable', error));
 
   let archivePromise = null;
   const loadArchivePolish = () => {

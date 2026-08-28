@@ -1,4 +1,4 @@
-// Auren runtime Build 38 — emergency Auren shell recovery.
+// Auren runtime Build 39 — Today Core evolution.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -18,6 +18,7 @@ const APP_SHELL = [
   './src/css/today-checkin.css',
   './src/css/today-affordance.css',
   './src/css/body-context-polish.css',
+  './src/css/core-evolution.css',
   './src/css/archive-polish.css',
   './src/css/you-polish.css',
   './src/css/help-support.css',
@@ -35,6 +36,7 @@ const APP_SHELL = [
   './src/js/today/checkin-slider-polish.js',
   './src/js/today/affordance-polish.js',
   './src/js/today/body-context-polish.js',
+  './src/js/today/core-evolution.js',
   './src/js/archive/archive-polish.js',
   './src/js/you/you-polish.js',
   './src/js/you/help-support.js',
