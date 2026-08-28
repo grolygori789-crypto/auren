@@ -1,4 +1,4 @@
-// Auren runtime Build 48 — premium liquid Core refinement.
+// Auren runtime Build 49 — Build 47 liquid Core restored with slower motion.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
