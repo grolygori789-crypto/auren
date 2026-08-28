@@ -1,4 +1,4 @@
-const STYLE_ID = 'auren-you-polish-build-30';
+const STYLE_ID = 'auren-you-polish-build-32';
 const STYLE_HREF = './src/css/you-polish.css';
 const SCREEN_SELECTOR = '[data-screen="you"]';
 
@@ -12,6 +12,7 @@ const COPY = {
     privacyNote: 'Local by design. You stay in control.',
     aboutTitle: 'About',
     aboutNote: 'Product identity and current build.',
+    localStatus: 'Local-first',
   },
   th: {
     bodyTitle: 'บริบทและความเข้าใจ',
@@ -22,6 +23,7 @@ const COPY = {
     privacyNote: 'เก็บในอุปกรณ์เป็นหลัก และคุณเป็นผู้ควบคุม',
     aboutTitle: 'เกี่ยวกับ Auren',
     aboutNote: 'ตัวตนของผลิตภัณฑ์และ Build ปัจจุบัน',
+    localStatus: 'Local-first',
   },
 };
 
@@ -35,7 +37,7 @@ function installStylesheet() {
   link.id = STYLE_ID;
   link.rel = 'stylesheet';
   link.href = STYLE_HREF;
-  link.dataset.aurenYou = 'build-30';
+  link.dataset.aurenYou = 'build-32';
   document.head.appendChild(link);
 }
 
@@ -68,12 +70,73 @@ function syncPrivacySummary(screen) {
   privacyAnchor?.classList.toggle('you-privacy-summary-redundant', hasControls);
 }
 
+function simplifyBuildLabel() {
+  const buildText = document.getElementById('buildText');
+  if (!buildText) return;
+  const match = String(buildText.textContent || '').match(/\bBuild\s+\d+\b/i);
+  if (!match) return;
+  const number = match[0].match(/\d+/)?.[0];
+  if (number) buildText.textContent = `Build ${number}`;
+}
+
+function openAboutAuren() {
+  if (window.AurenLegalCenter?.open) {
+    window.AurenLegalCenter.open('about');
+    return;
+  }
+  // Fail open to the complete Legal Center if its public API is unavailable.
+  document.getElementById('legalCenterBtn')?.click();
+}
+
+function installSettingSemantics(motion, noAccount, about) {
+  if (motion) {
+    motion.classList.add('you-status-row', 'you-motion-status');
+    motion.querySelector('.end')?.classList.add('you-status-pill');
+  }
+
+  if (noAccount) {
+    noAccount.classList.add('you-status-row', 'you-account-status');
+    let status = noAccount.querySelector('[data-you-local-status]');
+    if (!status) {
+      status = document.createElement('div');
+      status.className = 'end you-status-pill';
+      status.dataset.youLocalStatus = 'true';
+      status.dataset.youCopy = 'localStatus';
+      noAccount.appendChild(status);
+    }
+  }
+
+  if (about) {
+    about.classList.add('you-about-action');
+    about.setAttribute('role', 'button');
+    about.tabIndex = 0;
+
+    if (about.dataset.youAboutBound !== 'true') {
+      about.dataset.youAboutBound = 'true';
+      about.addEventListener('click', openAboutAuren);
+      about.addEventListener('keydown', (event) => {
+        if (event.key !== 'Enter' && event.key !== ' ') return;
+        event.preventDefault();
+        openAboutAuren();
+      });
+    }
+  }
+}
+
+function syncAboutLabel() {
+  const about = document.getElementById('aboutTitle')?.closest('.you-about-action');
+  const title = document.getElementById('aboutTitle')?.textContent?.trim();
+  if (about && title) about.setAttribute('aria-label', title);
+}
+
 function applyCopy(screen) {
   const c = COPY[locale()];
   screen.querySelectorAll('[data-you-copy]').forEach((node) => {
     const value = c[node.dataset.youCopy];
     if (value) node.textContent = value;
   });
+  simplifyBuildLabel();
+  syncAboutLabel();
 }
 
 function installStructure() {
@@ -81,7 +144,7 @@ function installStructure() {
   const list = screen?.querySelector('.settings-list');
   if (!screen || !list) return false;
 
-  if (screen.dataset.youPolished === '30') {
+  if (screen.dataset.youPolished === '32') {
     applyCopy(screen);
     return true;
   }
@@ -104,6 +167,8 @@ function installStructure() {
   // Keep the static row only as a fail-open fallback if that action is unavailable.
   if (privacyAnchor && dataControls) privacyAnchor.classList.add('you-privacy-summary-redundant');
 
+  installSettingSemantics(motion, noAccount, about);
+
   const groups = [
     createGroup('body', [bodyProfile, howWorks]),
     createGroup('preferences', [language, appearance, themeGrid, motion]),
@@ -112,7 +177,7 @@ function installStructure() {
   ];
 
   list.replaceChildren(...groups);
-  screen.dataset.youPolished = '30';
+  screen.dataset.youPolished = '32';
   screen.classList.add('you-polished');
   applyCopy(screen);
   syncPrivacySummary(screen);
@@ -136,7 +201,7 @@ function init() {
 
   const observer = new MutationObserver(() => {
     const screen = document.querySelector(SCREEN_SELECTOR);
-    if (screen?.dataset.youPolished === '30') applyCopy(screen);
+    if (screen?.dataset.youPolished === '32') applyCopy(screen);
   });
   observer.observe(document.documentElement, { attributes: true, attributeFilter: ['lang'] });
 }

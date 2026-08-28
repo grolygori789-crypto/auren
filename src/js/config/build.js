@@ -1,12 +1,12 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 31;
+export const BUILD_NUMBER = 32;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 31 adds the Legal & Trust Foundation.
-// Legal UI is isolated, imported only after window load, and waits for the accepted
-// Signature Opening to finish before presenting first-version acknowledgement.
+// Build 32 is a surgical Settings + Legal UX correction on the Build 31 foundation.
+// It fixes only You/About affordances, informational-setting clarity, Legal topbar
+// alignment and the user-facing Build label. Legal Version remains 1.0.0.
 // Startup, Signature Opening, Core, Today, Daily Check-in, Body Intelligence,
 // Rhythm, Signals, Archive, health data model and schema remain unchanged.
 if (typeof document !== 'undefined') {

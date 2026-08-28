@@ -1,4 +1,4 @@
-// Auren runtime Build 31 — Legal & Trust Foundation.
+// Auren runtime Build 32 — Settings + Legal UX correction.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

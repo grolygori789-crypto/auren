@@ -19,7 +19,9 @@ body.auren-legal-open{overflow:hidden}
   background:color-mix(in srgb,var(--card-hi) 70%,transparent);
   backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)
 }
-.auren-legal-brand{text-align:center;min-width:0}
+.auren-legal-brand{grid-column:2;text-align:center;min-width:0}
+.auren-legal-back{grid-column:1;justify-self:start}
+.auren-legal-close{grid-column:3;justify-self:end}
 .auren-legal-brand strong{display:block;font-size:11px;letter-spacing:.27em;margin-left:.27em;font-weight:540}
 .auren-legal-brand small{display:block;margin-top:3px;font-size:7.5px;letter-spacing:.16em;color:var(--faint)}
 .auren-legal-back,.auren-legal-close{
@@ -27,7 +29,7 @@ body.auren-legal-open{overflow:hidden}
   background:color-mix(in srgb,var(--card) 75%,transparent);cursor:pointer;
   display:grid;place-items:center;font-size:23px;font-weight:260;color:var(--muted)
 }
-.auren-legal-back[hidden],.auren-legal-close[hidden]{visibility:hidden;pointer-events:none}
+.auren-legal-back[hidden],.auren-legal-close[hidden]{display:grid!important;visibility:hidden;pointer-events:none}
 .auren-legal-scroll{min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 .auren-legal-content{width:min(560px,100%);margin:0 auto;padding:28px 18px calc(40px + env(safe-area-inset-bottom))}
 .auren-legal-eyebrow{display:block;font-size:9px;letter-spacing:.19em;text-transform:uppercase;color:var(--faint)}
