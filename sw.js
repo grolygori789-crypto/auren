@@ -1,4 +1,4 @@
-// Auren runtime Build 37 — Help, Feedback & Support.
+// Auren runtime Build 38 — emergency Auren shell recovery.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

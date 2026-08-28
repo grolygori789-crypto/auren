@@ -1,13 +1,13 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 37;
+export const BUILD_NUMBER = 38;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 37 adds Help, Feedback & Support as an isolated You-surface capability.
-// It reuses approved Benedict Interactive contact/support routes without introducing
-// accounts, analytics, health-data upload or payment state. Legal Version remains 1.0.0.
-// Opening, Core, Today, health logic, data stores and schema remain unchanged.
+// Build 38 is an emergency shell recovery after an accidental cross-project upload.
+// It restores the physically accepted Auren index/manifest while preserving Build 37
+// Help, Feedback & Support. The cache identity is bumped to evict the contaminated shell.
+// Legal Version remains 1.0.0. Health logic, data stores and schema remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});

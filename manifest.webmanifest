@@ -1,39 +1,16 @@
 {
-  "id": "./",
-  "name": "Little Ganesha Tarot — The Golden Path",
-  "short_name": "Little Ganesha",
-  "description": "A premium, reflective tarot experience guided by Little Ganesha.",
-  "lang": "en",
-  "dir": "ltr",
+  "name": "Auren",
+  "short_name": "Auren",
+  "description": "Personal Health Intelligence — Your body, understood.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
+  "background_color": "#f3e6da",
+  "theme_color": "#f3e6da",
   "orientation": "portrait-primary",
-  "background_color": "#071d1e",
-  "theme_color": "#0c2b2c",
-  "prefer_related_applications": false,
-  "categories": [
-    "lifestyle",
-    "entertainment"
-  ],
   "icons": [
-    {
-      "src": "assets/icons/icon-192x192.png?v=0.16.0",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/icons/icon-512x512.png?v=0.16.0",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "assets/icons/icon-maskable-512x512.png?v=0.16.0",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "maskable"
-    }
+    { "src": "./assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "./assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "./assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ]
 }
