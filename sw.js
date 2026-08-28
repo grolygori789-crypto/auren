@@ -1,4 +1,4 @@
-// Auren runtime Build 45 — Auren Life Force Core.
+// Auren runtime Build 46 — Life Force visibility calibration.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [

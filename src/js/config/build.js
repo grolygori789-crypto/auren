@@ -1,13 +1,13 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 45;
+export const BUILD_NUMBER = 46;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 45 replaces the liquid Core material with Auren Life Force:
-// slow golden luminous mist with pearl softness and a restrained mineral-aqua
-// undertone. Opening and Today share the same Canvas2D renderer while keeping the
-// accepted launch handoff and all health/data logic unchanged. Legal Version
+// Build 46 calibrates Auren Life Force after physical-device review showed the
+// Build 45 mist and glass shell were too faint on Pearl Dawn. It strengthens the
+// golden mist's actual color density and restores thin but readable glass optics
+// without changing motion, launch handoff, health logic or data. Legal Version
 // remains 1.0.0. Data schema remains 4.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});

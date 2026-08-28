@@ -1,16 +1,16 @@
 const CLOUDS = Object.freeze([
-  { type:'gold',  phase:0.25, speed:0.182, ox:0.160, oy:0.105, radius:0.245, alpha:0.170, warp:0.71 },
-  { type:'gold',  phase:1.70, speed:0.131, ox:0.130, oy:0.170, radius:0.210, alpha:0.145, warp:0.47 },
-  { type:'gold',  phase:3.05, speed:0.096, ox:0.205, oy:0.090, radius:0.225, alpha:0.125, warp:0.63 },
-  { type:'gold',  phase:4.45, speed:0.073, ox:0.105, oy:0.190, radius:0.260, alpha:0.115, warp:0.39 },
-  { type:'gold',  phase:5.55, speed:0.157, ox:0.180, oy:0.130, radius:0.195, alpha:0.135, warp:0.82 },
-  { type:'gold',  phase:2.30, speed:0.061, ox:0.090, oy:0.110, radius:0.310, alpha:0.090, warp:0.56 },
-  { type:'pearl', phase:0.90, speed:0.111, ox:0.125, oy:0.155, radius:0.270, alpha:0.120, warp:0.52 },
-  { type:'pearl', phase:3.80, speed:0.084, ox:0.170, oy:0.105, radius:0.225, alpha:0.105, warp:0.76 },
-  { type:'pearl', phase:5.10, speed:0.052, ox:0.095, oy:0.185, radius:0.300, alpha:0.075, warp:0.44 },
-  { type:'aqua',  phase:2.65, speed:0.089, ox:0.180, oy:0.120, radius:0.215, alpha:0.060, warp:0.67 },
-  { type:'aqua',  phase:4.95, speed:0.057, ox:0.115, oy:0.170, radius:0.255, alpha:0.045, warp:0.35 },
-  { type:'gold',  phase:6.05, speed:0.119, ox:0.155, oy:0.145, radius:0.180, alpha:0.105, warp:0.91 }
+  { type:'gold',  phase:0.25, speed:0.182, ox:0.160, oy:0.105, radius:0.255, alpha:0.390, warp:0.71 },
+  { type:'gold',  phase:1.70, speed:0.131, ox:0.130, oy:0.170, radius:0.220, alpha:0.330, warp:0.47 },
+  { type:'gold',  phase:3.05, speed:0.096, ox:0.195, oy:0.090, radius:0.235, alpha:0.300, warp:0.63 },
+  { type:'gold',  phase:4.45, speed:0.073, ox:0.105, oy:0.175, radius:0.275, alpha:0.270, warp:0.39 },
+  { type:'gold',  phase:5.55, speed:0.157, ox:0.170, oy:0.125, radius:0.205, alpha:0.315, warp:0.82 },
+  { type:'gold',  phase:2.30, speed:0.061, ox:0.090, oy:0.110, radius:0.320, alpha:0.220, warp:0.56 },
+  { type:'pearl', phase:0.90, speed:0.111, ox:0.125, oy:0.155, radius:0.270, alpha:0.155, warp:0.52 },
+  { type:'pearl', phase:3.80, speed:0.084, ox:0.170, oy:0.105, radius:0.225, alpha:0.135, warp:0.76 },
+  { type:'pearl', phase:5.10, speed:0.052, ox:0.095, oy:0.185, radius:0.300, alpha:0.095, warp:0.44 },
+  { type:'aqua',  phase:2.65, speed:0.089, ox:0.180, oy:0.120, radius:0.215, alpha:0.052, warp:0.67 },
+  { type:'aqua',  phase:4.95, speed:0.057, ox:0.115, oy:0.170, radius:0.255, alpha:0.036, warp:0.35 },
+  { type:'gold',  phase:6.05, speed:0.119, ox:0.150, oy:0.140, radius:0.195, alpha:0.275, warp:0.91 }
 ]);
 
 const clamp = (value, min = 0, max = 1) => Math.max(min, Math.min(max, value));
@@ -87,6 +87,15 @@ export class AurenOrb {
       a[0] * (1 - t) + b[0] * t,
       a[1] * (1 - t) + b[1] * t,
       a[2] * (1 - t) + b[2] * t
+    ];
+  }
+
+  shade(rgb, factor = 1) {
+    const f = Math.max(0, factor);
+    return [
+      Math.max(0, Math.min(255, rgb[0] * f)),
+      Math.max(0, Math.min(255, rgb[1] * f)),
+      Math.max(0, Math.min(255, rgb[2] * f))
     ];
   }
 
@@ -197,8 +206,8 @@ export class AurenOrb {
       return this.mix(pearl, gold, 0.13 + Math.max(0, this.stateWarm) * 0.20);
     }
 
-    const warm = clamp(0.10 + Math.max(0, this.stateWarm) * 0.55, 0.08, 0.18);
-    return this.mix(gold, pearl, warm);
+    const warm = clamp(0.035 + Math.max(0, this.stateWarm) * 0.20, 0.025, 0.070);
+    return this.mix(this.shade(gold, 0.94), pearl, warm);
   }
 
   drawCloud(ctx, cloud, index, breath, reaction) {
@@ -230,7 +239,7 @@ export class AurenOrb {
     if (this.signature) alpha *= 1.09;
 
     const color = this.cloudColor(cloud.type);
-    const inner = this.mix(color, this.palette.pearl, cloud.type === 'gold' ? 0.08 : 0.18);
+    const inner = this.mix(color, this.palette.pearl, cloud.type === 'gold' ? 0.025 : 0.14);
 
     const gradient = ctx.createRadialGradient(
       x - radius * 0.12,
@@ -242,8 +251,8 @@ export class AurenOrb {
     );
 
     gradient.addColorStop(0, this.rgba(inner, alpha));
-    gradient.addColorStop(0.32, this.rgba(color, alpha * 0.72));
-    gradient.addColorStop(0.68, this.rgba(color, alpha * 0.24));
+    gradient.addColorStop(0.34, this.rgba(color, alpha * 0.82));
+    gradient.addColorStop(0.70, this.rgba(color, alpha * 0.31));
     gradient.addColorStop(1, this.rgba(color, 0));
 
     ctx.fillStyle = gradient;
@@ -265,22 +274,22 @@ export class AurenOrb {
 
     const color = aqua
       ? this.mix(aquaTone, pearl, 0.14)
-      : this.mix(gold, pearl, 0.10 + Math.max(0, this.stateWarm) * 0.30);
+      : this.mix(this.shade(gold, 0.93), pearl, 0.035 + Math.max(0, this.stateWarm) * 0.12);
 
     let alpha = aqua
-      ? (0.038 + Math.max(0, this.stateAqua) * 0.17)
-      : (0.070 + Math.max(0, this.stateWarm) * 0.10);
+      ? (0.032 + Math.max(0, this.stateAqua) * 0.11)
+      : (0.135 + Math.max(0, this.stateWarm) * 0.08);
 
     alpha *= (0.88 + breath * 0.14) * this.stateLight * (1 + reaction * 0.22);
 
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = 'source-over';
     ctx.lineCap = 'round';
     ctx.lineJoin = 'round';
     ctx.strokeStyle = this.rgba(color, alpha);
-    ctx.lineWidth = this.S * (aqua ? 0.052 : 0.070);
+    ctx.lineWidth = this.S * (aqua ? 0.046 : 0.078);
     ctx.shadowColor = this.rgba(color, alpha * 0.92);
-    ctx.shadowBlur = this.lowPower ? 7 : 13;
+    ctx.shadowBlur = this.lowPower ? 5 : 9;
 
     ctx.beginPath();
     ctx.moveTo(x0, y0);
@@ -315,14 +324,15 @@ export class AurenOrb {
       S * 0.44, S * 0.38, S * 0.02,
       c, c, S * 0.47
     );
-    base.addColorStop(0, this.rgba(this.mix(this.palette.pearl, this.palette.gold, 0.16), 0.090 * this.stateLight));
-    base.addColorStop(0.42, this.rgba(this.palette.gold, 0.028 * this.stateLight));
-    base.addColorStop(0.72, this.rgba(this.palette.aqua, 0.012 + Math.max(0, this.stateAqua) * 0.035));
+    const denseGold = this.shade(this.palette.gold, 0.91);
+    base.addColorStop(0, this.rgba(denseGold, 0.245 * this.stateLight));
+    base.addColorStop(0.38, this.rgba(this.palette.gold, 0.135 * this.stateLight));
+    base.addColorStop(0.70, this.rgba(this.palette.aqua, 0.018 + Math.max(0, this.stateAqua) * 0.028));
     base.addColorStop(1, this.rgba(this.palette.pearl, 0));
     ctx.fillStyle = base;
     ctx.fillRect(0, 0, S, S);
 
-    ctx.globalCompositeOperation = 'lighter';
+    ctx.globalCompositeOperation = 'source-over';
 
     const cloudLimit = this.lowPower ? 8 : CLOUDS.length;
     for (let i = 0; i < cloudLimit; i += 1) {
@@ -335,13 +345,13 @@ export class AurenOrb {
       this.drawVeil(ctx, 2, breath, reaction, true);
     }
 
-    const coreAlpha = (0.080 + breath * 0.035 + reaction * 0.055) * this.stateLight;
+    const coreAlpha = (0.205 + breath * 0.060 + reaction * 0.070) * this.stateLight;
     const core = ctx.createRadialGradient(
       S * 0.46, S * 0.45, 0,
       S * 0.49, S * 0.51, S * 0.27
     );
-    core.addColorStop(0, this.rgba(this.mix(this.palette.pearl, this.palette.gold, 0.32), coreAlpha));
-    core.addColorStop(0.42, this.rgba(this.palette.gold, coreAlpha * 0.38));
+    core.addColorStop(0, this.rgba(this.mix(this.shade(this.palette.gold, 0.90), this.palette.pearl, 0.08), coreAlpha));
+    core.addColorStop(0.44, this.rgba(this.palette.gold, coreAlpha * 0.56));
     core.addColorStop(1, this.rgba(this.palette.gold, 0));
     ctx.fillStyle = core;
     ctx.fillRect(0, 0, S, S);
@@ -357,8 +367,8 @@ export class AurenOrb {
     ctx.translate(c, c + R * 0.93);
     ctx.scale(1, 0.17);
     const contact = ctx.createRadialGradient(0, 0, 0, 0, 0, R * 0.73);
-    contact.addColorStop(0, this.rgba(shadow, 0.19));
-    contact.addColorStop(0.52, this.rgba(shadow, 0.075));
+    contact.addColorStop(0, this.rgba(shadow, 0.27));
+    contact.addColorStop(0.52, this.rgba(shadow, 0.115));
     contact.addColorStop(1, this.rgba(shadow, 0));
     ctx.fillStyle = contact;
     ctx.beginPath();
@@ -376,38 +386,38 @@ export class AurenOrb {
       c - R * 0.34, c - R * 0.38, R * 0.035,
       c, c, R * 1.03
     );
-    glass.addColorStop(0, 'rgba(255,255,255,.62)');
-    glass.addColorStop(0.30, 'rgba(255,255,255,.17)');
-    glass.addColorStop(0.69, 'rgba(255,252,247,.055)');
-    glass.addColorStop(0.88, this.rgba(this.mix(gold, pearl, 0.52), 0.035));
-    glass.addColorStop(1, this.rgba(this.mix(aqua, pearl, 0.72), 0.040));
+    glass.addColorStop(0, 'rgba(255,255,255,.52)');
+    glass.addColorStop(0.28, 'rgba(255,255,255,.125)');
+    glass.addColorStop(0.67, 'rgba(255,252,247,.028)');
+    glass.addColorStop(0.88, this.rgba(this.mix(gold, pearl, 0.46), 0.052));
+    glass.addColorStop(1, this.rgba(this.mix(aqua, pearl, 0.66), 0.060));
     ctx.fillStyle = glass;
     ctx.fillRect(c - R, c - R, R * 2, R * 2);
 
     const lowerRefraction = ctx.createLinearGradient(c, c - R * 0.20, c, c + R);
     lowerRefraction.addColorStop(0, 'rgba(255,255,255,0)');
-    lowerRefraction.addColorStop(0.64, this.rgba(gold, 0.018));
-    lowerRefraction.addColorStop(1, this.rgba(rim, 0.050));
+    lowerRefraction.addColorStop(0.62, this.rgba(gold, 0.032));
+    lowerRefraction.addColorStop(1, this.rgba(rim, 0.095));
     ctx.fillStyle = lowerRefraction;
     ctx.fillRect(c - R, c - R, R * 2, R * 2);
 
     ctx.restore();
 
     const ring = ctx.createLinearGradient(c - R, c - R, c + R, c + R);
-    ring.addColorStop(0, this.rgba(rim, 0.15));
-    ring.addColorStop(0.17, 'rgba(255,255,255,.56)');
-    ring.addColorStop(0.46, this.rgba(rim, 0.045));
-    ring.addColorStop(0.73, 'rgba(255,255,255,.50)');
-    ring.addColorStop(1, this.rgba(rim, 0.13));
+    ring.addColorStop(0, this.rgba(rim, 0.28));
+    ring.addColorStop(0.17, 'rgba(255,255,255,.74)');
+    ring.addColorStop(0.46, this.rgba(rim, 0.095));
+    ring.addColorStop(0.73, 'rgba(255,255,255,.62)');
+    ring.addColorStop(1, this.rgba(rim, 0.25));
 
     ctx.strokeStyle = ring;
-    ctx.lineWidth = Math.max(0.75, this.W * 0.00225);
+    ctx.lineWidth = Math.max(1.05, this.W * 0.00305);
     ctx.beginPath();
     ctx.arc(c, c, R, 0, Math.PI * 2);
     ctx.stroke();
 
-    ctx.strokeStyle = 'rgba(255,255,255,.25)';
-    ctx.lineWidth = Math.max(0.65, this.W * 0.00125);
+    ctx.strokeStyle = 'rgba(255,255,255,.38)';
+    ctx.lineWidth = Math.max(0.78, this.W * 0.00165);
     ctx.beginPath();
     ctx.arc(c, c, R * 0.975, 0, Math.PI * 2);
     ctx.stroke();
@@ -459,7 +469,7 @@ export class AurenOrb {
       : (1 + Math.sin(this.breathPhase * 0.82 + 0.28) * 0.008);
 
     const size = inner * 2 * breathScale;
-    ctx.globalAlpha = this.signature ? 0.99 : 0.95;
+    ctx.globalAlpha = 1;
     ctx.drawImage(this.off, c - size / 2, c - size / 2, size, size);
 
     // A tiny mineral-aqua undertone should be perceived, not announced.
@@ -467,11 +477,18 @@ export class AurenOrb {
       c + R * 0.22, c + R * 0.16, 0,
       c + R * 0.18, c + R * 0.16, R * 0.72
     );
-    const aquaAlpha = clamp(0.018 + Math.max(0, this.stateAqua) * 0.20, 0.012, 0.038);
+    const aquaAlpha = clamp(0.020 + Math.max(0, this.stateAqua) * 0.14, 0.016, 0.034);
     aquaVeil.addColorStop(0, this.rgba(this.palette.aqua, aquaAlpha));
     aquaVeil.addColorStop(0.62, this.rgba(this.palette.aqua, aquaAlpha * 0.32));
     aquaVeil.addColorStop(1, this.rgba(this.palette.aqua, 0));
     ctx.fillStyle = aquaVeil;
+    ctx.fillRect(c - R, c - R, R * 2, R * 2);
+
+    const edgeDepth = ctx.createRadialGradient(c, c, R * 0.48, c, c, R * 0.915);
+    edgeDepth.addColorStop(0, 'rgba(255,255,255,0)');
+    edgeDepth.addColorStop(0.76, this.rgba(this.palette.rim, 0.014));
+    edgeDepth.addColorStop(1, this.rgba(this.palette.rim, 0.065));
+    ctx.fillStyle = edgeDepth;
     ctx.fillRect(c - R, c - R, R * 2, R * 2);
 
     // Check-in/profile reaction becomes a brief internal bloom, never a slosh.
@@ -489,12 +506,12 @@ export class AurenOrb {
 
     // Re-assert a very thin optical rim over the internal material.
     const rim = ctx.createLinearGradient(c - R, c - R, c + R, c + R);
-    rim.addColorStop(0, this.rgba(this.palette.rim, 0.115));
-    rim.addColorStop(0.22, 'rgba(255,255,255,.43)');
-    rim.addColorStop(0.61, 'rgba(255,255,255,.15)');
-    rim.addColorStop(1, this.rgba(this.palette.rim, 0.10));
+    rim.addColorStop(0, this.rgba(this.palette.rim, 0.235));
+    rim.addColorStop(0.22, 'rgba(255,255,255,.64)');
+    rim.addColorStop(0.61, 'rgba(255,255,255,.24)');
+    rim.addColorStop(1, this.rgba(this.palette.rim, 0.205));
     ctx.strokeStyle = rim;
-    ctx.lineWidth = Math.max(0.72, s * 0.00185);
+    ctx.lineWidth = Math.max(0.92, s * 0.00245);
     ctx.beginPath();
     ctx.arc(c, c, R * 0.994, 0, Math.PI * 2);
     ctx.stroke();
