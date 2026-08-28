@@ -1,4 +1,4 @@
-// Auren runtime Build 36 — Body Context final micro-polish.
+// Auren runtime Build 37 — Help, Feedback & Support.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -20,6 +20,7 @@ const APP_SHELL = [
   './src/css/body-context-polish.css',
   './src/css/archive-polish.css',
   './src/css/you-polish.css',
+  './src/css/help-support.css',
   './src/css/legal.css',
   './src/js/app.js',
   './src/js/config/build.js',
@@ -36,6 +37,7 @@ const APP_SHELL = [
   './src/js/today/body-context-polish.js',
   './src/js/archive/archive-polish.js',
   './src/js/you/you-polish.js',
+  './src/js/you/help-support.js',
   './src/js/legal/legal-center.js',
   './src/js/intelligence/body.js',
   './src/js/i18n/en.js',

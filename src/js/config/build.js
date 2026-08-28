@@ -1,12 +1,13 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 36;
+export const BUILD_NUMBER = 37;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 36 finalizes the Body Context presentation and hardens its polish layer.
-// It applies optical alignment + tighter vertical rhythm and makes DOM annotation
-// idempotent. Legal Version remains 1.0.0. Health logic, units and schema are unchanged.
+// Build 37 adds Help, Feedback & Support as an isolated You-surface capability.
+// It reuses approved Benedict Interactive contact/support routes without introducing
+// accounts, analytics, health-data upload or payment state. Legal Version remains 1.0.0.
+// Opening, Core, Today, health logic, data stores and schema remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});
@@ -38,6 +39,16 @@ if (typeof document !== 'undefined') {
     return youPromise;
   };
 
+  let helpSupportPromise = null;
+  const loadHelpSupport = () => {
+    if (helpSupportPromise) return helpSupportPromise;
+    helpSupportPromise = import('../you/help-support.js').catch((error) => {
+      helpSupportPromise = null;
+      console.error('Auren Help & Support unavailable', error);
+    });
+    return helpSupportPromise;
+  };
+
   let legalPromise = null;
   const loadLegalCenter = () => {
     if (legalPromise) return legalPromise;
@@ -54,6 +65,9 @@ if (typeof document !== 'undefined') {
 
   document.addEventListener('click', (event) => {
     if (event.target?.closest?.('[data-nav="archive"]')) queueMicrotask(loadArchivePolish);
-    if (event.target?.closest?.('[data-nav="you"], #profileBtn')) queueMicrotask(loadYouPolish);
+    if (event.target?.closest?.('[data-nav="you"], #profileBtn')) {
+      queueMicrotask(loadYouPolish);
+      queueMicrotask(loadHelpSupport);
+    }
   }, true);
 }

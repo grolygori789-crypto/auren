@@ -1,0 +1,701 @@
+/* Auren Build 37 — Help, Feedback & Support
+   Quiet, voluntary and isolated from health intelligence. */
+
+.you-contact-group .you-contact-action{
+  cursor:pointer;
+  outline:none;
+}
+
+.you-contact-group .you-contact-action:focus-visible{
+  box-shadow:inset 0 0 0 2px color-mix(in srgb,var(--gold-deep) 27%,transparent);
+}
+
+.you-contact-copy{
+  min-width:0;
+}
+
+.you-contact-end{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:0!important;
+}
+
+.you-contact-provider{
+  display:inline-flex;
+  align-items:center;
+  min-height:22px;
+  margin:0!important;
+  padding:0 7px;
+  border:1px solid color-mix(in srgb,var(--line) 74%,transparent);
+  border-radius:999px;
+  background:color-mix(in srgb,var(--card-hi) 58%,transparent);
+  color:var(--faint);
+  font-size:7.5px;
+  line-height:1;
+  letter-spacing:.075em;
+}
+
+.you-contact-chevron{
+  margin:0!important;
+  color:var(--faint);
+  font-size:19px;
+  line-height:1;
+}
+
+.you-contact-icon svg{
+  width:18px;
+  height:18px;
+  fill:none;
+  stroke:color-mix(in srgb,var(--muted) 86%,var(--gold-deep));
+  stroke-width:1.45;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+
+.you-group-support .you-group-surface{
+  border-color:color-mix(in srgb,var(--gold-deep) 18%,var(--line));
+  background:
+    radial-gradient(circle at 94% 0%,color-mix(in srgb,var(--gold) 8%,transparent),transparent 35%),
+    linear-gradient(145deg,color-mix(in srgb,var(--card-hi) 91%,transparent),color-mix(in srgb,var(--card) 79%,transparent));
+}
+
+.you-group-support .you-support-route .soft-icon{
+  background:
+    radial-gradient(circle at 35% 28%,rgba(255,255,255,.95),color-mix(in srgb,var(--gold) 17%,white));
+  border-color:color-mix(in srgb,var(--gold-deep) 18%,var(--line));
+}
+
+body.auren-help-open{
+  overflow:hidden;
+}
+
+.auren-help-layer[hidden]{
+  display:none!important;
+}
+
+.auren-help-layer{
+  position:fixed;
+  inset:0;
+  z-index:88;
+  display:grid;
+  grid-template-rows:auto minmax(0,1fr);
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at 12% 7%,var(--ambient-a) 0%,transparent 32%),
+    radial-gradient(ellipse at 88% 14%,var(--ambient-c) 0%,transparent 39%),
+    radial-gradient(ellipse at 82% 91%,var(--ambient-b) 0%,transparent 36%),
+    linear-gradient(158deg,var(--bg-0),var(--bg-1) 54%,var(--bg-2));
+  opacity:0;
+  transform:translateY(7px);
+  transition:opacity .2s ease,transform .2s cubic-bezier(.2,.72,.2,1);
+}
+
+.auren-help-layer.is-visible{
+  opacity:1;
+  transform:none;
+}
+
+.auren-help-topbar{
+  position:relative;
+  min-height:64px;
+  padding:max(12px,env(safe-area-inset-top)) max(16px,calc(16px + env(safe-area-inset-right))) 8px max(16px,calc(16px + env(safe-area-inset-left)));
+  display:grid;
+  place-items:center;
+  border-bottom:1px solid color-mix(in srgb,var(--line) 72%,transparent);
+  background:color-mix(in srgb,var(--card-hi) 70%,transparent);
+  backdrop-filter:blur(18px);
+  -webkit-backdrop-filter:blur(18px);
+}
+
+.auren-help-brand{
+  text-align:center;
+  min-width:0;
+}
+
+.auren-help-brand strong{
+  display:block;
+  margin-left:.27em;
+  font-size:11px;
+  font-weight:540;
+  letter-spacing:.27em;
+}
+
+.auren-help-brand small{
+  display:block;
+  margin-top:3px;
+  color:var(--faint);
+  font-size:7.5px;
+  letter-spacing:.16em;
+}
+
+.auren-help-close{
+  position:absolute;
+  right:max(16px,calc(16px + env(safe-area-inset-right)));
+  top:max(12px,env(safe-area-inset-top));
+  width:40px;
+  height:40px;
+  border:1px solid var(--line);
+  border-radius:50%;
+  background:color-mix(in srgb,var(--card) 76%,transparent);
+  color:var(--muted);
+  display:grid;
+  place-items:center;
+  font-size:23px;
+  font-weight:260;
+  cursor:pointer;
+}
+
+.auren-help-scroll{
+  min-height:0;
+  overflow:auto;
+  overscroll-behavior:contain;
+  -webkit-overflow-scrolling:touch;
+}
+
+.auren-help-content{
+  width:min(560px,100%);
+  margin:0 auto;
+  padding:30px 18px calc(42px + env(safe-area-inset-bottom));
+}
+
+.auren-help-hero{
+  padding:3px 3px 16px;
+}
+
+.auren-help-eyebrow{
+  display:block;
+  color:var(--faint);
+  font-size:9px;
+  line-height:1;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.auren-help-hero h1{
+  margin:8px 0 0;
+  font:400 clamp(29px,8vw,38px)/1.12 var(--font-display);
+  letter-spacing:-.026em;
+}
+
+.auren-help-hero p{
+  max-width:500px;
+  margin:10px 0 0;
+  color:var(--muted);
+  font-size:12.5px;
+  line-height:1.72;
+  text-wrap:pretty;
+}
+
+.auren-help-panel{
+  border:1px solid color-mix(in srgb,var(--line) 88%,transparent);
+  border-radius:26px;
+  padding:19px;
+  background:
+    linear-gradient(145deg,color-mix(in srgb,var(--card-hi) 91%,transparent),color-mix(in srgb,var(--card) 80%,transparent));
+  box-shadow:0 16px 42px rgba(74,56,39,.055),inset 0 1px 0 rgba(255,255,255,.49);
+}
+
+.auren-help-field{
+  display:grid;
+  gap:8px;
+}
+
+.auren-help-field>span,
+.auren-provider-label{
+  color:var(--faint);
+  font-size:8px;
+  line-height:1;
+  letter-spacing:.17em;
+  text-transform:uppercase;
+}
+
+.auren-help-field textarea{
+  width:100%;
+  min-height:154px;
+  resize:vertical;
+  border:1px solid color-mix(in srgb,var(--line) 92%,transparent);
+  border-radius:18px;
+  padding:14px 15px;
+  outline:none;
+  color:var(--ink);
+  background:color-mix(in srgb,var(--card-hi) 67%,transparent);
+  font:400 12.5px/1.62 var(--font-ui);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.42);
+}
+
+.auren-help-field textarea:focus{
+  border-color:color-mix(in srgb,var(--gold-deep) 35%,var(--line));
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 7%,transparent),inset 0 1px 0 rgba(255,255,255,.42);
+}
+
+.auren-help-field textarea::placeholder{
+  color:color-mix(in srgb,var(--faint) 78%,transparent);
+}
+
+.auren-help-safety,
+.auren-support-privacy,
+.auren-external-note{
+  display:grid;
+  grid-template-columns:22px minmax(0,1fr);
+  gap:9px;
+  margin-top:12px;
+  padding:11px 12px;
+  border-radius:15px;
+  background:color-mix(in srgb,var(--aqua) 6%,transparent);
+  color:var(--muted);
+}
+
+.auren-help-safety>span,
+.auren-support-privacy>span,
+.auren-external-note>span{
+  color:color-mix(in srgb,var(--gold-deep) 65%,var(--muted));
+  line-height:1.45;
+}
+
+.auren-help-safety p,
+.auren-support-privacy p,
+.auren-external-note p{
+  margin:0;
+  font-size:9.6px;
+  line-height:1.55;
+}
+
+.auren-help-diagnostic-toggle{
+  position:relative;
+  margin-top:15px;
+  min-height:54px;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 42px;
+  align-items:center;
+  gap:14px;
+  cursor:pointer;
+}
+
+.auren-help-diagnostic-toggle strong{
+  display:block;
+  font-size:11.4px;
+  font-weight:570;
+}
+
+.auren-help-diagnostic-toggle small{
+  display:block;
+  margin-top:4px;
+  color:var(--faint);
+  font-size:9px;
+  line-height:1.45;
+}
+
+.auren-help-diagnostic-toggle input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.auren-help-diagnostic-toggle i{
+  position:relative;
+  width:40px;
+  height:23px;
+  justify-self:end;
+  border-radius:999px;
+  border:1px solid color-mix(in srgb,var(--line) 86%,transparent);
+  background:color-mix(in srgb,var(--ink) 8%,transparent);
+  transition:background .18s ease,border-color .18s ease;
+}
+
+.auren-help-diagnostic-toggle i::after{
+  content:"";
+  position:absolute;
+  width:17px;
+  height:17px;
+  left:2px;
+  top:2px;
+  border-radius:50%;
+  background:var(--card-hi);
+  box-shadow:0 2px 7px rgba(70,53,37,.12);
+  transition:transform .18s ease;
+}
+
+.auren-help-diagnostic-toggle input:checked+i{
+  border-color:color-mix(in srgb,var(--gold-deep) 28%,var(--line));
+  background:color-mix(in srgb,var(--gold) 29%,var(--card));
+}
+
+.auren-help-diagnostic-toggle input:checked+i::after{
+  transform:translateX(17px);
+}
+
+.auren-help-diagnostic-toggle input:focus-visible+i{
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 10%,transparent);
+}
+
+.auren-help-diagnostics[hidden]{
+  display:none!important;
+}
+
+.auren-help-diagnostics{
+  margin-top:8px;
+  border:1px solid color-mix(in srgb,var(--line) 70%,transparent);
+  border-radius:15px;
+  padding:11px 12px 12px;
+  background:color-mix(in srgb,var(--card) 50%,transparent);
+}
+
+.auren-help-diagnostic-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+}
+
+.auren-help-diagnostic-head span{
+  color:var(--faint);
+  font-size:7.7px;
+  letter-spacing:.14em;
+}
+
+.auren-help-diagnostic-head button{
+  border:0;
+  padding:5px 0;
+  background:transparent;
+  color:var(--gold-deep);
+  font-size:9px;
+  cursor:pointer;
+}
+
+.auren-help-diagnostics pre{
+  margin:8px 0 0;
+  white-space:pre-wrap;
+  word-break:break-word;
+  color:var(--muted);
+  font:400 9.3px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+
+.auren-help-validation{
+  min-height:16px;
+  margin:8px 2px 0;
+  color:#9a5148;
+  font-size:9.5px;
+  line-height:1.4;
+}
+
+.auren-help-actions{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);
+  gap:9px;
+  margin-top:4px;
+}
+
+.auren-help-primary,
+.auren-help-secondary,
+.auren-help-back{
+  min-height:48px;
+  border-radius:999px;
+  cursor:pointer;
+  font-size:11.5px;
+}
+
+.auren-help-primary{
+  border:0;
+  color:#fffaf3;
+  background:
+    linear-gradient(135deg,color-mix(in srgb,var(--gold-deep) 86%,#b99a6e),color-mix(in srgb,var(--gold) 90%,white) 52%,var(--gold-deep));
+  box-shadow:0 11px 26px rgba(145,108,64,.16),inset 0 1px 0 rgba(255,255,255,.33);
+}
+
+.auren-help-primary:disabled{
+  opacity:.58;
+  cursor:wait;
+}
+
+.auren-help-secondary,
+.auren-help-back{
+  border:1px solid var(--line);
+  color:var(--ink);
+  background:color-mix(in srgb,var(--card-hi) 69%,transparent);
+}
+
+.auren-help-contact{
+  margin-top:13px;
+  padding:0 4px;
+  color:var(--muted);
+}
+
+.auren-help-contact strong{
+  display:block;
+  font-size:10.5px;
+}
+
+.auren-help-contact span{
+  display:block;
+  margin-top:3px;
+  color:var(--ink);
+  font-size:10.5px;
+}
+
+.auren-help-contact p{
+  margin:6px 0 0;
+  color:var(--faint);
+  font-size:8.8px;
+  line-height:1.5;
+}
+
+.auren-help-back{
+  width:100%;
+  margin-top:16px;
+}
+
+.auren-promptpay-panel{
+  text-align:center;
+}
+
+.auren-promptpay-panel .auren-provider-label{
+  display:block;
+  margin-bottom:13px;
+}
+
+.auren-qr-frame{
+  position:relative;
+  width:min(310px,88vw);
+  aspect-ratio:1;
+  margin:0 auto;
+  padding:16px;
+  display:grid;
+  place-items:center;
+  overflow:hidden;
+  border:1px solid color-mix(in srgb,var(--line) 76%,transparent);
+  border-radius:24px;
+  background:#fff;
+  box-shadow:0 16px 38px rgba(68,52,36,.07);
+}
+
+.auren-qr-frame img{
+  position:relative;
+  z-index:2;
+  display:block;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  opacity:0;
+  transition:opacity .18s ease;
+}
+
+.auren-qr-frame.is-loaded img{
+  opacity:1;
+}
+
+.auren-qr-loading{
+  position:absolute;
+  z-index:1;
+  max-width:180px;
+  color:#7c746a;
+  font-size:10px;
+  line-height:1.5;
+}
+
+.auren-qr-frame.is-loaded .auren-qr-loading{
+  display:none;
+}
+
+.auren-qr-frame.is-error img{
+  display:none;
+}
+
+.auren-recipient-block{
+  margin:14px auto 0;
+  text-align:center;
+}
+
+.auren-recipient-block>span{
+  display:block;
+  color:var(--faint);
+  font-size:7.8px;
+  line-height:1;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+.auren-recipient-block strong{
+  display:block;
+  margin-top:7px;
+  color:var(--ink);
+  font-size:11.8px;
+  font-weight:570;
+}
+
+.auren-recipient-block small{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:9px;
+  line-height:1.4;
+}
+
+.auren-support-verify{
+  max-width:410px;
+  margin:15px auto 0;
+  color:var(--ink);
+  font-size:10.5px;
+  line-height:1.58;
+  font-weight:520;
+}
+
+.auren-support-hint{
+  max-width:420px;
+  margin:7px auto 15px;
+  color:var(--faint);
+  font-size:9px;
+  line-height:1.55;
+}
+
+.auren-promptpay-panel .auren-help-primary{
+  width:100%;
+}
+
+.auren-kofi-panel{
+  text-align:center;
+}
+
+.auren-provider-orb{
+  width:58px;
+  height:58px;
+  margin:1px auto 15px;
+  border:1px solid color-mix(in srgb,var(--gold-deep) 23%,var(--line));
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:var(--gold-deep);
+  background:
+    radial-gradient(circle at 34% 27%,rgba(255,255,255,.97),color-mix(in srgb,var(--gold) 19%,white));
+  box-shadow:0 10px 27px rgba(88,67,44,.07);
+  font:500 21px/1 var(--font-display);
+}
+
+.auren-kofi-panel .auren-provider-label{
+  display:block;
+}
+
+.auren-kofi-panel h2{
+  margin:8px 0 0;
+  font:500 19px/1.28 var(--font-display);
+}
+
+.auren-kofi-panel>p{
+  max-width:420px;
+  margin:8px auto 0;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.63;
+}
+
+.auren-kofi-panel .auren-external-note{
+  margin-top:16px;
+  text-align:left;
+}
+
+.auren-kofi-panel .auren-help-primary{
+  width:100%;
+  margin-top:15px;
+}
+
+.auren-support-thanks,
+.auren-support-disclaimer{
+  max-width:470px;
+  margin:14px auto 0;
+  padding:0 4px;
+  text-align:center;
+  color:var(--muted);
+  font-size:9.7px;
+  line-height:1.58;
+}
+
+.auren-support-disclaimer{
+  color:var(--faint);
+  font-size:9px;
+}
+
+.auren-help-toast{
+  position:fixed;
+  left:50%;
+  bottom:calc(22px + env(safe-area-inset-bottom));
+  z-index:91;
+  max-width:calc(100vw - 36px);
+  transform:translate(-50%,12px);
+  padding:9px 13px;
+  border:1px solid color-mix(in srgb,var(--line) 72%,transparent);
+  border-radius:999px;
+  background:color-mix(in srgb,var(--ink) 88%,transparent);
+  color:var(--card-hi);
+  font-size:9.5px;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .16s ease,transform .16s ease;
+}
+
+.auren-help-toast.show{
+  opacity:1;
+  transform:translate(-50%,0);
+}
+
+html[lang="th"] .auren-help-hero p{
+  line-height:1.82;
+}
+
+html[lang="th"] .auren-help-field textarea{
+  line-height:1.75;
+}
+
+html[lang="th"] .auren-help-diagnostic-toggle small,
+html[lang="th"] .auren-help-safety p,
+html[lang="th"] .auren-support-privacy p,
+html[lang="th"] .auren-external-note p{
+  line-height:1.68;
+}
+
+@media(max-width:420px){
+  .you-contact-provider{
+    font-size:7px;
+    padding-left:6px;
+    padding-right:6px;
+  }
+
+  .auren-help-content{
+    padding-left:16px;
+    padding-right:16px;
+  }
+
+  .auren-help-panel{
+    padding:17px;
+  }
+}
+
+@media(max-width:370px){
+  .you-contact-provider{
+    display:none;
+  }
+
+  .auren-help-actions{
+    grid-template-columns:1fr;
+  }
+
+  .auren-help-panel{
+    padding:15px;
+    border-radius:23px;
+  }
+
+  .auren-qr-frame{
+    width:min(288px,88vw);
+    padding:14px;
+    border-radius:22px;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .auren-help-layer,
+  .auren-help-toast,
+  .auren-help-diagnostic-toggle i,
+  .auren-help-diagnostic-toggle i::after,
+  .auren-qr-frame img{
+    transition:none!important;
+  }
+}
