@@ -1,14 +1,14 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 39;
+export const BUILD_NUMBER = 40;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 39 upgrades the Today Core visual experience only.
-// It adds a layered living-glass treatment to the Today orb: breathing light,
-// internal current, edge shimmer and gentle state-response without touching the
-// accepted Signature Opening. Legal Version remains 1.0.0. Health logic, stores
-// and schema remain unchanged.
+// Build 40 refines Today Core motion after physical testing showed excessive
+// pendulum-like sway. Signature Opening keeps the proven motion model unchanged.
+// Today now uses low-amplitude aperiodic micro-drift while preserving internal
+// liquid motion and Build 39 living-glass layers. Legal Version remains 1.0.0.
+// Health logic, stores and schema remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});
@@ -20,6 +20,7 @@ if (typeof document !== 'undefined') {
   import('../today/affordance-polish.js').catch((error) => console.error('Auren Today affordance polish unavailable', error));
   import('../today/body-context-polish.js').catch((error) => console.error('Auren Body Context polish unavailable', error));
   import('../today/core-evolution.js').catch((error) => console.error('Auren Today Core evolution unavailable', error));
+  import('../today/core-motion-refinement.js').catch((error) => console.error('Auren Today Core motion refinement unavailable', error));
 
   let archivePromise = null;
   const loadArchivePolish = () => {
