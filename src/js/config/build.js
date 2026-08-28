@@ -1,13 +1,14 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 49;
+export const BUILD_NUMBER = 50;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 49 restores the accepted Build 47 mineral-aqua liquid Core and applies
-// only a small motion slowdown so Opening, Today and the small Auren logo return
-// to the familiar visual language while avoiding overly fast slosh. Legal Version
-// remains 1.0.0. Data schema remains 4.
+// Build 50 restores the exact pre-experiment Build 44 Core renderer and changes
+// only animation cadence: the original Opening/Today liquid visual remains intact
+// while idle/internal motion runs about 16% slower. The existing Auren logo CSS is
+// unchanged and already matches Build 44 exactly. Legal Version remains 1.0.0.
+// Data schema remains 4.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});
