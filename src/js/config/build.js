@@ -1,14 +1,13 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 46;
+export const BUILD_NUMBER = 48;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 46 calibrates Auren Life Force after physical-device review showed the
-// Build 45 mist and glass shell were too faint on Pearl Dawn. It strengthens the
-// golden mist's actual color density and restores thin but readable glass optics
-// without changing motion, launch handoff, health logic or data. Legal Version
-// remains 1.0.0. Data schema remains 4.
+// Build 48 refines the restored mineral-aqua liquid Core into the premium target:
+// calmer organic motion, clearer glass optics, deeper liquid volume and better
+// opening/today elegance while preserving the shared renderer, launch handoff,
+// health logic and data. Legal Version remains 1.0.0. Data schema remains 4.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});

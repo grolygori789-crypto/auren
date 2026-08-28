@@ -1,4 +1,4 @@
-// Auren runtime Build 46 — Life Force visibility calibration.
+// Auren runtime Build 48 — premium liquid Core refinement.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
