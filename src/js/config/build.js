@@ -1,13 +1,13 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 34;
+export const BUILD_NUMBER = 35;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 34 adds a surgical Today affordance polish.
-// It changes visual semantics only: static recommendation, state, explanation and
-// trust surfaces become unmistakably non-interactive while real actions stay intact.
-// Legal Version remains 1.0.0. Health logic, data and schema remain unchanged.
+// Build 35 adds a surgical Body Context layout polish.
+// It rebalances the Body Context card by keeping BMI and Waist as key metrics and
+// moving Training into its own context row. Legal Version remains 1.0.0.
+// Health logic, stored values, units system and schema remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});
@@ -17,6 +17,7 @@ if (typeof document !== 'undefined') {
   import('../today/metric-detail.js').catch((error) => console.error('Auren Today detail unavailable', error));
   import('../today/checkin-slider-polish.js').catch((error) => console.error('Auren check-in slider polish unavailable', error));
   import('../today/affordance-polish.js').catch((error) => console.error('Auren Today affordance polish unavailable', error));
+  import('../today/body-context-polish.js').catch((error) => console.error('Auren Body Context polish unavailable', error));
 
   let archivePromise = null;
   const loadArchivePolish = () => {

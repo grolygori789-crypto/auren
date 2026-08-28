@@ -1,4 +1,4 @@
-// Auren runtime Build 34 — Today affordance polish.
+// Auren runtime Build 35 — Body Context layout polish.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -17,6 +17,7 @@ const APP_SHELL = [
   './src/css/today-detail.css',
   './src/css/today-checkin.css',
   './src/css/today-affordance.css',
+  './src/css/body-context-polish.css',
   './src/css/archive-polish.css',
   './src/css/you-polish.css',
   './src/css/legal.css',
@@ -32,6 +33,7 @@ const APP_SHELL = [
   './src/js/today/metric-detail.js',
   './src/js/today/checkin-slider-polish.js',
   './src/js/today/affordance-polish.js',
+  './src/js/today/body-context-polish.js',
   './src/js/archive/archive-polish.js',
   './src/js/you/you-polish.js',
   './src/js/legal/legal-center.js',
