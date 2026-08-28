@@ -1,4 +1,4 @@
-// Auren runtime Build 30 — You / Settings final hierarchy polish.
+// Auren runtime Build 31 — Legal & Trust Foundation.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -18,6 +18,7 @@ const APP_SHELL = [
   './src/css/today-checkin.css',
   './src/css/archive-polish.css',
   './src/css/you-polish.css',
+  './src/css/legal.css',
   './src/js/app.js',
   './src/js/config/build.js',
   './src/js/core/orb.js',
@@ -31,6 +32,7 @@ const APP_SHELL = [
   './src/js/today/checkin-slider-polish.js',
   './src/js/archive/archive-polish.js',
   './src/js/you/you-polish.js',
+  './src/js/legal/legal-center.js',
   './src/js/intelligence/body.js',
   './src/js/i18n/en.js',
   './src/js/i18n/th.js',

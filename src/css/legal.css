@@ -1,0 +1,104 @@
+.auren-legal[hidden]{display:none!important}
+body.auren-legal-open{overflow:hidden}
+.auren-legal{
+  position:fixed;inset:0;z-index:90;display:grid;grid-template-rows:auto minmax(0,1fr);
+  color:var(--ink);
+  background:
+    radial-gradient(ellipse at 10% 7%,var(--ambient-a) 0%,transparent 31%),
+    radial-gradient(ellipse at 88% 16%,var(--ambient-c) 0%,transparent 38%),
+    radial-gradient(ellipse at 82% 88%,var(--ambient-b) 0%,transparent 35%),
+    linear-gradient(158deg,var(--bg-0),var(--bg-1) 54%,var(--bg-2));
+  opacity:0;transform:translateY(8px);
+  transition:opacity .22s ease,transform .22s cubic-bezier(.2,.72,.2,1)
+}
+.auren-legal.is-visible{opacity:1;transform:none}
+.auren-legal-top{
+  min-height:62px;padding:max(12px,env(safe-area-inset-top)) max(16px,calc(16px + env(safe-area-inset-right))) 8px max(16px,calc(16px + env(safe-area-inset-left)));
+  display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;gap:10px;
+  border-bottom:1px solid color-mix(in srgb,var(--line) 74%,transparent);
+  background:color-mix(in srgb,var(--card-hi) 70%,transparent);
+  backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)
+}
+.auren-legal-brand{text-align:center;min-width:0}
+.auren-legal-brand strong{display:block;font-size:11px;letter-spacing:.27em;margin-left:.27em;font-weight:540}
+.auren-legal-brand small{display:block;margin-top:3px;font-size:7.5px;letter-spacing:.16em;color:var(--faint)}
+.auren-legal-back,.auren-legal-close{
+  width:40px;height:40px;border-radius:50%;border:1px solid var(--line);
+  background:color-mix(in srgb,var(--card) 75%,transparent);cursor:pointer;
+  display:grid;place-items:center;font-size:23px;font-weight:260;color:var(--muted)
+}
+.auren-legal-back[hidden],.auren-legal-close[hidden]{visibility:hidden;pointer-events:none}
+.auren-legal-scroll{min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
+.auren-legal-content{width:min(560px,100%);margin:0 auto;padding:28px 18px calc(40px + env(safe-area-inset-bottom))}
+.auren-legal-eyebrow{display:block;font-size:9px;letter-spacing:.19em;text-transform:uppercase;color:var(--faint)}
+.auren-legal-hero,.auren-legal-document>header{text-align:left;padding:4px 3px 14px}
+.auren-legal-hero h1,.auren-legal-document h1,.auren-legal-consent h1{
+  font:400 clamp(29px,8vw,38px)/1.12 var(--font-display);letter-spacing:-.025em;margin:7px 0 0
+}
+.auren-legal-hero>p,.auren-legal-document>header>p,.auren-legal-consent>p{
+  max-width:480px;margin:10px 0 0;color:var(--muted);font-size:12.5px;line-height:1.72
+}
+.auren-legal-language{display:inline-flex;gap:4px;margin-top:16px;padding:3px;border-radius:999px;background:color-mix(in srgb,var(--ink) 6%,transparent)}
+.auren-legal-language button{border:0;background:transparent;color:var(--muted);border-radius:999px;padding:7px 11px;font-size:10px;cursor:pointer}
+.auren-legal-language button.is-active{background:rgba(255,255,255,.86);color:var(--ink);box-shadow:0 2px 7px rgba(80,60,40,.07)}
+.auren-legal-meta{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:14px;color:var(--faint);font-size:9.5px}
+.auren-legal-meta span{padding:5px 8px;border:1px solid color-mix(in srgb,var(--line) 72%,transparent);border-radius:999px;background:color-mix(in srgb,var(--card) 55%,transparent)}
+.auren-legal-cards{display:grid;gap:10px;margin-top:11px}
+.auren-legal-card{
+  width:100%;min-height:72px;border:1px solid var(--line);border-radius:21px;
+  background:linear-gradient(145deg,var(--card-hi),var(--card));box-shadow:var(--shadow-soft);
+  padding:13px 14px;display:grid;grid-template-columns:38px minmax(0,1fr) 18px;align-items:center;gap:12px;text-align:left;cursor:pointer
+}
+.auren-legal-card strong{display:block;font-size:12.5px;font-weight:580}
+.auren-legal-card small{display:block;margin-top:4px;color:var(--muted);font-size:10.2px;line-height:1.48}
+.auren-legal-mark{
+  width:36px;height:36px;border-radius:50%;display:grid;place-items:center;
+  border:1px solid color-mix(in srgb,var(--gold-deep) 18%,var(--line));
+  background:radial-gradient(circle at 35% 28%,rgba(255,255,255,.95),color-mix(in srgb,var(--gold) 15%,white));
+  color:var(--gold-deep);font:500 14px/1 var(--font-display)
+}
+.auren-legal-arrow{color:var(--faint);font-size:20px}
+.auren-legal-foot{text-align:center;color:var(--faint);font-size:9px;margin:18px 0 0}
+.auren-legal-consent{
+  margin:min(8vh,50px) auto 0;border:1px solid color-mix(in srgb,var(--gold-deep) 18%,var(--line));
+  border-radius:30px;padding:27px 23px 23px;
+  background:linear-gradient(150deg,color-mix(in srgb,var(--card-hi) 94%,transparent),color-mix(in srgb,var(--card) 82%,transparent));
+  box-shadow:0 20px 60px rgba(75,55,35,.09);text-align:center;overflow:hidden;position:relative
+}
+.auren-legal-consent::before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-85px;top:-95px;background:radial-gradient(circle,color-mix(in srgb,var(--aqua) 20%,transparent),transparent 70%)}
+.auren-legal-seal{
+  width:53px;height:53px;border-radius:50%;margin:0 auto 16px;display:grid;place-items:center;
+  border:1px solid color-mix(in srgb,var(--gold-deep) 25%,var(--line));
+  background:radial-gradient(circle at 34% 28%,rgba(255,255,255,.96),color-mix(in srgb,var(--gold) 20%,white));
+  color:var(--gold-deep);font:400 21px/1 var(--font-display);box-shadow:0 8px 22px rgba(100,74,45,.07)
+}
+.auren-legal-consent .auren-legal-eyebrow{text-align:center}
+.auren-legal-consent>p{margin-left:auto;margin-right:auto}
+.auren-legal-consent .auren-legal-language{display:flex;width:max-content;margin-left:auto;margin-right:auto}
+.auren-legal-consent-links{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
+.auren-legal-consent-links button,.auren-legal-docback{
+  min-height:44px;border:1px solid var(--line);border-radius:14px;background:color-mix(in srgb,var(--card-hi) 74%,transparent);color:var(--ink);font-size:11px;cursor:pointer
+}
+.auren-legal-agree{
+  width:100%;min-height:52px;margin-top:10px;border:0;border-radius:999px;color:#fffaf3;cursor:pointer;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--gold-deep) 86%,#b99a6e),color-mix(in srgb,var(--gold) 90%,white) 52%,var(--gold-deep));
+  box-shadow:0 12px 28px rgba(145,108,64,.18),inset 0 1px 0 rgba(255,255,255,.34);font-size:13px
+}
+.auren-legal-noagree{font-size:9.5px!important;color:var(--faint)!important;margin-top:12px!important}
+.auren-legal-consent-meta{font-size:8.7px!important;color:var(--faint)!important;margin-top:8px!important}
+.auren-legal-sections{display:grid;gap:12px;margin-top:12px}
+.auren-legal-section{border:1px solid color-mix(in srgb,var(--line) 80%,transparent);border-radius:20px;padding:17px 17px 16px;background:color-mix(in srgb,var(--card) 67%,transparent)}
+.auren-legal-section h2{font:500 15px/1.35 var(--font-display);margin:0}
+.auren-legal-section p{font-size:11.2px;line-height:1.78;color:var(--muted);margin:9px 0 0}
+.auren-legal-docback{width:100%;margin-top:14px}
+.legal-setting-icon svg{width:18px;height:18px;stroke:#82715d;fill:none;stroke-width:1.5}
+.legal-center-setting{cursor:pointer;width:100%;text-align:left}
+html[lang="th"] .auren-legal-section p{line-height:1.88}
+html[lang="th"] .auren-legal-card small{line-height:1.6}
+@media(max-width:370px){
+  .auren-legal-content{padding-left:14px;padding-right:14px}
+  .auren-legal-consent{padding:23px 17px 20px}
+  .auren-legal-consent-links{grid-template-columns:1fr}
+  .auren-legal-section{padding:15px}
+}
+@media(prefers-reduced-motion:reduce){.auren-legal{transition:none!important;transform:none!important}}
