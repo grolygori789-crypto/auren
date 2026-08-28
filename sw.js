@@ -1,4 +1,4 @@
-// Auren runtime Build 40 — Today Core motion refinement.
+// Auren runtime Build 41 — Today Core presence & readability.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -19,6 +19,7 @@ const APP_SHELL = [
   './src/css/today-affordance.css',
   './src/css/body-context-polish.css',
   './src/css/core-evolution.css',
+  './src/css/core-presence-polish.css',
   './src/css/archive-polish.css',
   './src/css/you-polish.css',
   './src/css/help-support.css',
@@ -38,6 +39,7 @@ const APP_SHELL = [
   './src/js/today/body-context-polish.js',
   './src/js/today/core-evolution.js',
   './src/js/today/core-motion-refinement.js',
+  './src/js/today/core-presence-polish.js',
   './src/js/archive/archive-polish.js',
   './src/js/you/you-polish.js',
   './src/js/you/help-support.js',

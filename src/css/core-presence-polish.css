@@ -1,0 +1,182 @@
+/* Auren Build 41 — Today Core Presence & Readability
+   Restores visual presence to the Today orb without disturbing Build 40 motion. */
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost{
+  isolation:isolate;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost::before,
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost::after{
+  content:"";
+  position:absolute;
+  border-radius:50%;
+  pointer-events:none;
+}
+
+/* Soft body glow behind the orb so it does not disappear into the pale background. */
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost::before{
+  inset:8%;
+  z-index:0;
+  opacity:.82;
+  filter:blur(18px);
+  background:
+    radial-gradient(circle at 50% 55%, rgba(255,255,255,.58) 0%, rgba(255,251,240,.46) 32%, rgba(233,226,206,.18) 58%, transparent 76%),
+    radial-gradient(circle at 48% 60%, color-mix(in srgb,var(--gold) 11%,transparent), transparent 67%);
+}
+
+/* Crisp glass rim + top highlight + base depth */
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost::after{
+  inset:7.5%;
+  z-index:7;
+  opacity:.72;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,.33),
+    inset 0 2px 14px rgba(255,255,255,.18),
+    inset 0 -16px 26px rgba(168,149,112,.06),
+    0 18px 30px rgba(115,101,76,.08),
+    0 32px 44px rgba(86,76,60,.06);
+  background:
+    radial-gradient(circle at 27% 20%, rgba(255,255,255,.34) 0%, rgba(255,255,255,.16) 10%, transparent 24%),
+    radial-gradient(circle at 71% 77%, rgba(242,226,182,.14) 0%, transparent 26%),
+    linear-gradient(to bottom, rgba(255,255,255,.11), transparent 22%, transparent 76%, rgba(188,171,136,.08));
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost canvas{
+  z-index:5;
+  filter:
+    saturate(1.10)
+    contrast(1.09)
+    brightness(1.05)
+    drop-shadow(0 6px 10px rgba(255,255,255,.12))
+    drop-shadow(0 18px 24px rgba(102,89,67,.06));
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost .today-orb-glow{
+  inset:-10.5%;
+  opacity:.56;
+  filter:blur(22px) saturate(1.10);
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost .today-orb-breath{
+  inset:5.2%;
+  opacity:.43;
+  filter:blur(8px) saturate(1.12);
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost .flow-one{
+  inset:11.4%;
+  opacity:.31;
+  filter:blur(7px) saturate(1.16);
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost .flow-two{
+  inset:16.8%;
+  opacity:.27;
+  filter:blur(10px) saturate(1.16);
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost .today-orb-shimmer{
+  inset:-1.8%;
+  opacity:.54;
+  filter:blur(.65px);
+  background:
+    conic-gradient(from 6deg,
+      transparent 0 58%,
+      rgba(255,255,255,.03) 64%,
+      rgba(255,255,255,.50) 70%,
+      rgba(255,255,255,.11) 77%,
+      transparent 83% 100%);
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost .today-orb-response{
+  inset:-6.5%;
+  border-width:1.1px;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="learning"] .today-orb-glow{
+  opacity:.56;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="learning"] .flow-one{
+  opacity:.31;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="learning"] .flow-two{
+  opacity:.27;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="balanced"] .today-orb-glow{
+  opacity:.67;
+  filter:blur(24px) saturate(1.13);
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="balanced"] .today-orb-breath{
+  opacity:.49;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="balanced"] .flow-one{
+  opacity:.36;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="balanced"] .flow-two{
+  opacity:.30;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="balanced"] .today-orb-shimmer{
+  opacity:.60;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="attention"] .today-orb-glow{
+  opacity:.49;
+  filter:blur(21px) saturate(1.06);
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="attention"] .today-orb-breath{
+  opacity:.37;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="attention"] .flow-one{
+  opacity:.24;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="attention"] .flow-two{
+  opacity:.30;
+}
+
+#todayOrbWrap.today-orb-evolved.today-orb-presence-boost[data-orb-mood="attention"] .today-orb-shimmer{
+  opacity:.46;
+}
+
+@media(max-width:420px){
+  #todayOrbWrap.today-orb-evolved.today-orb-presence-boost::before{
+    inset:8.4%;
+  }
+
+  #todayOrbWrap.today-orb-evolved.today-orb-presence-boost::after{
+    inset:8%;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  #todayOrbWrap.today-orb-evolved.today-orb-presence-boost::before{
+    opacity:.72;
+  }
+
+  #todayOrbWrap.today-orb-evolved.today-orb-presence-boost::after{
+    opacity:.66;
+  }
+
+  #todayOrbWrap.today-orb-evolved.today-orb-presence-boost canvas{
+    filter:
+      saturate(1.08)
+      contrast(1.08)
+      brightness(1.04)
+      drop-shadow(0 14px 22px rgba(102,89,67,.06));
+  }
+
+  #todayOrbWrap.today-orb-evolved.today-orb-presence-boost .today-orb-glow{ opacity:.44; }
+  #todayOrbWrap.today-orb-evolved.today-orb-presence-boost .today-orb-breath{ opacity:.26; }
+  #todayOrbWrap.today-orb-evolved.today-orb-presence-boost .flow-one{ opacity:.19; }
+  #todayOrbWrap.today-orb-evolved.today-orb-presence-boost .flow-two{ opacity:.17; }
+  #todayOrbWrap.today-orb-evolved.today-orb-presence-boost .today-orb-shimmer{ opacity:.26; }
+}
