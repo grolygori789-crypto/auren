@@ -1,4 +1,4 @@
-const STYLE_ID = 'auren-you-polish-build-32';
+const STYLE_ID = 'auren-you-polish-build-33';
 const STYLE_HREF = './src/css/you-polish.css';
 const SCREEN_SELECTOR = '[data-screen="you"]';
 
@@ -37,7 +37,7 @@ function installStylesheet() {
   link.id = STYLE_ID;
   link.rel = 'stylesheet';
   link.href = STYLE_HREF;
-  link.dataset.aurenYou = 'build-32';
+  link.dataset.aurenYou = 'build-33';
   document.head.appendChild(link);
 }
 
@@ -129,6 +129,14 @@ function syncAboutLabel() {
   if (about && title) about.setAttribute('aria-label', title);
 }
 
+function prepareBuildFooter(buildText) {
+  if (!buildText) return null;
+  buildText.classList.add('you-build-footer');
+  buildText.removeAttribute('role');
+  buildText.removeAttribute('tabindex');
+  return buildText;
+}
+
 function applyCopy(screen) {
   const c = COPY[locale()];
   screen.querySelectorAll('[data-you-copy]').forEach((node) => {
@@ -173,10 +181,11 @@ function installStructure() {
     createGroup('body', [bodyProfile, howWorks]),
     createGroup('preferences', [language, appearance, themeGrid, motion]),
     createGroup('privacy', [privacyAnchor, dataControls, noAccount]),
-    createGroup('about', [about, buildText]),
+    createGroup('about', [about]),
   ];
 
-  list.replaceChildren(...groups);
+  const buildFooter = prepareBuildFooter(buildText);
+  list.replaceChildren(...groups, ...(buildFooter ? [buildFooter] : []));
   screen.dataset.youPolished = '32';
   screen.classList.add('you-polished');
   applyCopy(screen);
