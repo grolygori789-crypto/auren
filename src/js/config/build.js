@@ -1,14 +1,14 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 44;
+export const BUILD_NUMBER = 45;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 44 fully rolls back Today Core experimentation after physical testing.
-// It removes the Today motion override and returns Today to the original orb
-// behavior already proven before today's iterations. Signature Opening and Today
-// both use the original core renderer path again. Legal Version remains 1.0.0.
-// Health logic, stores and schema remain unchanged.
+// Build 45 replaces the liquid Core material with Auren Life Force:
+// slow golden luminous mist with pearl softness and a restrained mineral-aqua
+// undertone. Opening and Today share the same Canvas2D renderer while keeping the
+// accepted launch handoff and all health/data logic unchanged. Legal Version
+// remains 1.0.0. Data schema remains 4.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});
