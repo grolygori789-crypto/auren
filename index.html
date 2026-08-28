@@ -1,243 +1,339 @@
 <!doctype html>
-<html lang="en" data-theme="pearl">
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover" />
-  <meta name="theme-color" content="#f2e7db" />
-  <meta name="description" content="Auren — Personal Health Intelligence. Your body, understood." />
-  <link rel="manifest" href="./manifest.webmanifest" />
-  <link rel="icon" href="./assets/icons/icon-192.png" />
-  <link rel="stylesheet" href="./src/css/tokens.css" />
-  <link rel="stylesheet" href="./src/css/app.css" />
-  <title>Auren</title>
-</head>
-<body>
-  <div id="opening" aria-label="Auren signature opening">
-    <div class="opening-inner">
-      <div class="opening-orb" id="openingOrbWrap"><canvas id="openingOrb" aria-label="Auren Core"></canvas></div>
-      <div class="opening-id" id="openingIdentity">
-        <div class="opening-name">AUREN</div>
-        <div class="opening-tag" data-i18n="opening.tagline">Your body, understood.</div>
-        <div class="opening-studio" data-i18n="opening.studio">By Benedict Interactive</div>
-      </div>
-    </div>
-  </div>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#0c2b2c">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Little Ganesha">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="color-scheme" content="dark">
+  <style id="lgt-zoom-lock">
+    html, body { touch-action: pan-x pan-y; }
+  </style>
+  <script id="lgt-orientation-lock">
+    (() => {
+      'use strict';
 
-  <div id="app">
-    <div class="app-shell">
-      <header class="topbar">
-        <div class="brand-mini"><div class="brand-mark" aria-hidden="true"></div><div class="brand-word">AUREN</div></div>
-        <button class="icon-btn profile-trigger" id="profileBtn" aria-label="Open You">
-          <img class="avatar-image topbar-avatar" id="topbarAvatar" alt="" hidden />
-          <span class="avatar-fallback auren-profile-mark" id="topbarAvatarFallback" aria-hidden="true"><span class="fallback-initial" id="topbarInitial"></span><span class="fallback-orb"></span></span>
-        </button>
+      const TARGETS = ['portrait-primary', 'portrait'];
+
+      async function lockPortrait() {
+        const orientation = screen.orientation;
+        if (!orientation || typeof orientation.lock !== 'function') return false;
+
+        for (const target of TARGETS) {
+          try {
+            await orientation.lock(target);
+            return true;
+          } catch (_) {}
+        }
+        return false;
+      }
+
+      function requestPortraitLock() {
+        if (document.visibilityState !== 'visible') return;
+        lockPortrait().catch(() => {});
+      }
+
+      window.addEventListener('load', requestPortraitLock, { once: true });
+      window.addEventListener('pageshow', requestPortraitLock);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) requestPortraitLock();
+      });
+      document.addEventListener('pointerdown', requestPortraitLock, { capture: true, passive: true, once: true });
+      document.addEventListener('touchstart', requestPortraitLock, { capture: true, passive: true, once: true });
+
+      if (screen.orientation?.addEventListener) {
+        screen.orientation.addEventListener('change', () => {
+          if (String(screen.orientation.type || '').startsWith('landscape')) {
+            requestPortraitLock();
+          }
+        });
+      }
+
+      window.LGTOrientationLock = Object.freeze({
+        target: 'portrait-primary',
+        lock: lockPortrait
+      });
+    })();
+  </script>
+  <meta name="description" content="Little Ganesha Tarot — The Golden Path by Benedict Interactive">
+  <meta name="application-version" content="0.16.0">
+  <title>Little Ganesha Tarot — The Golden Path</title>
+
+  <link rel="manifest" href="manifest.webmanifest?v=0.16.0-portrait1">
+  <link rel="icon" href="assets/icons/favicon.ico?v=0.16.0" sizes="any">
+  <link rel="icon" type="image/png" sizes="48x48" href="assets/icons/favicon-48x48.png?v=0.16.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png?v=0.16.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png?v=0.16.0">
+  <link rel="preload" as="image" href="assets/ui/title-hero.png" fetchpriority="high">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Noto+Sans+Devanagari:wght@300;400;500;600&family=Noto+Sans+Thai:wght@300;400;500;600&family=Noto+Serif+Devanagari:wght@400;500;600&family=Noto+Serif+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/app.css?v=0.16.0">
+  <link rel="stylesheet" href="css/reading.css?v=0.16.0">
+  <link rel="stylesheet" href="css/three-card-viewer.css?v=0.16.0">
+  <link rel="stylesheet" href="css/golden-path.css?v=0.16.0">
+  <link rel="stylesheet" href="css/obstacle.css?v=0.16.0">
+  <link rel="stylesheet" href="css/focus-status.css?v=0.16.0">
+  <link rel="stylesheet" href="css/profile-home.css?v=0.16.0">
+  <link rel="stylesheet" href="css/hindi.css?v=0.16.0">
+  <link rel="stylesheet" href="css/lucky.css?v=0.16.0">
+  <link rel="stylesheet" href="css/tarot-library.css?v=0.16.0">
+  <link rel="stylesheet" href="css/journal.css?v=0.16.0">
+  <link rel="stylesheet" href="css/read-hub.css?v=0.16.0">
+  <link rel="stylesheet" href="css/support.css?v=0.16.0">
+  <link rel="stylesheet" href="css/legal.css?v=0.16.0">
+  <link rel="stylesheet" href="css/help-feedback.css?v=0.16.0">
+</head>
+<body data-build="0.16.0">
+  <main class="app-shell" id="app">
+    <section class="studio-splash" id="studioSplash" aria-label="Benedict Interactive">
+      <div class="studio-splash__glow" aria-hidden="true"></div>
+      <div class="studio-wordmark">
+        <span class="studio-wordmark__ornament" aria-hidden="true"></span>
+        <p class="studio-wordmark__name">BENEDICT INTERACTIVE</p>
+        <p class="studio-wordmark__caption">PRESENTS</p>
+      </div>
+    </section>
+
+    <section class="title-screen" id="titleScreen" aria-labelledby="gameTitle" hidden>
+      <div class="title-screen__backdrop" aria-hidden="true"></div>
+      <div class="title-screen__stage">
+        <img class="title-screen__art" src="assets/ui/title-hero.png" alt="" width="864" height="1536" decoding="async" fetchpriority="high">
+        <div class="title-screen__living" aria-hidden="true">
+          <div class="title-screen__sky-light"></div>
+          <div class="title-screen__water-shimmer"></div>
+          <div class="title-screen__aurora"></div>
+          <div class="ambient-motes" id="ambientMotes"></div>
+          <div class="ambient-petals" id="ambientPetals"></div>
+          <span class="lamp-glow lamp-glow--left"></span>
+          <span class="lamp-glow lamp-glow--right"></span>
+          <span class="lamp-glow lamp-glow--far"></span>
+        </div>
+        <div class="title-screen__veil" aria-hidden="true"></div>
+        <header class="title-lockup">
+          <span class="title-lockup__lotus" aria-hidden="true">✦</span>
+          <h1 id="gameTitle"><span>LITTLE GANESHA</span><span class="title-lockup__tarot">TAROT</span></h1>
+          <p class="title-lockup__subtitle">THE GOLDEN PATH</p>
+        </header>
+        <div class="title-actions">
+          <button class="begin-button" id="beginButton" type="button"><span data-copy="begin">TAP TO BEGIN</span></button>
+        </div>
+        <div class="title-utilities">
+          <div class="language-switch" role="group" aria-label="Language" data-copy-aria="languageAria">
+            <button class="language-switch__option is-active" type="button" data-language="en" aria-pressed="true">EN</button>
+            <span class="language-switch__divider" aria-hidden="true"></span>
+            <button class="language-switch__option" type="button" data-language="th" aria-pressed="false">ไทย</button>
+            <span class="language-switch__divider" aria-hidden="true"></span>
+            <button class="language-switch__option" type="button" data-language="hi" aria-pressed="false">हिन्दी</button>
+          </div>
+          <button class="sound-toggle" id="soundToggle" type="button" aria-pressed="true" aria-label="Sound on"><span aria-hidden="true">♪</span><span class="sound-toggle__slash" aria-hidden="true"></span></button>
+        </div>
+      </div>
+    </section>
+
+    <section class="onboarding-screen app-panel" id="onboardingScreen" hidden aria-labelledby="onboardingTitle">
+      <div class="panel-orb" aria-hidden="true"></div>
+      <div class="onboarding-card">
+        <span class="eyebrow" data-copy="welcomeEyebrow">WELCOME TO THE GOLDEN PATH</span>
+        <h2 id="onboardingTitle" data-copy="nameQuestion">What would you like Ganesha to call you?</h2>
+        <p data-copy="nameHint">A first name or nickname is perfect. Both fields are optional and can be changed later.</p>
+        <div class="profile-fields profile-fields--onboarding">
+          <label class="profile-field">
+            <span data-copy="nameLabel">Display name</span>
+            <input id="displayNameInput" maxlength="32" autocomplete="nickname" placeholder="Benz">
+          </label>
+          <label class="profile-field">
+            <span data-copy="birthDate">Date of birth</span>
+            <input id="birthDateInput" type="date" autocomplete="bday">
+            <small data-copy="birthDateHint">Optional · used for future symbolic personalization</small>
+          </label>
+        </div>
+        <p class="privacy-note" data-copy="localOnly">Your personal profile stays on this device.</p>
+        <div class="onboarding-actions">
+          <button class="secondary-button" id="skipNameButton" type="button" data-copy="skip">Skip</button>
+          <button class="primary-button" id="saveNameButton" type="button" data-copy="continue">Continue</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="main-app app-panel" id="mainApp" hidden>
+      <header class="app-header">
+        <div>
+          <span class="eyebrow">LITTLE GANESHA TAROT</span>
+          <h2 id="homeGreeting">The Golden Path</h2>
+          <p class="home-profile-meta" id="homeProfileMeta" hidden aria-live="polite"></p>
+        </div>
+        <button class="icon-button" id="settingsButton" type="button" aria-label="Settings" data-copy-aria="settingsAria">⚙</button>
       </header>
 
-      <section class="screen active" data-screen="today">
-        <div class="greeting">
-          <div class="eyebrow" id="todayEyebrow"></div>
-          <h1 id="greetingText"></h1>
-          <p id="greetingSub"></p>
-        </div>
-
-        <div class="core-hero" id="coreHero">
-          <div class="core-stage" id="coreStage">
-            <svg class="auren-halo" id="aurenHalo" viewBox="0 0 100 100" aria-label="Auren Halo">
-              <circle class="halo-arc halo-body" id="haloBodyArc" cx="50" cy="50" r="43.8"/>
-              <circle class="halo-arc halo-daily" id="haloDailyArc" cx="50" cy="50" r="43.8"/>
-              <circle class="halo-arc halo-movement" id="haloMovementArc" cx="50" cy="50" r="43.8"/>
-              <circle class="halo-arc halo-trend" id="haloTrendArc" cx="50" cy="50" r="43.8"/>
-              <circle class="halo-node halo-node-body" id="haloBodyNode" cx="50" cy="6.2" r="0.42"/>
-              <circle class="halo-node halo-node-daily" id="haloDailyNode" cx="93.8" cy="50" r="0.42"/>
-              <circle class="halo-node halo-node-movement" id="haloMovementNode" cx="50" cy="93.8" r="0.42"/>
-              <circle class="halo-node halo-node-trend" id="haloTrendNode" cx="6.2" cy="50" r="0.42"/>
-            </svg>
-            <div class="core-orb waiting" id="todayOrbWrap"><canvas id="todayOrb" aria-label="Auren Core"></canvas></div>
-          </div>
-          <div class="state-caption">
-            <div class="state-kicker" id="stateKicker"></div>
-            <div class="state-title" id="stateTitle"></div>
-            <div class="state-copy" id="stateCopy"></div>
-            <div class="observed-grid" id="observedGrid" hidden></div>
-            <button class="primary" id="checkinBtn"></button>
-          </div>
-        </div>
-
-        <div class="section-head action-head"><h2 id="oneActionTitle"></h2><span id="oneActionBasis"></span></div>
-        <div class="one-action-card card">
-          <div class="one-action-mark" aria-hidden="true"><span></span></div>
-          <div class="one-action-copy"><strong id="oneActionName"></strong><p id="oneActionCopy"></p></div>
-        </div>
-
-        <section class="halo-summary card" id="haloSummary">
-          <div class="halo-summary-top">
-            <div><div class="halo-eyebrow" id="haloEyebrow"></div><h2 id="haloTitle"></h2></div>
-            <button class="text-link" id="haloDetailsBtn" type="button"></button>
-          </div>
-          <p id="haloCopy"></p>
-          <div class="halo-legend" id="haloLegend"></div>
+      <div class="app-content" id="homeView">
+        <section class="home-intro">
+          <p class="home-kicker" id="homeWelcome" data-copy="homeWelcome">Take a moment. Hold your question gently, and choose your path.</p>
         </section>
-
-        <div class="section-head"><h2 id="bodySectionTitle"></h2><span id="bodyPrivate"></span></div>
-        <button class="body-context-card card" id="bodyContextBtn" type="button">
-          <div class="body-context-top">
-            <div class="soft-icon body-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M7.2 19c.5-3.8 2.1-5.8 4.8-5.8s4.3 2 4.8 5.8"/><path d="M5 12h3M16 12h3"/></svg></div>
-            <div class="card-copy"><div class="card-title" id="bodyContextTitle"></div><div class="card-desc" id="bodyContextCopy"></div></div>
-            <div class="chev">›</div>
-          </div>
-          <div class="body-metrics" id="bodyMetrics" hidden></div>
-        </button>
-
-        <div class="section-head"><h2 id="understandTitle"></h2><span id="privateLabel"></span></div>
-        <div class="cards">
-          <div class="card"><div class="card-row"><div class="soft-icon aqua"><svg viewBox="0 0 24 24"><path d="M5 14c2.2-4 4.5-6 7-6s4.8 2 7 6"/><path d="M7 17c1.6-2.2 3.2-3.3 5-3.3s3.4 1.1 5 3.3"/></svg></div><div class="card-copy"><div class="card-title" id="patternTitle"></div><div class="card-desc" id="patternDesc"></div></div><div class="chev">›</div></div></div>
-          <div class="card"><div class="card-row"><div class="soft-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6.5"/><path d="M12 7.5v4.8l3 1.7"/></svg></div><div class="card-copy"><div class="card-title" id="evidenceTitle"></div><div class="card-desc" id="evidenceDesc"></div></div><div class="chev">›</div></div></div>
-        </div>
-        <div class="trust-strip" id="trustStrip"></div>
-      </section>
-
-      <section class="screen" data-screen="rhythm">
-        <div class="page-head"><div class="eyebrow">Auren 1 · Know Today</div><h1 class="page-title" id="rhythmTitle"></h1><p class="page-sub" id="rhythmSub"></p></div>
-        <div class="empty-visual"><div><h3 id="rhythmEmptyTitle"></h3><p id="rhythmEmptyCopy"></p><div class="wave-demo"><svg viewBox="0 0 360 90" aria-hidden="true"><path d="M4 49 C40 49 46 27 78 31 S125 61 160 53 S205 31 237 37 S293 64 356 40" stroke="color-mix(in srgb,var(--gold-deep) 70%,transparent)"/><path d="M4 61 C44 68 69 48 102 54 S149 78 184 67 S232 43 264 49 S311 67 356 58" stroke="color-mix(in srgb,var(--aqua) 78%,transparent)"/></svg></div></div></div>
-      </section>
-
-      <section class="screen" data-screen="signals">
-        <div class="page-head"><div class="eyebrow">Evidence · Confidence · Meaning</div><h1 class="page-title" id="signalsTitle"></h1><p class="page-sub" id="signalsSub"></p></div>
-        <div class="empty-visual"><div><h3 id="signalsEmptyTitle"></h3><p id="signalsEmptyCopy"></p></div></div>
-      </section>
-
-      <section class="screen" data-screen="archive">
-        <div class="page-head"><div class="eyebrow">Health Memory</div><h1 class="page-title" id="archiveTitle"></h1><p class="page-sub" id="archiveSub"></p></div>
-        <div class="archive-switch" role="tablist" aria-label="Archive view">
-          <button class="archive-mode active" id="archivePortraitsBtn" data-archive-mode="portraits" type="button"></button>
-          <button class="archive-mode" id="archiveCalendarBtn" data-archive-mode="calendar" type="button"></button>
-        </div>
-
-        <div class="archive-view active" id="archivePortraitsView" data-archive-view="portraits">
-          <div class="archive-empty card" id="archiveEmpty"><h3 id="archiveEmptyTitle"></h3><p id="archiveEmptyCopy"></p></div>
-          <div class="portrait-grid" id="portraitGrid"></div>
-        </div>
-
-        <div class="archive-view" id="archiveCalendarView" data-archive-view="calendar">
-          <div class="calendar-guide card" id="calendarGuide">
-            <button class="calendar-guide-close" id="calendarGuideClose" type="button" aria-label="Dismiss">×</button>
-            <strong id="calendarGuideTitle"></strong><p id="calendarGuideCopy"></p>
-          </div>
-          <section class="month-intelligence card" id="monthSummaryCard">
-            <div class="month-summary-eyebrow" id="monthSummaryEyebrow"></div>
-            <h2 id="monthSummaryTitle"></h2>
-            <div class="month-summary-grid" id="monthSummaryGrid"></div>
-            <p id="monthSummaryInsight"></p>
-          </section>
-          <section class="calendar-card card">
-            <div class="calendar-head">
-              <button class="calendar-nav" id="calendarPrev" type="button" aria-label="Previous month">‹</button>
-              <div><strong id="calendarMonthTitle"></strong><span id="calendarMonthSub"></span></div>
-              <button class="calendar-nav" id="calendarNext" type="button" aria-label="Next month">›</button>
-            </div>
-            <div class="calendar-weekdays" id="calendarWeekdays"></div>
-            <div class="calendar-grid" id="calendarGrid"></div>
-            <div class="calendar-legend" id="calendarLegend"></div>
-          </section>
-        </div>
-      </section>
-
-      <section class="screen" data-screen="you">
-        <div class="page-head"><div class="eyebrow">Control · Privacy · Access</div><h1 class="page-title" id="youTitle"></h1><p class="page-sub" id="youSub"></p></div>
-        <section class="identity-card card" aria-labelledby="identityTitle">
-          <div class="identity-avatar-wrap">
-            <img class="avatar-image identity-avatar" id="identityAvatar" alt="" hidden />
-            <div class="identity-avatar-fallback auren-profile-mark" id="identityAvatarFallback" aria-hidden="true"><span class="fallback-initial" id="identityInitial"></span><span class="fallback-orb"></span></div>
-            <span class="identity-avatar-ring" aria-hidden="true"></span>
-          </div>
-          <div class="identity-copy">
-            <div class="identity-eyebrow" id="identityEyebrow"></div><h2 id="identityTitle"></h2><p id="identityCopy"></p>
-            <form class="identity-name-form" id="identityNameForm">
-              <label for="displayNameInput" id="displayNameLabel"></label>
-              <div class="identity-name-row"><input id="displayNameInput" name="displayName" type="text" maxlength="40" autocomplete="name" /><button class="identity-name-save" id="saveDisplayNameBtn" type="submit"></button></div>
-              <div class="identity-status" id="nameStatus" aria-live="polite"></div>
-            </form>
-            <div class="identity-actions"><button class="identity-action" id="uploadAvatarBtn" type="button"></button><button class="identity-remove" id="removeAvatarBtn" type="button" hidden></button></div>
-            <input id="avatarInput" type="file" accept="image/*" hidden />
-            <div class="identity-status" id="avatarStatus" aria-live="polite"></div>
+        <section class="primary-grid" aria-label="Primary readings" data-copy-aria="primaryReadingsAria">
+          <button class="feature-card feature-card--hero motif-card motif-card--daily" data-feature="daily" type="button"><span class="card-copy"><strong data-copy="daily">Daily Guidance</strong><small data-copy="dailySub">One card to reflect on today</small></span></button>
+          <button class="feature-card motif-card motif-card--ask" data-feature="ask" type="button"><span class="card-copy"><strong data-copy="ask">Ask Ganesha</strong><small data-copy="askSub">Bring one clear question</small></span></button>
+          <button class="feature-card motif-card motif-card--three" data-feature="three" type="button"><span class="card-copy"><strong data-copy="three">Three-Card Reading</strong><small data-copy="threeSub">Past, present, and what unfolds next</small></span></button>
+        </section>
+        <section class="section-block">
+          <div class="section-heading"><span data-copy="signature">Signature Paths</span></div>
+          <div class="compact-grid">
+            <button class="compact-card motif-card motif-card--golden" data-feature="golden" type="button"><span class="card-copy"><strong data-copy="golden">The Golden Path</strong><small data-copy="goldenSub">Where you stand · what blocks you · the way forward</small></span></button>
+            <button class="compact-card motif-card motif-card--obstacle" data-feature="obstacle" type="button"><span class="card-copy"><strong data-copy="obstacle">Remove the Obstacle</strong><small data-copy="obstacleSub">The obstacle · what sustains it · what helps release it</small></span></button>
           </div>
         </section>
+        <section class="section-block">
+          <div class="section-heading"><span data-copy="explore">Explore</span></div>
+          <div class="quick-row">
+            <button class="quick-card" data-feature="lucky" type="button"><span class="quick-icon quick-icon--lucky" aria-hidden="true"></span><strong data-copy="lucky">Lucky Numbers</strong></button>
+            <button class="quick-card" data-feature="cards" type="button"><span class="quick-icon quick-icon--cards" aria-hidden="true"></span><strong data-copy="cards">Tarot Library</strong></button>
+            <button class="quick-card" data-feature="journal" type="button"><span class="quick-icon quick-icon--journal" aria-hidden="true"></span><strong data-copy="journal">Journal</strong></button>
+          </div>
+        </section>
+      </div>
 
-        <div class="settings-list">
-          <button class="setting setting-button" id="bodyProfileBtn" type="button"><div class="soft-icon aqua"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M7.2 19c.5-3.8 2.1-5.8 4.8-5.8s4.3 2 4.8 5.8"/><path d="M4 12h3M17 12h3"/></svg></div><div><strong id="bodyProfileTitle"></strong><span id="bodyProfileSub"></span></div><div class="end">›</div></button>
-          <button class="setting setting-button" id="howAurenWorksBtn" type="button"><div class="soft-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M9.5 9.7a2.7 2.7 0 0 1 5.1 1.2c0 2-2.6 2.3-2.6 4"/><path d="M12 17.5h.01"/></svg></div><div><strong id="howWorksTitle"></strong><span id="howWorksSub"></span></div><div class="end">›</div></button>
-          <div class="setting"><div class="soft-icon"><svg viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M12 4v16"/></svg></div><div><strong id="languageTitle"></strong><span id="languageSub"></span></div><div class="lang-switch"><button id="enBtn" type="button">EN</button><button id="thBtn" type="button">TH</button></div></div>
-          <div class="setting"><div class="soft-icon aqua"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="6"/><path d="M12 6v12M6 12h12"/></svg></div><div><strong id="appearanceTitle"></strong><span id="appearanceSub"></span></div></div>
-          <div class="theme-grid" id="themeGrid"></div>
-          <div class="setting"><div class="soft-icon aqua"><svg viewBox="0 0 24 24"><path d="M12 3.8l7 3v5.3c0 4.2-2.4 6.7-7 8.1-4.6-1.4-7-3.9-7-8.1V6.8l7-3z"/></svg></div><div><strong id="privacyTitle"></strong><span id="privacySub"></span></div><div class="end">›</div></div>
-          <div class="setting"><div class="soft-icon"><svg viewBox="0 0 24 24"><path d="M5 12c1.7-3.7 4-5.5 7-5.5s5.3 1.8 7 5.5c-1.7 3.7-4 5.5-7 5.5S6.7 15.7 5 12z"/><circle cx="12" cy="12" r="2.2"/></svg></div><div><strong id="motionTitle"></strong><span id="motionSub"></span></div><div class="end" id="motionEnd"></div></div>
-          <div class="setting"><div class="soft-icon"><svg viewBox="0 0 24 24"><path d="M5 12h14"/><path d="M12 5v14"/></svg></div><div><strong id="noAccountTitle"></strong><span id="noAccountSub"></span></div></div>
-          <div class="setting"><div class="soft-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="7"/><path d="M12 8v4"/><path d="M12 15.5h.01"/></svg></div><div><strong id="aboutTitle"></strong><span id="aboutSub"></span></div><div class="end">›</div></div>
+      <div class="app-content settings-view" id="settingsView" hidden>
+        <div class="settings-title-row"><button class="back-button" id="settingsBack" type="button" aria-label="Back" data-copy-aria="backAria">‹</button><div><span class="eyebrow" data-copy="preferences">PREFERENCES</span><h2 data-copy="settings">Settings</h2></div></div>
+        <section class="settings-group"><h3 data-copy="experience">Experience</h3>
+          <div class="setting-row"><div><strong data-copy="language">Language</strong><small data-copy="languageSub">Choose English or Thai</small></div><div class="segmented" role="group" aria-label="Language" data-copy-aria="languageAria"><button data-language="en" type="button">EN</button><button data-language="th" type="button">ไทย</button><button data-language="hi" type="button">हिन्दी</button></div></div>
+          <div class="setting-row"><div><strong data-copy="motion">Motion</strong><small data-copy="motionSub">System follows your device accessibility setting</small></div><select id="motionSelect" aria-label="Motion" data-copy-aria="motion"><option value="system" data-copy-option="motionSystem">System</option><option value="full" data-copy-option="motionFull">Full</option><option value="reduced" data-copy-option="motionReduced">Reduced</option></select></div>
+          <div class="setting-row" id="browserFullscreenRow"><div><strong data-copy="immersive">Browser Full Screen</strong><small data-copy="immersiveSub">Optional · installed app already opens in app-like mode</small></div><label class="switch"><input id="immersiveToggle" type="checkbox" aria-label="Browser Full Screen" data-copy-aria="immersive"><span></span></label></div>
+        </section>
+
+        <section class="settings-group"><h3 data-copy="audio">Audio</h3>
+          <div class="setting-row"><div><strong data-copy="sound">Music</strong><small data-copy="soundSub">Atmospheric soundtrack</small></div><label class="switch"><input id="settingsSoundToggle" type="checkbox" checked aria-label="Music" data-copy-aria="sound"><span></span></label></div>
+          <div class="setting-row setting-row--stack"><div><strong data-copy="volume">Volume</strong></div><input id="settingsVolume" class="range" type="range" min="0" max="100" step="1" value="58" aria-label="Volume" data-copy-aria="volume"></div>
+          <div class="setting-row"><div><strong data-copy="shuffle">Shuffle</strong><small data-copy="shuffleSub">Avoid repeating the same track</small></div><label class="switch"><input id="settingsShuffle" type="checkbox" checked aria-label="Shuffle" data-copy-aria="shuffle"><span></span></label></div>
+        </section>
+
+        <section class="settings-group"><h3 data-copy="profile">Personal Profile</h3>
+          <p class="profile-privacy" data-copy="profilePrivacy">Optional profile data is stored only on this device.</p>
+          <button class="setting-link" id="editProfileButton" type="button"><span><strong data-copy="displayName">Display Name</strong><small id="displayNameValue">Not set</small></span><span>›</span></button>
+          <button class="setting-link" id="editBirthDateButton" type="button"><span><strong data-copy="birthDate">Date of birth</strong><small id="birthDateValue">Not set</small></span><span>›</span></button>
+        </section>
+
+        <section class="settings-group support-group"><h3 data-copy="supportProject">Support the Project</h3><p class="support-note" data-copy="supportNote">Support is optional and never affects readings or features.</p>
+          <article class="support-card support-card--kofi"><div><span class="support-badge" id="kofiSupportBadge">WORLDWIDE</span><h4 id="kofiSupportTitle">Worldwide Support</h4><p id="kofiSupportSub">Ko-fi · support Benedict Interactive</p></div><button class="support-button support-button--kofi" id="kofiSupportButton" type="button">Open Ko-fi</button></article>
+          <article class="support-card"><div><span class="support-badge" data-copy="supportThailandBadge">THAILAND</span><h4 data-copy="thaiSupport">Supporters in Thailand</h4><p id="promptPaySupportSub">PromptPay · scan or save the QR</p></div><button class="support-button support-button--promptpay" id="promptPaySupportButton" type="button">Open QR</button></article>
+        </section>
+
+        <section class="settings-group legal-settings-group">
+          <h3 id="legalSettingsHeading">Legal &amp; Privacy</h3>
+          <button class="setting-link legal-setting-link" id="legalCenterButton" type="button">
+            <span><strong id="legalCenterLabel">Legal Center</strong><small id="legalCenterSub">Copyright, Terms of Use, Privacy and third-party notices</small></span><span>›</span>
+          </button>
+          <p class="legal-settings-foot" id="legalSettingsFoot">© 2026 Benedict Interactive · All rights reserved.</p>
+        </section>
+
+        <section class="settings-group"><button class="danger-link" id="returnTitleButton" type="button" data-copy="returnTitle">Return to Title</button></section>
+        <p class="build-label">BUILD 0.16.0</p>
+      </div>
+
+      <nav class="bottom-nav" aria-label="Primary navigation" data-copy-aria="primaryNavAria">
+        <button class="bottom-nav__button is-active" id="homeNavButton" type="button"><span>⌂</span><small data-copy="home">Home</small></button>
+        <button class="bottom-nav__button" data-feature="read" type="button"><span>✦</span><small data-copy="read">Read</small></button>
+        <button class="bottom-nav__button" data-feature="cards" type="button"><span>▤</span><small data-copy="cards">Tarot Library</small></button>
+        <button class="bottom-nav__button" data-feature="journal" type="button"><span>✎</span><small data-copy="journal">Journal</small></button>
+        <button class="bottom-nav__button" id="settingsNavButton" type="button"><span>⚙</span><small data-copy="settings">Settings</small></button>
+      </nav>
+    </section>
+
+    <aside class="mini-player mini-player--global" id="miniPlayer" aria-label="Music player" data-copy-aria="musicPlayerAria" hidden>
+      <div class="mini-player__main"><div class="mini-player__meta"><span class="mini-player__eyebrow" id="playerEyebrow">NOW PLAYING</span><strong class="mini-player__title" id="playerTitle">Golden Lantern at Twilight</strong></div><div class="mini-player__controls"><button class="player-button" id="playerPrevious" type="button" aria-label="Previous track">‹</button><button class="player-button player-button--primary" id="playerPlay" type="button" aria-label="Pause" data-state="pause"><span class="player-icon player-icon--play" aria-hidden="true">▶</span><span class="player-icon player-icon--pause" aria-hidden="true">Ⅱ</span></button><button class="player-button" id="playerNext" type="button" aria-label="Next track">›</button><button class="player-button player-button--more" id="playerMore" type="button" aria-label="Audio options" aria-expanded="false">•••</button></div></div>
+      <div class="mini-player__panel" id="playerPanel" hidden><label class="volume-control"><span data-copy="volume">Volume</span><input id="volumeSlider" type="range" min="0" max="100" step="1" value="58"></label><div class="mini-player__panel-actions"><button class="panel-button" id="shuffleToggle" type="button" aria-pressed="true"><span aria-hidden="true">⤨</span><span data-copy="shuffle">Shuffle</span></button><button class="panel-button panel-button--exit" id="exitButton" type="button"><span aria-hidden="true">↶</span><span data-copy="returnTitle">Return to Title</span></button></div></div>
+    </aside>
+
+    <div class="toast" id="toast" hidden role="status" aria-live="polite"></div>
+
+    <div class="modal-backdrop" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileModalTitle" hidden>
+      <div class="modal-card modal-card--profile">
+        <span class="modal-card__ornament" aria-hidden="true">✦</span>
+        <h2 id="profileModalTitle" data-copy="editProfile">Personal Profile</h2>
+        <p data-copy="profileModalHint">Both fields are optional. Your information stays on this device.</p>
+        <div class="profile-fields">
+          <label class="profile-field">
+            <span data-copy="nameLabel">Display name</span>
+            <input id="profileNameInput" maxlength="32" autocomplete="nickname">
+          </label>
+          <label class="profile-field">
+            <span data-copy="birthDate">Date of birth</span>
+            <input id="profileBirthDateInput" type="date" autocomplete="bday">
+            <small data-copy="birthDateHint">Optional · used for future symbolic personalization</small>
+          </label>
         </div>
-        <div class="about-build" id="buildText"></div>
-      </section>
+        <button class="profile-clear" id="clearProfileButton" type="button" data-copy="clearProfile">Clear personal profile</button>
+        <div class="modal-card__actions">
+          <button class="modal-button" id="profileCancel" type="button" data-copy="cancel">Cancel</button>
+          <button class="modal-button modal-button--primary" id="profileSave" type="button" data-copy="save">Save</button>
+        </div>
+      </div>
     </div>
 
-    <nav class="bottom-nav" aria-label="Primary">
-      <div class="nav-bar">
-        <button class="nav-btn active" data-nav="today" type="button"><svg viewBox="0 0 24 24"><path d="M4.5 10.5L12 4l7.5 6.5v8.5H5z"/><path d="M9.5 19v-5h5v5"/></svg><span id="navToday"></span></button>
-        <button class="nav-btn" data-nav="rhythm" type="button"><svg viewBox="0 0 24 24"><path d="M4 14c2-5 4-5 6 0s4 5 6 0 3-4 4-2"/></svg><span id="navRhythm"></span></button>
-        <button class="nav-btn" data-nav="signals" type="button"><svg viewBox="0 0 24 24"><path d="M5 17l4-5 3 2 7-8"/><circle cx="9" cy="12" r="1"/><circle cx="12" cy="14" r="1"/><circle cx="19" cy="6" r="1"/></svg><span id="navSignals"></span></button>
-        <button class="nav-btn" data-nav="archive" type="button"><svg viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2"/><path d="M8 9h8M8 13h8"/></svg><span id="navArchive"></span></button>
-        <button class="nav-btn" data-nav="you" type="button"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M5.5 19c.8-3.5 3-5.2 6.5-5.2s5.7 1.7 6.5 5.2"/></svg><span id="navYou"></span></button>
-      </div>
-    </nav>
-  </div>
-
-  <div class="modal-wrap" id="checkinModal" role="dialog" aria-modal="true" aria-labelledby="checkinTitle">
-    <form class="sheet" id="checkinForm"><div class="sheet-handle"></div><h3 id="checkinTitle"></h3><p class="sheet-intro" id="checkinIntro"></p><div class="checkin-fields" id="checkinFields"></div><div class="sheet-actions"><button class="save-btn" id="saveCheckinBtn" type="submit"></button><button class="ghost-btn" id="closeCheckinBtn" type="button"></button></div><div class="status" id="checkinStatus" aria-live="polite"></div></form>
-  </div>
-
-  <div class="modal-wrap" id="profileModal" role="dialog" aria-modal="true" aria-labelledby="profileTitle">
-    <form class="sheet profile-sheet" id="profileForm">
-      <div class="sheet-handle"></div><h3 id="profileTitle"></h3><p class="sheet-intro" id="profileIntro"></p>
-      <div class="profile-fields">
-        <label class="profile-field"><span class="field-label-row"><span id="profileAgeLabel"></span><button class="field-info" type="button" data-help="age">ⓘ</button></span><input id="profileAge" name="age" type="number" inputmode="numeric" min="2" max="120" required /><small id="profileAgeHint"></small></label>
-        <label class="profile-field"><span class="field-label-row"><span id="profileSexLabel"></span><button class="field-info" type="button" data-help="sex">ⓘ</button></span><select id="profileSex" name="sexForCalc"></select><small id="profileSexHint"></small></label>
-        <div class="profile-field-row">
-          <label class="profile-field"><span id="profileHeightLabel"></span><div class="input-unit"><input id="profileHeight" name="heightCm" type="number" inputmode="decimal" min="50" max="230" step="0.1" required /><b>cm</b></div></label>
-          <label class="profile-field"><span id="profileWeightLabel"></span><div class="input-unit"><input id="profileWeight" name="weightKg" type="number" inputmode="decimal" min="5" max="350" step="0.1" required /><b>kg</b></div></label>
-        </div>
-        <label class="profile-field"><span class="field-label-row"><span id="profileActivityLabel"></span><button class="field-info" type="button" data-help="activity">ⓘ</button></span><select id="profileActivity" name="activity"></select></label>
-        <label class="profile-field"><span class="field-label-row"><span id="profileTrainingLabel"></span><button class="field-info" type="button" data-help="training">ⓘ</button></span><select id="profileTraining" name="trainingType"></select><small id="profileTrainingHint"></small></label>
-        <label class="profile-field"><span id="profileFrequencyLabel"></span><div class="input-unit"><input id="profileFrequency" name="trainingFrequency" type="number" inputmode="numeric" min="0" max="14" step="1" /><b id="frequencyUnit"></b></div></label>
-        <label class="profile-field"><span class="field-label-row"><span id="profileGoalLabel"></span><button class="field-info" type="button" data-help="goal">ⓘ</button></span><select id="profileGoal" name="goal"></select></label>
-        <div class="optional-divider"><span id="optionalEvidenceTitle"></span></div>
-        <div class="profile-field-row">
-          <label class="profile-field"><span class="field-label-row"><span id="profileWaistLabel"></span><button class="field-info" type="button" data-help="waist">ⓘ</button></span><div class="input-unit"><input id="profileWaist" name="waistCm" type="number" inputmode="decimal" min="30" max="250" step="0.1" /><b>cm</b></div><small id="profileWaistHint"></small></label>
-          <label class="profile-field"><span class="field-label-row"><span id="profileBodyFatLabel"></span><button class="field-info" type="button" data-help="bodyFat">ⓘ</button></span><div class="input-unit"><input id="profileBodyFat" name="bodyFatPct" type="number" inputmode="decimal" min="2" max="75" step="0.1" /><b>%</b></div><small id="profileBodyFatHint"></small></label>
-        </div>
-        <div class="reference-note" id="profileReferenceNote"></div>
-      </div>
-      <div class="sheet-actions"><button class="save-btn" id="saveProfileBtn" type="submit"></button><button class="ghost-btn" id="closeProfileBtn" type="button"></button></div><div class="status" id="profileStatus" aria-live="polite"></div>
-    </form>
-  </div>
-
-  <div class="modal-wrap" id="avatarEditorModal" role="dialog" aria-modal="true" aria-labelledby="avatarEditorTitle">
-    <div class="sheet avatar-editor-sheet"><div class="sheet-handle"></div><div class="avatar-editor-head"><div><div class="avatar-editor-eyebrow" id="avatarEditorEyebrow"></div><h3 id="avatarEditorTitle"></h3></div><button class="avatar-editor-close" id="cancelAvatarCropTopBtn" type="button" aria-label="Close">×</button></div><p class="sheet-intro" id="avatarEditorIntro"></p><div class="avatar-crop-shell"><div class="avatar-crop-viewport" id="avatarCropViewport"><img id="avatarCropImage" alt="" draggable="false" /><span class="avatar-crop-ring" aria-hidden="true"></span></div></div><label class="avatar-zoom-control" for="avatarZoom"><span id="avatarZoomLabel"></span><input id="avatarZoom" type="range" min="1" max="3" step="0.01" value="1" /></label><div class="avatar-crop-hint" id="avatarCropHint"></div><div class="avatar-editor-actions"><button class="save-btn" id="saveAvatarCropBtn" type="button"></button><button class="ghost-btn" id="resetAvatarCropBtn" type="button"></button><button class="ghost-btn" id="cancelAvatarCropBtn" type="button"></button></div><div class="status" id="avatarCropStatus" aria-live="polite"></div></div>
-  </div>
-
-  <div class="modal-wrap" id="haloModal" role="dialog" aria-modal="true" aria-labelledby="haloModalTitle">
-    <div class="sheet halo-sheet"><div class="sheet-handle"></div><h3 id="haloModalTitle"></h3><p class="sheet-intro" id="haloModalIntro"></p><div class="evidence-list" id="haloEvidenceList"></div><div class="sheet-actions"><button class="ghost-btn" id="closeHaloBtn" type="button"></button></div></div>
-  </div>
-
-  <div class="modal-wrap" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpModalTitle">
-    <div class="sheet help-sheet"><div class="sheet-handle"></div><div class="help-eyebrow" id="helpModalEyebrow"></div><h3 id="helpModalTitle"></h3><div class="help-content" id="helpModalContent"></div><div class="sheet-actions"><button class="ghost-btn" id="closeHelpBtn" type="button"></button></div></div>
-  </div>
-
-  <div class="modal-wrap" id="howWorksModal" role="dialog" aria-modal="true" aria-labelledby="howWorksModalTitle">
-    <div class="sheet how-works-sheet"><div class="sheet-handle"></div><div class="help-eyebrow" id="howWorksEyebrow"></div><h3 id="howWorksModalTitle"></h3><p class="sheet-intro" id="howWorksIntro"></p><div class="how-works-list" id="howWorksList"></div><div class="sheet-actions"><button class="ghost-btn" id="closeHowWorksBtn" type="button"></button></div></div>
-  </div>
-
-  <div class="modal-wrap" id="dayDetailModal" role="dialog" aria-modal="true" aria-labelledby="dayDetailTitle">
-    <div class="sheet day-detail-sheet"><div class="sheet-handle"></div><div class="day-detail-eyebrow" id="dayDetailEyebrow"></div><h3 id="dayDetailTitle"></h3><p class="sheet-intro" id="dayDetailIntro"></p><div class="day-detail-state" id="dayDetailState"></div><div class="day-detail-metrics" id="dayDetailMetrics"></div><div class="day-detail-weight" id="dayDetailWeight" hidden></div><div class="day-detail-evidence" id="dayDetailEvidence"></div><div class="sheet-actions"><button class="ghost-btn" id="closeDayDetailBtn" type="button"></button></div></div>
-  </div>
-
-  <script type="module" src="./src/js/app.js"></script>
+    <div class="modal-backdrop" id="exitModal" role="dialog" aria-modal="true" aria-labelledby="exitModalTitle" hidden><div class="modal-card"><span class="modal-card__ornament" aria-hidden="true">✦</span><h2 id="exitModalTitle" data-copy="exitTitle">Return to Title?</h2><p data-copy="exitBody">Your preferences will be kept.</p><div class="modal-card__actions"><button class="modal-button" id="exitCancel" type="button" data-copy="cancel">Cancel</button><button class="modal-button modal-button--primary" id="exitConfirm" type="button" data-copy="confirm">Return</button></div></div></div>
+    <p class="sr-only" id="liveStatus" aria-live="polite"></p>
+  </main>
+  <script src="js/pwa.js?v=0.16.0" defer></script>
+  <script src="js/audio.js?v=0.16.0" defer></script>
+  <script src="js/profile-details.js?v=0.16.0" defer></script>
+  <script src="js/app.js?v=0.16.0" defer></script>
+  <script src="js/reading-content.js?v=0.16.0" defer></script>
+  <script src="js/hindi-content.js?v=0.16.0" defer></script>
+  <script src="js/reading-engine.js?v=0.16.0" defer></script>
+  <script src="js/reading-day.js?v=0.16.0" defer></script>
+  <script src="js/reading-export.js?v=0.16.0" defer></script>
+  <script src="js/deck-ritual.js?v=0.16.0" defer></script>
+  <script src="js/three-narrative.js?v=0.16.0" defer></script>
+  <script src="js/three-focus-narrative.js?v=0.16.0" defer></script>
+  <script src="js/question-guard.js?v=0.16.0" defer></script>
+  <script src="js/hindi-guard.js?v=0.16.0" defer></script>
+  <script src="js/ask-content.js?v=0.16.0" defer></script>
+  <script src="js/question-analyzer.js?v=0.16.0" defer></script>
+  <script src="js/hindi-analyzer.js?v=0.16.0" defer></script>
+  <script src="js/question-contract.js?v=0.16.0" defer></script>
+  <script src="js/ask-context.js?v=0.16.0" defer></script>
+  <script src="js/ask-semantic.js?v=0.16.0" defer></script>
+  <script src="js/ask-storage.js?v=0.16.0" defer></script>
+  <script src="js/hindi-storage.js?v=0.16.0" defer></script>
+  <script src="js/reading-ui.js?v=0.16.0" defer></script>
+  <script src="js/ask-export.js?v=0.16.0" defer></script>
+  <script src="js/ask-ui.js?v=0.16.0" defer></script>
+  <script src="js/three-export.js?v=0.16.0" defer></script>
+  <script src="js/three-storage.js?v=0.16.0" defer></script>
+  <script src="js/three-ui.js?v=0.16.0" defer></script>
+  <script src="js/three-card-viewer.js?v=0.16.0" defer></script>
+  <script src="js/golden-narrative.js?v=0.16.0" defer></script>
+  <script src="js/golden-storage.js?v=0.16.0" defer></script>
+  <script src="js/golden-export.js?v=0.16.0" defer></script>
+  <script src="js/golden-ui.js?v=0.16.0" defer></script>
+  <script src="js/golden-card-viewer.js?v=0.16.0" defer></script>
+  <script src="js/obstacle-narrative.js?v=0.16.0" defer></script>
+  <script src="js/obstacle-storage.js?v=0.16.0" defer></script>
+  <script src="js/obstacle-export.js?v=0.16.0" defer></script>
+  <script src="js/obstacle-ui.js?v=0.16.0" defer></script>
+  <script src="js/obstacle-card-viewer.js?v=0.16.0" defer></script>
+  <script src="js/hindi-narratives.js?v=0.16.0" defer></script>
+  <script src="js/hindi-runtime.js?v=0.16.0" defer></script>
+  <script src="js/hindi-export.js?v=0.16.0" defer></script>
+  <script src="js/lucky-content.js?v=0.16.0" defer></script>
+  <script src="js/lucky-storage.js?v=0.16.0" defer></script>
+  <script src="js/lucky-machine.js?v=0.16.0" defer></script>
+  <script src="js/lucky-sfx.js?v=0.16.0" defer></script>
+  <script src="js/lucky-export.js?v=0.16.0" defer></script>
+  <script src="js/lucky-ui.js?v=0.16.0" defer></script>
+  <script src="js/tarot-library-content.js?v=0.16.0" defer></script>
+  <script src="js/tarot-library-ui.js?v=0.16.0" defer></script>
+  <script src="js/journal-content.js?v=0.16.0" defer></script>
+  <script src="js/journal-storage.js?v=0.16.0" defer></script>
+  <script src="js/journal-capture.js?v=0.16.0" defer></script>
+  <script src="js/journal-ui.js?v=0.16.0" defer></script>
+  <script src="js/read-hub.js?v=0.16.0" defer></script>
+  <script src="js/support.js?v=0.16.0" defer></script>
+  <script src="js/legal-content.js?v=0.16.0" defer></script>
+  <script src="js/legal-ui.js?v=0.16.0" defer></script>
+  <script src="js/help-feedback.js?v=0.16.0" defer></script>
 </body>
 </html>
