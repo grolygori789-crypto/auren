@@ -1,14 +1,14 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 43;
+export const BUILD_NUMBER = 44;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 43 keeps the restored original Today Core look but revises motion again
-// based on physical feedback: match the loading/original orb character more
-// closely while making the inner liquid slosh slower and calmer. Signature
-// Opening remains unchanged. Legal Version remains 1.0.0. Health logic, stores
-// and schema remain unchanged.
+// Build 44 fully rolls back Today Core experimentation after physical testing.
+// It removes the Today motion override and returns Today to the original orb
+// behavior already proven before today's iterations. Signature Opening and Today
+// both use the original core renderer path again. Legal Version remains 1.0.0.
+// Health logic, stores and schema remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});
@@ -19,7 +19,6 @@ if (typeof document !== 'undefined') {
   import('../today/checkin-slider-polish.js').catch((error) => console.error('Auren check-in slider polish unavailable', error));
   import('../today/affordance-polish.js').catch((error) => console.error('Auren Today affordance polish unavailable', error));
   import('../today/body-context-polish.js').catch((error) => console.error('Auren Body Context polish unavailable', error));
-  import('../today/core-motion-refinement.js').catch((error) => console.error('Auren Today Core motion refinement unavailable', error));
 
   let archivePromise = null;
   const loadArchivePolish = () => {

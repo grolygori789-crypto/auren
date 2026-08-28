@@ -1,4 +1,4 @@
-// Auren runtime Build 43 — loader-style core with slower liquid motion.
+// Auren runtime Build 44 — full Today Core rollback to original behavior.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -35,7 +35,6 @@ const APP_SHELL = [
   './src/js/today/checkin-slider-polish.js',
   './src/js/today/affordance-polish.js',
   './src/js/today/body-context-polish.js',
-  './src/js/today/core-motion-refinement.js',
   './src/js/archive/archive-polish.js',
   './src/js/you/you-polish.js',
   './src/js/you/help-support.js',
