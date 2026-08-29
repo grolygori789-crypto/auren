@@ -134,7 +134,11 @@ export class AurenOrb {
     this.stateMotion += (targetTone.motion - this.stateMotion) * toneEase;
     this.stateWarm += (targetTone.warm - this.stateWarm) * toneEase;
 
-    const amp = this.signature ? 0.94 : (this.calm ? 1.08 : 1.12);
+    const isToday = this.calm && !this.signature;
+    const todayMotion = isToday
+      ? Math.max(0.96, Math.min(1.03, 1 + (this.stateMotion - 0.94) * 0.28))
+      : 1;
+    const amp = (this.signature || this.calm) ? 0.94 * todayMotion : 1.12;
     const intro = this.t < 4.5 ? Math.cos(this.t * 1.18) * 0.105 * Math.exp(-this.t * 0.74) : 0;
     const living = Math.sin(this.t * 1.28) * 0.128 + Math.sin(this.t * 2.04 + 0.72) * 0.052 + Math.sin(this.t * 0.48) * 0.020;
     const target = this.reduced ? 0 : (intro + living + this.kick) * amp;
@@ -142,11 +146,14 @@ export class AurenOrb {
     this.tiltV *= Math.exp(-1.55 * dt);
     this.tilt += this.tiltV * dt;
     const forcing = this.tiltV * 1.42;
-    const idleWave = this.reduced ? 0 : Math.sin(this.t * 1.72 + 0.35) * 0.055;
+    const waveMotion = isToday
+      ? Math.max(0.965, Math.min(1.025, 1 + (this.stateMotion - 0.94) * 0.22))
+      : 1;
+    const idleWave = this.reduced ? 0 : Math.sin(this.t * 1.72 + 0.35) * 0.055 * waveMotion;
     this.waveV += (-this.wave * 7.4 + forcing * 1.08 + idleWave) * dt;
     this.waveV *= Math.exp(-1.48 * dt);
     this.wave += this.waveV * dt;
-    const secondaryIdle = this.reduced ? 0 : Math.sin(this.t * 2.55) * 0.026;
+    const secondaryIdle = this.reduced ? 0 : Math.sin(this.t * 2.55) * 0.026 * waveMotion;
     this.wave2V += (-this.wave2 * 11.8 - forcing * 0.48 + secondaryIdle) * dt;
     this.wave2V *= Math.exp(-1.78 * dt);
     this.wave2 += this.wave2V * dt;
@@ -162,7 +169,7 @@ export class AurenOrb {
     }
   }
 
-  fluidImageLegacy() {
+  fluidImageLegacy({ adaptiveToday = false } = {}) {
     const { S, px } = this;
     const c = S / 2;
     const R = S * 0.408;
@@ -192,19 +199,37 @@ export class AurenOrb {
         const s2 = Math.sin((u * 1.55 - v * 3.1) * 1.18 - this.t * 0.82 + 0.58);
         const s3 = Math.sin((u * 5.1 + v * 2.4) * 0.76 + this.t * 0.66);
         const ribbon = Math.pow(0.5 + 0.5 * s3, 3);
-        const aquaMix = this.signature
-          ? Math.max(0, Math.min(1, 0.15 + 0.050 * s1 + 0.025 * s2 + 0.16 * ribbon))
+        const signatureVisual = this.signature || adaptiveToday;
+        const stateAqua = adaptiveToday
+          ? Math.max(-0.006, Math.min(0.030, this.stateAqua * 0.28))
+          : 0;
+        const statePearl = adaptiveToday
+          ? Math.max(0, Math.min(0.012, this.statePearl * 0.22))
+          : 0;
+        const stateLight = adaptiveToday
+          ? Math.max(0.955, Math.min(1.045, 1 + (this.stateLight - 1) * 0.45 + this.reaction * 0.035))
+          : 1;
+        const aquaMix = signatureVisual
+          ? Math.max(0, Math.min(1, 0.15 + stateAqua + 0.050 * s1 + 0.025 * s2 + 0.16 * ribbon))
           : Math.max(0, Math.min(1, 0.22 + 0.060 * s1 + 0.032 * s2 + 0.025 * s3));
         const { gold, aqua, pearl } = this.palette;
         let r = gold[0] * (1 - aquaMix) + aqua[0] * aquaMix;
         let g = gold[1] * (1 - aquaMix) + aqua[1] * aquaMix;
         let b = gold[2] * (1 - aquaMix) + aqua[2] * aquaMix;
-        const tint = (this.signature ? 0.34 : 0.30) + thickness * (this.signature ? 0.74 : 0.72);
+        const tint = (signatureVisual ? 0.34 : 0.30) + thickness * (signatureVisual ? 0.74 : 0.72) + statePearl;
         r = pearl[0] * (1 - tint) + r * tint;
         g = pearl[1] * (1 - tint) + g * tint;
         b = pearl[2] * (1 - tint) + b * tint;
+        if (adaptiveToday && this.stateWarm > 0) {
+          const warmMix = Math.min(0.014, this.stateWarm * 0.18) * thickness;
+          r = r * (1 - warmMix) + gold[0] * warmMix;
+          g = g * (1 - warmMix) + gold[1] * warmMix;
+          b = b * (1 - warmMix) + gold[2] * warmMix;
+        }
         {
-          const ribbonStrength = this.signature ? 0.20 : 0.115;
+          const ribbonStrength = signatureVisual
+            ? 0.20 + (adaptiveToday ? this.reaction * 0.018 : 0)
+            : 0.115;
           const aquaRibbon = ribbonStrength * Math.pow(0.5 + 0.5 * Math.sin(u * 5.4 - v * 3.1 + this.t * 0.98 + 0.7), 5) * thickness;
           r = r * (1 - aquaRibbon) + aqua[0] * aquaRibbon;
           g = g * (1 - aquaRibbon) + aqua[1] * aquaRibbon;
@@ -213,11 +238,11 @@ export class AurenOrb {
         const surfGlow = Math.exp(-Math.abs(depth) * 74);
         const ca = 0.5 + 0.5 * Math.sin(u * 12.5 + v * 7.5 + this.t * 0.92 + aquaMix * 2.6);
         const lower = Math.pow(fillDepth, 0.66);
-        const luxe = this.signature ? 1.10 : 1;
+        const luxe = signatureVisual ? 1.10 * stateLight : 1;
         const light = (surfGlow * (24 + ca * 12) + Math.pow(Math.max(0, 0.88 - u * 0.14 - v * 0.34), 6.6) * 12.5 * thickness + (1 - Math.abs(u) * 0.22) * thickness * 15.8 * lower) * luxe;
-        r += light + lower * (this.signature ? 13.0 : 10.5);
-        g += light * 0.95 + lower * (this.signature ? 9.6 : 8);
-        b += light * 0.87 + lower * (this.signature ? 5.0 : 5.2);
+        r += light + lower * (signatureVisual ? 13.0 : 10.5) * stateLight;
+        g += light * 0.95 + lower * (signatureVisual ? 9.6 : 8) * stateLight;
+        b += light * 0.87 + lower * (signatureVisual ? 5.0 : 5.2) * stateLight;
         const trans = 1 - Math.exp(-3 * optical * (0.60 + 0.92 * fillDepth));
         px[ii] = Math.min(255, r);
         px[ii + 1] = Math.min(255, g);
@@ -352,13 +377,21 @@ export class AurenOrb {
   }
 
   fluidImage() {
-    // The accepted Signature Opening stays on the proven renderer. Build 13 is
-    // isolated to the Today Core and falls back permanently to legacy rendering
-    // if the evolution path ever throws on a device.
+    // Opening remains byte-behavior compatible with the accepted Signature path.
     if (this.signature || this.evolutionDisabled) {
       this.fluidImageLegacy();
       return;
     }
+
+    // Today now uses the same Signature material language, while its existing
+    // semantic state is allowed to nudge tint, luminosity and reaction subtly.
+    if (this.calm) {
+      this.fluidImageLegacy({ adaptiveToday: true });
+      return;
+    }
+
+    // Keep the previous evolution renderer dormant as an isolated fallback path
+    // for any future non-signature/non-calm Core usage.
     try {
       this.fluidImageEvolution();
     } catch {

@@ -1,4 +1,4 @@
-// Auren runtime Build 50 — exact Build 44 Core restored, motion slowed 16%.
+// Auren runtime Build 51 — Signature Core for Today with subtle state response.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
