@@ -2,225 +2,493 @@
 
 > **Your body, understood.**
 
-**MASTER PLAN · CANONICAL CONTINUATION EDITION · Revision 3.0**  
-Product · Design · Engineering · Intelligence · Trust · Privacy · Growth · QA · Handoff  
-Benedict Interactive · 28 August 2026
+**MASTER PLAN · CANONICAL OPERATING EDITION · Revision 4.0**  
+Product · Design · Engineering · Intelligence · Trust · Privacy · Growth · QA · Release · Handoff  
+Benedict Interactive · 29 August 2026
 
-Status: **Canonical operating source of truth for continued Auren development**
+Status: **Canonical operating source of truth for continued Auren development after upload**
 
 ---
 
-# 0. Executive Continuity Card — อ่านส่วนนี้ก่อนทุกอย่าง
+# 0. EXECUTIVE CONTINUITY CARD — READ THIS FIRST
 
-Auren คือ **Personal Health Intelligence** ไม่ใช่ health tracker ที่เอากราฟสวยๆ มาห่อข้อมูลเดิม จุดหมายคือทำให้ผู้ใช้เข้าใจความสัมพันธ์ระหว่างชีวิต บริบทของร่างกาย ภาวะประจำวัน และแนวโน้มของตัวเอง แล้วเปลี่ยนข้อมูลให้เป็นความหมายที่เชื่อถือได้และการตัดสินใจที่มีประโยชน์หนึ่งอย่าง
+Auren is **Personal Health Intelligence**.
+
+It is not a tracker with better-looking charts. Its purpose is to turn user-owned information into trustworthy personal meaning:
+
+> **Data → Pattern → Meaning → One useful decision**
+
+Auren should help a person understand:
+- what they can observe today,
+- what context changes the meaning of those observations,
+- how today relates to their own recent history,
+- what patterns or relationships may be emerging,
+- what evidence supports those conclusions,
+- and whether one useful move is justified — or whether nothing needs changing.
 
 **Product:** AUREN  
 **Category:** Personal Health Intelligence  
 **Primary tagline:** **Your body, understood.**  
 **Studio:** Benedict Interactive  
 **Initial platform:** Mobile-first Premium PWA / Web App  
-**Primary promise:** **Data → Pattern → Meaning → One useful decision**
+**Current app version:** `0.1.0`  
+**Current production Build:** **51**  
+**Data schema:** **4**  
+**Legal Version:** **1.0.0**
 
-## Current production baseline at this revision
+Target user feeling:
 
-Repository: `grolygori789-crypto/auren`  
-Branch: `main`  
-Verified HEAD at document creation: `b1af5d2b4c8c4ba89f58f9c1143ff7745967658a`  
-Runtime: **Build 29**  
-Data schema marker: **4**  
-Physical-device status: **Build 29 accepted by P’Benz**  
-Next runtime batch: **Build 30** unless a newer repo HEAD has already advanced it
+> **“I understand myself better.”**
 
-Important known-good anchors:
-- **Build 16** — accepted clean Signature Opening handoff
-- **Build 20** — Signals V1 physically reviewed / provisional production acceptance
-- **Build 21** — Today metric detail interaction foundation
-- **Build 25** — Daily Check-in slider semantics + spacing physically accepted
-- **Build 27** — recovery from rejected Build 26 startup regression; physically accepted
-- **Build 29** — current Archive / Daily Health Memory baseline; physically accepted
+and simultaneously:
 
-Critical warning:
-- **Build 26 is rejected. Do not re-enable its runtime approach.**
-- `src/js/today/checkin-guidance.js` may still exist as an **orphaned, unreferenced file** from Build 26. It must remain unimported/un-cached until deliberately redesigned or removed in a safe hygiene batch.
+> **“This feels impossibly refined.”**
 
-Current planned continuation if P’Benz gives no newer explicit direction:
-1. **Build 30 — You / Settings Final Polish**
-2. **Build 31+ — Full-System QA & Production Hardening**
-3. Longitudinal QA once real history is sufficient for Rhythm / Signals / Archive maturity states
-4. Revisit the shared Daily Check-in scale explainer only with an **on-demand, non-startup, fail-open** design
+Early-access emotional target:
 
-This document is deliberately complete enough that a new room should not need to ask historical questions before continuing.
+> **“This feels like a billion-dollar premium app, and I somehow got special access to it.”**
+
+Premium must come from coherence, restraint, responsiveness, trust, detail, hierarchy and finish — never clutter, spectacle or fake complexity.
 
 ---
 
-# 1. Authority — Full Authorized DEV 100%
+# 1. CURRENT PRODUCTION TRUTH — 29 AUGUST 2026
 
-In Auren, “บิ๊ว” acts as **Full Authorized DEV 100%**, equivalent in operating responsibility to:
+Repository: `grolygori789-crypto/auren`  
+Branch: `main`  
+Verified production HEAD at this revision:  
+`6096f83bd748d3f5e08c99d97a92aef3a9d8cef6`
+
+HEAD commit:
+
+> `Align Build 51 Today with Signature Core`
+
+Runtime:
+- `APP_VERSION = 0.1.0`
+- `BUILD_NUMBER = 51`
+- `DATA_SCHEMA_VERSION = 4`
+- Service Worker is Build 51
+- Legal Version = `1.0.0`
+- Legal effective date = `28 August 2026`
+
+## 1.1 Physical-device truth
+
+### Build 50 — hard known-good Core rollback anchor
+
+Build 50:
+- restored the exact Build 44 original Core renderer,
+- preserved the accepted glass/liquid visual character,
+- reduced global animation cadence by roughly 16%,
+- was physically tested by P’Benz,
+- was explicitly accepted.
+
+Status:
+
+> **PHYSICALLY ACCEPTED / HARD KNOWN-GOOD CORE ANCHOR**
+
+### Build 51 — current production candidate
+
+Build 51:
+- keeps the accepted Build 50 Signature Opening path unchanged,
+- makes Today use the same Signature/Legacy material character as Opening,
+- aligns Today baseline motion amplitude with Opening,
+- retains only subtle bounded visual response from existing Halo/Daily state,
+- retains existing Check-in `react()` behavior,
+- does not create a new health-data pipeline,
+- does not alter storage, Body Intelligence, layout or launch handoff.
+
+Latest physical feedback:
+
+> **“ปรับรอบล่าสุดพี่ว่าโอเคขึ้นครับ”**
+
+Therefore:
+
+> **Build 51 = current production / positively physically reviewed / provisional acceptance**
+
+Do not call Build 51 permanently locked until:
+- no visual fatigue or regression appears during hardening,
+- Today/Open­ing coherence remains good over repeated use,
+- P’Benz explicitly accepts it or the hardening pass closes without Core defects.
+
+## 1.2 Next runtime number
+
+A docs-only update does **not** bump Build.
+
+If and only if a runtime defect or justified runtime improvement requires code change:
+
+> **Next runtime batch = Build 52**
+
+Never create Build 52 merely because a “next Build” is expected.
+
+---
+
+# 2. CURRENT AUREN 1 PROGRESS / SUCCESS ESTIMATE
+
+## 2.1 Operational readiness
+
+> **88% ±3%**
+
+This is a **product/engineering operational-readiness estimate**.
+
+It is **not**:
+- a health score,
+- telemetry,
+- DAU/retention,
+- market success,
+- revenue probability,
+- medical confidence,
+- or a claim of mathematical precision.
+
+The uncertainty band is deliberate because several remaining gates require physical and longitudinal evidence that cannot be truthfully inferred from code inspection alone.
+
+## 2.2 Weighted readiness model
+
+| Area | Weight | Current score | Current status |
+|---|---:|---:|---|
+| Product doctrine / architecture / trust model | 10 | 10 | Established |
+| Opening / Core / Today hero experience | 20 | 18 | Strong; Build 51 provisional |
+| Daily Check-in / metric detail / Body Intelligence | 15 | 15 | Mature / accepted |
+| Rhythm / Signals / Archive | 15 | 12 | Built; longitudinal validation pending |
+| You / Privacy / Legal / Feedback / Support | 15 | 15 | Implemented / stable |
+| Localization / PWA / accessibility / data lifecycle | 10 | 9 | Strong; full-system pass pending |
+| Full-system QA / regression hardening | 10 | 6 | Primary next phase |
+| Longitudinal evidence validation / final cleanup | 5 | 3 | Real-history depth still required |
+| **TOTAL** | **100** | **88** | **Near hardening / RC preparation** |
+
+## 2.3 What the remaining 12% actually means
+
+The missing 12% is **not primarily missing feature count**.
+
+It is mostly:
+- product-wide regression confidence,
+- physical-device verification,
+- PWA update/cache certainty,
+- EN/TH edge-case verification,
+- data lifecycle verification,
+- mature-history verification,
+- final release documentation coherence,
+- and removal or containment of technical debt.
+
+Default rule:
+
+> **Do not chase 100% by adding unnecessary features.**
+
+---
+
+# 3. DEFINITION OF 100% FOR AUREN 1
+
+Auren 1 reaches **100% operational readiness** when all of the following are true:
+
+- Opening/Core/Today are accepted.
+- No known Critical or High regression remains.
+- Daily Check-in create/edit-same-day lifecycle passes.
+- Daily State details remain correct and explainable.
+- Body Context and Body Intelligence fixtures pass.
+- Youth and athletic-context guardrails pass.
+- Rhythm sparse and mature states are validated enough for the claims actually shown.
+- Signals qualifying/no-signal/stability behavior is validated enough for the claims actually shown.
+- Archive month/history behavior is validated.
+- Weight-only days remain truthful.
+- You / Identity / Privacy / Legal / Help / Support remain stable.
+- EN and TH key flows pass.
+- 360px and 393px mobile layouts pass.
+- Reduced Motion passes.
+- Keyboard/focus/accessibility basics pass where relevant.
+- Data delete/reset lifecycle passes.
+- PWA cold launch, repeat launch, offline shell and update/cache path pass.
+- Release documentation is synchronized.
+- Known technical debt does not threaten runtime.
+- Physical-device verification supports the final visual/interaction claims.
+
+100% does **not** require:
+- cloud,
+- accounts,
+- wearables,
+- Auren 2,
+- Auren 3,
+- Auren+,
+- monetization,
+- or every imaginable feature.
+
+---
+
+# 4. IMMEDIATE ROADMAP — WHAT HAPPENS NEXT
+
+## Phase 0 — Governance sync
+
+This Master Plan Revision 4.0 replaces the stale Build 29 baseline in Revision 3.0.
+
+Current documentation drift discovered at this revision:
+- repo `docs/product/AUREN_MASTER_PLAN.md` = Revision 3.0 before this upload,
+- repo `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md` is also still Revision 3.0,
+- production runtime is already Build 51.
+
+After this Master Plan is uploaded:
+1. treat this Master Plan Revision 4.0 as canonical doctrine + current runtime plan,
+2. perform a separate docs-only synchronization of the Migration Prompt,
+3. do not bump runtime Build for either docs-only change.
+
+## Phase 1 — Build 51 Core acceptance freeze
+
+Goal:
+- confirm Opening remains Build 50-quality,
+- confirm Today feels materially coherent with Opening,
+- confirm state response is subtle and non-gimmicky,
+- confirm Check-in reaction settles naturally,
+- confirm no dizziness, fatigue, excessive sway or screensaver feel.
+
+If Build 51 remains good:
+
+> **accept and lock the current Core behavior**
+
+If a real defect appears:
+- use Build 50 as hard rollback reference,
+- make only a surgical Build 52 change,
+- do not redesign Core from scratch.
+
+## Phase 2 — Full-System QA & Production Hardening
+
+This is the **highest-priority major workstream**.
+
+Do not add broad feature scope until this phase is substantially complete.
+
+QA itself does not need a Build bump.
+
+If QA finds no runtime defect:
+> **do not invent a new Build**
+
+If QA finds a defect:
+> fix only the defect in the smallest justified Build 52+ batch.
+
+## Phase 3 — Longitudinal validation
+
+When sufficient real history exists:
+- validate Rhythm 6+ / 14 / 30-day states,
+- validate Signals 8+ paired-day gates,
+- validate variation / reversal / stability behavior,
+- validate Archive monthly comparison logic,
+- validate weight continuity,
+- validate mixed evidence days,
+- confirm sparse states remain truthful.
+
+## Phase 4 — Auren 1 Release Candidate Gate
+
+Auren 1 may become Release Candidate only after:
+- no Critical/High regression,
+- Build/cache/PWA update path coherent,
+- EN/TH key flows pass,
+- Core/Opening accepted,
+- Check-in lifecycle passes,
+- data deletion/reset passes,
+- privacy/legal/support stable,
+- longitudinal systems have enough evidence validation for the claims currently shown.
+
+## Phase 5 — Selected additions only after hardening
+
+Potential low-risk additions:
+- shared on-demand `How to rate` Check-in explainer,
+- local data export,
+- portability/import improvements.
+
+Only implement when:
+- user value is clear,
+- regression risk is low,
+- no startup authority is introduced,
+- trust is not degraded.
+
+---
+
+# 5. AUTHORITY — FULL AUTHORIZED DEV 100%
+
+“บิ๊ว” operates as Full Authorized DEV 100%, equivalent in product responsibility to:
 - Founder-Operator
 - Product Owner
 - Principal Product Designer
 - CTO / Technical Lead
 - Trust & Privacy Lead
 - Growth / Packaging Lead
-- Release / QA Lead
+- QA / Release Lead
 
-P’Benz remains the legal owner of the project and IP, proposes ideas, identifies defects, sets explicit constraints, and is the primary physical-device acceptance tester. Product/design/engineering choices inside the agreed North Star are delegated to บิ๊ว.
+P’Benz:
+- legally owns the project and IP,
+- gives explicit direction,
+- identifies physical/product defects,
+- is the primary real-device acceptance tester.
 
-Rules:
-- Do not follow an idea automatically merely because P’Benz proposed it. If a better product path exists, choose it and explain briefly.
-- Do not ask P’Benz to restate information recoverable from this Master Plan, the Migration Prompt, current production, repo history, approved assets, or the current conversation.
-- Ask only when information is genuinely new/unrecoverable, a credential/consent is required, or an irreversible external action needs explicit owner approval.
-- **Product authority does not equal remote-write authority.** Default GitHub workflow is to prepare canonical files/packages for P’Benz to upload manually. Do not push/write remotely unless P’Benz explicitly instructs it in the current turn.
+บิ๊ว:
+- has final product/design/engineering decision authority inside the North Star and trust boundaries,
+- must choose the better path when evidence supports it,
+- must not follow suggestions mechanically,
+- should explain meaningful trade-offs briefly.
+
+## Remote-write boundary
+
+**Product authority ≠ GitHub write authority.**
+
+Default:
+- inspect GitHub,
+- inspect history,
+- create/edit files locally,
+- package canonical updates,
+- send files for P’Benz to upload manually.
+
+Do not push/update/delete remote GitHub unless P’Benz explicitly authorizes it in the current turn.
 
 ---
 
-# 2. Source of Truth & Conflict Order
+# 6. SOURCE OF TRUTH / CONFLICT ORDER
 
-Canonical sources:
-1. `docs/product/AUREN_MASTER_PLAN.md`
-2. `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md`
-3. Current production in `grolygori789-crypto/auren` branch `main`
-4. Approved product assets and physical-device screenshots
-5. Repository history / README release notes
-6. Older chat context
+Before substantial implementation:
+1. read this Master Plan,
+2. read the current Migration Prompt,
+3. inspect repo HEAD,
+4. inspect `src/js/config/build.js`,
+5. inspect `sw.js`,
+6. inspect the actual implementation being changed,
+7. inspect schema/storage if relevant,
+8. establish known-good baseline,
+9. define changed-file allowlist,
+10. define rollback/fallback for meaningful-risk work,
+11. implement surgically,
+12. perform scoped regression QA.
 
 Conflict order:
 
-> **latest explicit instruction from P’Benz → current production/live implementation → Master Plan → approved assets → repo/history → older chat context**
+> **latest explicit instruction from P’Benz → current production → Master Plan doctrine/current plan → handoff context → approved screenshots/assets → repo history → older chat**
 
-Before any substantial implementation:
-1. Read the Master Plan and Migration Prompt.
-2. Inspect current repo HEAD.
-3. Inspect `src/js/config/build.js`.
-4. Inspect Service Worker/cache identity.
-5. Inspect data schema/storage if relevant.
-6. Inspect the current implementation of the surface being changed.
-7. Establish a known-good baseline.
-8. Define a narrow changed-file allowlist.
-9. Define rollback/fallback for meaningful-risk changes.
-10. Implement surgically.
-11. Perform scoped regression QA.
-12. Package canonical repo-relative files.
-13. Send clickable file links and a **Commit name <=50 characters in a code block**.
+If repo is newer than this document:
+- current production wins,
+- inspect what changed,
+- advance from the current Build,
+- never force production backward merely to match documentation.
 
 ---
 
-# 3. North Star & Product Promise
+# 7. PRODUCT NORTH STAR — NON-NEGOTIABLE
 
-Auren helps users understand:
-- what they can observe today,
-- how today compares with their own recent history,
-- what relationships may be emerging,
-- what context changes the meaning of a number,
-- and whether one small action is justified — or whether nothing needs changing.
+Auren = **Personal Health Intelligence**
 
-The core emotional and functional outcome is two simultaneous thoughts:
+Primary promise:
 
-> **“I understand myself better.”**  
-> **“Why does this feel so unusually considered and expensive?”**
+> **Data → Pattern → Meaning → One useful decision**
 
-Early-access emotional target:
-> **“This feels like a billion-dollar premium app, and I somehow got special access to it.”**
-
-Premium must come from restraint, hierarchy, material detail, coherence, responsiveness, trust, and polished interaction — never from visual clutter.
-
----
-
-# 4. What Auren Is Not
+Auren must help users understand:
+- today,
+- context,
+- their own baseline,
+- continuity,
+- evidence,
+- emerging relationships,
+- uncertainty,
+- and what action — if any — is justified.
 
 Auren is not:
-- a medical diagnosis app
-- a doctor replacement
-- a fitness-bro tracker
-- a calorie/macros diary
-- a guilt streak app
-- a habit-addiction machine
-- a generic wellness dashboard
-- an AI chatbot where “AI” is the hero
-- a pseudo-scientific health score
-- a body-shaming weight-loss funnel
-- a social feed
-- a wearable-dependent product in V1
+- a diagnosis app,
+- a doctor replacement,
+- a medical device,
+- a generic health tracker/dashboard,
+- a calorie/macros diary,
+- a guilt streak app,
+- an AI-chatbot hero product,
+- a fake health-score app,
+- a body-shaming weight-loss product,
+- a social feed,
+- wearable-dependent in V1.
 
-Default rule: **Auren should feel smarter because it understands context better, not because it has more menus.**
+Default:
+
+> **Auren should feel smarter because it understands context better, not because it has more menus.**
 
 ---
 
-# 5. Product Principles — Non-Negotiable
+# 8. PRODUCT PRINCIPLES — NON-NEGOTIABLE
 
 | Principle | Operating rule |
 |---|---|
 | Trust before intelligence | If it appears smarter but becomes less believable, it is worse. |
 | Usability before spectacle | Beautiful but harder to use = fail. |
-| Complex underneath, calm on surface | Internal logic can be rich; UI must remain quiet. |
-| Evidence before claims | Important meaning must have a traceable basis. |
+| Complex underneath, calm on surface | Rich internal logic, quiet UI. |
+| Evidence before claims | Meaning must have a traceable basis. |
 | Personal baseline first | Compare users with themselves before population judgment. |
 | Context before judgment | Never let one metric define the person. |
-| Progressive disclosure | Explain deeply on demand, not by crowding the main surface. |
-| No fake precision | No invented 92/100 health score. |
-| No addiction mechanics | No guilt streaks, shame, scarcity, or nag loops. |
-| Privacy as a product feature | Local-first where reasonable; consent before expansion. |
-| Motion must communicate | Motion should explain state/material/transition. |
-| Ship narrow, polish deeply | Fewer finished systems beat many half-finished features. |
-| Visual meaning over decoration | If an element cannot explain its purpose, it should not dominate. |
-| Stable production is protected | Do not touch accepted systems without a real reason. |
+| Progressive disclosure | Explain deeply on demand. |
+| No fake precision | No invented 92/100 wellness score. |
+| No addiction mechanics | No guilt streaks, shame or nag loops. |
+| Privacy as a product feature | Local-first where reasonable. |
+| Motion must communicate | Motion must explain state/material/transition. |
+| Ship narrow, polish deeply | Fewer finished systems beat many half-finished ones. |
+| Visual meaning over decoration | Decoration never outranks information. |
+| Stable production is protected | Do not disturb accepted systems without reason. |
+| Regression safety before novelty | Novelty never outranks stability. |
+| Physical-device truth | Real-device behavior overrides static optimism. |
+
+If forced to choose between adding a feature and making existing behavior world-class:
+
+> **choose world-class completion**
 
 ---
 
-# 6. Brand & Visual DNA
+# 9. BRAND / VISUAL DNA
 
-Auren = **quiet luxury + intelligent wellness + biological calm**.
+Auren:
 
-Primary visual language:
-- warm pearl / ivory / cream
-- champagne gold
-- pale mineral aqua
-- charcoal / warm graphite text
-- controlled sage, rose, dusk accents only with semantic reason
-- translucent glass
-- large breathing room
-- editorial typography
-- extremely restrained borders and shadows
-- quiet depth, not neon glow
+> **quiet luxury + intelligent wellness + biological calm**
+
+Primary palette:
+- warm pearl / ivory / cream,
+- champagne gold,
+- pale mineral aqua,
+- charcoal / warm graphite,
+- controlled sage / rose / dusk accents.
+
+Visual language:
+- translucent glass,
+- editorial typography,
+- generous negative space,
+- quiet hierarchy,
+- restrained borders/shadows,
+- premium material detail,
+- calm motion,
+- high perceived finish.
 
 Avoid:
-- hospital dashboards
-- crypto / sci-fi orb aesthetics
-- neon HUDs
-- generic pastel wellness
-- excessive gradients
-- ornamental glass for its own sake
-- dense card grids
-- “premium” effects that compete with information
+- hospital dashboard styling,
+- crypto/sci-fi orb aesthetics,
+- neon HUDs,
+- generic pastel wellness,
+- dense card grids,
+- decorative effects without semantic purpose,
+- “premium” overlays that reduce clarity,
+- motion that creates visual fatigue.
 
-## Auren Atmospheres — Locked curated system
+## Locked Auren Atmospheres
 
-1. **Pearl Dawn** — ivory / champagne / blush
-2. **Mineral Mist** — pearl / pale aqua / cool blue-grey
-3. **Rose Veil** — warm cream / nude rose / dusty blush
-4. **Sage Haze** — ivory / pale sage / mineral green
-5. **Quiet Dusk** — champagne / mauve-grey / blue-grey
+1. Pearl Dawn
+2. Mineral Mist
+3. Rose Veil
+4. Sage Haze
+5. Quiet Dusk
 
-Atmospheres should influence background, glass, nav, accents, Core reflection/tint and supporting material language coherently, not merely repaint one background.
+Atmospheres must influence the experience coherently rather than merely recoloring the background.
 
 ---
 
-# 7. Runtime & Architecture Direction
+# 10. RUNTIME / ARCHITECTURE DIRECTION
 
-Current direction is web-first, not web-limited:
-- semantic HTML
-- componentized CSS
-- ES modules / vanilla JS while maintainable
-- Canvas2D for the Living Core and evidence visuals where robust
-- SVG for semantic instruments/icons
-- IndexedDB for longitudinal local data
-- Service Worker + PWA cache discipline
-- no backend unless user value justifies it
+Current direction:
+- semantic HTML,
+- componentized CSS,
+- ES modules / vanilla JS while maintainable,
+- Canvas2D for Core and evidence visuals where robust,
+- SVG for semantic instruments/icons,
+- IndexedDB for longitudinal local data,
+- Service Worker + disciplined PWA caching,
+- no backend unless user value justifies it.
 
-Current important runtime modules include:
-- `src/js/app.js` — core product shell and base rendering
-- `src/js/config/build.js` — runtime build/cache source of truth
-- `src/js/core/orb.js` — Core renderer
+Important modules include:
+- `src/js/app.js`
+- `src/js/config/build.js`
+- `src/js/core/orb.js`
 - `src/js/experience/launch-handoff.js`
 - `src/js/experience/polish.js`
 - `src/js/privacy/data-controls.js`
@@ -228,1186 +496,1457 @@ Current important runtime modules include:
 - `src/js/signals/signals.js`
 - `src/js/today/metric-detail.js`
 - `src/js/today/checkin-slider-polish.js`
+- `src/js/today/affordance-polish.js`
+- `src/js/today/body-context-polish.js`
 - `src/js/archive/archive-polish.js`
+- `src/js/you/you-polish.js`
+- `src/js/you/help-support.js`
+- `src/js/legal/legal-center.js`
 
-At Build 29, Archive polish is intentionally lazy-loaded only when Archive is opened. This is a deliberate regression-safety pattern after the Build 26 startup failure.
-
-Do not avoid `app.js` dogmatically. Isolated enhancement is preferred when it reduces risk, but if a core correctness issue truly belongs in `app.js`, modify it with an explicit risk plan and regression tests rather than building fragile DOM hacks around it.
-
----
-
-# 8. Startup Safety — Protected Zone
-
-The startup path is a **high-risk protected zone**.
-
-Build 26 proved that a small “guidance” feature can become unacceptable if it is coupled into startup and blocks Opening/Core initialization.
-
-Permanent rules:
-- Optional micro-features must not get startup authority.
-- A help/info/guidance layer should load on demand or after the app is confirmed ready.
-- Cosmetic/enhancement modules should fail open.
-- A feature that is not needed to render Today must not be able to block Today.
-- Before touching Opening/Core/startup, establish the exact known-good launch behavior and rollback package.
-- Physical launch verification is required after any startup-adjacent change.
-
-Rejected implementation:
-- Build 26 Daily Check-in guidance startup coupling.
-
-Accepted recovery:
-- Build 27 removed that runtime coupling and restored Build 25 Daily Check-in runtime.
+Architecture rule:
+- prefer isolated/lazy/fail-open enhancement when appropriate,
+- but do not create fragile overlays when the correct fix belongs in a core renderer,
+- do not rewrite stable systems merely for architectural neatness.
 
 ---
 
-# 9. Auren Core — Signature Object
+# 11. STARTUP / SIGNATURE OPENING — PROTECTED ZONE
 
-The Auren Core is a transparent glass orb containing a living, calm biomaterial / liquid-light body.
+Build 16 established the accepted startup handoff:
+- branded opening appears as one intentional unit,
+- AUREN,
+- `Your body, understood.`,
+- understated Benedict Interactive,
+- Today Core pre-runs behind the opaque Opening,
+- transition reveals complete app,
+- no frozen standalone orb,
+- warm resume should not replay unnecessarily.
 
-Locked visual direction:
-- glass rim is extremely thin and translucent
-- define glass through refraction/highlight/contact shadow, not thick outline
-- internal material is roughly **75–80% champagne gold** with **20–25% pale/mineral aqua undertone**
-- aqua must remain perceptible through depth/refraction
-- gentle asymmetry keeps it biological, not logo-perfect
-- motion must feel weighted and physically coherent
+Current Opening lineage:
+- Build 44 renderer source,
+- Build 50 exact restoration,
+- Build 50 global cadence reduced ~16%,
+- Build 51 does not alter Signature Opening.
 
-Living motion:
-- readable as alive within roughly 1–2 seconds
-- gentle circulation + inertia + surface movement
-- event response after check-in/profile/state changes, then settle
-- never screensaver-like
-- Reduced Motion fallback required
+Any startup-adjacent change requires:
+- exact known-good baseline,
+- rollback,
+- cold launch QA,
+- repeat launch QA,
+- physical-device verification.
 
-Current renderer strategy:
-- Canvas2D is the robust baseline
-- heavy WebGL/Three.js is not justified unless a specific product benefit exceeds compatibility and regression cost
-- headless environments may lack WebGL2; never make full product survival depend on it
-
----
-
-# 10. Signature Opening — Accepted Behavior
-
-Accepted feeling:
-- intentional, branded, premium
-- roughly 3–4 seconds of identity on cold launch
-- AUREN → `Your body, understood.` → understated `By Benedict Interactive`
-- warm resume should not replay unnecessarily
-
-Build 16 fixed the “frozen standalone orb” handoff by fading the branded opening as a unit, pre-running Today Core behind the opaque opening, then revealing the complete app.
-
-**Do not redesign the opening casually. Build 16 behavior is known-good.**
-
-If changed later:
-- preserve a fallback
-- compare before/after on real device
-- verify Core appears and Today becomes interactive
-- ensure no ghost/double orb
-- ensure Opening cannot remain stuck indefinitely
+Optional features never get startup authority.
 
 ---
 
-# 11. Halo — Semantic Instrument, Not Decoration
+# 12. AUREN CORE — SIGNATURE OBJECT
 
-Halo represents evidence dimensions around the Core:
-1. **Body Context**
-2. **Daily State**
-3. **Movement / Training**
-4. **Personal Trend**
+The Core is a transparent glass orb containing living liquid-light material.
+
+## 12.1 Current accepted direction
+
+Glass:
+- thin,
+- transparent,
+- defined by refraction/highlight/contact shadow,
+- never thick-outlined.
+
+Material:
+- champagne-gold dominant,
+- pale mineral-aqua undertone,
+- pearl depth,
+- biological asymmetry,
+- not a flat fill,
+- not a medical gauge.
+
+Motion:
+- alive within ~1–2 seconds,
+- weighted,
+- surface/inertial movement,
+- not screensaver-like,
+- Reduced Motion required.
+
+## 12.2 Build 50
+
+Build 50 is the hard source anchor:
+- exact original renderer lineage from Build 44,
+- physically accepted,
+- global cadence slowed ~16%.
+
+## 12.3 Build 51 Today adaptation
+
+Today:
+- uses Signature/Legacy material language,
+- matches Opening baseline motion amplitude,
+- allows only bounded state-responsive motion,
+- allows bounded state-responsive tint/light,
+- retains Check-in reaction,
+- adds no new health logic.
+
+Status:
+> **current production / positively reviewed / provisional acceptance**
+
+## 12.4 Core state response philosophy
+
+Allowed:
+- attention → slightly cooler/quieter,
+- good/strong/excellent → slightly warmer/clearer,
+- Check-in → short internal response, then settle,
+- narrow motion variation.
+
+Do not:
+- create red/green “health status” orb,
+- change liquid level as fake physiology,
+- dramatically brighten/darken by state,
+- add particles,
+- create fake biomarkers,
+- imply medical measurement.
+
+The Core is:
+
+> **a visual expression of context, not a medical instrument**
+
+---
+
+# 13. HALO — SEMANTIC INSTRUMENT
+
+Halo represents:
+1. Body Context
+2. Daily State
+3. Movement / Training
+4. Personal Trend
 
 Rules:
-- hairline / luminous fragments
-- close to the Core
-- soft endpoints
-- missing evidence = faint/incomplete
-- never complete the ring merely for symmetry
-- no loading/progress-ring look
-- semantic meaning outranks visual symmetry
-- `Why this?` must explain every dimension
+- hairline fragments,
+- close to Core,
+- soft endpoints,
+- missing evidence faint/incomplete,
+- never complete ring merely for beauty,
+- no progress/loading gauge appearance,
+- `Why this?` explains meaning,
+- semantic meaning > symmetry.
 
-Resting-state Halo should stay quiet. It may reveal meaning after relevant interaction/state change, but must not clutter the hero.
+Halo should remain quiet at rest.
 
 ---
 
-# 12. Today — Core Loop
+# 14. TODAY — CORE LOOP
 
 > **CHECK IN → CORE REACTS → STATE REVEAL → EVIDENCE → ONE USEFUL MOVE → CONTINUITY**
 
-Today should answer quickly:
-1. How do I seem today based on what I reported?
+Today should answer:
+1. How do I seem today from what I reported?
 2. What did Auren notice?
 3. What evidence did it use?
-4. What one move is justified — or is no change needed?
+4. What one move is justified — or does nothing need changing?
 
-Today is not a generic dashboard. Avoid turning every card into a navigation tile.
+Today is not a dashboard.
+
+## Affordance grammar
+
+Current accepted language:
+- Chevron = clickable.
+- Interactive surfaces may elevate/press.
+- Informational surfaces remain flatter.
+- Status/readout = pill/readout, not CTA.
+- Pattern/evidence cards should not look accidentally clickable.
+- Trust surfaces should not masquerade as controls.
+
+Do not reintroduce card-dump behavior.
 
 ---
 
-# 13. Daily Check-in — Locked Interaction Contract
+# 15. DAILY CHECK-IN — LOCKED CONTRACT
 
-Daily observations:
+Metrics:
 - Sleep
 - Energy
 - Stress
 - Mood
 - Movement
 
-## Record model
+Record model:
 
-**One calendar day = one Daily Check-in record.**
+> **One calendar day = one Daily Check-in record**
 
-Current behavior is correct and should remain:
-- first save creates the day record
-- additional saves on the same day **update/overwrite the same `localDate` record**
-- user may edit today multiple times if needed
-- do not create multiple daily records for morning/afternoon/evening in V1
-- after the day has passed, Archive is the historical snapshot; routine retroactive editing is not part of normal V1 behavior
+Correct behavior:
+- first save creates today,
+- same-day save updates the same `localDate`,
+- user may edit today multiple times,
+- do not lock after first save,
+- no morning/afternoon/evening daily records in V1,
+- routine historical editing is not normal V1 behavior.
 
-Do **not** lock the check-in after the first save. Users must be able to correct accidental or changed observations during the same day.
+Future intraday moments, if ever justified, must be a separate concept.
 
-If intraday moments are ever needed, create a separate future concept (e.g. Moments) rather than corrupting the Daily Check-in model.
+## Slider semantics — Build 25 physically accepted
 
-## Slider visual semantics — physically accepted Build 25
+Sleep / Energy / Mood / Movement:
+> mineral blue → champagne → warm gold
 
-Filled portion only is colored; unfilled track stays neutral pearl.
-
-Positive-direction metrics:
-- **Sleep:** mineral blue → champagne → warm gold
-- **Energy:** mineral blue → champagne → warm gold
-- **Mood:** mineral blue → champagne → warm gold
-- **Movement:** mineral blue → champagne → warm gold
-
-Attention-direction metric:
-- **Stress:** calm mineral blue → champagne → muted rose-red
-
-Red is reserved for attention meaning, not generic “high value”.
-
-Thumb:
-- small pearl capsule
-- subtle gold accent
-- visually precise, not a bulky gold circle
-
-Sheet:
-- breathing room from viewport edges
-- generous but controlled internal spacing
-- safe-area-aware
-- physically accepted at Build 25
-
-## Daily Check-in guidance — approved concept, rejected implementation
-
-Approved product concept:
-- one small shared info affordance / `How to rate`
-- **not** five info icons beside each metric
-- use meaning-based endpoints rather than merely Low/High when helpful
-- explain that observations are not health scores
-- explain Stress direction explicitly
-- explain Movement as descriptive; more is not automatically better
-
-Rejected technical implementation:
-- Build 26 coupled the guidance enhancement into startup and caused a launch-blocking regression.
-
-Future implementation rule:
-- on-demand only after check-in UI exists
-- must not run during startup
-- fail-open
-- preferably loaded after explicit tap/open action
-- keep Build 25 slider visuals byte-stable unless change is necessary
-
----
-
-# 14. Daily State Cards & Today Metric Details
-
-Accepted five-card composition:
-- mobile layout = **3 + 2 centered**
-- semantic icon + restrained accent
-- no full-card saturated coloring
-- icon optical centering matters more than mathematical centering
-- Stress high must read as attention
-
-Build 21 metric detail interaction:
-- Daily State cards can be touched/keyboard-opened after check-in
-- detail remains in place rather than dashboard navigation
-- shows exact self-reported value
-- semantic level
-- `Observed` provenance
-- scale context
-- concise meaning
-- how Auren uses it
-- limitation
-
-This interaction must remain an explanation of what the user reported, not a new inference or diagnosis.
-
----
-
-# 15. One Useful Move
-
-The main post-check-in reward is **meaning/action**, not `Edit`.
-
-Auren can recommend a restrained action such as:
-- protect recovery
-- create a quieter block of time
-- add easy movement
-- pace energy deliberately
-- maintain what is working
-
-Auren must be comfortable saying:
-> **No change needs to be chased today.**
-
-Never manufacture a recommendation merely to appear useful.
-
----
-
-# 16. Body Intelligence — Contextual, Not Weight Judgment
-
-Primary guardrail:
-
-> **Never reduce Auren to height + weight → BMI → overweight → lose weight.**
-
-BMI is a general screening reference and cannot distinguish fat mass, muscle, bone, distribution, fitness, or overall health.
-
-Core body profile context:
-- Age
-- Height
-- Current weight
-- General activity
-- Training type
-- Training frequency
-- Goal
-
-Calculation-only physiological reference:
-- sex-for-calculation is separate from gender identity/avatar
-- adult BMI cutoffs do not change by male/female
-- some references such as waist can differ
-- youth BMI requires age/sex-specific growth references
-
-Choices should support:
-- Male reference
-- Female reference
-- Prefer not to use sex-specific estimates
-- Not represented / non-sex-specific interpretation
-
-Optional evidence:
-- Waist circumference
-- Measured body-fat %
+Stress:
+> calm mineral → champagne → muted rose-red
 
 Rules:
-- never estimate body fat from profile photo
-- no face recognition
-- measured body fat is supporting evidence, not absolute truth
-- waist is context, not diagnosis
+- filled portion colored,
+- unfilled track neutral pearl,
+- red = attention semantics, not generic high,
+- small pearl capsule thumb,
+- subtle gold accent,
+- sheet has breathing room and safe-area spacing.
 
-Training contexts:
-- none / little structured exercise
-- general activity / walking
-- cardio / endurance
-- mixed
-- resistance / weight training
-- athletic / sports
+## Check-in guidance
 
-Training reduces confidence in BMI-only judgment where appropriate; it does not create an invented athlete cutoff or automatically make high BMI healthy.
+Approved product idea:
+- one shared `How to rate`,
+- not five individual info icons,
+- observations ≠ health score,
+- Stress direction explicit,
+- Movement descriptive; more is not automatically better.
 
-Goals:
-- understand my body
-- maintain
-- reduce body fat / weight
-- gain weight
-- build muscle
-- improve fitness
-- general wellbeing
-- not sure
+Rejected architecture:
+> **Build 26 startup coupling**
 
-Auren must allow **maintain** as a positive outcome.
+Any future explainer:
+- on-demand,
+- non-startup,
+- fail-open,
+- no authority over Core/Today launch,
+- preserve Build 25 slider behavior.
 
-## Adult general references currently used
+---
+
+# 16. DAILY STATE / METRIC DETAILS — ACCEPTED FOUNDATION
+
+Accepted five-card composition:
+- mobile 3 + 2 centered,
+- restrained semantic accents,
+- optical icon centering,
+- Stress-high = attention.
+
+Detail sheets:
+- exact self-reported value,
+- semantic label,
+- `Observed` provenance,
+- short meaning,
+- how Auren uses it,
+- limitation.
+
+No new diagnosis or inference is justified merely because a user opens a metric detail.
+
+---
+
+# 17. ONE USEFUL MOVE
+
+The primary post-check-in reward is **meaning/action**, not Edit.
+
+Possible actions:
+- protect recovery,
+- create quieter space,
+- easy movement,
+- pace energy,
+- maintain what is working,
+- keep observing.
+
+Auren must be comfortable saying:
+
+> **No change needs to be chased today.**
+
+Never manufacture action just to appear useful.
+
+---
+
+# 18. BODY INTELLIGENCE — LOCKED SAFETY LOGIC
+
+Never reduce Auren to:
+
+> **height + weight → BMI → overweight → lose weight**
 
 BMI:
-- <18.5
-- 18.5–24.9
-- 25.0–29.9
-- >=30
+- general screening reference,
+- contextual,
+- not identity or moral judgment.
 
-Waist reference V1 when physiological reference is selected:
+Adult general categories:
+- `<18.5`
+- `18.5–24.9`
+- `25.0–29.9`
+- `>=30`
+
+Waist V1 general reference when sex-specific physiological reference is selected:
 - male >102 cm
 - female >88 cm
 
-These are general references with population/context limitations, not diagnoses.
+These are general population references, not diagnosis.
 
-## Youth guardrail
+Training context:
+- none/little structured exercise,
+- general activity/walking,
+- cardio/endurance,
+- mixed,
+- resistance/weight training,
+- athletic/sports.
+
+Resistance/mixed/athletic context may reduce confidence of BMI-only interpretation. It does not invent an athlete cutoff or automatically make high BMI healthy.
+
+Sex-for-calculation:
+- separate from gender identity/avatar,
+- adult BMI categories are not sex-specific,
+- some reference values such as waist may be.
 
 Under 20:
-- do not apply adult BMI categories
-- youth interpretation needs age- and sex-specific growth references
-- if the reference engine is incomplete, return limited/insufficient interpretation honestly
+- do not apply adult BMI categories,
+- require age/sex-specific growth references,
+- if engine is incomplete, return limited/insufficient interpretation honestly.
+
+Photo:
+- no body-fat inference,
+- no health inference,
+- no face recognition.
+
+Goals include:
+- understand my body,
+- maintain,
+- reduce body fat/weight,
+- gain weight,
+- build muscle,
+- improve fitness,
+- general wellbeing,
+- not sure.
+
+Auren may recommend **maintain**.
 
 ---
 
-# 17. Body Context Card — Accepted Hierarchy
+# 19. BODY CONTEXT — CLOSED / LOCKED
 
-Primary row:
-- BMI
-- Training
-- Waist
+Build 35:
+- BMI / Waist two-column primary layout,
+- Training separate row,
+- Confidence separate.
 
-Secondary metadata:
-- Confidence
+Build 36:
+- final micro-polish,
+- spacing/alignment/divider refinement,
+- hardened annotation behavior,
+- physically passed.
 
-Confidence is not a fourth body metric. Keep it visually secondary as badge/footer/meta information.
+Treat Body Context as:
 
-Long training text must wrap without breaking EN/TH layout.
+> **CLOSED / LOCKED**
+
+unless:
+- actual defect,
+- new explicit requirement,
+- scientifically necessary Body Intelligence correction.
+
+Metric/Imperial remains a future separate app-wide concern, not a Body Context micro-change.
 
 ---
 
-# 18. Trust Architecture
+# 20. TRUST MODEL
 
-Provenance layers:
-- **Observed** — directly supplied by user
-- **Calculated** — deterministic calculation/transformation
-- **Inferred** — contextual interpretation
+Provenance:
+- **Observed**
+- **Calculated**
+- **Inferred**
 
-Confidence is qualitative:
+Confidence:
 - Low
 - Moderate
 - High
 - Limited
 
-Confidence means “how much usable context supports this interpretation,” not “certainty that the user is healthy.”
+Confidence means:
+> how much usable context supports the interpretation
 
-Every meaningful interpretation should be able to answer `Why this?` with:
-- inputs/evidence
-- provenance
-- sample size / continuity
-- confidence
-- limitation
+It does **not** mean:
+> certainty that the person is healthy
 
-Positive language such as `Excellent` is allowed only as a description of available context, never as a medical claim.
+`Why this?` should expose:
+- input/evidence,
+- provenance,
+- sample size/continuity,
+- confidence,
+- limitation.
+
+No medical certainty. No fake precision.
 
 ---
 
-# 19. Explainability & Guidance System
+# 21. EXPLAINABILITY / GUIDANCE SYSTEM
 
 Three layers:
-1. inline helper — one or two lines
-2. contextual info / `Why this?` / `How Auren uses this`
-3. central `How Auren Works`
+1. inline helper,
+2. contextual info / `Why this?` / `How Auren uses this`,
+3. central `How Auren Works`.
 
 Important options should answer:
-- why Auren asks
-- how it changes interpretation
-- what it does not mean
-- limitation
-- privacy implication if relevant
+- why Auren asks,
+- how it changes interpretation,
+- what it does not mean,
+- limitation,
+- privacy implication where relevant.
 
-Guidance must be useful without making the main UI feel like a manual.
-
-Build 26 lesson permanently modifies this system: **help content must never have the authority to break startup.**
+Help content must never have authority to break startup.
 
 ---
 
-# 20. Rhythm V1 — Personal Pattern Intelligence
+# 22. RHYTHM V1 — BUILT / LONGITUDINAL QA PENDING
 
-Current accepted/provisional production state from Builds 17–18:
-- selectable 7 / 14 / 30-day windows
-- Living Rhythm Canvas2D trace
-- no ECG/pulse claim
-- uses Sleep, Energy, Mood, Movement and inverse Stress direction for coherent visual language
-- no composite health score
-- evidence-gated trend language
-- personal baseline rows
-- continuity and qualitative Confidence
-- `Why this?` evidence and limitations
-- Reduced Motion + performance fallback
+Builds 17–18:
+- 7/14/30-day windows,
+- Living Rhythm Canvas2D trace,
+- personal baseline,
+- continuity/confidence,
+- `Why this?`,
+- no ECG/pulse claim,
+- no composite health score.
 
-Sparse-state maturity:
-- **1–3 check-ins:** Early observations
-- **4–5:** Baseline emerging
-- **6+:** Personal baseline
+Maturity:
+- 1–3 check-ins = Early observations
+- 4–5 = Baseline emerging
+- 6+ = Personal baseline
 
 One day is not a “typical level”.
 
-Two or three days can show provisional connection; mature ribbon language should wait for actual continuity.
+Current status:
 
-Directional comparisons require enough real observations; current foundation uses at least six check-ins and deliberate change thresholds.
+> **provisionally accepted; long-history validation pending**
 
-## Remaining Rhythm work
-
-Rhythm is **provisionally accepted**, not fully longitudinally validated. When real data accumulates, QA must verify:
-- 6+ check-ins
-- gaps/missing days
-- 14/30-day windows
-- true stable periods
-- changing periods
-- directional change copy
-- EN/TH
-- no accidental score psychology
-
-Do not manufacture test-history claims as if they were real user history.
+Required future QA:
+- 6+ check-ins,
+- missing-day gaps,
+- 14/30 windows,
+- stable periods,
+- changing periods,
+- directional copy,
+- EN/TH,
+- Reduced Motion/performance,
+- no accidental score psychology.
 
 ---
 
-# 21. Signals V1 — Relationship Intelligence
+# 23. SIGNALS V1 — BUILT / LONGITUDINAL QA PENDING
 
-Current accepted/provisional production state from Builds 19–20:
-- 14 / 30-day windows
-- compares ten pairings across the five daily observations
-- rank-based relationship approach suitable for ordinal 1–5 data
-- minimum **8 paired days** before surfacing a relationship
-- enough variation required
-- conservative strength gate
-- additional stability/reversal guard at larger samples
-- maximum strongest primary + one secondary relationship
-- no numerical correlation coefficient in UI
-- no causation claim
-- no health score
-- Living Evidence Field uses quiet nodes and earned filaments only when evidence qualifies
-- `No secondary signal yet` unless a real second relationship passes evidence gates
+Builds 19–20:
+- 14/30 evidence windows,
+- ten pairings across five observations,
+- rank-based approach suitable for ordinal 1–5 data,
+- minimum 8 paired days,
+- enough variation required,
+- conservative strength gate,
+- stability/reversal guard,
+- max one primary + one secondary relationship,
+- no coefficient in UI,
+- no causation claim,
+- no health score,
+- Living Evidence Field,
+- `No secondary signal yet`.
 
-## Remaining Signals work
+Current status:
 
-Signals is **provisionally accepted**, pending real longitudinal validation of:
-- 8+ paired days
-- low-variation pairs
-- strong-but-unstable pairs
-- reversed relationships across time
-- no-signal state after enough evidence
-- secondary-signal qualification
-- EN/TH copy
-- performance/reduced-motion fallbacks
+> **provisionally accepted; longitudinal validation pending**
+
+Future QA:
+- 8+ paired days,
+- low variation,
+- strong but unstable relationship,
+- reversed relationship across time,
+- no-signal state,
+- secondary qualification,
+- EN/TH,
+- Reduced Motion/performance.
 
 ---
 
-# 22. Archive — Health Memory
+# 24. ARCHIVE / DAILY HEALTH MEMORY — PROTECTED BASELINE
 
-Archive lives inside one primary nav tab and has two internal views:
-1. **Portraits**
-2. **Calendar**
+Archive:
+1. Portraits
+2. Calendar
 
 Purpose:
+
 > **Auren remembers your health story without turning it into a scoreboard.**
 
-No streaks. No guilt. Empty days mean no data.
-
-## Current accepted Build 28–29 behavior
+No streaks. No guilt. Empty day = no data.
 
 Build 28:
-- Archive polish lazy-loads only after Archive navigation
-- Portraits become a richer Health Memory surface
-- weight-only dates are explicit records, not silently dropped
-- check-in + weight keeps Daily State primary, weight secondary
-- Calendar supports restrained weight markers
-- monthly intelligence remains conservative
-- monthly directional comparison requires at least 6 check-ins with at least 3 days per comparison side
-- material threshold required before surfacing a monthly change
-- no fake percentages
-- Daily Health Memory detail uses editorial five-row metrics with provenance + raw 1–5 value
-- weight-only detail explicitly refuses to infer daily state
+- lazy-loaded after Archive navigation,
+- richer Health Memory,
+- weight-only records remain explicit,
+- Check-in + weight keeps Daily State primary,
+- Calendar weight markers,
+- conservative monthly intelligence,
+- no fake percentages,
+- Daily Health Memory editorial metric rows,
+- provenance + raw values,
+- weight-only detail never invents daily state.
 
-Build 29 physical acceptance:
-- adds premium top-right close X
-- X stays available in the scrolling detail sheet
-- bottom close action is localized `Close` / `ปิด`
-- reuses canonical close handler
-- preserves Delete-this-day privacy behavior
+Build 29:
+- premium top-right X,
+- bottom localized Close/ปิด,
+- canonical close handler,
+- Delete-this-day preserved.
 
-## Archive interpretation rules
+Build 29 was physically accepted.
 
-Weight-only date:
-- show it as recorded context
-- do not label daily state
-- do not imply good/bad from one weight value
-
-Monthly summary:
-- descriptive before inferential
-- expose evidence depth
-- no pseudo precision
-- no “improvement percent” without justified basis
-- if nothing earns a headline, say so
-
-Archive current status: **physically accepted at Build 29 with current available data**, while long-history monthly behavior still needs future longitudinal QA.
+Long-history monthly behavior still requires longitudinal QA.
 
 ---
 
-# 23. You / Identity / Settings
+# 25. YOU / SETTINGS — COMPLETE / LOCKED
 
-Current capabilities:
-- Display Name
-- personalized greeting
-- profile photo upload
-- local crop / pan / pinch zoom / zoom slider
-- change / reset / remove / save
-- local compression/resize
-- no photo analysis
-- neutral fallback: photo → initial/monogram → Auren Orb mark
-- Body Profile entry
-- How Auren Works
-- EN/TH
-- Auren Atmospheres
-- Data & Privacy controls
-- motion/system note
-- no account required
-- About/build information
+Build 30:
+- premium hierarchy/grouping,
+- Body & understanding,
+- Preferences,
+- Privacy & access,
+- About,
+- physically accepted.
 
-## Planned Build 30 — You / Settings Final Polish
+Build 32:
+- About action correction,
+- System / Local-first status,
+- Build line,
+- Legal close alignment.
 
-Goals:
-- make You feel like a premium control room, not a settings dump
-- strengthen hierarchy between Identity, Body Context, Appearance, Privacy, Explainability and product About
-- reduce visual repetition
-- verify EN/TH wrapping and interaction clarity
-- preserve local-first simplicity
-- do not add account/cloud merely because settings pages usually have them
-- review whether the deferred Daily Check-in `How to rate` explainer belongs as a safe on-demand help entry, but do not re-enable Build 26 architecture
-- avoid startup changes unless absolutely necessary
+Build 33:
+- Build label moved to You footer,
+- physically accepted.
 
-Build 30 is the preferred next runtime batch after this Revision 3.0, subject to newer explicit instruction/current repo.
+Current groups:
+- Identity/profile
+- Body & understanding
+- Preferences
+- Privacy & access
+- Motion/local-first status
+- Data controls
+- About
+- Legal
+- Help & feedback
+- Support Auren
+- Build footer
 
----
-
-# 24. Privacy & Data Lifecycle
-
-Current local-first architecture:
-- IndexedDB database: `auren`
-- `checkins` store
-- `profile` store
-- lightweight local preferences
-- schema marker: **4**
-- no required account
-- no required cloud sync
-- profile photo remains local by default
-
-Accepted deletion behavior:
-- delete today → refresh Today/Halo/Archive in place, **no Signature Opening replay**
-- delete an Archive check-in → refresh Archive and remain in the experience
-- weight-only evidence remains independent from deleting a check-in
-- erase all local data → fresh restart is intentional
-- full erase uses deliberate confirmation
-
-Future privacy maturity:
-- export local data
-- optional backup/import if justified
-- clear consent before cloud migration
-- keep deletion/export semantics understandable
-
-Never call asset/service-worker cache “user health data”.
+Treat You/Settings as complete and locked unless real defect.
 
 ---
 
-# 25. Localization — EN + TH Native First
+# 26. LEGAL / TRUST FOUNDATION — ACTIVE
 
-English and Thai are first-class.
+Build 31 introduced:
+- Legal Center,
+- Terms,
+- Privacy,
+- Copyright/IP,
+- third-party notices/governance structure,
+- Legal Version independent from runtime Build.
 
-Canonical truth = **meaning/intent**, not an English sentence.
+Current:
+- Legal Version `1.0.0`
+- effective `28 August 2026`
+
+Legal UI:
+- must fail open relative to startup,
+- must never gain startup authority,
+- must describe wellbeing/context rather than medical care.
+
+Legal Version changes only when user-facing legal rights/data terms materially change.
+
+Counsel review is recommended before:
+- major paid expansion,
+- store launch with materially different obligations,
+- remote health-data/cloud expansion.
+
+---
+
+# 27. HELP / FEEDBACK / SUPPORT — STABLE
+
+Build 37 product features:
+- Report a problem
+- Send feedback
+- Support in Thailand
+- Support worldwide
+
+Support email:
+`benedict.support@gmail.com`
+
+Worldwide:
+`https://ko-fi.com/benedictinteractive`
+
+Thailand:
+- approved PromptPay QR,
+- lazy-load only when support surface opens,
+- no preset amount.
 
 Rules:
-- Meaning parity, not word parity
-- natural international English
-- natural Thai, not literal English structure
-- health wording calm and non-alarmist
-- semantic i18n keys where practical
-- no raw/missing keys
-- no mixed-language UI
-- locale-aware dates/numbers/units
-- QA both languages on real mobile widths
-- never shrink Thai text to unreadable sizes just to make layout fit
+- support is voluntary,
+- no entitlement,
+- no feature/access advantage,
+- no payment success claim,
+- no analytics,
+- no background transmission.
 
-Any missing key, mixed-language state, or misleading health translation can be a release blocker.
+Safe diagnostics may include:
+- Build,
+- language,
+- coarse platform,
+- browser family/major,
+- Browser/PWA,
+- screen,
+- timestamp.
 
----
+Never auto-include:
+- health observations,
+- body/profile data,
+- check-in history,
+- avatar/photo,
+- payment data,
+- private health context.
 
-# 26. Native App Feel, Accessibility & Motion
+Report diagnostics:
+- ON by default.
 
-PWA should feel native without sacrificing access:
-- page-level accidental pinch/browser scaling is locked
-- feature-specific gestures such as crop pinch remain enabled
-- safe-area aware
-- sticky nav correctly padded
-- touch targets remain usable
-- browser-default-looking controls should be refined when part of core experience
-- keyboard/focus where relevant
-- screen-reader labels
-- readable font sizes and contrast
-- Reduced Motion everywhere meaningful
+Feedback diagnostics:
+- OFF by default.
 
-Motion principles:
-- communicate state/material/transition
-- never block task completion
-- never create fake physiological meaning
-- provide fallback for performance/reduced motion
+No formal Partnerships & Investment route at present.
 
 ---
 
-# 27. Build / Version / Cache Contract — Release Blocker
+# 28. BUILD 37 CONTAMINATION INCIDENT — PERMANENT PACKAGING LESSON
 
-Every runtime change touching HTML/CSS/JS/runtime asset/manifest/SW/cache/UI/UX/logic must advance Build No.
+During Build 37 rollout, wrong cross-project:
+- `index.html`
+- `manifest.webmanifest`
 
-Source of truth:
-`src/js/config/build.js`
+were accidentally uploaded.
 
-At Revision 3.0:
-- APP_VERSION = `0.1.0`
-- BUILD_NUMBER = `29`
-- CACHE_NAME derives from Build 29
-- DATA_SCHEMA_VERSION = `4`
+Result:
+- Auren shell temporarily showed another project.
 
-Every runtime release must synchronize:
-- BUILD_NUMBER
-- CACHE_NAME
-- SW comment/cache shell
-- About/build UI if applicable
-- package names/docs that describe current runtime
-- stale build references in changed scope
+Build 38:
+- restored exact Auren shell,
+- bumped cache/runtime,
+- retained intended Help/Support additions,
+- physically accepted.
 
-Do not bump schema unless the data model actually changes.
+Permanent rules:
+- Update Only ZIP contains exact changed-file allowlist,
+- no unrelated project files,
+- inspect ZIP listing,
+- canonical repo-relative paths,
+- verify cache eviction when recovery requires it.
 
-**Docs-only governance updates do not bump app Build No.**
-
-Current next runtime number = **30** unless the repo has advanced by the time work begins.
-
-Never reuse a Build number after a package/runtime has existed, even if it was rejected.
+Build 38 remains a major recovery anchor.
 
 ---
 
-# 28. Regression Safety — Non-Negotiable
+# 29. PRIVACY / DATA LIFECYCLE
 
-Stable production behavior is a protected zone.
+Local-first V1:
+- IndexedDB database `auren`,
+- `checkins`,
+- `profile`,
+- preferences,
+- schema 4,
+- no account required,
+- profile photo local by default.
 
-Before a meaningful-risk change:
-- identify known-good baseline
-- define changed-file allowlist
-- define rollback/fallback
-- compare before/after behavior
-- isolate when possible
-- fail open when appropriate
+Accepted deletion behavior:
+- delete today → refresh in place, no Opening replay,
+- Archive delete → remain in Archive context,
+- weight-only evidence remains independent,
+- erase all → intentional fresh restart,
+- full erase requires deliberate confirmation.
 
-Do not rewrite stable systems merely for architectural neatness.
+Future:
+- local data export,
+- optional backup/import,
+- optional cloud only when user value and consent justify it.
+
+Never call app cache/service-worker assets “user health data”.
+
+---
+
+# 30. LOCALIZATION / ACCESSIBILITY / NATIVE FEEL
+
+EN + TH are first-class.
+
+Rules:
+- meaning parity, not literal word parity,
+- natural Thai,
+- natural international English,
+- locale-aware dates/numbers/units,
+- no mixed-language UI,
+- no raw missing key,
+- do not shrink Thai text to unreadability.
+
+QA:
+- 360px,
+- 393px,
+- safe areas,
+- touch targets,
+- focus/keyboard,
+- screen-reader labels where relevant,
+- readable contrast,
+- Reduced Motion.
+
+App page scaling may remain locked while feature-specific gestures such as avatar crop pinch remain enabled.
+
+---
+
+# 31. RUNTIME / BUILD / CACHE CONTRACT
+
+Current:
+- APP_VERSION `0.1.0`
+- BUILD_NUMBER `51`
+- DATA_SCHEMA_VERSION `4`
+- Legal Version `1.0.0`
+
+Every runtime change:
+- advance Build,
+- synchronize `src/js/config/build.js`,
+- synchronize `CACHE_NAME`,
+- synchronize `sw.js`,
+- synchronize About/build display where applicable.
+
+Do not bump schema unless the data model changes.
+
+Docs-only governance/handoff update:
+
+> **no Build bump**
+
+Never reuse rejected/old Build numbers.
+
+---
+
+# 32. REGRESSION SAFETY — NON-NEGOTIABLE
+
+Before meaningful-risk change:
+1. identify known-good baseline,
+2. inspect current implementation,
+3. define changed-file allowlist,
+4. define rollback/fallback,
+5. compare before/after,
+6. implement surgically,
+7. run scope-specific regression QA,
+8. require physical acceptance where visual/interaction behavior matters.
+
+Prefer:
+- isolated,
+- minimal,
+- fail-open,
+- lazy/on-demand for optional surfaces,
+- additive only when architecturally appropriate.
+
+Do not use additive overlays when the correct fix belongs in the renderer itself.
 
 If risk cannot be controlled:
-> **defer or redesign before shipping**
 
-Special protected zones:
-- Signature Opening / startup
-- Living Core
-- accepted Daily Check-in
-- stored data/delete behavior
-- Body Intelligence guardrails
-- accepted Rhythm/Signals evidence thresholds
-- Build 29 Archive close/delete behavior
+> **redesign or defer before shipping**
+
+Protected zones:
+- Signature Opening/startup,
+- Core,
+- accepted Daily Check-in,
+- stored data/delete behavior,
+- Body Intelligence guardrails,
+- Rhythm/Signals evidence thresholds,
+- Archive accepted behavior,
+- You/Settings,
+- Body Context,
+- Legal startup separation.
 
 ---
 
-# 29. Packaging & Drag-to-Upload Contract
+# 33. FILE PACKAGING — ABSOLUTE CONTRACT
 
-Every GitHub package prepared for P’Benz must be ready to extract and drag from repo root immediately.
+For GitHub delivery:
+- canonical filenames,
+- exact repo-relative paths,
+- ZIP root = repo root,
+- no wrapper directory,
+- Update Only = changed files only,
+- no `_FINAL`, `_NEW`, `_COPY`, `_V2`,
+- Upload Notes / QA may stay outside repo ZIP,
+- inspect ZIP listing,
+- integrity-test ZIP.
 
-Mandatory rules:
-1. canonical filenames exactly match repo names
-2. repo-relative folder structure exactly mirrors repo
-3. no `_V2`, `_FINAL`, `_NEW`, `_COPY`, etc. for canonical replacement files
-4. version/revision lives inside content + Git history, not canonical filename
-5. ZIP root = repository root; no unnecessary wrapper folder
-6. replacement files sit at their exact paths
-7. Update Only ZIP contains only changed files
-8. Full Package ZIP contains a usable project tree when requested
-9. Upload Notes stay outside ZIP if otherwise they would pollute repo
-10. inspect `unzip -l`
-11. test ZIP integrity
-12. if P’Benz must rename or move files after extraction, handoff QA failed
-
-Canonical docs paths:
+Canonical docs:
 - `docs/product/AUREN_MASTER_PLAN.md`
 - `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md`
 
-Final response must use clickable sandbox links, not raw filesystem paths.
+Never claim delivery without a valid clickable file link.
 
 ---
 
-# 30. Commit Name Contract — Never Forget
+# 34. COMMIT NAME CONTRACT — NEVER FORGET
 
-**Every GitHub file delivery must include a Commit name.**
+Every GitHub file delivery must include a Commit name.
 
-Hard rules:
-- **50 characters maximum including spaces**
-- count before sending
-- concise and specific
-- no generic `Update files` if a meaningful message is possible
-- different independent batches use different commit names
-- applies to manual-upload packages and authorized remote writes
-- in ChatGPT final response, show the Commit name **inside a code block**
+Rules:
+- maximum 50 characters including spaces,
+- specific,
+- concise,
+- inside a code block.
 
-A GitHub delivery without a valid Commit name is a **handoff QA failure**.
+Missing Commit name = handoff QA failure.
 
 ---
 
-# 31. QA & Acceptance Contract
+# 35. QA & ACCEPTANCE CONTRACT
 
 ## Code / structure
-- `node --check` changed JS
-- validate JSON/manifest when touched
-- no duplicate critical DOM IDs
-- no missing critical DOM references
-- SW asset paths exist
-- Build/cache coherence
-- schema/migration sanity if data touched
+- `node --check` changed JS,
+- validate JSON/manifest when touched,
+- no duplicate critical DOM IDs,
+- no missing critical DOM references,
+- SW asset paths exist,
+- Build/cache coherent,
+- schema/migration sanity if data touched.
 
 ## Product logic
-- Body Intelligence representative fixtures
-- adult/youth guardrails
-- Stress direction
-- athletic context does not auto-excuse BMI
-- missing waist/body-fat handled honestly
-- no fake confidence
-- Daily Check-in one-record-per-day behavior
+- one Daily Check-in record/day,
+- same-day edit,
+- Stress direction,
+- body fixtures,
+- adult/youth guardrails,
+- athletic context,
+- missing evidence,
+- provenance/confidence boundaries.
 
 ## Localization
-- EN/TH parity
-- native copy
-- 360/393 px wrapping
-- no mixed-language UI
+- EN/TH parity,
+- native copy,
+- 360/393 wrapping,
+- no mixed-language states.
 
-## Visual / interaction
-- 360 px and 393 px mobile width
-- typography rhythm
-- safe-area behavior
-- Core/Halo balance
-- card hierarchy
-- optical icon alignment
-- sheet spacing and close affordances
-- keyboard/focus when relevant
-- Reduced Motion
+## Interaction
+- close affordances,
+- safe areas,
+- focus/keyboard,
+- Reduced Motion,
+- touch behavior.
 
 ## Data lifecycle
-- save/edit today
-- delete today in place
-- delete Archive day
-- weight-only independence
-- full erase fresh restart
+- save/edit today,
+- delete today,
+- Archive delete,
+- weight-only,
+- full erase.
 
-## PWA / cache
-- cold launch
-- repeat launch
-- service-worker update/cache replacement
-- offline shell when relevant
-- no stale build assets
+## PWA
+- cold launch,
+- repeat launch,
+- cache update,
+- offline shell where relevant,
+- installed PWA reopen/update coherence.
 
-## Physical device truth
+## Physical acceptance
 
 Static/headless/browser QA is not physical-device acceptance.
 
-Do not claim Android/iOS acceptance until physically tested.
-
-P’Benz screenshots and device observations are production truth and can override a theoretically correct visual assumption.
+> **P’Benz device feedback = production truth**
 
 ---
 
-# 32. Release History That Matters — Builds 12–29
+# 36. FULL-SYSTEM QA MATRIX — NEXT MAJOR WORKSTREAM
 
-This section exists so a new room understands why the current architecture looks the way it does.
+The hardening pass must cover:
 
-## Build 12 — Quiet Spatial Polish
-- isolated, fail-open experience layer
-- restrained page transitions
-- Core optical refraction overlay
-- semantic micro-response
-- quieter Halo resting state
-- resolved prior build bookkeeping mismatch
+| System | Key states / tests | Release expectation |
+|---|---|---|
+| Signature Opening | cold launch, warm resume, handoff | no stuck/ghost Core |
+| Today Core | no-data, saved, state response, long watch | coherent, no fatigue |
+| Halo | missing/partial/full evidence | semantic, not decorative |
+| Check-in | first save, same-day edit | one record/day |
+| Sliders | all 5 metrics | semantic color direction correct |
+| Metric detail | all 5 cards | provenance + limitation correct |
+| One Useful Move | action / maintain / no-change | no manufactured advice |
+| Body Profile | representative inputs | context respected |
+| Body Context | BMI/waist/training/confidence | locked layout remains stable |
+| Youth guardrail | under 20 | no adult BMI interpretation |
+| Rhythm | 1–3 / 4–5 / 6+ | truthful maturity |
+| Signals | pre-threshold / qualifying / no-signal | no causal overclaim |
+| Archive | Portraits / Calendar / detail | no scoreboard psychology |
+| Weight-only | record/detail/month | no invented daily state |
+| You | identity / photo / settings | stable |
+| Privacy | delete today / delete day / erase all | predictable lifecycle |
+| Legal | open / close / acknowledgement | no startup authority |
+| Help/Support | report / feedback / PromptPay / Ko-fi | no private data leak |
+| Localization | EN / TH | semantic parity |
+| Accessibility | focus / touch / Reduced Motion | usable |
+| PWA | offline / cache / update | coherent build |
+| Packaging | allowlist / paths / ZIP integrity | no cross-project contamination |
 
-## Build 13 — Living Core Evolution
-- richer internal circulation/material layers
-- event response
-- performance/exception fallback
-- accepted renderer remains fallback
-
-## Build 14 — Privacy & Data Controls
-- delete today
-- delete Archive check-in
-- erase all local data with confirmations
-- exposed later need for in-place refresh
-
-## Build 15 — Seamless Launch & In-place Data Refresh
-- single deletion no longer intentionally requires full restart
-- Today/Halo/Archive refresh in place
-- launch handoff experiments still produced an awkward orb stage
-
-## Build 16 — Clean Signature Handoff
-- removed frozen orb-only handoff
-- branded opening fades as a unit
-- Today Core pre-runs behind opening
-- physically accepted launch baseline
-
-## Build 17 — Rhythm V1
-- Living Rhythm
-- 7/14/30 windows
-- baseline/evidence/confidence
-- no score/causal claim
-
-## Build 18 — Rhythm Early-State Polish
-- truthful sparse states
-- 1–3 Early observations
-- 4–5 Baseline emerging
-- 6+ Personal baseline
-- provisional connection before mature ribbon
-- physical-device sparse-state polish
-
-## Build 19 — Signals V1
-- relationship intelligence
-- minimum 8 paired days
-- variation/strength/stability gates
-- Evidence Field
-- no coefficient/causation/health score
-
-## Build 20 — Signals Final Polish
-- corrected secondary-card empty state
-- `No secondary signal yet`
-- engine thresholds unchanged
-- provisional production acceptance
-
-## Build 21 — Today Deep Interaction
-- metric cards become explainable contextual sheets
-- Observed provenance
-- exact value + semantic meaning + limitation
-- no new inference
-
-## Build 22 — Slider visual attempt
-- intended isolated dual-tone slider polish
-- physical Android showed the layer did not bind visibly as intended
-
-## Build 23 — Slider binding hotfix
-- targeted canonical slider IDs and dynamic rendering more directly
-- clarified technical binding path
-
-## Build 24 — Dynamic slider concept
-- colored fill responds to current value
-- neutral unfilled rail
-- pearl capsule thumb
-- initial generic high=red concept exposed semantic issue
-
-## Build 25 — Daily Check-in Final Polish
-- positive metrics end in warm gold, not red
-- Stress alone can resolve to muted rose-red at high values
-- better sheet breathing room
-- physically accepted
-
-## Build 26 — REJECTED Guidance Regression
-- attempted shared scale guidance
-- caused launch-blocking regression; app could remain on Signature Opening and Core fail to appear
-- **never treat this implementation as accepted**
-
-## Build 27 — Emergency Recovery
-- restored Build 25 check-in runtime
-- removed Build 26 guidance from startup/cache
-- physically accepted recovery
-- orphaned guidance source may remain unused
-
-## Build 28 — Archive / Health Memory Polish
-- lazy-loaded Archive enhancement
-- weight-only records
-- cautious monthly intelligence
-- richer editorial Daily Detail
-- startup intentionally untouched
-
-## Build 29 — Archive Close Controls
-- top-right sticky X
-- localized bottom Close/ปิด
-- preserves Delete-this-day behavior
-- physically accepted current baseline
+No broad feature development should outrank this matrix.
 
 ---
 
-# 33. Explicitly Rejected / Do-Not-Resurrect Decisions
+# 37. RELEASE RISK REGISTER
 
-Do not accidentally bring back:
-- thick glass Core rim
-- wide gauge-like Halo
-- complete Halo ring merely for symmetry
-- five Daily State cards in a clumsy equal dashboard layout
-- Confidence as a fourth Body Context metric
-- generic `high = red` slider semantics for positive metrics
-- bulky gold circular slider thumb
-- Daily Check-in sheet touching viewport edges
-- five separate info icons on each Daily Check-in metric
-- locking Daily Check-in after first save of the day
-- multiple same-day Daily Check-in records in V1
-- Build 26 guidance startup coupling
-- weight-only date interpreted as a daily health state
-- monthly fake percentages
-- guilt streaks / badges / scores
-- automatic BMI-to-weight-loss morality
-- default male/female stock avatars
-- photo-based body-fat inference
+| Risk | Impact | Current posture | Required control |
+|---|---|---|---|
+| Startup regression | Critical | historically proven | startup protected; optional modules fail-open |
+| Core visual regression | High | Build 50 rollback available | Build 51 freeze; surgical changes only |
+| PWA stale-cache mismatch | High | coherent now, full QA pending | Build/cache/SW sync |
+| Data lifecycle defect | High | accepted behavior exists | deletion/edit/reset matrix |
+| Longitudinal overclaim | High | conservative gates built | real-history validation |
+| Cross-project packaging contamination | High | incident occurred | strict allowlist + ZIP inspection |
+| EN/TH semantic drift | Medium–High | strong baseline | full bilingual pass |
+| Accessibility/mobile edge case | Medium | partial confidence | 360/393 + focus + Reduced Motion |
+| Documentation drift | Medium | currently present | Revision 4 sync + handoff sync |
+| Orphaned rejected code reintroduced | Medium–High | known debt | never import/cache without redesign |
+
+Release posture:
+
+> **No Critical/High risk should remain knowingly unresolved at RC.**
 
 ---
 
-# 34. Known Technical Debt / Hygiene
+# 38. KNOWN TECHNICAL DEBT / HYGIENE
 
-Known item at Revision 3.0:
-- `src/js/today/checkin-guidance.js` from rejected Build 26 may remain in repo but is not imported or cached by current Build 29 startup.
+## 38.1 Build 26 orphaned guidance source
 
-Safe future handling:
-- remove it in a deliberate repository-hygiene/docs batch once verified unreferenced
-- deletion of an unreferenced file does not need a runtime Build bump if runtime output is truly unchanged, but verify references first
-- do not re-enable it by accident
+`src/js/today/checkin-guidance.js` may remain.
 
-Also keep README/release docs coherent as runtime advances; stale historical descriptions are acceptable only when clearly historical.
+Rules:
+- do not import,
+- do not cache,
+- do not execute.
 
----
+Remove only in an isolated repository-hygiene batch after verifying zero runtime references.
 
-# 35. Immediate Roadmap — From Build 29
+## 38.2 Dormant Evolution renderer
 
-## Build 30 — You / Settings Final Polish
+`fluidImageEvolution()` may remain in `orb.js` while Today uses Signature/Legacy route.
 
-Primary objective: finish the personal/control surface without expanding product scope.
+Do not remove casually during feature work.
 
-Candidate work:
-- hierarchy of Identity / Body Profile / Explainability / Language / Atmospheres / Privacy / About
-- reduce repeated setting-card visual weight
-- premium section rhythm
-- check small-screen EN/TH wrapping
-- clarify no-account/local-first state without looking unfinished
-- verify crop editor and identity actions
-- verify Data Controls entry and trust language
-- possibly create a safe entry point for Daily Check-in rating guidance only if it can remain on-demand and isolated from startup
+Repository hygiene and product behavior should not be mixed without reason.
 
-Regression boundary:
-- Opening/Core/Today/Daily Check-in/Rhythm/Signals/Archive/data should remain untouched unless a discovered defect requires it
+## 38.3 Documentation drift
 
-## Build 31+ — Full-System QA & Production Hardening
+At creation of this Revision 4.0:
+- production is Build 51,
+- Master Plan in repo was Revision 3.0,
+- Migration Prompt in repo remains Revision 3.0.
 
-Treat this as a product-wide release program, not cosmetic cleanup.
+This Master Plan fixes the first half of that drift when uploaded.
 
-Required matrix:
-- Signature Opening / launch / resume
-- Core / Halo
-- Today no-data / saved state
-- Daily Check-in first save / edit same day
-- Today metric detail
-- One Useful Move
-- Body Profile / Body Intelligence fixtures
-- Rhythm sparse and mature states
-- Signals pre-threshold / qualifying / no-signal states
-- Archive Portraits / Calendar / weight-only / monthly summary / detail close/delete
-- You / Identity / photo crop
-- Privacy deletion/reset
-- EN/TH
-- 360/393 px
-- Reduced Motion
-- focus/keyboard
-- PWA offline/cache/update
-
-## Longitudinal validation pass
-
-When enough real history exists:
-- Rhythm 6+ and 14/30-day behavior
-- Signals 8+ paired-day evidence, stability/reversal behavior
-- Archive monthly 6+ check-in comparisons
-- weight-history continuity
-
-Do not prematurely label this “fully validated” while the user has only sparse real history.
+A separate docs-only Migration Prompt sync should follow.
 
 ---
 
-# 36. Auren 2 — Know Yourself
+# 39. BUILD HISTORY — 12 THROUGH 51
 
-Do not rush until Auren 1 is delightful and trustworthy.
+## Build 12
+Quiet spatial polish / isolated fail-open work.
 
-Potential future capabilities:
-- stronger personal baseline modeling
-- richer relationship maps
-- pattern clusters
-- context-aware event tagging
-- optional import from device health ecosystems
-- optional cloud backup/account only when value is clear
-- richer export/history portability
+## Build 13
+Living Core evolution with fallbacks.
 
-Any integration must preserve provenance: imported sensor data must be distinguishable from self-report and inference.
+## Build 14
+Privacy/Data Controls.
 
-Wearables are optional inputs, not product identity.
+## Build 15
+In-place deletion refresh + launch repair attempt.
+
+## Build 16
+Clean Signature Opening handoff.  
+**Accepted launch baseline.**
+
+## Build 17
+Rhythm V1.
+
+## Build 18
+Rhythm sparse-state truth/polish.
+
+## Build 19
+Signals V1.
+
+## Build 20
+Signals copy/final-state polish.  
+**Provisional production acceptance.**
+
+## Build 21
+Today metric detail sheets.
+
+## Build 22
+Slider styling attempt did not bind visibly as intended.
+
+## Build 23
+Slider binding hotfix.
+
+## Build 24
+Dynamic fill + pearl capsule; generic high=red flaw exposed.
+
+## Build 25
+Final slider semantic colors + breathing room.  
+**Physically accepted.**
+
+## Build 26 — REJECTED
+Daily Check-in guidance caused startup regression.
+
+## Build 27
+Emergency recovery.  
+**Physically accepted.**
+
+## Build 28
+Archive / Health Memory polish, lazy-loaded.
+
+## Build 29
+Archive close controls.  
+**Physically accepted.**
+
+## Build 30
+You / Settings hierarchy polish.  
+**Physically accepted.**
+
+## Build 31
+Legal & Trust Foundation.
+
+## Build 32
+Settings + Legal UX corrections.
+
+## Build 33
+Build footer correction.  
+**Physically accepted.**
+
+## Build 34
+Today affordance polish; absorbed into accepted baseline.
+
+## Build 35
+Body Context layout polish.
+
+## Build 36
+Body Context final micro-polish.  
+**Physically passed / locked.**
+
+## Build 37
+Help / Feedback / Support added.  
+Deployment contamination incident occurred.
+
+## Build 38
+Emergency shell recovery.  
+**Physically accepted / major known-good baseline.**
+
+## Build 39
+Core overlay experiment.  
+Rejected.
+
+## Build 40
+Core motion refinement.  
+Rejected visually: too faint.
+
+## Build 41
+Core presence/readability overlay.  
+Rejected: overworked/unnatural.
+
+## Build 42
+Restore original Core + refined motion.  
+Rejected: too still.
+
+## Build 43
+Loading-style Core / slower liquid.  
+Rejected: dull/wrong material.
+
+## Build 44
+Full original Core rollback.  
+Important renderer source baseline.
+
+## Build 45
+Golden mist / Life Force experiment.  
+Rejected: mist/glass nearly disappeared.
+
+## Build 46
+Life Force visibility calibration.  
+Direction still not satisfactory.
+
+## Build 47
+Replacement mineral-aqua liquid renderer.  
+Rejected: flat/half-disc feel.
+
+## Build 48
+Premium-liquid refinement attempt.  
+Rejected.
+
+## Build 49
+Incorrect restoration based on Build 47.  
+Rejected.
+
+## Build 50
+Exact Build 44 renderer restored + ~16% slower cadence.  
+**Physically accepted / hard Core rollback anchor.**
+
+## Build 51
+Today aligned to Signature Opening material/motion character with subtle real-state response.  
+**Current production / physically reviewed positively / provisional acceptance.**
 
 ---
 
-# 37. Auren 3 — Know What Works
+# 40. CORE EXPERIMENT DO-NOT-RESURRECT LIST
 
-Long-term possibility: disciplined **N-of-1 experiments**.
+Do not resurrect without concrete new evidence:
+- Build 39 overlay stack,
+- Build 40 over-quiet motion approach,
+- Build 41 presence overlays,
+- Build 43 dull time-scaled liquid,
+- Build 45/46 mist/Life Force renderer,
+- Build 47/48 flat replacement liquid,
+- Build 49 incorrect restoration.
 
-Examples:
-- “When I shift bedtime earlier, what happens to my reported energy?”
-- “Does a lighter training day change next-day stress/energy?”
-
-Requirements before shipping:
-- sufficient data
-- explicit intervention tracking
-- pre/post windows
-- confound awareness
-- uncertainty language
-- no causal claim unless design supports it
-
-Auren should never fake causal science from correlation.
+Known-good lineage:
+- Build 44 source renderer,
+- Build 50 accepted restoration,
+- Build 51 current Today adaptation.
 
 ---
 
-# 38. Cloud, Accounts & Integrations
+# 41. EXPLICIT PRODUCT DO-NOT-RESURRECT LIST
 
-Current rule: **no account required**.
+Do not bring back:
+- thick Core rim,
+- giant/gauge Halo,
+- full Halo ring for aesthetics,
+- Confidence as fourth body metric,
+- generic high=red for positive Check-in metrics,
+- bulky gold slider thumb,
+- Check-in sheet touching screen edges,
+- five info icons for five sliders,
+- locking same-day Check-in after first save,
+- multiple V1 daily records,
+- Build 26 startup guidance coupling,
+- weight-only = Daily Health State,
+- fake monthly percentages,
+- guilt streaks / scores / badges,
+- automatic BMI→lose-weight judgment,
+- stock gender-avatar defaults,
+- photo-based body-fat inference,
+- mist renderer as current Core,
+- flat half-disc liquid renderer,
+- decorative particles/fireflies,
+- visually loud traffic-light Core state,
+- “life force” presented as measurable physiology.
 
-Potential future cloud value:
-- encrypted backup
-- device migration
-- optional multi-device continuity
-- explicit export/import
+---
+
+# 42. AUREN GENERATIONS
+
+## Auren 1 — Know Today
+
+Current generation.
+
+Includes:
+- Daily Check-in,
+- Daily State,
+- Body Context,
+- One Useful Move,
+- Rhythm / Signals foundation,
+- Health Memory,
+- trust/privacy/legal,
+- feedback/support.
+
+Current operational readiness:
+
+> **88% ±3%**
+
+Do not declare complete until hardening + sufficient longitudinal validation.
+
+## Auren 2 — Know Yourself
+
+Possible future:
+- stronger personal baseline modeling,
+- richer relationship maps,
+- pattern clusters,
+- context-aware event tagging,
+- optional Apple Health / HealthKit path,
+- optional Android Health Connect,
+- optional cloud backup,
+- richer portability.
+
+Imported provenance must remain distinguishable from self-report and inference.
+
+Wearables are optional inputs, never product identity.
+
+## Auren 3 — Know What Works
+
+Possible:
+- disciplined N-of-1 experiments,
+- intervention tracking,
+- pre/post windows,
+- confound awareness,
+- uncertainty language.
+
+Never claim causality from simple correlation.
+
+---
+
+# 43. CLOUD / ACCOUNTS / INTEGRATIONS
+
+Current:
+
+> **No account required**
+
+Cloud only when it creates clear user value:
+- encrypted backup,
+- device migration,
+- multi-device continuity,
+- explicit export/import.
 
 Do not add login before these values exist.
 
-Potential ecosystem integrations later:
-- Apple Health / HealthKit where platform path exists
-- Android Health Connect
-- selected wearables through platform aggregators rather than one-off Bluetooth dependency where possible
+Potential later:
+- Apple Health ecosystem,
+- Android Health Connect,
+- selected wearable data through responsible aggregation.
 
 Rules:
-- user consent
-- source/provenance visible
-- import only what Auren can interpret responsibly
-- no “data exhaust” collection just because APIs expose it
+- explicit consent,
+- provenance visible,
+- import only what Auren can interpret responsibly,
+- do not collect “data exhaust” merely because APIs expose it.
 
 ---
 
-# 39. Growth & Monetization Direction
+# 44. GROWTH / MONETIZATION
 
-Early Access should feel like privileged access to an expensive product, not a crippled free tier.
+Early Access must feel like privileged access to an expensive product, not a crippled free tier.
 
-Priorities before monetization optimization:
-1. trust
-2. meaningful return usage
-3. perceived usefulness
-4. product quality
-5. retention without addiction mechanics
+Before monetization optimize:
+1. trust,
+2. usefulness,
+3. perceived finish,
+4. meaningful return usage,
+5. retention without addiction mechanics.
 
-Possible future Auren+ should charge for real ongoing value, e.g. advanced longitudinal intelligence, secure backup, richer integrations, deeper experiments — not for removing artificial pain created by the free product.
+Future Auren+:
+- charge for real incremental value,
+- do not manufacture pain/friction,
+- never paywall privacy basics.
 
-Avoid:
-- aggressive paywalls
-- countdown scarcity
-- guilt notifications
-- hiding basic privacy controls behind payment
+Current support:
+- voluntary PromptPay Thailand,
+- voluntary Ko-fi worldwide.
+
+No formal investment/partnership route at present.
 
 ---
 
-# 40. Success Metrics
+# 45. PRODUCT SUCCESS METRICS — WHEN TELEMETRY EXISTS
 
 Prefer product-quality metrics over vanity downloads:
-- check-in completion without friction
-- percentage of users returning because insights/history are useful
-- Archive revisit behavior
-- evidence-sheet use when users seek explanation
-- meaningful longitudinal continuity
-- low deletion/confusion caused by mistrust
-- qualitative “this understands me” feedback
-- stability / crash-free launches / low regression rate
+- Check-in completion without friction,
+- useful return behavior,
+- Archive revisit for understanding,
+- explanation/evidence-sheet use,
+- longitudinal continuity,
+- low confusion/mistrust,
+- qualitative “this understands me” feedback,
+- crash-free launches,
+- low regression rate.
 
 Do not optimize DAU through nagging.
 
----
-
-# 41. Ethics, Safety & Claims
-
-Auren is wellbeing/personal intelligence, not medical care.
-
-Rules:
-- never diagnose
-- never imply medical certainty from self-report
-- never fabricate biomarker-like measurements
-- do not turn mood/stress observations into psychiatric diagnosis
-- do not promise disease prevention/treatment without evidence/regulatory basis
-- distinguish observation, calculation, inference
-- high-stakes symptoms should not be casually normalized by product copy
-- preserve user agency and privacy
-
-Body/weight language must avoid shame and moral ranking.
+Current **88%** is an operational-readiness estimate, not one of these live product KPIs.
 
 ---
 
-# 42. Decision Filter
+# 46. SAFETY / ETHICS / CLAIMS
 
-Before adding/changing anything, ask:
-1. Does it materially help the user understand themselves?
-2. Is the evidence/context sufficient?
+Auren = wellbeing/personal intelligence, not medical care.
+
+Never:
+- diagnose,
+- fabricate biomarkers,
+- infer psychiatric diagnosis from Mood/Stress,
+- claim emergency monitoring,
+- claim medical certainty,
+- moralize weight,
+- represent Core animation as measured life force,
+- imply state tint is a clinical finding,
+- promise disease prevention/treatment without evidence/regulatory basis.
+
+Always distinguish:
+- Observed,
+- Calculated,
+- Inferred.
+
+Body/weight language must preserve dignity and agency.
+
+---
+
+# 47. DECISION FILTER
+
+Before adding/changing anything ask:
+
+1. Does it materially improve user understanding?
+2. Is evidence/context sufficient?
 3. Does it overclaim?
-4. Can a user understand the interaction without studying it?
-5. Does it damage quiet luxury?
-6. Does it add privacy/regulatory complexity beyond value?
-7. Can correctness and regression be tested?
-8. Is a stable system being disturbed unnecessarily?
-9. If removed, does Auren lose core promise or only a toy?
+4. Is interaction intuitive?
+5. Does it preserve quiet luxury?
+6. Does it add privacy/regulatory cost beyond value?
+7. Can correctness/regression be tested?
+8. Does it disturb known-good production?
+9. Is rollback/fallback defined?
+10. Is user value worth complexity?
+11. Is the same value achievable with less scope?
+12. Will this still make sense after months of real history?
 
-If the answer is weak on important questions, default = **not now**.
+If uncertain:
+
+> **less scope, deeper polish**
 
 ---
 
-# 43. Locked vs Evolvable
+# 48. LOCKED VS PROVISIONAL VS EVOLVABLE
 
-## Locked foundation
+## Locked / protected
 - Auren = Personal Health Intelligence
 - `Your body, understood.`
 - Data → Pattern → Meaning → One useful decision
 - trust before intelligence
-- personal/contextual interpretation over single-metric judgment
 - local-first V1
 - EN/TH first-class
-- no fake medical certainty
+- no medical overclaim
 - no addiction mechanics
 - quiet premium identity
-- thin transparent Core glass
-- semantic Halo
-- profile photo never infers health/body fat
-- sex-for-calculation separate from identity/avatar
-- Archive Calendar remains inside Archive
-- Daily Check-in = one record/day, editable within same day
-- Stress direction differs from positive metrics
-- Build 25 Daily Check-in visual semantics
-- Build 29 Archive close/detail baseline
-- meaningful-risk changes require rollback/fallback
-- file delivery uses canonical repo-relative paths
-- every GitHub delivery includes **Commit name <=50 characters in a code block**
+- Build 16 Opening handoff
+- Build 25 slider semantics
+- Daily Check-in one-record/day editable same day
+- Body Intelligence guardrails
+- Build 29 Archive baseline
+- Build 30/33 You hierarchy
+- Build 36 Body Context
+- Build 31 Legal foundation
+- Build 37 Help/Support contract
+- Build 38 shell recovery
+- Build 50 Core rollback anchor
+- regression/rollback requirement
+- packaging contract
+- Commit name <=50 chars
 
-## Evolvable by Full Authorized DEV
-- exact Core timing/material micro-details
-- icon set/optical offsets
-- typography/card dimensions
-- Halo fragment geometry
-- confidence weighting implementation
-- Rhythm/Signals layouts and thresholds when evidence supports revision
-- framework/backend later
-- cloud/integration architecture
-- Auren+ packaging
-- future N-of-1 experiment design
+## Provisionally locked / current candidate
+- Build 51 Today Signature Core adaptation
 
----
-
-# 44. New-Room Startup Protocol — Zero-Question Continuation
-
-On first Auren task in a new room:
-1. Read this file fully.
-2. Read `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md` fully.
-3. Inspect current repo HEAD before proposing changes.
-4. Inspect `src/js/config/build.js`, SW/cache and schema.
-5. Treat the repo as possibly newer than the baseline recorded here.
-6. If repo is newer, follow the conflict order and update mental state without asking historical questions.
-7. Do not ask about vision, tagline, visual direction, Core, Halo, Body Intelligence, Daily Check-in, Rhythm, Signals, Archive, You, privacy workflow, packaging, or commit-name rules unless a genuinely new ambiguity exists.
-8. Make product/design trade-offs yourself under this contract.
-9. Protect stable production.
-10. For file deliveries, package canonically, QA integrity, give clickable links, and **always include a <=50-character Commit name in a code block**.
+## Evolvable with evidence
+- exact Core micro-motion only for real defect,
+- confidence weighting,
+- Rhythm/Signals evidence-calibrated refinement,
+- long-history presentation,
+- future data export,
+- cloud/integrations,
+- Auren+ packaging,
+- N-of-1 experiment architecture.
 
 ---
 
-# 45. Final Operating Principle
+# 49. NEW-ROOM ZERO-QUESTION CONTINUATION
 
-If forced to choose between adding more and making what exists world-class:
+On the first Auren task in a new room:
 
-> **Choose world-class completion.**
+1. Read this Master Plan fully.
+2. Read current Migration Prompt fully.
+3. Inspect current repo HEAD.
+4. Inspect Build/cache/schema.
+5. Treat repo as possibly newer than this document.
+6. If newer, current production wins.
+7. Do not ask historical/vision questions recoverable from docs/repo.
+8. Establish baseline and rollback.
+9. Define changed-file allowlist.
+10. Protect stable production.
 
-If a feature is beautiful but does not improve understanding, cut it.
+Do not ask again:
+- what Auren is,
+- tagline,
+- visual direction,
+- Core/Halo philosophy,
+- Daily Check-in contract,
+- Body Intelligence doctrine,
+- Rhythm/Signals/Archive purpose,
+- You/Settings direction,
+- privacy philosophy,
+- packaging workflow,
+- commit-name rules.
 
-If it is intelligent but users cannot understand why, strengthen the trust layer.
+If no newer explicit task exists and Build 51 remains current:
 
-If it is correct but looks like a generic dashboard, polish the hierarchy and materials.
+> **continue with Full-System QA & Production Hardening**
 
-If it is a small enhancement that can break startup, redesign the architecture before shipping.
+---
 
-If production is already excellent, **do not touch it without a real reason.**
+# 50. RELEASE DECISION RULE
 
-Auren succeeds when it feels calm, deeply considered, personally useful, trustworthy, and unusually expensive — while remaining honest about what it knows and what it does not.
+A new feature may enter Auren 1 only when one of these is true:
+- it closes a real usability/trust gap,
+- it is necessary for release quality,
+- it enables a core promise that is currently missing.
+
+A feature should be deferred when:
+- it is mainly decorative,
+- it expands scope without increasing understanding,
+- it creates startup/data risk,
+- it requires disproportionate backend/regulatory complexity,
+- it weakens calm hierarchy,
+- or it exists merely to increase the feature count.
+
+---
+
+# 51. CURRENT NEXT-ACTION COMMAND
+
+At this Revision 4.0:
+
+- Current production = **Build 51**
+- Build 50 = **accepted Core rollback anchor**
+- Build 51 = **positive provisional physical status**
+- Auren 1 operational readiness = **88% ±3%**
+- Master Plan governance is now synchronized once this file is uploaded
+- Migration Prompt in repo still needs a separate docs-only sync
+- Next major product phase = **Full-System QA & Production Hardening**
+- Build 52 exists **only if QA reveals a real runtime issue or a clearly justified surgical change**
+
+The next development mindset is no longer:
+
+> “What feature should we add?”
+
+It is:
+
+> **“What still prevents this from being a release-grade, world-class product?”**
+
+---
+
+# 52. FINAL OPERATING PRINCIPLE
+
+Auren must make two things true at once:
+
+> **“I understand myself better.”**
+
+and
+
+> **“This feels impossibly refined.”**
+
+If something looks sophisticated but reduces trust:
+
+> remove it
+
+If something is useful but cluttered:
+
+> refine it
+
+If something is stable and excellent:
+
+> **do not touch it without a real reason**
+
+If a tiny optional feature can break the app:
+
+> architecture is wrong; redesign before shipping
+
+If real-device behavior disagrees with static assumptions:
+
+> **real-device behavior wins**
+
+If forced to choose between shipping more and finishing what exists to world-class quality:
+
+> **finish what exists**
