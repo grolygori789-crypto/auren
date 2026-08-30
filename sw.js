@@ -1,4 +1,4 @@
-// Auren runtime Build 51 — Signature Core for Today with subtle state response.
+// Auren runtime Build 52 — trust and accessibility hardening.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -40,6 +40,7 @@ const APP_SHELL = [
   './src/js/you/help-support.js',
   './src/js/legal/legal-center.js',
   './src/js/intelligence/body.js',
+  './src/js/hardening/trust-accessibility.js',
   './src/js/i18n/en.js',
   './src/js/i18n/th.js',
   './src/js/i18n/i18n.js',

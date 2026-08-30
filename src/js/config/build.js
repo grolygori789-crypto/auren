@@ -1,13 +1,13 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 51;
+export const BUILD_NUMBER = 52;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 51 keeps the accepted Build 50 Opening untouched and gives Today the same
-// Signature material/motion character, with only restrained visual modulation from
-// existing Halo state and Check-in reaction. No health logic, storage, layout or
-// launch-handoff code changes. Legal Version remains 1.0.0. Data schema remains 4.
+// Build 52 hardens trust and accessibility after Full-System QA Wave 1.
+// Personal Trend now counts real recent-calendar continuity; truth-copy, localized
+// accessibility labels and modal keyboard focus containment are isolated/fail-open.
+// Core, Opening, Check-in storage, Rhythm, Signals and schema remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});
@@ -18,6 +18,7 @@ if (typeof document !== 'undefined') {
   import('../today/checkin-slider-polish.js').catch((error) => console.error('Auren check-in slider polish unavailable', error));
   import('../today/affordance-polish.js').catch((error) => console.error('Auren Today affordance polish unavailable', error));
   import('../today/body-context-polish.js').catch((error) => console.error('Auren Body Context polish unavailable', error));
+  import('../hardening/trust-accessibility.js').catch((error) => console.error('Auren hardening unavailable', error));
 
   let archivePromise = null;
   const loadArchivePolish = () => {

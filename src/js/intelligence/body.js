@@ -109,11 +109,26 @@ export function dailyContext(checkin) {
   return { status, average: round1(average), movement, stress };
 }
 
+function recentCalendarCount(records, days = 14, now = new Date()) {
+  const end = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  const start = new Date(end);
+  start.setDate(end.getDate() - Math.max(1, Number(days) || 14) + 1);
+
+  return (Array.isArray(records) ? records : []).filter((record) => {
+    const match = String(record?.localDate || '').match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (!match) return false;
+    const day = new Date(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+    return Number.isFinite(day.getTime()) && day >= start && day <= end;
+  }).length;
+}
+
 export function haloContext({ profile, checkin, recentCheckins = [] }) {
   const body = bodyContext(profile);
   const daily = dailyContext(checkin);
   const training = trainingContext(profile || {});
-  const recentCount = recentCheckins.length;
+  // Personal Trend must represent recent calendar continuity, not merely the
+  // number of historical records returned by storage.
+  const recentCount = recentCalendarCount(recentCheckins, 14);
 
   let bodyState = 'missing';
   if (body.status === 'ready') {
