@@ -1,13 +1,13 @@
 export const APP_VERSION = '0.1.0';
-export const BUILD_NUMBER = 52;
+export const BUILD_NUMBER = 53;
 export const BUILD_LABEL = `Build ${BUILD_NUMBER}`;
 export const CACHE_NAME = `auren-${APP_VERSION}-build-${BUILD_NUMBER}`;
 export const DATA_SCHEMA_VERSION = 4;
 
-// Build 52 hardens trust and accessibility after Full-System QA Wave 1.
-// Personal Trend now counts real recent-calendar continuity; truth-copy, localized
-// accessibility labels and modal keyboard focus containment are isolated/fail-open.
-// Core, Opening, Check-in storage, Rhythm, Signals and schema remain unchanged.
+// Build 53 hardens PWA offline fallback after Full-System QA Wave 1.
+// Navigation requests may fall back to cached index.html; failed JS/CSS/image
+// requests no longer receive HTML. Build 52 trust/accessibility behavior is retained.
+// Core, user data, health logic and schema remain unchanged.
 if (typeof document !== 'undefined') {
   import('../experience/launch-handoff.js').catch(() => {});
   import('../experience/polish.js').catch(() => {});

@@ -1,4 +1,4 @@
-// Auren runtime Build 52 — trust and accessibility hardening.
+// Auren runtime Build 53 — navigation-only offline fallback hardening.
 import { CACHE_NAME } from './src/js/config/build.js';
 
 const APP_SHELL = [
@@ -70,6 +70,13 @@ self.addEventListener('fetch', (event) => {
         caches.open(CACHE_NAME).then((cache) => cache.put(event.request, copy));
         return response;
       })
-      .catch(() => caches.match(event.request).then((cached) => cached || caches.match('./index.html')))
+      .catch(async () => {
+        const cached = await caches.match(event.request);
+        if (cached) return cached;
+        if (event.request.mode === 'navigate') {
+          return (await caches.match('./index.html')) || Response.error();
+        }
+        return Response.error();
+      })
   );
 });
