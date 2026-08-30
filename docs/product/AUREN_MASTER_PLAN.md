@@ -2,9 +2,9 @@
 
 > **Your body, understood.**
 
-**MASTER PLAN · CANONICAL OPERATING EDITION · Revision 4.0**  
+**MASTER PLAN · CANONICAL OPERATING EDITION · Revision 4.1**  
 Product · Design · Engineering · Intelligence · Trust · Privacy · Growth · QA · Release · Handoff  
-Benedict Interactive · 29 August 2026
+Benedict Interactive · 30 August 2026
 
 Status: **Canonical operating source of truth for continued Auren development after upload**
 
@@ -32,7 +32,7 @@ Auren should help a person understand:
 **Studio:** Benedict Interactive  
 **Initial platform:** Mobile-first Premium PWA / Web App  
 **Current app version:** `0.1.0`  
-**Current production Build:** **51**  
+**Current production Build:** **53**  
 **Data schema:** **4**  
 **Legal Version:** **1.0.0**
 
@@ -52,24 +52,97 @@ Premium must come from coherence, restraint, responsiveness, trust, detail, hier
 
 ---
 
-# 1. CURRENT PRODUCTION TRUTH — 29 AUGUST 2026
+# 0.1 REVISION 4.1 — FULL QA HARDENING DELTA
+
+Revision 4.1 records the first Full-System QA hardening cycle approved on 30 August 2026.
+
+Verified source baseline before the hardening packages:
+- repository `grolygori789-crypto/auren`
+- branch `main`
+- HEAD `b4a1ce4bda7559e08b64f7d59e52da8608f976aa`
+- runtime Build 51
+- schema 4
+
+Approved hardening sequence:
+1. **Build 52 — Trust & Accessibility Hardening**
+2. physical verification
+3. **Build 53 — PWA / Offline Hardening**
+4. physical verification
+5. this docs-only Revision 4.1 synchronization
+
+Build 52 closes Wave 1 defects by:
+- making Halo Personal Trend use real recent-calendar continuity rather than raw historical-record count,
+- correcting Goal help copy so it does not claim runtime prioritisation that does not yet exist,
+- removing the unimplemented `export` promise from fallback Privacy copy,
+- localizing key accessibility labels in EN/TH,
+- adding fail-open keyboard focus containment to base modal dialogs.
+
+Build 53:
+- retains Build 52 behavior,
+- limits cached `index.html` fallback to navigation requests,
+- prevents a missing JS/CSS/image request from receiving HTML as a fake asset response.
+
+Protected systems are not redesigned in these batches:
+- Signature Opening,
+- Build 50/51 Core renderer/material,
+- Daily Check-in storage model,
+- Rhythm algorithm,
+- Signals algorithm,
+- Archive data model,
+- Body Context layout,
+- Legal Version,
+- data schema.
+
+Status language is strict:
+- **static/package QA passed** = code/package checks passed,
+- **physical acceptance pending** = P’Benz has not yet confirmed the deployed build on target hardware,
+- never silently upgrade static QA into physical acceptance.
+
+Post-Wave-1 physical-hardening operational readiness estimate:
+
+> **91% ±3%**
+
+This is product/engineering readiness, not telemetry, market success, medical confidence or a health score.
+
+Remaining work is dominated by:
+- physical Build 52/53 acceptance,
+- installed-PWA/offline verification,
+- Rhythm longitudinal validation,
+- Signals longitudinal validation,
+- Archive monthly-history validation,
+- final Release Candidate regression.
+
+---
+
+# 1. CURRENT PRODUCTION TRUTH — 30 AUGUST 2026
 
 Repository: `grolygori789-crypto/auren`  
-Branch: `main`  
-Verified production HEAD at this revision:  
-`6096f83bd748d3f5e08c99d97a92aef3a9d8cef6`
+Branch: `main`
+
+Verified current production HEAD:
+`39015d7b0a46f82d62989bfd08c4927561ebaadc`
 
 HEAD commit:
+> `Harden Build 53 PWA offline fallback`
 
-> `Align Build 51 Today with Signature Core`
-
-Runtime:
+Current runtime:
 - `APP_VERSION = 0.1.0`
-- `BUILD_NUMBER = 51`
+- `BUILD_NUMBER = 53`
 - `DATA_SCHEMA_VERSION = 4`
-- Service Worker is Build 51
 - Legal Version = `1.0.0`
-- Legal effective date = `28 August 2026`
+
+Hardening status:
+- Build 52 Trust & Accessibility hardening is deployed and showed no regression in tested mobile flows.
+- Build 53 PWA / Offline hardening is deployed.
+- P’Benz physically tested both online and offline use after Build 53 and reported normal operation.
+- Build 50 remains the hard accepted Core rollback anchor.
+- Build 51 Core behavior remains visually protected and unchanged by Builds 52–53.
+
+Accessibility note:
+- mobile runtime acceptance is positive,
+- keyboard/screen-reader behavior is not claimed as physically verified on every platform.
+
+Every later room must still inspect actual repo HEAD and `build.js` before implementation.
 
 ## 1.1 Physical-device truth
 
@@ -114,11 +187,15 @@ Do not call Build 51 permanently locked until:
 
 A docs-only update does **not** bump Build.
 
-If and only if a runtime defect or justified runtime improvement requires code change:
+Full-System QA Wave 1 produced justified runtime hardening:
+- Build 52 = Trust & Accessibility Hardening
+- Build 53 = PWA / Offline Hardening
 
-> **Next runtime batch = Build 52**
+After Build 53:
 
-Never create Build 52 merely because a “next Build” is expected.
+> **Build 54 exists only for a real defect or clearly justified surgical improvement.**
+
+Never create Build 54 merely because a “next Build” is expected.
 
 ---
 
@@ -126,7 +203,7 @@ Never create Build 52 merely because a “next Build” is expected.
 
 ## 2.1 Operational readiness
 
-> **88% ±3%**
+> **90% ±3%**
 
 This is a **product/engineering operational-readiness estimate**.
 
@@ -151,13 +228,13 @@ The uncertainty band is deliberate because several remaining gates require physi
 | Rhythm / Signals / Archive | 15 | 12 | Built; longitudinal validation pending |
 | You / Privacy / Legal / Feedback / Support | 15 | 15 | Implemented / stable |
 | Localization / PWA / accessibility / data lifecycle | 10 | 9 | Strong; full-system pass pending |
-| Full-system QA / regression hardening | 10 | 6 | Primary next phase |
+| Full-system QA / regression hardening | 10 | 9 | Wave 1 runtime hardening physically passed in tested mobile/PWA flows |
 | Longitudinal evidence validation / final cleanup | 5 | 3 | Real-history depth still required |
-| **TOTAL** | **100** | **88** | **Near hardening / RC preparation** |
+| **TOTAL** | **100** | **91** | **Wave 1 runtime hardening closed; longitudinal + final RC gates remain** |
 
-## 2.3 What the remaining 12% actually means
+## 2.3 What the remaining ~9% actually means
 
-The missing 12% is **not primarily missing feature count**.
+The remaining ~9% is **not primarily missing feature count**.
 
 It is mostly:
 - product-wide regression confidence,
@@ -214,51 +291,45 @@ Auren 1 reaches **100% operational readiness** when all of the following are tru
 
 # 4. IMMEDIATE ROADMAP — WHAT HAPPENS NEXT
 
-## Phase 0 — Governance sync
+## Phase 0 — Hardening deployment
 
-This Master Plan Revision 4.0 replaces the stale Build 29 baseline in Revision 3.0.
+Upload order:
+1. Build 52
+2. physically verify Build 52
+3. Build 53
+4. physically verify Build 53
+5. upload Revision 4.1 docs
 
-Current documentation drift discovered at this revision:
-- repo `docs/product/AUREN_MASTER_PLAN.md` = Revision 3.0 before this upload,
-- repo `docs/handoff/AUREN_ROOM_MIGRATION_PROMPT.md` is also still Revision 3.0,
-- production runtime is already Build 51.
+If Build 52 fails physical QA:
+- stop,
+- do not upload Build 53,
+- diagnose against Build 51 / Build 50 anchors.
 
-After this Master Plan is uploaded:
-1. treat this Master Plan Revision 4.0 as canonical doctrine + current runtime plan,
-2. perform a separate docs-only synchronization of the Migration Prompt,
-3. do not bump runtime Build for either docs-only change.
+If Build 53 fails physical PWA QA:
+- keep Build 52 as runtime baseline,
+- rollback only Build 53 `build.js` / `sw.js`,
+- do not disturb Core or intelligence logic.
 
-## Phase 1 — Build 51 Core acceptance freeze
+## Phase 1 — Build 52 Trust & Accessibility acceptance
 
-Goal:
-- confirm Opening remains Build 50-quality,
-- confirm Today feels materially coherent with Opening,
-- confirm state response is subtle and non-gimmicky,
-- confirm Check-in reaction settles naturally,
-- confirm no dizziness, fatigue, excessive sway or screensaver feel.
+Verify:
+- Opening/Core remain visually unchanged,
+- Halo Personal Trend no longer treats stale history as recent continuity,
+- Goal help copy is truthful,
+- fallback Privacy copy does not promise export,
+- EN/TH key accessibility labels follow locale,
+- Tab/Shift+Tab remain inside active base dialogs.
 
-If Build 51 remains good:
+## Phase 2 — Build 53 PWA / Offline acceptance
 
-> **accept and lock the current Core behavior**
-
-If a real defect appears:
-- use Build 50 as hard rollback reference,
-- make only a surgical Build 52 change,
-- do not redesign Core from scratch.
-
-## Phase 2 — Full-System QA & Production Hardening
-
-This is the **highest-priority major workstream**.
-
-Do not add broad feature scope until this phase is substantially complete.
-
-QA itself does not need a Build bump.
-
-If QA finds no runtime defect:
-> **do not invent a new Build**
-
-If QA finds a defect:
-> fix only the defect in the smallest justified Build 52+ batch.
+Verify:
+- online cold launch,
+- repeat launch,
+- installed PWA reopen,
+- offline launch after successful online load,
+- cached app assets render normally,
+- missing non-navigation asset requests do not receive HTML,
+- reconnect/update path activates the current cache cleanly.
 
 ## Phase 3 — Longitudinal validation
 
@@ -1429,14 +1500,14 @@ Repository hygiene and product behavior should not be mixed without reason.
 
 ## 38.3 Documentation drift
 
-At creation of this Revision 4.0:
-- production is Build 51,
-- Master Plan in repo was Revision 3.0,
-- Migration Prompt in repo remains Revision 3.0.
+Revision 4.1 synchronizes:
+- Master Plan,
+- Migration Prompt,
+- README
 
-This Master Plan fixes the first half of that drift when uploaded.
+to the Build 52/53 hardening generation.
 
-A separate docs-only Migration Prompt sync should follow.
+Docs remain subordinate to newer production if a later repo HEAD advances beyond this revision.
 
 ---
 
@@ -1585,6 +1656,20 @@ Exact Build 44 renderer restored + ~16% slower cadence.
 Today aligned to Signature Opening material/motion character with subtle real-state response.  
 **Current production / physically reviewed positively / provisional acceptance.**
 
+## Build 52
+Trust & Accessibility Hardening:
+- Halo Personal Trend uses real recent-calendar continuity,
+- Goal/Privacy truth-copy corrections,
+- key EN/TH accessibility labels,
+- fail-open base modal focus containment.  
+**Deployed; tested mobile flows showed no observed regression.**
+
+## Build 53
+PWA / Offline Hardening:
+- `index.html` offline fallback limited to navigation requests,
+- missing non-navigation assets return a normal failed response instead of HTML.  
+**Physically passed online + offline PWA testing on P’Benz’s device.**
+
 ---
 
 # 40. CORE EXPERIMENT DO-NOT-RESURRECT LIST
@@ -1649,9 +1734,9 @@ Includes:
 - trust/privacy/legal,
 - feedback/support.
 
-Current operational readiness:
+Current post-Wave-1-hardening operational readiness estimate:
 
-> **88% ±3%**
+> **91% ±3%**
 
 Do not declare complete until hardening + sufficient longitudinal validation.
 
@@ -1750,7 +1835,7 @@ Prefer product-quality metrics over vanity downloads:
 
 Do not optimize DAU through nagging.
 
-Current **88%** is an operational-readiness estimate, not one of these live product KPIs.
+Current **91% ±3%** is an operational-readiness estimate, not one of these live product KPIs.
 
 ---
 
@@ -1871,9 +1956,17 @@ Do not ask again:
 - packaging workflow,
 - commit-name rules.
 
-If no newer explicit task exists and Build 51 remains current:
+If actual repo = Build 51:
 
-> **continue with Full-System QA & Production Hardening**
+> **deploy and physically verify Build 52 first**
+
+If actual repo = Build 52:
+
+> **finish Build 52 physical QA before Build 53**
+
+If actual repo = Build 53 and physical QA passed:
+
+> **continue with longitudinal validation and final RC regression**
 
 ---
 
@@ -1896,16 +1989,17 @@ A feature should be deferred when:
 
 # 51. CURRENT NEXT-ACTION COMMAND
 
-At this Revision 4.0:
+At this Revision 4.1:
 
-- Current production = **Build 51**
+- current production = **Build 53**
+- verified production HEAD = **39015d7b0a46f82d62989bfd08c4927561ebaadc**
 - Build 50 = **accepted Core rollback anchor**
-- Build 51 = **positive provisional physical status**
-- Auren 1 operational readiness = **88% ±3%**
-- Master Plan governance is now synchronized once this file is uploaded
-- Migration Prompt in repo still needs a separate docs-only sync
-- Next major product phase = **Full-System QA & Production Hardening**
-- Build 52 exists **only if QA reveals a real runtime issue or a clearly justified surgical change**
+- Build 51 Core direction remains protected
+- Build 52 trust/accessibility hardening is deployed with no observed regression in tested mobile flows
+- Build 53 PWA/offline hardening **physically passed online + offline testing**
+- current readiness estimate = **91% ±3%**
+- next major work = **Longitudinal Validation + Final RC Regression**
+- Build 54 exists only for a real defect or clearly justified surgical improvement
 
 The next development mindset is no longer:
 
